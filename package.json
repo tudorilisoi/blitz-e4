@@ -1,5 +1,5 @@
 {
-  "name": "e4-blitz",
+  "name": "blitz-e4",
   "version": "1.0.0",
   "scripts": {
     "dev": "blitz dev",
