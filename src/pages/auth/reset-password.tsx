@@ -11,7 +11,8 @@ import { assert } from "blitz"
 
 const ResetPasswordPage: BlitzPage = () => {
   const router = useRouter()
-  const token = router.query.token?.toString()
+  const token = router.query.token?.toString() || ""
+  console.log(`🚀 ~ token:`, token)
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
 
   return (
