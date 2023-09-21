@@ -38,7 +38,7 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
       } else {
         // Preview email in the browser
         const previewEmail = (await import("preview-email")).default
-        await previewEmail(msg)
+        await previewEmail(msg, { open: true })
       }
     },
   }
