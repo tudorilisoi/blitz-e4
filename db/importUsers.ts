@@ -35,18 +35,29 @@ function mapUser(xuser: Record<string, any>): Prisma.UserUncheckedCreateInput | 
   }
 }
 export const importUsers = async () => {
-  let userData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xuser.json`).toString())
-    .xuser.map(mapUser)
-    .filter((data) => data !== null)
-  console.log("UserData parsed")
+  try {
+    let userData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xuser.json`).toString())
+      .xuser.map(mapUser)
+      .filter((data) => data !== null)
+    console.log("UserData parsed")
 
-  await db.user.deleteMany({ where: {} })
-  console.log("Users deleted")
+    await db.image.deleteMany({ where: {} })
+    console.log("Images deleted")
+    await db.post.deleteMany({ where: {} })
+    console.log("Posts deleted")
+    await db.category.deleteMany({ where: {} })
+    console.log("Categories deleted")
 
-  const result = await db.user.createMany({
-    data: userData,
-  })
-  console.log("UserData imported")
+    await db.user.deleteMany({ where: {} })
+    console.log("Users deleted")
+
+    const result = await db.user.createMany({
+      data: userData,
+    })
+    console.log("UserData imported")
+  } catch (error) {
+    console.log("ERROR IMPORTING USERS", error)
+  }
 
   // Note: if using PostgreSQL, using `createMany` to insert multiple records is much faster
   // @see: https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#createmany

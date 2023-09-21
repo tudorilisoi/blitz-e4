@@ -1,5 +1,6 @@
 // import db from "./index"
 
+import importPosts from "./importPosts"
 import { importUsers } from "./importUsers"
 
 /*
@@ -9,11 +10,9 @@ import { importUsers } from "./importUsers"
  * to easily generate realistic data.
  */
 const seed = async () => {
-  try {
-    await importUsers()
-  } catch (error) {
-    console.log("ERROR IMPORTING USERS", error)
-  }
+  await importUsers()
+  await importPosts()
+
   // for (let i = 0; i < 5; i++) {
   //   await db.project.create({ data: { name: "Project " + i } })
   // }
