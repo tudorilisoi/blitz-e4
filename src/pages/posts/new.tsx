@@ -19,7 +19,7 @@ const NewPostPage = () => {
         <PostForm
           submitText="Create Post"
           schema={CreatePostSchema}
-          // initialValues={{}}
+          initialValues={{}}
           onSubmit={async (values) => {
             try {
               const post = await createPostMutation(values)
@@ -33,9 +33,9 @@ const NewPostPage = () => {
           }}
         />
       </Suspense>
-      <p>
+      {/* <p>
         <Link href={Routes.PostsPage()}>Posts</Link>
-      </p>
+      </p> */}
     </Layout>
   )
 }
