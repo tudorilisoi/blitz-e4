@@ -33,6 +33,7 @@
     "@socketlabs/email": "1.4.3",
     "autoprefixer": "10.x",
     "blitz": "2.0.0-beta.33",
+    "critters": "0.0.20",
     "html-entities": "^2.4.0",
     "lodash": "^4.17.21",
     "mime": "^3.0.0",
