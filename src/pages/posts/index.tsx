@@ -11,8 +11,9 @@ import { gSSP } from "src/blitz-server"
 
 const ITEMS_PER_PAGE = 9
 
-export const getServerSideProps = gSSP(async ({ params, ctx }) => {
-  const page = Number(params?.page) || 0
+export const getServerSideProps = gSSP(async (args) => {
+  const { query, ctx } = args
+  const page = Number(query?.page) || 0
   const { posts, count, hasMore } = await getPosts(
     {
       orderBy: { createdAt: "desc" },
@@ -25,10 +26,13 @@ export const getServerSideProps = gSSP(async ({ params, ctx }) => {
   return { props: { posts, count, hasMore, page } }
 })
 
-function PostsPage({ posts }) {
+function PostsPage({ posts, page, hasMore }) {
+  console.log(`🚀 ~ PostsPage ~ { posts, page, hasMore }:`, { posts, page, hasMore })
   const router = useRouter()
+  const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
+  const goToNextPage = () => router.push({ query: { page: page + 1 } })
   return (
-    <div>
+    <Layout>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {posts.map((post, index) => (
           <div key={post.id} className="bg-white p-4 rounded-lg shadow-md">
@@ -37,7 +41,36 @@ function PostsPage({ posts }) {
           </div>
         ))}
       </div>
-    </div>
+      <nav aria-label="Page navigation" className="text-center mt-4">
+        <ul className="inline-flex ">
+          <li>
+            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-l-lg focus:shadow-outline hover:bg-indigo-100">
+              Prev
+            </button>
+          </li>
+          <li>
+            <button className="h-10 px-5 text-white transition-colors duration-150 bg-indigo-600 focus:shadow-outline">
+              1
+            </button>
+          </li>
+          <li>
+            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white focus:shadow-outline hover:bg-indigo-100">
+              2
+            </button>
+          </li>
+          <li>
+            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white focus:shadow-outline hover:bg-indigo-100">
+              3
+            </button>
+          </li>
+          <li>
+            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-indigo-100">
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </Layout>
   )
 }
 
