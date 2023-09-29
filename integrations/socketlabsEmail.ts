@@ -10,7 +10,7 @@ interface mailArgs {
   to: string
   subject: string
   message: string
-  textMessage: string | undefined
+  textMessage?: string | undefined
 }
 
 const sendMail = async (args: mailArgs) => {
