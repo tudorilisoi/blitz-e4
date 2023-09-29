@@ -11,7 +11,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
     <Form<S> {...props}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
       <LabeledTextField label="title" name="title" />
-      <LabeledTextField label="body" name="body" />
+      <LabeledTextField as="textarea" rows={10} label="body" name="body" />
       <LabeledTextField label="price" name="price" type="number" />
       <LabeledTextField label="category" name="categoryId" type="number" />
       <LabeledTextField label="currency" name="currency" type="text" />

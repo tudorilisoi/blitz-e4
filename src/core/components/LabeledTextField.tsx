@@ -1,9 +1,13 @@
-import { forwardRef, PropsWithoutRef, ComponentPropsWithoutRef } from "react"
+import { forwardRef, PropsWithoutRef, ComponentPropsWithoutRef, Ref } from "react"
 import { useFormContext } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
-  /** Field name. */
+export const FieldDefaultAsType = "input" as const
+export type FieldDefaultAsType = typeof FieldDefaultAsType
+
+export type FieldOwnProps<E extends React.ElementType> = {
+  children?: React.ReactNode
+  as?: E
   name: string
   /** Field label. */
   label: string
@@ -13,49 +17,64 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
   labelProps?: ComponentPropsWithoutRef<"label">
 }
 
-export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
-  ({ label, outerProps, labelProps, name, ...props }, ref) => {
-    const {
-      register,
-      formState: { isSubmitting, errors },
-    } = useFormContext()
+export type FieldProps<E extends React.ElementType> = FieldOwnProps<E> &
+  Omit<React.ComponentProps<E>, keyof FieldOwnProps<E>>
 
-    return (
-      <div {...outerProps}>
-        <label {...labelProps}>
-          {label}
-          <input disabled={isSubmitting} {...register(name)} {...props} />
-        </label>
+export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefaultAsType>({
+  children,
+  as,
+  label,
+  outerProps,
+  labelProps,
+  name,
+  ...otherProps
+}: FieldProps<E>) => {
+  const Tag = as || FieldDefaultAsType
 
-        <ErrorMessage
-          render={({ message }) => (
-            <div role="alert" style={{ color: "red" }}>
-              {message}
-            </div>
-          )}
-          errors={errors}
-          name={name}
-        />
+  const {
+    register,
+    formState: { isSubmitting, errors },
+  } = useFormContext()
 
-        <style jsx>{`
-          label {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            font-size: 1rem;
-          }
-          input {
-            font-size: 1rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 3px;
-            border: 1px solid purple;
-            appearance: none;
-            margin-top: 0.5rem;
-          }
-        `}</style>
-      </div>
-    )
-  }
-)
+  return (
+    <div {...outerProps}>
+      <label {...labelProps}>
+        {label}
+        <Tag disabled={isSubmitting} {...register(name)} {...otherProps}>
+          {children}
+        </Tag>
+      </label>
 
-export default LabeledTextField
+      <ErrorMessage
+        render={({ message }) => (
+          <div role="alert" style={{ color: "red" }}>
+            {message}
+          </div>
+        )}
+        errors={errors}
+        name={name}
+      />
+
+      <style jsx>{`
+        label {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          font-size: 1rem;
+        }
+        input,
+        textarea {
+          font-size: 1rem;
+          padding: 0.25rem 0.5rem;
+          border-radius: 3px;
+          border: 1px solid purple;
+          appearance: none;
+          margin-top: 0.5rem;
+        }
+      `}</style>
+    </div>
+  )
+}
+export const LabeledTextField = forwardRef<React.ElementType, any>((props, ref) => {
+  return <LabeledTextFieldInner {...{ ...props, ref }} />
+})
