@@ -7,6 +7,43 @@ import { useRouter } from "next/router"
 import Layout from "src/core/layouts/Layout"
 import getPosts from "src/posts/queries/getPosts"
 
+import { gSSP } from "src/blitz-server"
+
+const ITEMS_PER_PAGE = 9
+
+export const getServerSideProps = gSSP(async ({ params, ctx }) => {
+  const page = Number(params?.page) || 0
+  const { posts, count, hasMore } = await getPosts(
+    {
+      orderBy: { createdAt: "desc" },
+      take: ITEMS_PER_PAGE,
+      skip: page * ITEMS_PER_PAGE,
+    },
+    ctx
+  )
+
+  return { props: { posts, count, hasMore, page } }
+})
+
+function PostsPage({ posts }) {
+  const router = useRouter()
+  return (
+    <div>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+        {posts.map((post, index) => (
+          <div key={post.id} className="bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+            <p className="text-gray-600">{post.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default PostsPage
+
+/*
 const ITEMS_PER_PAGE = 9
 
 export const PostsList = () => {
@@ -63,3 +100,4 @@ const PostsPage = () => {
 }
 
 export default PostsPage
+ */
