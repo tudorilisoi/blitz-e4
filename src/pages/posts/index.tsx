@@ -23,13 +23,14 @@ export const PostsList = () => {
 
   return (
     <div>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href={Routes.ShowPostPage({ postId: post.id })}>{post.title}</Link>
-          </li>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+        {posts.map((post, index) => (
+          <div key={post.id} className="bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+            <p className="text-gray-600">{post.body}</p>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <button disabled={page === 0} onClick={goToPreviousPage}>
         Previous
