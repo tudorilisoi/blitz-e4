@@ -1,13 +1,9 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
-import Head from "next/head"
-import Link from "next/link"
-import { usePaginatedQuery } from "@blitzjs/rpc"
 import { useRouter } from "next/router"
 import Layout from "src/core/layouts/Layout"
 import getPosts from "src/posts/queries/getPosts"
 
 import { gSSP } from "src/blitz-server"
+import { shortenText } from "src/helpers"
 
 const ITEMS_PER_PAGE = 9
 
@@ -36,15 +32,19 @@ function PostsPage({ posts, page, hasMore }) {
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {posts.map((post, index) => (
           <div key={post.id} className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-            <p className="text-gray-600">{post.body}</p>
+            <h2 className="text-xl font-semibold mb-2">{shortenText(post.title, 100)}</h2>
+            <p className="text-gray-600">{shortenText(post.body, 140)}</p>
           </div>
         ))}
       </div>
       <nav aria-label="Page navigation" className="text-center mt-4">
         <ul className="inline-flex ">
           <li>
-            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-l-lg focus:shadow-outline hover:bg-indigo-100">
+            <button
+              disabled={page === 0}
+              onClick={goToPreviousPage}
+              className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-l-lg focus:shadow-outline hover:bg-indigo-100"
+            >
               Prev
             </button>
           </li>
@@ -64,7 +64,11 @@ function PostsPage({ posts, page, hasMore }) {
             </button>
           </li>
           <li>
-            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-indigo-100">
+            <button
+              disabled={!hasMore}
+              onClick={goToNextPage}
+              className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-indigo-100"
+            >
               Next
             </button>
           </li>
