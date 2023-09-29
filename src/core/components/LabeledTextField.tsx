@@ -12,7 +12,7 @@ export type FieldOwnProps<E extends React.ElementType> = {
   /** Field label. */
   label: string
   /** Field type. Doesn't include radio buttons and checkboxes */
-  type?: "text" | "password" | "email" | "number"
+  // type?: "text" | "password" | "email" | "number"
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
   labelProps?: ComponentPropsWithoutRef<"label">
 }
@@ -61,6 +61,11 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
           flex-direction: column;
           align-items: start;
           font-size: 1rem;
+          /* width: 100%; */
+        }
+        input[type="text"],
+        textarea {
+          width: 100%;
         }
         input,
         textarea {
