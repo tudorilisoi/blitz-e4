@@ -28,7 +28,7 @@ function PostsPage({ posts, page, hasMore }) {
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
   return (
-    <Layout>
+    <Layout title="Posts" description="All Posts">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {posts.map((post, index) => (
           <div key={post.id} className="bg-white p-4 rounded-lg shadow-md">

@@ -2,15 +2,17 @@ import Head from "next/head"
 import React, { FC } from "react"
 import { BlitzLayout } from "@blitzjs/next"
 
-const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
+const Layout: BlitzLayout<{ title?: string; description?: string; children?: React.ReactNode }> = ({
   title,
+  description,
   children,
 }) => {
   const _title = title || "blitz-e4"
   return (
     <>
       <Head>
-        <title>{_title}</title>
+        <title key="title">{_title}</title>
+        {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col min-h-screen">
