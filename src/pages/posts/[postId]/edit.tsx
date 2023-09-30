@@ -11,6 +11,7 @@ import { UpdatePostSchema } from "src/posts/schemas"
 import getPost from "src/posts/queries/getPost"
 import updatePost from "src/posts/mutations/updatePost"
 import { PostForm, FORM_ERROR } from "src/posts/components/PostForm"
+import getCategories from "src/posts/queries/getCategories"
 
 export const EditPost = () => {
   const router = useRouter()
@@ -24,6 +25,11 @@ export const EditPost = () => {
     }
   )
   const [updatePostMutation] = useMutation(updatePost)
+  const [categories, error] = useQuery(
+    getCategories,
+    { orderBy: { title: "asc" } },
+    { suspense: false }
+  )
 
   return (
     <>
@@ -36,6 +42,7 @@ export const EditPost = () => {
         <pre>{JSON.stringify(post, null, 2)}</pre>
         <Suspense fallback={<div>Loading...</div>}>
           <PostForm
+            categories={categories || []}
             submitText="Update Post"
             schema={UpdatePostSchema}
             initialValues={post}

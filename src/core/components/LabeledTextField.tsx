@@ -2,8 +2,8 @@ import { forwardRef, PropsWithoutRef, ComponentPropsWithoutRef, Ref } from "reac
 import { useFormContext } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 
-export const FieldDefaultAsType = "input" as const
-export type FieldDefaultAsType = typeof FieldDefaultAsType
+export const FieldDefaultAsTypeDefault = "input" as const
+export type FieldDefaultAsType = typeof FieldDefaultAsTypeDefault
 
 export type FieldOwnProps<E extends React.ElementType> = {
   children?: React.ReactNode
@@ -29,7 +29,7 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
   name,
   ...otherProps
 }: FieldProps<E>) => {
-  const Tag = as || FieldDefaultAsType
+  const Tag = as || FieldDefaultAsTypeDefault
 
   const {
     register,

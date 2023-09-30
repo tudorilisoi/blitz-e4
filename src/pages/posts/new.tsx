@@ -1,15 +1,22 @@
 import { Routes } from "@blitzjs/next"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useMutation } from "@blitzjs/rpc"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import Layout from "src/core/layouts/Layout"
 import { CreatePostSchema } from "src/posts/schemas"
 import createPost from "src/posts/mutations/createPost"
 import { PostForm, FORM_ERROR } from "src/posts/components/PostForm"
 import { Suspense } from "react"
+import getCategories from "src/posts/queries/getCategories"
 
 const NewPostPage = () => {
   const router = useRouter()
+  //NOTE wihtout suspense:false this fails with  DYNAMIC_SERVER_USAGE
+  const [categories, error] = useQuery(
+    getCategories,
+    { orderBy: { title: "asc" } },
+    { suspense: false }
+  )
   const [createPostMutation] = useMutation(createPost)
 
   return (
@@ -17,6 +24,7 @@ const NewPostPage = () => {
       <h1>Create New Post</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <PostForm
+          categories={categories || []}
           submitText="Create Post"
           schema={CreatePostSchema}
           initialValues={{}}
