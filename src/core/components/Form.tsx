@@ -21,6 +21,10 @@ interface OnSubmitResult {
 
 export const FORM_ERROR = "FORM_ERROR"
 
+const onFormError = (e) => {
+  console.log("FORM ERR:", e)
+}
+
 export function Form<S extends z.ZodType<any, any>>({
   children,
   submitText,

@@ -15,6 +15,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
       <LabeledTextField label="price" name="price" type="number" />
       <LabeledTextField label="currency" name="currency" type="text" />
       <LabeledTextField as="select" label="category" name="categoryId" type="number">
+        <option value="">Selectaţi o categorie</option>
         <option value="19">19</option>
         <option value="21">21</option>/
       </LabeledTextField>

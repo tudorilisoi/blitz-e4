@@ -36,6 +36,8 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
     formState: { isSubmitting, errors },
   } = useFormContext()
 
+  console.log("Form errors", errors)
+
   return (
     <div {...outerProps}>
       <label {...labelProps}>
