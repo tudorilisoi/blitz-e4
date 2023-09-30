@@ -28,7 +28,7 @@ export const EditPost = () => {
   const [categories, error] = useQuery(
     getCategories,
     { orderBy: { title: "asc" } },
-    { suspense: false }
+    { suspense: false, staleTime: Infinity }
   )
 
   return (

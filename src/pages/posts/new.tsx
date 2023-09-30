@@ -15,7 +15,7 @@ const NewPostPage = () => {
   const [categories, error] = useQuery(
     getCategories,
     { orderBy: { title: "asc" } },
-    { suspense: false }
+    { suspense: false, staleTime: Infinity }
   )
   const [createPostMutation] = useMutation(createPost)
 
