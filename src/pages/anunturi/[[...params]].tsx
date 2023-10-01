@@ -19,7 +19,9 @@ export const getServerSideProps = gSSP(async (args) => {
   const categorySlug = params[0]
   const categories = await getCategories({ where: { slug: categorySlug } }, ctx)
   if (categories.length !== 1) {
-    notFound()
+    return {
+      notFound: true,
+    }
   }
   const category = categories[0]
   const pageSlug = params[1] || null
@@ -35,6 +37,11 @@ export const getServerSideProps = gSSP(async (args) => {
     },
     ctx
   )
+  if (page > Math.ceil(count / ITEMS_PER_PAGE)) {
+    return {
+      notFound: true,
+    }
+  }
 
   return { props: { category, posts, count, hasMore, page } }
   // return { props: {} }
@@ -42,9 +49,7 @@ export const getServerSideProps = gSSP(async (args) => {
 
 export default function PostsNavPage({ category, posts, page, hasMore }) {
   const router = useRouter()
-  if (page > 1 && posts.length === 0) {
-    notFound()
-  }
+
   const prevPageURL = makePostsNavUrl(category.slug, page - 1)
   const nextPageURL = makePostsNavUrl(category.slug, page + 1)
 

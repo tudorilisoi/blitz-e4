@@ -16,7 +16,9 @@ export const getServerSideProps = gSSP(async (args) => {
   const categorySlug = params[0]
   const categories = await getCategories({ where: { slug: categorySlug } }, ctx)
   if (categories.length !== 1) {
-    notFound()
+    return {
+      notFound: true,
+    }
   }
   const category = categories[0]
   const postSlug = params[1] || ""
@@ -33,7 +35,9 @@ export const getServerSideProps = gSSP(async (args) => {
     ctx
   )
   if (posts.length !== 1) {
-    notFound()
+    return {
+      notFound: true,
+    }
   }
   return { props: { category, post: posts[0] } }
 })
