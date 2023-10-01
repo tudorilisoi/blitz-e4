@@ -37,16 +37,15 @@ export const getServerSideProps = gSSP(async (args) => {
     ctx
   )
 
-  console.log("GSSP", categorySlug, page, posts)
   return { props: { category, posts, count, hasMore, page } }
   // return { props: {} }
 })
 
 export default function PostsNavPage({ category, posts, page, hasMore }) {
-  console.log(`🚀 ~ PostsPage ~ { posts, page, hasMore }:`, { posts, page, hasMore })
   const router = useRouter()
-  const goToPreviousPage = () => router.push(makePostsNavUrl(category.slug, page - 1))
-  const goToNextPage = () => router.push(makePostsNavUrl(category.slug, page + 1))
+  const prevPageURL = makePostsNavUrl(category.slug, page - 1)
+  const nextPageURL = makePostsNavUrl(category.slug, page + 1)
+
   const title = `Anunţuri: ${category.title} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri: ${category.title} p.${page} ${category.description} `
   return (
@@ -56,39 +55,27 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
       </div>
       <nav aria-label="Page navigation" className="text-center mt-4">
         <ul className="inline-flex ">
-          <li>
-            <button
-              disabled={page === 1}
-              onClick={goToPreviousPage}
-              className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-l-lg focus:shadow-outline hover:bg-indigo-100"
-            >
-              Prev
-            </button>
-          </li>
-          <li>
-            <button className="h-10 px-5 text-white transition-colors duration-150 bg-indigo-600 focus:shadow-outline">
-              1
-            </button>
-          </li>
-          <li>
-            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white focus:shadow-outline hover:bg-indigo-100">
-              2
-            </button>
-          </li>
-          <li>
-            <button className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white focus:shadow-outline hover:bg-indigo-100">
-              3
-            </button>
-          </li>
-          <li>
-            <button
-              disabled={!hasMore}
-              onClick={goToNextPage}
-              className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-indigo-100"
-            >
-              Next
-            </button>
-          </li>
+          <Link key={prevPageURL} href={page === 1 ? "#" : prevPageURL}>
+            <li>
+              <button
+                disabled={page === 1}
+                className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-l-lg focus:shadow-outline hover:bg-indigo-100"
+              >
+                Prev
+              </button>
+            </li>
+          </Link>
+
+          <Link href={!hasMore ? "#" : nextPageURL}>
+            <li>
+              <button
+                disabled={!hasMore}
+                className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-indigo-100"
+              >
+                Next
+              </button>
+            </li>
+          </Link>
         </ul>
       </nav>
     </Layout>

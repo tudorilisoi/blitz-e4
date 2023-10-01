@@ -21,7 +21,6 @@ export const getServerSideProps = gSSP(async (args) => {
   const category = categories[0]
   const postSlug = params[1] || ""
   const postId = Number(postSlug.substring(postSlug.lastIndexOf("-") + 1))
-  console.log(`🚀 ~ getServerSideProps ~ postId:`, postId)
 
   const { posts } = await getPosts(
     {
@@ -33,7 +32,6 @@ export const getServerSideProps = gSSP(async (args) => {
     },
     ctx
   )
-  console.log(`🚀 ~ getServerSideProps ~ posts:`, posts)
   if (posts.length !== 1) {
     throw new NotFoundError()
   }

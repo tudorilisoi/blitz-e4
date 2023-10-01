@@ -23,7 +23,6 @@ export const getServerSideProps = gSSP(async (args) => {
 })
 
 function PostsPage({ posts, page, hasMore }) {
-  console.log(`🚀 ~ PostsPage ~ { posts, page, hasMore }:`, { posts, page, hasMore })
   const router = useRouter()
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
