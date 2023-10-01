@@ -1,7 +1,5 @@
-import { Category, Post } from "@prisma/client"
-import { notFound } from "next/navigation"
 import Link from "next/link"
-import { NotFoundError } from "blitz"
+import { notFound } from "next/navigation"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
