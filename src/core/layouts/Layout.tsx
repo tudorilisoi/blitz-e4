@@ -17,7 +17,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
       </Head>
       <div className="flex flex-col min-h-screen">
         {/* Top Navigation Header */}
-        <header className="bg-blue-500 py-4">
+        <header className="bg-blue-800 py-4">
           <nav className="container mx-auto">
             {/* Add your header content here */}
             <h1 className="text-white text-2xl ml-2">{_title}</h1>

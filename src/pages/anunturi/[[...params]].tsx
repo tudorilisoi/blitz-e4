@@ -1,14 +1,16 @@
+import { Category, Post } from "@prisma/client"
+import Link from "next/link"
 import { NotFoundError } from "blitz"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
-import { shortenText } from "src/helpers"
+import PostCell from "src/posts/components/PostCell"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
 
 const ITEMS_PER_PAGE = 9
 
-const makePostsNavUrl = (categorySlug, page) => {
+export const makePostsNavUrl = (categorySlug: string, page: number) => {
   return `/anunturi/${categorySlug}${page === 1 ? "" : "/pagina-" + page}`
 }
 
@@ -50,12 +52,7 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
   return (
     <Layout title={title} description={description}>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-        {posts.map((post, index) => (
-          <div key={post.id} className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-2">{shortenText(post.title, 100)}</h2>
-            <p className="text-gray-600">{shortenText(post.body, 140)}</p>
-          </div>
-        ))}
+        {posts.map((post) => PostCell({ post, category }))}
       </div>
       <nav aria-label="Page navigation" className="text-center mt-4">
         <ul className="inline-flex ">
