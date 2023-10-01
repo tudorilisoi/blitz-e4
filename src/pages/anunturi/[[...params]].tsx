@@ -45,7 +45,7 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
   const router = useRouter()
   const goToPreviousPage = () => router.push(makePostsNavUrl(category.slug, page - 1))
   const goToNextPage = () => router.push(makePostsNavUrl(category.slug, page + 1))
-  const title = `eRădăuţi Anunţuri: ${category.title} p.${page} `
+  const title = `Anunţuri: ${category.title} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri: ${category.title} p.${page} ${category.description} `
   return (
     <Layout title={title} description={description}>
