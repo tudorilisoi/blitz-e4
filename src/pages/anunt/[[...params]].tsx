@@ -1,5 +1,6 @@
 import { Category, Post } from "@prisma/client"
 import { NotFoundError } from "blitz"
+import { notFound } from "next/navigation"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
@@ -16,7 +17,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const categorySlug = params[0]
   const categories = await getCategories({ where: { slug: categorySlug } }, ctx)
   if (categories.length !== 1) {
-    throw new NotFoundError()
+    notFound()
   }
   const category = categories[0]
   const postSlug = params[1] || ""
@@ -33,7 +34,7 @@ export const getServerSideProps = gSSP(async (args) => {
     ctx
   )
   if (posts.length !== 1) {
-    throw new NotFoundError()
+    notFound()
   }
   return { props: { category, post: posts[0] } }
 })
