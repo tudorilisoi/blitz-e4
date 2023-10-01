@@ -12,6 +12,7 @@ import getPost from "src/posts/queries/getPost"
 import updatePost from "src/posts/mutations/updatePost"
 import { PostForm, FORM_ERROR } from "src/posts/components/PostForm"
 import getCategories from "src/posts/queries/getCategories"
+import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 
 export const EditPost = () => {
   const router = useRouter()
@@ -52,8 +53,9 @@ export const EditPost = () => {
                   ...values,
                   id: post.id,
                 })
+                const category = categories?.find((c) => c.id === updated.categoryId)
                 await setQueryData(updated)
-                await router.push(Routes.ShowPostPage({ postId: updated.id }))
+                await router.push(makePostNavUrl(updated.slug, category?.slug || "NX", updated.id))
               } catch (error: any) {
                 console.error(error)
                 return {

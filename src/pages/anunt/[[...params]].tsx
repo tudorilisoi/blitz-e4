@@ -1,4 +1,6 @@
+import { Routes } from "@blitzjs/next"
 import { Category, Post } from "@prisma/client"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
@@ -44,11 +46,12 @@ export const getServerSideProps = gSSP(async (args) => {
 
 export default function PostPage({ category, post }: { category: Category; post: Post }) {
   const router = useRouter()
-  const title = `Anunţ: ${post.title} p.${category.title} | eRădăuţi `
-  const description = `Anunţ: ${post.title} p.${category.title} | eRădăuţi `
+  const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
+  const description = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   return (
     <Layout title={title} description={description}>
       {<pre>{JSON.stringify(post, null, 4)}</pre>}
+      <Link href={Routes.EditPostPage({ postId: post.id })}>Edit</Link>
     </Layout>
   )
 }
