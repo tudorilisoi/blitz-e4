@@ -6,7 +6,7 @@ const OverlayContext = createContext({ toggle: (newValue) => {}, isOverlayDispla
 
 // Step 2 and 3: Create the provider component with toggle functionality
 const OverlayProvider = ({ children }) => {
-  const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(false)
+  const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(true)
 
   // Define the toggle function
   const toggle = (newValue: any) => {
