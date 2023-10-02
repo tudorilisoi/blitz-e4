@@ -52,33 +52,36 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Textul anunţului"
         name="body"
       />
-      <LabeledTextField
-        labelProps={labelProps}
-        outerProps={outerProps}
-        label="Preţ"
-        name="price"
-        type="number"
-      />
+
       {/* <LabeledTextField labelProps={labelProps} outerProps={outerProps} label="currency" name="currency" type="text" /> */}
-      <LabeledTextField
-        labelProps={labelProps}
-        outerProps={outerProps}
-        as="select"
-        label="Moneda"
-        name="currency"
-        type="number"
-      >
-        <option key={"noCurrency"} value="">
-          Selectaţi ('EUR/RON')
-        </option>
-        {Object.keys(currencies).map((c: string) => {
-          return (
-            <option selected={values?.currency === c} key={c} value={c}>
-              {c}
-            </option>
-          )
-        })}
-      </LabeledTextField>
+      <div className="flex flex-row justify-start gap-2 align-top">
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          label="Preţ"
+          name="price"
+          type="number"
+        />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          as="select"
+          label="Moneda"
+          name="currency"
+          type="number"
+        >
+          <option key={"noCurrency"} value="">
+            Selectaţi ('EUR/RON')
+          </option>
+          {Object.keys(currencies).map((c: string) => {
+            return (
+              <option selected={values?.currency === c} key={c} value={c}>
+                {c}
+              </option>
+            )
+          })}
+        </LabeledTextField>
+      </div>
     </Form>
   )
 }
