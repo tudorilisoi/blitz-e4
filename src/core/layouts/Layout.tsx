@@ -17,19 +17,19 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
       </Head>
       <div className="flex flex-col min-h-screen">
         {/* Top Navigation Header */}
-        <header className="bg-blue-800 py-4">
-          <nav className="container mx-auto">
+        <header className="bg-blue-800 py-4 ">
+          <nav className="container mx-auto px-6">
             {/* Add your header content here */}
             <h1 className="text-white text-2xl ml-2">{_title}</h1>
           </nav>
         </header>
 
         {/* Main Content */}
-        <main className="flex-grow">
-          <div className="container mx-auto py-6 px-2">
-            {/* Render child components */}
-            {children}
-          </div>
+        <main className="flex-grow py-6 px-6 container mx-auto">
+          {/* <div className="container mx-auto py-6 px-2"> */}
+          {/* Render child components */}
+          {children}
+          {/* </div> */}
         </main>
 
         {/* Footer */}
