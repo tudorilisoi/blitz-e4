@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useMemo, useState } from "react"
 import Spinner from "./Spinner"
 
+export const OVERLAY_TRANSITION_DURATION = 200
+
 // Step 1: Create a new context
 const OverlayContext = createContext({ toggle: (newValue) => {}, isOverlayDisplayed: false })
 
@@ -23,7 +25,9 @@ const OverlayProvider = ({ children }) => {
       <>
         <style jsx>{`
           .blur-div {
-            transition: filter 0.2s ease-in-out; /* Apply transition to the filter property */
+            transition: filter ${OVERLAY_TRANSITION_DURATION / 1000}s ease-in-out; /* Apply transition to the filter property */
+            max-height: 100vh;
+            overflow: hidden;
           }
           .blur-fade-div {
             position: relative;
@@ -34,6 +38,7 @@ const OverlayProvider = ({ children }) => {
           .blur-fade-div::after {
             /* Adjust the blur amount as needed */
             content: "";
+            background: rgba(255, 255, 255, 0.2);
             position: absolute;
             top: 0;
             left: 0;

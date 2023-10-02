@@ -68,11 +68,13 @@ export const EditPost = () => {
                 })
                 const category = categories?.find((c) => c.id === updated.categoryId)
                 await setQueryData(updated)
+
+                //wait for the overlay to unblur
                 setTimeout(async () => {
                   await router.push(
                     makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
                   )
-                }, 500)
+                }, 300)
               } catch (error: any) {
                 console.error(error)
                 return {
