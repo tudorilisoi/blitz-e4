@@ -39,8 +39,8 @@ export const EditPost = () => {
       </Head>
 
       <div>
-        <h1>Edit Post {post.id}</h1>
-        <pre>{JSON.stringify(post, null, 2)}</pre>
+        <h1 className="text-3xl pb-4">Modifică anunţ</h1>
+
         <Suspense fallback={<div>Loading...</div>}>
           <PostForm
             categories={categories || []}
@@ -66,6 +66,7 @@ export const EditPost = () => {
           />
         </Suspense>
       </div>
+      <pre>{JSON.stringify(post, null, 2)}</pre>
     </>
   )
 }

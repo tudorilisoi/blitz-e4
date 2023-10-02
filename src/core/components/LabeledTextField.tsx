@@ -37,15 +37,16 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
   } = useFormContext()
 
   console.log("Form errors", errors)
+  const labelId = `label_${name}`
 
   return (
     <div {...outerProps}>
-      <label {...labelProps}>
+      <label {...labelProps} htmlFor={labelId}>
         {label}
-        <Tag disabled={isSubmitting} {...register(name)} {...otherProps}>
-          {children}
-        </Tag>
       </label>
+      <Tag id={labelId} disabled={isSubmitting} {...register(name)} {...otherProps}>
+        {children}
+      </Tag>
 
       <ErrorMessage
         render={({ message }) => (
@@ -58,25 +59,15 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
       />
 
       <style jsx>{`
-        label {
-          display: flex;
-          flex-direction: column;
-          align-items: start;
-          font-size: 1rem;
-          /* width: 100%; */
-        }
-        input[type="text"],
-        textarea {
-          width: 100%;
-        }
+        select,
         input,
         textarea {
-          font-size: 1rem;
+          /* font-size: 1rem; */
           padding: 0.25rem 0.5rem;
-          border-radius: 3px;
-          border: 1px solid purple;
-          appearance: none;
-          margin-top: 0.5rem;
+          border-radius: 0.3rem;
+          border: 1px solid black;
+          /* appearance: none; */
+          /* margin-top: 0.5rem; */
         }
       `}</style>
     </div>

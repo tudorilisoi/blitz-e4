@@ -13,26 +13,26 @@ type ExtendedFormProps<S extends z.ZodType<any, any>> = FormProps<S> & {
 export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps<S>) {
   const values: any = props.initialValues
   console.log("V", values)
+  const labelProps = { className: "text-1xl font-bold mb-1 mt-2" }
+  const outerProps = { className: "flex flex-col text-0xl" }
   return (
     <Form<S> {...props}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
-      <LabeledTextField label="title" name="title" type="text" />
-      <LabeledTextField as="textarea" rows={10} label="body" name="body" />
-      <LabeledTextField label="price" name="price" type="number" />
-      {/* <LabeledTextField label="currency" name="currency" type="text" /> */}
-      <LabeledTextField as="select" label="Moneda" name="currency" type="number">
-        <option key={"noCurrency"} value="">
-          Selectaţi ('EUR/RON')
-        </option>
-        {Object.keys(currencies).map((c: string) => {
-          return (
-            <option selected={values?.currency === c} key={c} value={c}>
-              {c}
-            </option>
-          )
-        })}
-      </LabeledTextField>
-      <LabeledTextField as="select" label="category" name="categoryId" type="number">
+      <LabeledTextField
+        labelProps={labelProps}
+        outerProps={outerProps}
+        label="Titlul anunţului"
+        name="title"
+        type="text"
+      />
+      <LabeledTextField
+        labelProps={labelProps}
+        outerProps={outerProps}
+        as="select"
+        label="Categorie"
+        name="categoryId"
+        type="number"
+      >
         <option key={-1} value="">
           Selectaţi o categorie
         </option>
@@ -40,6 +40,41 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           return (
             <option selected={values?.categoryId === c.id} key={c.id} value={c.id}>
               {c.title}
+            </option>
+          )
+        })}
+      </LabeledTextField>
+      <LabeledTextField
+        labelProps={labelProps}
+        outerProps={outerProps}
+        as="textarea"
+        rows={10}
+        label="Textul anunţului"
+        name="body"
+      />
+      <LabeledTextField
+        labelProps={labelProps}
+        outerProps={outerProps}
+        label="Preţ"
+        name="price"
+        type="number"
+      />
+      {/* <LabeledTextField labelProps={labelProps} outerProps={outerProps} label="currency" name="currency" type="text" /> */}
+      <LabeledTextField
+        labelProps={labelProps}
+        outerProps={outerProps}
+        as="select"
+        label="Moneda"
+        name="currency"
+        type="number"
+      >
+        <option key={"noCurrency"} value="">
+          Selectaţi ('EUR/RON')
+        </option>
+        {Object.keys(currencies).map((c: string) => {
+          return (
+            <option selected={values?.currency === c} key={c} value={c}>
+              {c}
             </option>
           )
         })}
