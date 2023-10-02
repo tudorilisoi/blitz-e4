@@ -1,6 +1,6 @@
 import { Watch } from "react-loader-spinner"
 
-const Spinner = () => {
+const Overlay = () => {
   return (
     <div
       style={{ display: "flex", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
@@ -20,4 +20,4 @@ const Spinner = () => {
   )
 }
 
-export default Spinner
+export default Overlay

@@ -15,11 +15,11 @@ import getCategories from "src/posts/queries/getCategories"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { Watch } from "react-loader-spinner"
 import Spinner from "src/core/components/spinner/Spinner"
-import { useSpinner } from "src/core/components/spinner/SpinnerProvider"
+import { useOverlay } from "src/core/components/spinner/OverlayProvider"
 
 export const EditPost = () => {
   const router = useRouter()
-  const { toggle } = useSpinner()
+  const { toggle } = useOverlay()
   const postId = useParam("postId", "number")
   const [post, { setQueryData }] = useQuery(
     getPost,
@@ -80,7 +80,7 @@ export const EditPost = () => {
             }}
           />
         </div>
-        <pre>{JSON.stringify(post, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
       </Suspense>
     </>
   )
