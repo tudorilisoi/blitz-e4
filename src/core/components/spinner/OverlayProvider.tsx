@@ -4,7 +4,7 @@ import Spinner from "./Spinner"
 export const OVERLAY_TRANSITION_DURATION = 200
 
 // Step 1: Create a new context
-const OverlayContext = createContext({ toggle: (newValue) => {}, isOverlayDisplayed: false })
+const OverlayContext = createContext({ toggle: (newValue) => {}, isOverlayDisplayed: true })
 
 // Step 2 and 3: Create the provider component with toggle functionality
 const OverlayProvider = ({ children }) => {
@@ -25,12 +25,12 @@ const OverlayProvider = ({ children }) => {
       <>
         <style jsx>{`
           .blur-div {
+            position: relative;
             transition: filter ${OVERLAY_TRANSITION_DURATION / 1000}s ease-in-out; /* Apply transition to the filter property */
-            max-height: 100vh;
-            overflow: hidden;
           }
           .blur-fade-div {
-            position: relative;
+            overflow: hidden;
+            max-height: 80vh;
             filter: blur(5px);
           }
 
