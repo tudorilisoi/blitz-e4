@@ -52,7 +52,7 @@ export const EditPost = () => {
           <title>Edit Post {post.id}</title>
         </Head>
 
-        <div>
+        <>
           <h1 className="text-3xl pb-4">Modifică anunţ</h1>
 
           <PostForm
@@ -83,7 +83,7 @@ export const EditPost = () => {
               }
             }}
           />
-        </div>
+        </>
         {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
       </Suspense>
     </>
@@ -94,11 +94,13 @@ const EditPostPage = () => {
   // return <Loading />
   return (
     <Suspense fallback={Spinner()}>
-      <EditPost />
+      <div className="max-w-4xl mx-auto">
+        <EditPost />
 
-      <p>
-        <Link href={Routes.PostsPage()}>Posts</Link>
-      </p>
+        <p>
+          <Link href={Routes.PostsPage()}>Posts</Link>
+        </p>
+      </div>
     </Suspense>
   )
 }
