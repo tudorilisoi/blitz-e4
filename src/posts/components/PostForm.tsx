@@ -1,4 +1,4 @@
-import { Category } from "@prisma/client"
+import { Category, currencies } from "@prisma/client"
 import React, { Suspense } from "react"
 import { FORM_ERROR, Form, FormProps } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
@@ -19,7 +19,19 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
       <LabeledTextField label="title" name="title" type="text" />
       <LabeledTextField as="textarea" rows={10} label="body" name="body" />
       <LabeledTextField label="price" name="price" type="number" />
-      <LabeledTextField label="currency" name="currency" type="text" />
+      {/* <LabeledTextField label="currency" name="currency" type="text" /> */}
+      <LabeledTextField as="select" label="Moneda" name="currency" type="number">
+        <option key={"noCurrency"} value="">
+          Selectaţi ('EUR/RON')
+        </option>
+        {Object.keys(currencies).map((c: string) => {
+          return (
+            <option selected={values?.currency === c} key={c} value={c}>
+              {c}
+            </option>
+          )
+        })}
+      </LabeledTextField>
       <LabeledTextField as="select" label="category" name="categoryId" type="number">
         <option key={-1} value="">
           Selectaţi o categorie
