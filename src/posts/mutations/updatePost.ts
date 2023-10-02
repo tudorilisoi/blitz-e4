@@ -3,6 +3,10 @@ import db from "db"
 import { UpdatePostSchema } from "../schemas"
 import { makeSlug } from "src/helpers"
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 export default resolver.pipe(
   resolver.zod(UpdatePostSchema),
   resolver.authorize(),
@@ -13,7 +17,7 @@ export default resolver.pipe(
       slug: makeSlug(input.title),
     }
     const post = await db.post.update({ where: { id }, data })
-
+    await delay(1500)
     return post
   }
 )

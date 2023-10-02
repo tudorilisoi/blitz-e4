@@ -11,6 +11,12 @@ body {
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+/* prevent horiz scroll jump */
+html {
+  scrollbar-gutter: stable !important;
+  scrollbar-color: #228be6 #eee !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;

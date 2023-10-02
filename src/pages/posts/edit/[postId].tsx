@@ -15,9 +15,11 @@ import getCategories from "src/posts/queries/getCategories"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { Watch } from "react-loader-spinner"
 import Spinner from "src/core/components/spinner/Spinner"
+import { useSpinner } from "src/core/components/spinner/SpinnerProvider"
 
 export const EditPost = () => {
   const router = useRouter()
+  const { toggle } = useSpinner()
   const postId = useParam("postId", "number")
   const [post, { setQueryData }] = useQuery(
     getPost,
@@ -27,7 +29,18 @@ export const EditPost = () => {
       staleTime: Infinity,
     }
   )
-  const [updatePostMutation] = useMutation(updatePost)
+  const [updatePostMutation] = useMutation(
+    updatePost,
+    // {},
+    {
+      onMutate: () => {
+        toggle(true)
+      },
+      onSettled: () => {
+        toggle(false)
+      },
+    }
+  )
   const [categories, error] = useQuery(
     getCategories,
     { orderBy: { title: "asc" } },

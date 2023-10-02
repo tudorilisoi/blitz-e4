@@ -1,6 +1,7 @@
 import Head from "next/head"
 import React, { FC } from "react"
 import { BlitzLayout } from "@blitzjs/next"
+import { SpinnerProvider } from "../components/spinner/SpinnerProvider"
 
 const Layout: BlitzLayout<{ title?: string; description?: string; children?: React.ReactNode }> = ({
   title,
@@ -28,7 +29,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         <main className="flex-grow py-6 px-6 container mx-auto relative">
           {/* <div className="container mx-auto py-6 px-2"> */}
           {/* Render child components */}
-          {children}
+          <SpinnerProvider>{children}</SpinnerProvider>
           {/* </div> */}
         </main>
 
