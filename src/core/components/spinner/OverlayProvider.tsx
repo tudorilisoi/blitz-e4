@@ -6,7 +6,7 @@ const OverlayContext = createContext({ toggle: (newValue) => {}, isOverlayDispla
 
 // Step 2 and 3: Create the provider component with toggle functionality
 const OverlayProvider = ({ children }) => {
-  const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(true)
+  const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(false)
 
   // Define the toggle function
   const toggle = (newValue: any) => {
@@ -21,8 +21,43 @@ const OverlayProvider = ({ children }) => {
     // Step 4: Provide state and toggle function through the context's Provider
     <OverlayContext.Provider value={{ isOverlayDisplayed, toggle }}>
       <>
+        <style jsx>{`
+          .blur-div {
+            transition: filter 0.7s ease-in-out; /* Apply transition to the filter property */
+          }
+          .blur-fade-div {
+            position: relative;
+          }
+
+          /* Apply a blur effect */
+          .blur-fade-div::before {
+            z-index: 90;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+          }
+
+          /* Apply an alpha fade effect */
+          .blur-fade-div::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none; /* Allows interaction with content behind */
+            z-index: -1; /* Place it below the content */
+          }
+        `}</style>
         {isOverlayDisplayed ? <Spinner /> : null}
-        <div key={"spinner_provider_children_wrapper"} style={style}>
+        <div
+          key={"spinner_provider_children_wrapper"}
+          className={isOverlayDisplayed ? "blur-div blur-fade-div" : "blur-div"}
+        >
           {children}
         </div>
       </>

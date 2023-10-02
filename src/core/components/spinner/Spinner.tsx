@@ -3,7 +3,15 @@ import { Watch } from "react-loader-spinner"
 const Overlay = () => {
   return (
     <div
-      style={{ display: "flex", position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
+      style={{
+        zIndex: "100",
+        display: "flex",
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
       className="justify-center flex-col align-middle text-center "
     >
       <Watch

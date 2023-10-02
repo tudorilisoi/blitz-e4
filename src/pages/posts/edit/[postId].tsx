@@ -68,7 +68,11 @@ export const EditPost = () => {
                 })
                 const category = categories?.find((c) => c.id === updated.categoryId)
                 await setQueryData(updated)
-                await router.push(makePostNavUrl(updated.slug, category?.slug || "NX", updated.id))
+                setTimeout(async () => {
+                  await router.push(
+                    makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
+                  )
+                }, 500)
               } catch (error: any) {
                 console.error(error)
                 return {
