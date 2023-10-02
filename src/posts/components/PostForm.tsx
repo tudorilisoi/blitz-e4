@@ -71,7 +71,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           type="number"
         >
           <option key={"noCurrency"} value="">
-            Selectaţi ('EUR/RON')
+            {"Selectaţi ('EUR/RON')"}
           </option>
           {Object.keys(currencies).map((c: string) => {
             return (

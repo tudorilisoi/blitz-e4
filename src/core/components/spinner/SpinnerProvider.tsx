@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from "react"
 import Spinner from "./Spinner"
 
 // Step 1: Create a new context
-const SpinnerContext = createContext({})
+const SpinnerContext = createContext({ toggle: (newValue) => {}, isSpinnerDisplayed: false })
 
 // Step 2 and 3: Create the provider component with toggle functionality
 const SpinnerProvider = ({ children }) => {
