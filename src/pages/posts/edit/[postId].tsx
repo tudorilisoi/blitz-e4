@@ -13,6 +13,8 @@ import updatePost from "src/posts/mutations/updatePost"
 import { PostForm, FORM_ERROR } from "src/posts/components/PostForm"
 import getCategories from "src/posts/queries/getCategories"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
+import { Watch } from "react-loader-spinner"
+import Spinner from "src/core/components/spinner/Spinner"
 
 export const EditPost = () => {
   const router = useRouter()
@@ -34,14 +36,14 @@ export const EditPost = () => {
 
   return (
     <>
-      <Head>
-        <title>Edit Post {post.id}</title>
-      </Head>
+      <Suspense fallback={Spinner()}>
+        <Head>
+          <title>Edit Post {post.id}</title>
+        </Head>
 
-      <div>
-        <h1 className="text-3xl pb-4">Modifică anunţ</h1>
+        <div>
+          <h1 className="text-3xl pb-4">Modifică anunţ</h1>
 
-        <Suspense fallback={<div>Loading...</div>}>
           <PostForm
             categories={categories || []}
             submitText="Update Post"
@@ -64,24 +66,23 @@ export const EditPost = () => {
               }
             }}
           />
-        </Suspense>
-      </div>
-      <pre>{JSON.stringify(post, null, 2)}</pre>
+        </div>
+        <pre>{JSON.stringify(post, null, 2)}</pre>
+      </Suspense>
     </>
   )
 }
 
 const EditPostPage = () => {
+  // return <Loading />
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <EditPost />
-      </Suspense>
+    <Suspense fallback={Spinner()}>
+      <EditPost />
 
       <p>
         <Link href={Routes.PostsPage()}>Posts</Link>
       </p>
-    </div>
+    </Suspense>
   )
 }
 

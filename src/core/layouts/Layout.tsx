@@ -25,7 +25,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         </header>
 
         {/* Main Content */}
-        <main className="flex-grow py-6 px-6 container mx-auto">
+        <main className="flex-grow py-6 px-6 container mx-auto relative">
           {/* <div className="container mx-auto py-6 px-2"> */}
           {/* Render child components */}
           {children}
