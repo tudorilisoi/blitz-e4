@@ -23,26 +23,16 @@ const OverlayProvider = ({ children }) => {
       <>
         <style jsx>{`
           .blur-div {
-            transition: filter 0.7s ease-in-out; /* Apply transition to the filter property */
+            transition: filter 0.2s ease-in-out; /* Apply transition to the filter property */
           }
           .blur-fade-div {
             position: relative;
-          }
-
-          /* Apply a blur effect */
-          .blur-fade-div::before {
-            z-index: 90;
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+            filter: blur(5px);
           }
 
           /* Apply an alpha fade effect */
           .blur-fade-div::after {
+            /* Adjust the blur amount as needed */
             content: "";
             position: absolute;
             top: 0;
@@ -50,7 +40,7 @@ const OverlayProvider = ({ children }) => {
             right: 0;
             bottom: 0;
             pointer-events: none; /* Allows interaction with content behind */
-            z-index: -1; /* Place it below the content */
+            z-index: 80; /* Place it below the content */
           }
         `}</style>
         {isOverlayDisplayed ? <Spinner /> : null}
