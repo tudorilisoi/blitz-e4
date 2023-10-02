@@ -1,16 +1,11 @@
-import { makeSlug } from "../src/helpers"
+import { S, makeSlug } from "../src/helpers"
 
 // To access your database
 // Append api/* to import from api and web/* to import from web
 import { PostStatuses, Prisma } from "@prisma/client"
 import fs from "fs"
-import { decode } from "html-entities"
-import striptags from "striptags"
-import db from "./index"
 
-function cleanHTML(s) {
-  return decode(striptags(s))
-}
+import db from "./index"
 
 function mapPost(post: Record<string, any>): Prisma.PostUncheckedCreateInput {
   const {
@@ -43,10 +38,10 @@ function mapPost(post: Record<string, any>): Prisma.PostUncheckedCreateInput {
   return {
     id,
     status: _status,
-    phone,
-    title,
+    phone: phone?.trim() ?? null,
+    title: title.trim(),
     slug: makeSlug(title),
-    body: cleanHTML(raw_content),
+    body: S(raw_content).HTMLToText().trim().get(),
     price: price === null ? undefined : price,
     currency,
     userId: user_id,
@@ -86,7 +81,7 @@ const mapCategory = (c): Prisma.CategoryUncheckedCreateInput => {
     id,
     title,
     slug,
-    description: cleanHTML(content),
+    description: S(content).HTMLToText().trim().get(),
   }
 }
 

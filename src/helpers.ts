@@ -1,6 +1,8 @@
 import slugify from "slugify"
 import truncate from "lodash/truncate"
 import upperFirst from "lodash/upperFirst"
+import { decode } from "html-entities"
+import striptags from "striptags"
 
 export const makeSlug = (str) => {
   // TODO copy sanitization from ert2-now
@@ -19,6 +21,9 @@ export const cleanText = (str) => {
   text = text.replace("&dash;", "-")
   text = text.replace("&nbsp", " ")
   return text
+}
+function HTMLToText(s) {
+  return decode(striptags(s))
 }
 
 export const shortenText = (str, maxLength) => {
@@ -51,7 +56,6 @@ export const nl2br = (str) => {
 }
 
 export const obscurePhoneNumbers = (str) => {
-  let text = cleanText(str)
   let re = /([+](\s+)?)?\d(\d|\s|[.-/]){8,}\d/gmu
   return str.replace(re, "********")
 }
@@ -69,6 +73,7 @@ export const S = function (str) {
     return this
   }
   const funcs = {
+    HTMLToText: HTMLToText,
     nl2space: nl2space,
     nl2br: nl2br,
     shortenText: shortenText,
