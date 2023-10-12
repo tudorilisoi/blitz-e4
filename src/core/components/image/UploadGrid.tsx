@@ -50,18 +50,20 @@ export default function UploadGrid() {
           type="file"
         />
       </label>
-      <div className={"grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3"}>
+      <div className={"grid grid-rows-1 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3"}>
         {Object.entries(blobs).map(([id, blob]) => (
-          <ImageUpload
-            onThumbReady={(b64) => {
-              const id = fileID(blob.file)
-              blob.blob = b64
-              const newBlobs = { ...blobs }
-              setBlobs(newBlobs)
-            }}
-            key={id}
-            file={blob.file}
-          />
+          <div className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center">
+            <ImageUpload
+              onThumbReady={(b64) => {
+                const id = fileID(blob.file)
+                blob.blob = b64
+                const newBlobs = { ...blobs }
+                setBlobs(newBlobs)
+              }}
+              key={id}
+              file={blob.file}
+            />
+          </div>
         ))}
       </div>
     </>

@@ -117,9 +117,9 @@ async function resize({ file, fileID, thumbID, onError, onSuccess }) {
 
 const ImageUpload = ({ file, onThumbReady, onError }) => {
   // const ImageUpload = ({ file, onThumbReady, onError }) => {
-  useMemo(() => {
-    // polyFill()
-  }, [])
+  // useMemo(() => {
+  //   polyFill()
+  // }, [])
 
   // console.log(`*** RENDER FILE `, file)
   if (!(file instanceof File)) {
@@ -175,7 +175,7 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
   }
 
   return (
-    <div style={styles.wrapper} className="rounded-lg shadow-xl p-1">
+    <div style={styles.wrapper}>
       {!message ? null : <div>{message}</div>}
       <canvas
         style={{ ...styles.thumb, display: showThumb ? "block" : "none" }}
