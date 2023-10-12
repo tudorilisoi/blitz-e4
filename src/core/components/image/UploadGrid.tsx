@@ -11,8 +11,10 @@ type Upload = {
   blob: string
 }
 
+type Uploads = Record<string, Upload>
+
 export default function UploadGrid() {
-  const [blobs, setBlobs] = useState({} as Record<string, Upload>)
+  const [blobs, setBlobs] = useState({} as Uploads)
   const max = 10
 
   useEffect(() => {
@@ -52,7 +54,10 @@ export default function UploadGrid() {
       </label>
       <div className={"grid grid-rows-1 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3"}>
         {Object.entries(blobs).map(([id, blob]) => (
-          <div className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center">
+          <div
+            key={id}
+            className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center"
+          >
             <ImageUpload
               onThumbReady={(b64) => {
                 const id = fileID(blob.file)
@@ -60,7 +65,6 @@ export default function UploadGrid() {
                 const newBlobs = { ...blobs }
                 setBlobs(newBlobs)
               }}
-              key={id}
               file={blob.file}
             />
           </div>

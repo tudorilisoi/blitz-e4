@@ -122,14 +122,14 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
   // }, [])
 
   // console.log(`*** RENDER FILE `, file)
-  if (!(file instanceof File)) {
-    return (
-      <div style={styles.wrapper}>
-        <img src={file.url} style={styles.thumb} id={file.id} className="img-responsive" />
-        {/* <input type="file" onChange={onFileSelect} /> */}
-      </div>
-    )
-  }
+  // if (!(file instanceof File)) {
+  //   return (
+  //     <div style={styles.wrapper}>
+  //       <img src={file.url} style={styles.thumb} id={file.id} className="img-responsive" />
+  //       {/* <input type="file" onChange={onFileSelect} /> */}
+  //     </div>
+  //   )
+  // }
 
   const fileID = `${file.name} ${file.size}`
   const thumbID = `${fileID}-thumb`
