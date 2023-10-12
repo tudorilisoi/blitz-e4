@@ -1,5 +1,5 @@
 import Pica from "pica"
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 const styles = {
   wrapper: {
@@ -141,25 +141,29 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
     loading: false,
   })
 
+  const _onError = useCallback((error) => {
+    setState((state) => ({ ...state, error }))
+    onError(error)
+  }, [])
+
+  const _onSuccess = useCallback((b64Thumb) => {
+    setState((state) => ({ ...state, b64Thumb }))
+    onThumbReady(b64Thumb)
+  }, [])
+
   // console.log(`*** COMPONENT INIT ${fileID} ${state.b64Thumb ? 'DONE' : '??'}  `)
 
   useEffect(() => {
     console.log(`*** RESIZE ${fileID}`)
-    setState({ ...state, loading: true })
+    setState((state) => ({ ...state, loading: true }))
     resize({
       file,
       fileID,
       thumbID,
-      onError: (error) => {
-        setState({ ...state, error })
-        onError(error)
-      },
-      onSuccess: (b64Thumb) => {
-        setState({ ...state, b64Thumb })
-        onThumbReady(b64Thumb)
-      },
-    })
-  }, [fileID])
+      onError: _onError,
+      onSuccess: _onSuccess,
+    }).catch(_onError)
+  }, [file, fileID, thumbID])
 
   let message: any = null
   let showThumb = false
