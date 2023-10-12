@@ -17,6 +17,8 @@ const authorSelect = userFields.reduce((acc, f) => {
   return acc
 }, userFields)
 
+export { authorSelect }
+
 export default resolver.pipe(
   // resolver.authorize(),
 
@@ -36,7 +38,10 @@ export default resolver.pipe(
           ...paginateArgs,
           where,
           orderBy,
-          include: { author: { select: authorSelect } },
+          include: {
+            author: { select: authorSelect },
+            images: { select: { id: true, fileName: true } },
+          },
         }),
     })
 
