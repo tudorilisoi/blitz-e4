@@ -24,7 +24,7 @@ export default function UploadGrid() {
         id="icon-button-file"
         type="file"
       />
-      <div className={"grid grid-cols-2 gap-2"}>
+      <div className={"grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3"}>
         {files.map((file, idx) => (
           <ImageUpload key={idx} file={file} />
         ))}

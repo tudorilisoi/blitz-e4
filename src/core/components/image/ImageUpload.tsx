@@ -5,14 +5,14 @@ const styles = {
   wrapper: {
     display: "flex",
     width: "100%",
-    minHeight: "200px",
+    // minHeight: "400px",
     // flexDirection: "column",
     alignContent: "center",
     justifyContent: "center",
     alignItems: "center",
   },
   thumb: {
-    maxHeight: "200px",
+    // maxHeight: "200px",
     maxWidth: "100%",
     display: "block",
   },
