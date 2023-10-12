@@ -3,6 +3,7 @@ import { resolver } from "@blitzjs/rpc"
 import db, { PostStatuses } from "db"
 import { CreatePostSchema } from "../schemas"
 import { makeSlug } from "src/helpers"
+import getPost from "../queries/getPost"
 
 export default resolver.pipe(
   resolver.zod(CreatePostSchema),
@@ -23,8 +24,8 @@ export default resolver.pipe(
     }
     // delete data.categoryId
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const post = await db.post.create({ data })
-
+    let post = await db.post.create({ data, select: { id: true } })
+    post = await getPost({ id: post.id }, context)
     return post
   }
 )
