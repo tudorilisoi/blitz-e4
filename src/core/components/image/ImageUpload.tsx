@@ -175,7 +175,7 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
   }
 
   return (
-    <div style={styles.wrapper}>
+    <div style={styles.wrapper} className="rounded-lg shadow-xl p-1">
       {!message ? null : <div>{message}</div>}
       <canvas
         style={{ ...styles.thumb, display: showThumb ? "block" : "none" }}

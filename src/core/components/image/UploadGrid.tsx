@@ -1,5 +1,6 @@
 import { useState } from "react"
 import ImageUpload from "./ImageUpload"
+import { PhotoIcon } from "@heroicons/react/24/outline"
 
 export default function UploadGrid() {
   const [files, setFiles] = useState([] as File[])
@@ -8,8 +9,9 @@ export default function UploadGrid() {
 
   return (
     <>
-      <label className="btn btn-primary">
-        <i className="fa fa-image">[Icon]</i> {"Adaugă fotografii"}
+      <label className="bg-blue-700 text-xl inline-block rounded-2xl p-1 px-4 text-white hover:bg-blue-300 ">
+        <PhotoIcon className="h-10 w-10 inline-block mr-2 " />
+        {"Adaugă fotografii"}
         <input
           className="hidden"
           multiple
