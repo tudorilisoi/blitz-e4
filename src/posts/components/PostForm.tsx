@@ -2,6 +2,7 @@ import { Category, currencies } from "@prisma/client"
 import React, { Suspense } from "react"
 import { FORM_ERROR, Form, FormProps } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
+import UploadGrid from "src/core/components/image/UploadGrid"
 
 import { z } from "zod"
 export { FORM_ERROR } from "src/core/components/Form"
@@ -18,6 +19,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   return (
     <Form<S> {...props}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
+      <UploadGrid />
       <LabeledTextField
         labelProps={labelProps}
         outerProps={outerProps}
