@@ -1,11 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ImageUpload from "./ImageUpload"
 import { PhotoIcon } from "@heroicons/react/24/outline"
 
+const fileID = (f: File) => {
+  return `${f.name}-${f.size}`
+}
+
+type Upload = {
+  file: File
+  blob: string
+}
+
 export default function UploadGrid() {
-  const [files, setFiles] = useState([] as File[])
-  const totalCount = files.length
+  const [blobs, setBlobs] = useState({} as Record<string, Upload>)
   const max = 10
+
+  useEffect(() => {
+    console.log("BLOBS:", blobs)
+  }, [blobs])
+
+  const blobKeys = Object.keys(blobs)
 
   return (
     <>
@@ -17,12 +31,18 @@ export default function UploadGrid() {
           multiple
           onChange={(ev) => {
             ev.persist()
-            let _files: File[] = []
-            if (ev.target.files) {
-              _files = Array.from(ev.target.files)
-            }
-            _files = _files.slice(0, +max - totalCount)
-            setFiles([...files, ..._files])
+            const newFiles = Array.from(ev.target.files ?? [])
+            const newBlobs = { ...blobs }
+            newFiles.forEach((f) => {
+              const key = fileID(f)
+              if (!newBlobs[key]) {
+                newBlobs[key] = {
+                  file: f,
+                  blob: "",
+                }
+              }
+            })
+            setBlobs(newBlobs)
             ev.target.value = ""
           }}
           accept="image/*"
@@ -31,8 +51,17 @@ export default function UploadGrid() {
         />
       </label>
       <div className={"grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3"}>
-        {files.map((file, idx) => (
-          <ImageUpload key={idx} file={file} />
+        {Object.entries(blobs).map(([id, blob]) => (
+          <ImageUpload
+            onThumbReady={(b64) => {
+              const id = fileID(blob.file)
+              blob.blob = b64
+              const newBlobs = { ...blobs }
+              setBlobs(newBlobs)
+            }}
+            key={id}
+            file={blob.file}
+          />
         ))}
       </div>
     </>
