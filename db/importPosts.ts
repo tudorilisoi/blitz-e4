@@ -121,6 +121,15 @@ const importImages = async () => {
   await Promise.all(
     jsonData.map(async (data) => {
       try {
+        const post = await db.post.findFirst({
+          where: { id: data.postId },
+          select: { userId: true },
+        })
+        if (!post) {
+          console.log("ORPHAN UPLOAD", data.fileName)
+          return
+        }
+        data.userId = post.userId
         const record = await db.image.create({ data })
       } catch (error) {
         if (error.meta?.field_name === "Image_postId_fkey (index)") {
