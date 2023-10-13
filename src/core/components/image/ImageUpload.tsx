@@ -196,3 +196,12 @@ ImageUpload.defaultProps = {
   onThumbReady: noop,
 }
 export default ImageUpload
+
+export const ImageThumb = ({ url }) => {
+  return (
+    <div style={styles.wrapper}>
+      <img src={url} style={{ ...styles.thumb, display: "block" }} key={url} className="p-1" />
+      {/* <input type="file" onChange={onFileSelect} /> */}
+    </div>
+  )
+}
