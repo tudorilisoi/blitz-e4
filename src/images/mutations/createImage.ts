@@ -9,7 +9,7 @@ import { S } from "src/helpers"
 import slugify from "slugify"
 const fsp = fs.promises
 
-export const UPLOADS_PATH = path.resolve(process.cwd(), "public/uploads")
+export const UPLOADS_PATH = path.resolve(process.cwd(), ".data/uploads")
 
 export default resolver.pipe(
   resolver.zod(CreateImageSchema),
