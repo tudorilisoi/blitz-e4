@@ -3,6 +3,9 @@ import ImageUpload, { ImageThumb } from "./ImageUpload"
 import { PhotoIcon } from "@heroicons/react/24/outline"
 import { TrashIcon } from "@heroicons/react/24/outline"
 import { Image } from "@prisma/client"
+import deleteImage from "src/images/mutations/deleteImage"
+import { useMutation } from "@blitzjs/rpc"
+import { useOverlay } from "../spinner/OverlayProvider"
 
 const fileID = (f: File) => {
   return `${f.name}-${f.size}`
@@ -16,7 +19,10 @@ type Upload = {
 type Uploads = Record<string, Upload>
 
 export default function UploadGrid({ images }: { images: Image[] }) {
+  const { toggle } = useOverlay()
+  const [deleteImageMutation] = useMutation(deleteImage)
   const [blobs, setBlobs] = useState({} as Uploads)
+  const [_images, setImages] = useState(images)
   const max = 10
 
   useEffect(() => {
@@ -24,6 +30,39 @@ export default function UploadGrid({ images }: { images: Image[] }) {
   }, [blobs])
 
   const blobKeys = Object.keys(blobs)
+
+  const onDeleteImage = async (id) => {
+    if (window.confirm("This will be deleted")) {
+      try {
+        toggle(true)
+        await deleteImageMutation({ id })
+        const idx = _images.findIndex((i) => i.id === id)
+        _images.splice(idx, 1)
+        setImages([..._images])
+      } catch (error) {
+        // TODO toast
+      } finally {
+        toggle(false)
+      }
+    }
+  }
+
+  const addBlobs = (ev) => {
+    ev.persist()
+    const newFiles = Array.from(ev.target.files ?? []) as File[]
+    const newBlobs = { ...blobs }
+    newFiles.forEach((f) => {
+      const key = fileID(f)
+      if (!newBlobs[key]) {
+        newBlobs[key] = {
+          file: f,
+          blob: "",
+        }
+      }
+    })
+    setBlobs(newBlobs)
+    ev.target.value = ""
+  }
 
   return (
     <>
@@ -33,22 +72,7 @@ export default function UploadGrid({ images }: { images: Image[] }) {
         <input
           className="hidden"
           multiple
-          onChange={(ev) => {
-            ev.persist()
-            const newFiles = Array.from(ev.target.files ?? [])
-            const newBlobs = { ...blobs }
-            newFiles.forEach((f) => {
-              const key = fileID(f)
-              if (!newBlobs[key]) {
-                newBlobs[key] = {
-                  file: f,
-                  blob: "",
-                }
-              }
-            })
-            setBlobs(newBlobs)
-            ev.target.value = ""
-          }}
+          onChange={addBlobs}
           accept="image/*"
           id="icon-button-file"
           type="file"
@@ -71,14 +95,17 @@ export default function UploadGrid({ images }: { images: Image[] }) {
             />
           </div>
         ))}
-        {images.map((image) => (
+        {_images.map((image) => (
           <div
             key={image.id}
-            className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center items-center"
+            className="relative rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center items-center"
           >
             <ImageThumb url={`/uploads/${image.fileName}`} />
 
-            <TrashIcon className="h-8 w-8 inline-block bg-red-600 p-1 rounded text-white hover:bg-red-800 " />
+            <TrashIcon
+              onClick={() => onDeleteImage(image.id)}
+              className="absolute right-2 top-2 h-10 w-10 inline-block bg-red-600 p-1 rounded text-white hover:bg-red-800"
+            />
           </div>
         ))}
       </div>
