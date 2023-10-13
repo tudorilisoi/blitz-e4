@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import ImageUpload, { ImageThumb } from "./ImageUpload"
 import { PhotoIcon } from "@heroicons/react/24/outline"
+import { TrashIcon } from "@heroicons/react/24/outline"
 import { Image } from "@prisma/client"
 
 const fileID = (f: File) => {
@@ -73,9 +74,11 @@ export default function UploadGrid({ images }: { images: Image[] }) {
         {images.map((image) => (
           <div
             key={image.id}
-            className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center"
+            className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center items-center"
           >
             <ImageThumb url={`/uploads/${image.fileName}`} />
+
+            <TrashIcon className="h-8 w-8 inline-block bg-red-600 p-1 rounded text-white hover:bg-red-800 " />
           </div>
         ))}
       </div>
