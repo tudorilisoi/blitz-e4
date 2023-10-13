@@ -14,6 +14,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
     <>
       <Head>
         <title key="title">{_title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
