@@ -1,3 +1,4 @@
+import { PostStatuses } from "@prisma/client"
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
 import { UpdatePostSchema } from "../schemas"
@@ -13,9 +14,16 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ id, ...input }, ctx) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const { title, body, price, currency } = input
     const data = {
-      ...input,
+      title,
+      body,
+      price,
+      currency,
+      category: { connect: { id: input.categoryId } },
       slug: makeSlug(input.title),
+      // status: 'active' as post_statuses,
+      status: PostStatuses.ACTIVE,
     }
     await db.post.update({ where: { id }, data, select: { id: true } })
     const post = await getPost({ id }, ctx)

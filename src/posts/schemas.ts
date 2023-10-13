@@ -29,6 +29,8 @@ export const CreatePostSchema = z.object({
   // authorId: z.number(),
   price: z.preprocess(Number, z.number({ ...e("Preţul trebuie să fie zero sau mai mult") })),
   currency: z.nativeEnum(currencies, { ...e("Selectaţi EUR sau RON") }),
+  // blobs: z.string(),
+  blobs: z.record(z.string(), z.string()),
 })
 export const UpdatePostSchema = CreatePostSchema.merge(
   z.object({

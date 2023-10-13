@@ -59,11 +59,14 @@ export const EditPost = () => {
             categories={categories || []}
             submitText="Update Post"
             schema={UpdatePostSchema}
-            initialValues={post}
+            initialValues={{ ...post, blobs: "" }}
             onSubmit={async (values) => {
+              console.log(`🚀 ~ onSubmit={ ~ values:`, values)
+              const { blobs, ...otherValues } = values
               try {
                 const updated = await updatePostMutation({
-                  ...values,
+                  ...otherValues,
+                  blobs: {},
                   id: post.id,
                 })
                 const category = categories?.find((c) => c.id === updated.categoryId)

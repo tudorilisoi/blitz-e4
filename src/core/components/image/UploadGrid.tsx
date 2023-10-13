@@ -6,6 +6,7 @@ import { Image } from "@prisma/client"
 import deleteImage from "src/images/mutations/deleteImage"
 import { useMutation } from "@blitzjs/rpc"
 import { useOverlay } from "../spinner/OverlayProvider"
+import { useFormContext } from "react-hook-form"
 
 const fileID = (f: File) => {
   return `${f.name}-${f.size}`
@@ -19,6 +20,11 @@ type Upload = {
 type Uploads = Record<string, Upload>
 
 export default function UploadGrid({ images }: { images: Image[] }) {
+  const {
+    setValue,
+    register,
+    formState: { isSubmitting, errors },
+  } = useFormContext()
   const { toggle } = useOverlay()
   const [deleteImageMutation] = useMutation(deleteImage)
   const [blobs, setBlobs] = useState({} as Uploads)
@@ -27,6 +33,11 @@ export default function UploadGrid({ images }: { images: Image[] }) {
 
   useEffect(() => {
     console.log("BLOBS:", blobs)
+    const blobsValue = {}
+    Object.entries(blobs).forEach(([id, blob]) => {
+      blobsValue[id] = blob.blob
+    })
+    setValue("blobs", blobsValue, { shouldTouch: true })
   }, [blobs])
 
   const blobKeys = Object.keys(blobs)
@@ -66,6 +77,7 @@ export default function UploadGrid({ images }: { images: Image[] }) {
 
   return (
     <>
+      <input type="hidden" {...register("blobs")} />
       <label className="bg-blue-700 text-xl inline-block rounded-2xl p-1 px-4 text-white hover:bg-blue-300 ">
         <PhotoIcon className="h-10 w-10 inline-block mr-2 " />
         {"Adaugă fotografii"}
