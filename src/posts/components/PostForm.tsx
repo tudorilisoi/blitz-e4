@@ -1,4 +1,4 @@
-import { Category, currencies } from "@prisma/client"
+import { Category, Image, currencies } from "@prisma/client"
 import React, { Suspense } from "react"
 import { FORM_ERROR, Form, FormProps } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
@@ -19,7 +19,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   return (
     <Form<S> {...props}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
-      <UploadGrid />
+      <UploadGrid images={values.images} />
       <LabeledTextField
         labelProps={labelProps}
         outerProps={outerProps}

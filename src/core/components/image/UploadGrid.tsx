@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import ImageUpload from "./ImageUpload"
 import { PhotoIcon } from "@heroicons/react/24/outline"
+import { Image } from "@prisma/client"
 
 const fileID = (f: File) => {
   return `${f.name}-${f.size}`
@@ -13,7 +14,7 @@ type Upload = {
 
 type Uploads = Record<string, Upload>
 
-export default function UploadGrid() {
+export default function UploadGrid({ images }: { images: Image[] }) {
   const [blobs, setBlobs] = useState({} as Uploads)
   const max = 10
 
@@ -68,6 +69,9 @@ export default function UploadGrid() {
               file={blob.file}
             />
           </div>
+        ))}
+        {images.map((image) => (
+          <div key={image.id}>{image.id}</div>
         ))}
       </div>
     </>

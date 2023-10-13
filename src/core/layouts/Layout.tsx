@@ -8,7 +8,8 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
   description,
   children,
 }) => {
-  const _title = title || "blitz-e4"
+  const navTitle = "eRădăuţi v3"
+  const _title = title || navTitle
   return (
     <>
       <Head>
@@ -19,9 +20,9 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
       <div className="flex flex-col min-h-screen">
         {/* Top Navigation Header */}
         <header className="bg-blue-800 py-4 ">
-          <nav className="container mx-auto px-6">
+          <nav className="container mx-auto px-6 p-1">
             {/* Add your header content here */}
-            <h1 className="text-white text-2xl ml-2">{_title}</h1>
+            <h1 className="text-white text-2xl ml-1 leading-none m-0">{navTitle}</h1>
           </nav>
         </header>
 
