@@ -9,6 +9,7 @@ import { BlobsState } from "src/core/components/image/UploadGrid"
 import { useOverlay } from "src/core/components/spinner/OverlayProvider"
 import Spinner from "src/core/components/spinner/Spinner"
 import Layout from "src/core/layouts/Layout"
+import createImage from "src/images/mutations/createImage"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { FORM_ERROR, PostForm } from "src/posts/components/PostForm"
 import updatePost from "src/posts/mutations/updatePost"
@@ -41,6 +42,9 @@ export const EditPost = () => {
       },
     }
   )
+
+  const [createImageMutation] = useMutation(createImage)
+
   const [categories, error] = useQuery(
     getCategories,
     { orderBy: { title: "asc" } },
@@ -70,6 +74,21 @@ export const EditPost = () => {
                   ...values,
                   id: post.id,
                 })
+
+                /* const blobsValue = {}
+                Object.entries(blobs).forEach(([id, blob]) => {
+                  blobsValue[id] = blob.blob
+                }) */
+
+                Object.entries(blobs).forEach(async ([id, blob]) => {
+                  const image = await createImageMutation({
+                    fileName: id,
+                    blob: blob.blob,
+                    postId: updated.id,
+                  })
+                  updated.images.push(image)
+                })
+
                 const category = categories?.find((c) => c.id === updated.categoryId)
                 await setQueryData(updated)
 
