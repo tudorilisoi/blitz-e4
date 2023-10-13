@@ -2,7 +2,7 @@ import { string, z } from "zod"
 
 export const CreateImageSchema = z.object({
   // template: __fieldName__: z.__zodType__(),
-  fileName: z.string().min(20),
+  fileName: z.string().min(7),
   blob: z.string().min(20),
   postId: z.number(),
 })

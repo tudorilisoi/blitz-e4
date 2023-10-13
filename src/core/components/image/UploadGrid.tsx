@@ -42,6 +42,10 @@ export default function UploadGrid({
     onChange && onChange(blobs)
   }, [blobs])
 
+  useEffect(() => {
+    setImages(images)
+  }, [images])
+
   const blobKeys = Object.keys(blobs)
 
   const onDeleteImage = async (id) => {

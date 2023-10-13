@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Suspense, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { BlobsState } from "src/core/components/image/UploadGrid"
 
 import { useOverlay } from "src/core/components/spinner/OverlayProvider"
@@ -22,7 +22,7 @@ export const EditPost = () => {
   const router = useRouter()
   const { toggle } = useOverlay()
   const postId = useParam("postId", "number")
-  const [post, { setQueryData }] = useQuery(
+  const [post, { setQueryData, remove, refetch, ...other }] = useQuery(
     getPost,
     { id: postId },
     {
@@ -50,6 +50,12 @@ export const EditPost = () => {
     { orderBy: { title: "asc" } },
     { suspense: true, staleTime: Infinity }
   )
+
+  useEffect(() => {
+    // refetch on mount
+    console.log("MOUNT", other)
+    refetch()
+  }, [])
 
   return (
     <>
@@ -90,7 +96,8 @@ export const EditPost = () => {
                 })
 
                 const category = categories?.find((c) => c.id === updated.categoryId)
-                await setQueryData(updated)
+                // await setQueryData(updated, { refetch: true })
+                remove()
 
                 //wait for the overlay to unblur
                 setTimeout(async () => {
