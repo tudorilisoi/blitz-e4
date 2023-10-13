@@ -1,6 +1,7 @@
+import { BlitzLayout, Routes } from "@blitzjs/next"
 import Head from "next/head"
-import React, { FC } from "react"
-import { BlitzLayout } from "@blitzjs/next"
+import Link from "next/link"
+import React from "react"
 import { OverlayProvider } from "../components/spinner/OverlayProvider"
 
 const Layout: BlitzLayout<{ title?: string; description?: string; children?: React.ReactNode }> = ({
@@ -23,7 +24,9 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         <header className="bg-blue-800 py-4 ">
           <nav className="container mx-auto px-6 p-1">
             {/* Add your header content here */}
-            <h1 className="text-white text-2xl ml-1 leading-none m-0">{navTitle}</h1>
+            <Link href={Routes.Home()}>
+              <span className="text-white text-2xl ml-1 leading-none m-0">{navTitle}</span>
+            </Link>
           </nav>
         </header>
 
