@@ -75,7 +75,7 @@ export default function UploadGrid({ images }: { images: Image[] }) {
             key={image.id}
             className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center"
           >
-            <ImageThumb url={image.fileName} />
+            <ImageThumb url={`/uploads/${image.fileName}`} />
           </div>
         ))}
       </div>
