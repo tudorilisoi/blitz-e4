@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Suspense } from "react"
-import { BlobsProvider } from "src/core/components/image/Uploadcontext"
+import { Suspense, useState } from "react"
+import { BlobsProvider, BlobsState } from "src/core/components/image/Uploadcontext"
 
 import { useOverlay } from "src/core/components/spinner/OverlayProvider"
 import Spinner from "src/core/components/spinner/Spinner"
@@ -17,6 +17,7 @@ import getPost from "src/posts/queries/getPost"
 import { UpdatePostSchema } from "src/posts/schemas"
 
 export const EditPost = () => {
+  const [blobs, setBlobs] = useState({} as BlobsState)
   const router = useRouter()
   const { toggle } = useOverlay()
   const postId = useParam("postId", "number")
@@ -58,11 +59,13 @@ export const EditPost = () => {
 
           <BlobsProvider>
             <PostForm
+              onBlobsChange={setBlobs}
               categories={categories || []}
               submitText="Update Post"
               schema={UpdatePostSchema}
               initialValues={post}
               onSubmit={async (values) => {
+                console.log("Blobs:", blobs)
                 try {
                   const updated = await updatePostMutation({
                     ...values,

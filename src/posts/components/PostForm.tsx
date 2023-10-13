@@ -2,13 +2,14 @@ import { Category, Image, currencies } from "@prisma/client"
 import React, { Suspense } from "react"
 import { FORM_ERROR, Form, FormProps } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
-import UploadGrid from "src/core/components/image/UploadGrid"
+import UploadGrid, { BlobsChangeCallback } from "src/core/components/image/UploadGrid"
 
 import { z } from "zod"
 export { FORM_ERROR } from "src/core/components/Form"
 
 type ExtendedFormProps<S extends z.ZodType<any, any>> = FormProps<S> & {
   categories: Category[]
+  onBlobsChange?: BlobsChangeCallback
 }
 
 export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps<S>) {
@@ -16,11 +17,11 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   console.log("V", values)
   const labelProps = { className: "text-1xl font-bold mb-1 mt-2" }
   const outerProps = { className: "flex flex-col text-0xl" }
-  const { categories, ...restProps } = props
+  const { onBlobsChange, categories, ...restProps } = props
   return (
     <Form<S> {...restProps}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
-      <UploadGrid images={values.images} />
+      <UploadGrid images={values.images} onChange={onBlobsChange} />
       <LabeledTextField
         labelProps={labelProps}
         outerProps={outerProps}

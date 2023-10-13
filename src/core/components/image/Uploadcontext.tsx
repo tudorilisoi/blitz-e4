@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode } from "react"
 
-type Upload = {
+export type Upload = {
   file: File
   blob: string
 }
 
 // Define the shape of the 'blobs' object
-type BlobsState = {
+export type BlobsState = {
   [key: string]: Upload
 }
 

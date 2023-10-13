@@ -6,13 +6,21 @@ import { Image } from "@prisma/client"
 import deleteImage from "src/images/mutations/deleteImage"
 import { useMutation } from "@blitzjs/rpc"
 import { useOverlay } from "../spinner/OverlayProvider"
-import { useBlobs } from "./Uploadcontext"
+import { BlobsState, useBlobs } from "./Uploadcontext"
 
 const fileID = (f: File) => {
   return `${f.name}-${f.size}`
 }
 
-export default function UploadGrid({ images }: { images: Image[] }) {
+export type BlobsChangeCallback = (blobs: BlobsState) => void
+
+export default function UploadGrid({
+  images,
+  onChange,
+}: {
+  images: Image[]
+  onChange?: BlobsChangeCallback
+}) {
   const { toggle } = useOverlay()
   const [deleteImageMutation] = useMutation(deleteImage)
   // const [blobs, setBlobs] = useState({} as Uploads)
@@ -22,6 +30,7 @@ export default function UploadGrid({ images }: { images: Image[] }) {
 
   useEffect(() => {
     console.log("BLOBS:", blobs)
+    onChange && onChange(blobs)
   }, [blobs])
 
   const blobKeys = Object.keys(blobs)
