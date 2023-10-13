@@ -56,7 +56,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
       />
 
       {/* <LabeledTextField labelProps={labelProps} outerProps={outerProps} label="currency" name="currency" type="text" /> */}
-      <div className="flex flex-row justify-start gap-2 align-top">
+      <div className="flex flex-row flex-wrap sm:flex-nowrap justify-start gap-2 align-top">
         <LabeledTextField
           labelProps={labelProps}
           outerProps={outerProps}
