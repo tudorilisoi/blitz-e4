@@ -16,8 +16,9 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   console.log("V", values)
   const labelProps = { className: "text-1xl font-bold mb-1 mt-2" }
   const outerProps = { className: "flex flex-col text-0xl" }
+  const { categories, ...restProps } = props
   return (
-    <Form<S> {...props}>
+    <Form<S> {...restProps}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
       <UploadGrid images={values.images} />
       <LabeledTextField
