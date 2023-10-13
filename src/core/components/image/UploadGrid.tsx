@@ -117,7 +117,7 @@ export default function UploadGrid({
             key={image.id}
             className="relative rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center items-center"
           >
-            <ImageThumb url={`/uploads/${image.fileName}`} />
+            <ImageThumb url={`/api/poze/${image.id}/${image.fileName}`} />
 
             <TrashIcon
               onClick={() => onDeleteImage(image.id)}

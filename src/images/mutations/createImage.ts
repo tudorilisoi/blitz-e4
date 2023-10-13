@@ -9,19 +9,19 @@ import { S } from "src/helpers"
 import slugify from "slugify"
 const fsp = fs.promises
 
+export const UPLOADS_PATH = path.resolve(process.cwd(), "public/uploads")
+
 export default resolver.pipe(
   resolver.zod(CreateImageSchema),
   resolver.authorize(),
   async (input, context) => {
-    console.log("ENV", process.env)
     const author = await getCurrentUser(null, context)
     const { blob, fileName, postId } = input
     const rawData = blob.substring(blob.indexOf(",") + 1)
     let buff = Buffer.from(rawData, "base64")
 
-    const filePath = path.resolve(process.cwd(), "public/uploads")
     const normalizedName = `${postId}-${slugify(decodeURI(fileName))}`
-    await fsp.writeFile(`${filePath}/${normalizedName}`, buff)
+    await fsp.writeFile(`${UPLOADS_PATH}/${normalizedName}`, buff)
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     const image = await db.image.create({
       data: {

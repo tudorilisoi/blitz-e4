@@ -38,6 +38,7 @@
     "html-entities": "^2.4.0",
     "lodash": "^4.17.21",
     "mime": "^3.0.0",
+    "mime-types": "2.1.35",
     "next": "13.4.5",
     "pica": "9.0.1",
     "postcss": "8.x",
