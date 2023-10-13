@@ -47,7 +47,7 @@ export default function UploadGrid({ images }: { images: Image[] }) {
     }
   }
 
-  const addBlobs = (ev) => {
+  const onAddBlobs = (ev) => {
     ev.persist()
     const newFiles = Array.from(ev.target.files ?? []) as File[]
     const newBlobs = { ...blobs }
@@ -72,7 +72,7 @@ export default function UploadGrid({ images }: { images: Image[] }) {
         <input
           className="hidden"
           multiple
-          onChange={addBlobs}
+          onChange={onAddBlobs}
           accept="image/*"
           id="icon-button-file"
           type="file"
