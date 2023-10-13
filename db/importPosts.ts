@@ -109,6 +109,7 @@ const mapUpload = (c): Prisma.ImageUncheckedCreateInput => {
     postId: parent_id,
     createdAt: new Date(date_created),
     updatedAt: new Date(date_modified),
+    userId: 0,
   }
 }
 
