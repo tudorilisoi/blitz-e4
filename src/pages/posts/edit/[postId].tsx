@@ -97,7 +97,8 @@ export const EditPost = () => {
 
                 const category = categories?.find((c) => c.id === updated.categoryId)
                 // await setQueryData(updated, { refetch: true })
-                remove()
+                await remove()
+                await refetch()
 
                 //wait for the overlay to unblur
                 setTimeout(async () => {
