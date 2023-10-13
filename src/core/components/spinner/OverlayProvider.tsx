@@ -12,10 +12,8 @@ const OverlayProvider = ({ children }) => {
 
   // Define the toggle function
   const toggle = (newValue: any) => {
-    if (newValue !== undefined) {
-      return setIsOverlayDisplayed(newValue)
-    }
-    setIsOverlayDisplayed((prevState) => !prevState)
+    const nextValue = newValue !== undefined ? newValue : !isOverlayDisplayed
+    setIsOverlayDisplayed(nextValue)
   }
   const style = useMemo(() => (isOverlayDisplayed ? { display: "none" } : {}), [isOverlayDisplayed])
 
@@ -30,7 +28,7 @@ const OverlayProvider = ({ children }) => {
           }
           .blur-active {
             overflow: hidden;
-            max-height: 80vh;
+            max-height: 75vh;
             filter: blur(5px);
           }
 
