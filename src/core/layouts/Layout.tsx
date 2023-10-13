@@ -38,7 +38,9 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         <footer className="bg-gray-200 py-4 px-2">
           <div className="container mx-auto">
             {/* Add your footer content here */}
-            <p className="text-gray-600">© {new Date().getFullYear()} My App</p>
+            <p className="text-gray-600">
+              © {new Date().getFullYear()} {"eRădăuţi v3"}
+            </p>
           </div>
         </footer>
       </div>
