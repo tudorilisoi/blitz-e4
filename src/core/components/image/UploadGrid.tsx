@@ -6,7 +6,16 @@ import { Image } from "@prisma/client"
 import deleteImage from "src/images/mutations/deleteImage"
 import { useMutation } from "@blitzjs/rpc"
 import { useOverlay } from "../spinner/OverlayProvider"
-import { BlobsState, useBlobs } from "./Uploadcontext"
+// import { BlobsState, useBlobs } from "./Uploadcontext"
+
+export type Upload = {
+  file: File
+  blob: string
+}
+
+export type BlobsState = {
+  [key: string]: Upload
+}
 
 const fileID = (f: File) => {
   return `${f.name}-${f.size}`
@@ -23,8 +32,8 @@ export default function UploadGrid({
 }) {
   const { toggle } = useOverlay()
   const [deleteImageMutation] = useMutation(deleteImage)
-  // const [blobs, setBlobs] = useState({} as Uploads)
-  const { blobs, setBlobs } = useBlobs()
+  const [blobs, setBlobs] = useState({} as BlobsState)
+  // const { blobs, setBlobs } = useBlobs()
   const [_images, setImages] = useState(images)
   const max = 10
 

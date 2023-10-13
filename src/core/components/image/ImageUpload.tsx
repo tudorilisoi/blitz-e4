@@ -163,7 +163,7 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
       onError: _onError,
       onSuccess: _onSuccess,
     }).catch(_onError)
-  }, [file, fileID, thumbID])
+  }, [file, fileID, thumbID, _onError, _onSuccess])
 
   let message: any = null
   let showThumb = false

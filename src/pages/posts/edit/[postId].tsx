@@ -4,7 +4,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Suspense, useState } from "react"
-import { BlobsProvider, BlobsState } from "src/core/components/image/Uploadcontext"
+import { BlobsState } from "src/core/components/image/UploadGrid"
 
 import { useOverlay } from "src/core/components/spinner/OverlayProvider"
 import Spinner from "src/core/components/spinner/Spinner"
@@ -57,38 +57,36 @@ export const EditPost = () => {
         <>
           <h1 className="text-3xl pb-4">Modifică anunţ</h1>
 
-          <BlobsProvider>
-            <PostForm
-              onBlobsChange={setBlobs}
-              categories={categories || []}
-              submitText="Update Post"
-              schema={UpdatePostSchema}
-              initialValues={post}
-              onSubmit={async (values) => {
-                console.log("Blobs:", blobs)
-                try {
-                  const updated = await updatePostMutation({
-                    ...values,
-                    id: post.id,
-                  })
-                  const category = categories?.find((c) => c.id === updated.categoryId)
-                  await setQueryData(updated)
+          <PostForm
+            onBlobsChange={setBlobs}
+            categories={categories || []}
+            submitText="Update Post"
+            schema={UpdatePostSchema}
+            initialValues={post}
+            onSubmit={async (values) => {
+              console.log("Blobs:", blobs)
+              try {
+                const updated = await updatePostMutation({
+                  ...values,
+                  id: post.id,
+                })
+                const category = categories?.find((c) => c.id === updated.categoryId)
+                await setQueryData(updated)
 
-                  //wait for the overlay to unblur
-                  setTimeout(async () => {
-                    await router.push(
-                      makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
-                    )
-                  }, 300)
-                } catch (error: any) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
-                  }
+                //wait for the overlay to unblur
+                setTimeout(async () => {
+                  await router.push(
+                    makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
+                  )
+                }, 300)
+              } catch (error: any) {
+                console.error(error)
+                return {
+                  [FORM_ERROR]: error.toString(),
                 }
-              }}
-            />
-          </BlobsProvider>
+              }
+            }}
+          />
         </>
         {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
       </Suspense>

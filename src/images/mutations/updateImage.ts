@@ -7,8 +7,9 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ id, ...data }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const image = await db.image.update({ where: { id }, data })
+    /* const image = await db.image.update({ where: { id }, data })
+    return image */
 
-    return image
+    return null
   }
 )

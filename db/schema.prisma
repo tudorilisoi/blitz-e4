@@ -144,7 +144,7 @@ model Post {
 model Image {
   id        Int      @id @default(autoincrement())
   fileName  String
-  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    Int
   author    User     @relation(fields: [userId], references: [id])
   userId    Int
