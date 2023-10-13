@@ -17,8 +17,8 @@ export type BlobsState = {
   [key: string]: Upload
 }
 
-const fileID = (f: File) => {
-  return `${f.name}-${f.size}`
+export const getFileID = (f: File) => {
+  return `${f.lastModified}-${f.size}-${f.name}`
 }
 
 export type BlobsChangeCallback = (blobs: BlobsState) => void
@@ -69,7 +69,7 @@ export default function UploadGrid({
     const newFiles = Array.from(ev.target.files ?? []) as File[]
     const newBlobs = { ...blobs }
     newFiles.forEach((f) => {
-      const key = fileID(f)
+      const key = getFileID(f)
       if (!newBlobs[key]) {
         newBlobs[key] = {
           file: f,
@@ -103,7 +103,7 @@ export default function UploadGrid({
           >
             <ImageUpload
               onThumbReady={(b64) => {
-                const id = fileID(blob.file)
+                const id = getFileID(blob.file)
                 blob.blob = b64
                 const newBlobs = { ...blobs }
                 setBlobs(newBlobs)

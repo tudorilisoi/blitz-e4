@@ -54,7 +54,7 @@ export const EditPost = () => {
   useEffect(() => {
     // refetch on mount
     console.log("MOUNT", other)
-    refetch()
+    refetch().catch(() => null)
   }, [])
 
   return (

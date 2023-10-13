@@ -1,5 +1,6 @@
 import Pica from "pica"
 import { useCallback, useEffect, useMemo, useState } from "react"
+import { getFileID } from "./UploadGrid"
 
 const styles = {
   wrapper: {
@@ -131,8 +132,8 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
   //   )
   // }
 
-  const fileID = `${file.name} ${file.size}`
-  const thumbID = `${fileID}-thumb`
+  const fileID = getFileID(file)
+  const thumbID = `thumb-${fileID}`
 
   const [state, setState] = useState({
     file: null,
