@@ -119,10 +119,15 @@ export default function UploadGrid({
           >
             <ImageThumb url={`/api/poze/${image.id}/${image.fileName}`} />
 
-            <TrashIcon
-              onClick={() => onDeleteImage(image.id)}
-              className="absolute right-2 top-2 h-10 w-10 inline-block bg-red-600 p-1 rounded text-white hover:bg-red-800"
-            />
+            <button
+              onClick={(ev) => {
+                ev.preventDefault()
+                onDeleteImage(image.id)
+              }}
+              className="absolute shadow-md shadow-black right-2 top-2 h-10 w-10 inline-block text-center  bg-red-600 p-1 rounded-full text-white hover:bg-red-800"
+            >
+              <TrashIcon className="h-7 w-7 inline-block" />
+            </button>
           </div>
         ))}
       </div>
