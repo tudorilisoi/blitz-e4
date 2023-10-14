@@ -31,16 +31,16 @@ export const EditPost = () => {
     }
   )
   const [updatePostMutation] = useMutation(
-    updatePost,
+    updatePost
     // {},
-    {
+    /* {
       onMutate: () => {
         toggle(true)
       },
       onSettled: () => {
         toggle(false)
       },
-    }
+    } */
   )
 
   const [createImageMutation] = useMutation(createImage)
@@ -75,6 +75,7 @@ export const EditPost = () => {
             initialValues={post}
             onSubmit={async (values) => {
               console.log("Blobs:", blobs)
+              toggle(true)
               try {
                 const updated = await updatePostMutation({
                   ...values,
@@ -86,7 +87,7 @@ export const EditPost = () => {
                   blobsValue[id] = blob.blob
                 }) */
 
-                Object.entries(blobs).forEach(async ([id, blob]) => {
+                const promises = Object.entries(blobs).map(async ([id, blob]) => {
                   const image = await createImageMutation({
                     fileName: id,
                     blob: blob.blob,
@@ -95,6 +96,7 @@ export const EditPost = () => {
                   updated.images.push(image)
                   delete blobs[id]
                 })
+                await Promise.all(promises)
 
                 const category = categories?.find((c) => c.id === updated.categoryId)
 
@@ -113,6 +115,8 @@ export const EditPost = () => {
                 return {
                   [FORM_ERROR]: error.toString(),
                 }
+              } finally {
+                toggle(false)
               }
             }}
           />
