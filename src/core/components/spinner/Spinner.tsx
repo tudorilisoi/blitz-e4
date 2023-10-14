@@ -19,7 +19,8 @@ const Overlay = () => {
       style={{
         zIndex: "100",
         display: "flex",
-        position: "absolute",
+        // relative to the viewport
+        position: "fixed",
         top: 0,
         bottom: 0,
         left: 0,
