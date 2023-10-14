@@ -1,10 +1,10 @@
-import Layout from "src/core/layouts/Layout"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/core/components/Form"
-import { ForgotPassword } from "src/auth/schemas"
-import forgotPassword from "src/auth/mutations/forgotPassword"
-import { useMutation } from "@blitzjs/rpc"
 import { BlitzPage } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
+import forgotPassword from "src/auth/mutations/forgotPassword"
+import { ForgotPassword } from "src/auth/schemas"
+import { Form, FORM_ERROR } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
+import Layout from "src/core/layouts/Layout"
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)

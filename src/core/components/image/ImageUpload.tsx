@@ -1,5 +1,5 @@
 import Pica from "pica"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { getFileID } from "./UploadGrid"
 
 const styles = {

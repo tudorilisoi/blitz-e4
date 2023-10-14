@@ -1,13 +1,12 @@
 import { Routes } from "@blitzjs/next"
-import Link from "next/link"
-import { useRouter } from "next/router"
 import { useMutation, useQuery } from "@blitzjs/rpc"
-import Layout from "src/core/layouts/Layout"
-import { CreatePostSchema } from "src/posts/schemas"
-import createPost from "src/posts/mutations/createPost"
-import { PostForm, FORM_ERROR } from "src/posts/components/PostForm"
+import { useRouter } from "next/router"
 import { Suspense } from "react"
+import Layout from "src/core/layouts/Layout"
+import { FORM_ERROR, PostForm } from "src/posts/components/PostForm"
+import createPost from "src/posts/mutations/createPost"
 import getCategories from "src/posts/queries/getCategories"
+import { CreatePostSchema } from "src/posts/schemas"
 
 const NewPostPage = () => {
   const router = useRouter()

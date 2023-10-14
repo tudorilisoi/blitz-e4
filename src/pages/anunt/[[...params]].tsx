@@ -1,7 +1,6 @@
 import { Routes } from "@blitzjs/next"
 import { Category, Post } from "@prisma/client"
 import Link from "next/link"
-import { notFound } from "next/navigation"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"

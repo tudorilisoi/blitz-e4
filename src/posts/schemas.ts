@@ -1,5 +1,5 @@
 import { currencies } from "@prisma/client"
-import { ZodIssue, z } from "zod"
+import { z } from "zod"
 
 // const errorMessage = (fieldName) => {
 //   const errorMap = (issue: ZodIssue, _ctx: any) => {

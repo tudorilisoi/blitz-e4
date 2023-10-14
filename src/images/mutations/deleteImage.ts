@@ -1,10 +1,9 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { DeleteImageSchema } from "../schemas"
-import { guardEdit, mayEdit } from "src/auth/helpers"
-import { AuthorizationError, NotFoundError } from "blitz"
 import fs from "fs"
+import { guardEdit } from "src/auth/helpers"
 import { UPLOADS_PATH } from "src/config"
+import { DeleteImageSchema } from "../schemas"
 const fsp = fs.promises
 export default resolver.pipe(
   resolver.zod(DeleteImageSchema),

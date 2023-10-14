@@ -1,4 +1,4 @@
-import { string, z } from "zod"
+import { z } from "zod"
 
 export const CreateImageSchema = z.object({
   // template: __fieldName__: z.__zodType__(),
