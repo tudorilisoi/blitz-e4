@@ -12,6 +12,8 @@ type ExtendedFormProps<S extends z.ZodType<any, any>> = FormProps<S> & {
   onBlobsChange?: BlobsChangeCallback
 }
 
+// TODO consider using formikor HouseForm https://dev.to/crutchcorn/formik-works-great-heres-why-i-wrote-my-own-591m
+
 export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps<S>) {
   const values: any = props.initialValues
   // console.log("V", values)
