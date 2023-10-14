@@ -105,7 +105,7 @@ export const EditPost = () => {
                     toggle(true, {
                       component: <h1>{`Foto ${percent}%`}</h1>,
                     })
-                    updated.images.push(image)
+                    updated.images.unshift(image)
                     delete blobs[id]
                     return image
                   })
