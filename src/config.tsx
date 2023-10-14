@@ -8,16 +8,17 @@ let userFields: any = Prisma.dmmf.datamodel.models.find((model) => model.name ==
 // NOTE get all scalar-like fields and omit sensitive fields
 userFields = userFields.filter((f) => f.kind !== "object").map((f) => f.name)
 
-export const imageSelect = { id: true, fileName: true }
+export const imageSelect = { id: true, fileName: true } as Prisma.ImageSelect
 
 export const authorSelect = userFields.reduce((acc, f) => {
   if (!UNSAFE_USER_FIELDS.includes(f)) {
     acc[f] = true
   }
   return acc
-}, userFields)
+}, userFields) as Prisma.UserSelect
 
+// NOTE see https://www.prisma.io/docs/concepts/components/prisma-client/filtering-and-sorting
 export const postInclude = {
   author: { select: authorSelect },
-  images: { select: imageSelect },
-}
+  images: { select: imageSelect, orderBy: { createdAt: "desc" } },
+} as Prisma.PostInclude
