@@ -1,23 +1,10 @@
-import { paginate } from "blitz"
 import { resolver } from "@blitzjs/rpc"
-import db, { Prisma, User } from "db"
+import { paginate } from "blitz"
+import db, { Prisma } from "db"
+import { postInclude } from "src/config"
 
 interface GetPostsInput
   extends Pick<Prisma.PostFindManyArgs, "where" | "orderBy" | "skip" | "take"> {}
-
-const UNSAFE_USER_FIELDS = "activationKey hashedPassword".split(" ")
-//@ts-ignore
-let userFields: any = Prisma.dmmf.datamodel.models.find((model) => model.name === "User").fields
-// NOTE get all scalar-like fields and omit sensitive fields
-userFields = userFields.filter((f) => f.kind !== "object").map((f) => f.name)
-const authorSelect = userFields.reduce((acc, f) => {
-  if (!UNSAFE_USER_FIELDS.includes(f)) {
-    acc[f] = true
-  }
-  return acc
-}, userFields)
-
-export { authorSelect }
 
 export default resolver.pipe(
   // resolver.authorize(),
@@ -38,10 +25,7 @@ export default resolver.pipe(
           ...paginateArgs,
           where,
           orderBy,
-          include: {
-            author: { select: authorSelect },
-            images: { select: { id: true, fileName: true } },
-          },
+          include: postInclude,
         }),
     })
 
