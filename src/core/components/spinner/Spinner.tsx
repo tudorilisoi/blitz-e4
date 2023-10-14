@@ -37,7 +37,7 @@ const Overlay = () => {
         wrapperStyle={{ textAlign: "center", justifyContent: "center" }}
         visible={true}
       />
-      <div className="mt-4 text-6xl">{"Un moment..."}</div>
+      <div className="mt-4 text-4xl sm:text-6xl">{"Un moment..."}</div>
     </div>
   )
 }
