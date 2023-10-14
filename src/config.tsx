@@ -1,4 +1,6 @@
 import { Prisma } from "db"
+import path from "path"
+export const UPLOADS_PATH = path.resolve(process.cwd(), ".data/uploads")
 
 const UNSAFE_USER_FIELDS = "activationKey hashedPassword".split(" ")
 //@ts-ignore
