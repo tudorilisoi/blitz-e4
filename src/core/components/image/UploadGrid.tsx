@@ -30,7 +30,7 @@ export default function UploadGrid({
   images: Image[]
   onChange?: BlobsChangeCallback
 }) {
-  const { toggle } = useOverlay()
+  const { toggle, reset } = useOverlay()
   const [deleteImageMutation] = useMutation(deleteImage)
   const [blobs, setBlobs] = useState({} as BlobsState)
   // const { blobs, setBlobs } = useBlobs()
@@ -51,7 +51,7 @@ export default function UploadGrid({
   const onDeleteImage = async (id): Promise<void> => {
     if (window.confirm("This will be deleted")) {
       try {
-        toggle(true)
+        toggle(true, { ...reset })
         await deleteImageMutation({ id })
         const idx = _images.findIndex((i) => i.id === id)
         _images.splice(idx, 1)
