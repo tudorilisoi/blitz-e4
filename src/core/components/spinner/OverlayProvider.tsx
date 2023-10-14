@@ -1,20 +1,39 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useMemo, useState } from "react"
 import Spinner from "./Spinner"
+import ViewportCentered from "./ViewPortCentered"
 
 export const OVERLAY_TRANSITION_DURATION = 200
 
-const OverlayContext = createContext({ toggle: (newValue) => {}, isOverlayDisplayed: true })
+interface ToggleFunction {
+  (newValue: any, component?: JSX.Element): void
+}
+interface ContextType {
+  toggle: ToggleFunction
+  isOverlayDisplayed: boolean
+  spinner: JSX.Element
+}
+const ctx: ContextType = {
+  toggle: () => {},
+  isOverlayDisplayed: true,
+  spinner: <></>,
+}
+const OverlayContext = createContext(ctx)
 
 const OverlayProvider = ({ children }) => {
   const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(false)
+  const spinner = useMemo(() => <Spinner />, [])
+  const [component, setComponent] = useState(spinner)
 
-  const toggle = (newValue: any) => {
+  const toggle = (newValue: any, component?: JSX.Element) => {
     const nextValue = newValue !== undefined ? newValue : !isOverlayDisplayed
     setIsOverlayDisplayed(nextValue)
+    if (component) {
+      setComponent(component)
+    }
   }
 
   return (
-    <OverlayContext.Provider value={{ isOverlayDisplayed, toggle }}>
+    <OverlayContext.Provider value={{ isOverlayDisplayed, toggle, spinner }}>
       <>
         <style jsx>{`
           .blur-container {
@@ -44,7 +63,7 @@ const OverlayProvider = ({ children }) => {
         >
           {children}
         </div>
-        {isOverlayDisplayed ? <Spinner /> : null}
+        {isOverlayDisplayed ? <ViewportCentered>{component}</ViewportCentered> : null}
       </>
     </OverlayContext.Provider>
   )
