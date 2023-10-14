@@ -87,14 +87,27 @@ export const EditPost = () => {
                   blobsValue[id] = blob.blob
                 }) */
 
-                const promises = Object.entries(blobs).map(async ([id, blob]) => {
-                  const image = await createImageMutation({
+                let completedImagecount = 0
+                const imageCount = Object.keys(blobs).length
+                const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
+                  const image = createImageMutation({
                     fileName: id,
                     blob: blob.blob,
                     postId: updated.id,
+                  }).then((image) => {
+                    completedImagecount++
+                    const percent =
+                      completedImagecount === 0
+                        ? "0"
+                        : ((completedImagecount / imageCount) * 100).toFixed(2)
+                    toggle(true, {
+                      component: <h1>{`Foto ${percent}%`}</h1>,
+                    })
+                    updated.images.push(image)
+                    delete blobs[id]
+                    return image
                   })
-                  updated.images.push(image)
-                  delete blobs[id]
+                  return image
                 })
                 await Promise.all(promises)
 
@@ -113,6 +126,7 @@ export const EditPost = () => {
                 toggle(true, {
                   component: <h1 onClick={() => toggle(false)}>{"Anunţul a fost modificat!"}</h1>,
                 })
+
                 toggle(false, { delay: 1500 })
               } catch (error: any) {
                 toggle(true, {
