@@ -14,7 +14,7 @@ type ExtendedFormProps<S extends z.ZodType<any, any>> = FormProps<S> & {
 
 export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps<S>) {
   const values: any = props.initialValues
-  console.log("V", values)
+  // console.log("V", values)
   const labelProps = { className: "text-1xl font-bold mb-1 mt-2" }
   const outerProps = { className: "flex flex-col text-0xl" }
   const { onBlobsChange, categories, ...restProps } = props
