@@ -89,6 +89,9 @@ export const EditPost = () => {
 
                 let completedImagecount = 0
                 const imageCount = Object.keys(blobs).length
+                toggle(true, {
+                  component: <h1>{`Foto ${0}%`}</h1>,
+                })
                 const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
                   const image = createImageMutation({
                     fileName: id,
