@@ -3,6 +3,7 @@ import db from "db"
 import { UpdatePostSchema } from "../schemas"
 import { makeSlug } from "src/helpers"
 import getPost from "../queries/getPost"
+import { guardEdit } from "src/auth/helpers"
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -11,14 +12,16 @@ function delay(ms) {
 export default resolver.pipe(
   resolver.zod(UpdatePostSchema),
   resolver.authorize(),
-  async ({ id, ...input }, ctx) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+  async ({ id, ...input }, context) => {
     const data = {
       ...input,
       slug: makeSlug(input.title),
     }
+
+    const existing = await db.post.findFirst({ where: { id } })
+    await guardEdit(existing, context)
     await db.post.update({ where: { id }, data, select: { id: true } })
-    const post = await getPost({ id }, ctx)
+    const post = await getPost({ id }, context)
     await delay(1500)
     return post
   }

@@ -20,7 +20,7 @@ import { UpdatePostSchema } from "src/posts/schemas"
 export const EditPost = () => {
   const [blobs, setBlobs] = useState({} as BlobsState)
   const router = useRouter()
-  const { toggle } = useOverlay()
+  const { toggle, reset } = useOverlay()
   const postId = useParam("postId", "number")
   const [post, { setQueryData, remove, refetch, ...other }] = useQuery(
     getPost,
@@ -75,7 +75,7 @@ export const EditPost = () => {
             initialValues={post}
             onSubmit={async (values) => {
               console.log("Blobs:", blobs)
-              toggle(true)
+              toggle(true, reset)
               try {
                 const updated = await updatePostMutation({
                   ...values,
@@ -109,14 +109,20 @@ export const EditPost = () => {
                   // await router.push(
                   //   makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
                   // )
-                }, 5000)
+                }, 1000)
+                toggle(true, {
+                  component: <h1 onClick={() => toggle(false)}>{"Anunţul a fost modificat!"}</h1>,
+                })
+                toggle(false, { delay: 1500 })
               } catch (error: any) {
+                toggle(true, {
+                  component: <h1 onClick={() => toggle(false)}>{error.message}</h1>,
+                })
                 console.error(error)
                 return {
                   [FORM_ERROR]: error.toString(),
                 }
               } finally {
-                toggle(false)
               }
             }}
           />

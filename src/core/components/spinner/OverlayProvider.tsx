@@ -1,39 +1,70 @@
-import { createContext, useContext, useMemo, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
 import Spinner from "./Spinner"
 import ViewportCentered from "./ViewPortCentered"
+import { useFieldArray } from "react-hook-form"
+import { recursiveFormatZodErrors } from "blitz"
+import { useStore } from "../useStore"
 
 export const OVERLAY_TRANSITION_DURATION = 200
 
-interface ToggleFunction {
-  (newValue: any, component?: JSX.Element): void
+interface ToggleOptions {
+  delay?: number
+  component?: JSX.Element
 }
+interface ToggleFunction {
+  (newValue: any, options?: ToggleOptions): void
+}
+
 interface ContextType {
   toggle: ToggleFunction
   isOverlayDisplayed: boolean
   spinner: JSX.Element
+  reset: ToggleOptions
 }
 const ctx: ContextType = {
   toggle: () => {},
   isOverlayDisplayed: true,
   spinner: <></>,
+  reset: {},
 }
+
 const OverlayContext = createContext(ctx)
+
+const useTimer = (id) => {}
 
 const OverlayProvider = ({ children }) => {
   const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(false)
   const spinner = useMemo(() => <Spinner />, [])
   const [component, setComponent] = useState(spinner)
+  const { getStore, setStore } = useStore("timer")
 
-  const toggle = (newValue: any, component?: JSX.Element) => {
+  const toggle = (newValue: any, options: ToggleOptions = {}) => {
+    const { delay, component } = options
     const nextValue = newValue !== undefined ? newValue : !isOverlayDisplayed
-    setIsOverlayDisplayed(nextValue)
     if (component) {
       setComponent(component)
     }
+    if (!delay) {
+      setIsOverlayDisplayed(nextValue)
+      return
+    }
+    let timer = getStore()
+    if (timer) {
+      console.log("Cancel timer toggle", timer)
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      console.log("Trigger timer (curr, captured)", getStore(), timer)
+      setIsOverlayDisplayed(nextValue)
+    }, delay)
+    console.log("Set timer", timer)
+    setStore(timer)
   }
 
   return (
-    <OverlayContext.Provider value={{ isOverlayDisplayed, toggle, spinner }}>
+    <OverlayContext.Provider
+      value={{ isOverlayDisplayed, toggle, spinner, reset: { component: spinner } }}
+    >
       <>
         <style jsx>{`
           .blur-container {
