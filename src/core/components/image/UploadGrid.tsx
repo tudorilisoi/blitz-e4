@@ -48,7 +48,7 @@ export default function UploadGrid({
 
   const blobKeys = Object.keys(blobs)
 
-  const onDeleteImage = async (id) => {
+  const onDeleteImage = async (id): Promise<void> => {
     if (window.confirm("This will be deleted")) {
       try {
         toggle(true)
@@ -120,9 +120,9 @@ export default function UploadGrid({
             <ImageThumb url={`/api/poze/${image.id}/${image.fileName}`} />
 
             <button
-              onClick={(ev) => {
+              onClick={async (ev) => {
                 ev.preventDefault()
-                onDeleteImage(image.id)
+                await onDeleteImage(image.id)
               }}
               className="absolute shadow-md shadow-black right-2 top-2 h-10 w-10 inline-block text-center  bg-red-600 p-1 rounded-full text-white hover:bg-red-800"
             >

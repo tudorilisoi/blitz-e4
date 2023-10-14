@@ -93,19 +93,21 @@ export const EditPost = () => {
                     postId: updated.id,
                   })
                   updated.images.push(image)
+                  delete blobs[id]
                 })
 
                 const category = categories?.find((c) => c.id === updated.categoryId)
-                // await setQueryData(updated, { refetch: true })
+
+                // NOTE should remove() because we mess with .images
                 await remove()
-                await refetch()
+                await setQueryData(updated, { refetch: false })
 
                 //wait for the overlay to unblur
                 setTimeout(async () => {
-                  await router.push(
-                    makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
-                  )
-                }, 300)
+                  // await router.push(
+                  //   makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
+                  // )
+                }, 5000)
               } catch (error: any) {
                 console.error(error)
                 return {

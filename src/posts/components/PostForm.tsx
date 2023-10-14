@@ -21,7 +21,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   return (
     <Form<S> {...restProps}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
-      <UploadGrid images={values.images} onChange={onBlobsChange} />
+      <UploadGrid images={values.images || []} onChange={onBlobsChange} />
       <LabeledTextField
         labelProps={labelProps}
         outerProps={outerProps}
