@@ -3,7 +3,7 @@
 - fork the repo <https://github.com/tudorilisoi/blitz-e4>
 - git clone **your fork** on to your machine
 - `git add remote origin https://github.com/tudorilisoi/blitz-e4`
-- unpack the tar file from <> in the root of your project
+- unpack the tar file from [this link](https://drive.google.com/file/d/16J31FEiM-OQ7v1hbygz84C_2X1EM8T7D/view?usp=sharing>) in the root of your project
 - ask me for the .env.local file ;) and paste it in the project root
 
 # Workflow
