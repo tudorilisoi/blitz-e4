@@ -88,9 +88,10 @@ export const EditPost = () => {
 
                 let completedImagecount = 0
                 const imageCount = Object.keys(blobs).length
-                toggle(true, {
-                  component: <h1>{`Foto ${0}%`}</h1>,
-                })
+                imageCount &&
+                  toggle(true, {
+                    component: <Spinner>{`Foto ${0}%`}</Spinner>,
+                  })
                 const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
                   const image = createImageMutation({
                     fileName: id,
@@ -103,7 +104,7 @@ export const EditPost = () => {
                         ? "0"
                         : ((completedImagecount / imageCount) * 100).toFixed(2)
                     toggle(true, {
-                      component: <h1>{`Foto ${percent}%`}</h1>,
+                      component: <Spinner>{`Foto ${percent}%`}</Spinner>,
                     })
                     updated.images.unshift(image)
                     delete blobs[id]
@@ -126,13 +127,13 @@ export const EditPost = () => {
                   // )
                 }, 1000)
                 toggle(true, {
-                  component: <h1 onClick={() => toggle(false)}>{"Anunţul a fost modificat!"}</h1>,
+                  component: <Spinner>{"Anunţul a fost modificat!"}</Spinner>,
                 })
 
                 toggle(false, { delay: 1500 })
               } catch (error: any) {
                 toggle(true, {
-                  component: <h1 onClick={() => toggle(false)}>{error.message}</h1>,
+                  component: <Spinner onClick={() => toggle(false)}>{error.message}</Spinner>,
                 })
                 console.error(error)
                 return {

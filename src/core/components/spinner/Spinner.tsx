@@ -3,7 +3,7 @@ import { Watch } from "react-loader-spinner"
 import { OVERLAY_TRANSITION_DURATION } from "./OverlayProvider"
 import ViewportCentered from "./ViewPortCentered"
 
-const Overlay = () => {
+const Spinner = (props) => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -26,9 +26,9 @@ const Overlay = () => {
         wrapperStyle={{ textAlign: "center", justifyContent: "center" }}
         visible={true}
       />
-      <div className="mt-4 text-4xl sm:text-6xl">{"Un moment..."}</div>
+      <div className="mt-4 text-4xl sm:text-6xl">{props?.children || "Un moment..."}</div>
     </ViewportCentered>
   )
 }
 
-export default Overlay
+export default Spinner
