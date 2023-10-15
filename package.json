@@ -2,7 +2,7 @@
   "name": "blitz-e4",
   "version": "1.0.0",
   "scripts": {
-    "dev": "blitz dev",
+    "dev": "blitz dev  -H 0.0.0.0",
     "build": "blitz build",
     "start": "blitz start",
     "studio": "blitz prisma studio",
