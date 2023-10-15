@@ -5,6 +5,8 @@ import { useEffect, useState } from "react"
 import deleteImage from "src/images/mutations/deleteImage"
 import { useOverlay } from "../spinner/OverlayProvider"
 import ImageUpload, { ImageThumb } from "./ImageUpload"
+import { getImageUrl } from "src/core/components/image/helpers"
+
 // import { BlobsState, useBlobs } from "./Uploadcontext"
 
 export type Upload = {
@@ -116,7 +118,7 @@ export default function UploadGrid({
             key={image.id}
             className="relative rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center items-center"
           >
-            <ImageThumb url={`/api/poze/${image.id}/${image.fileName}`} />
+            <ImageThumb url={getImageUrl(image, true)} />
 
             <button
               onClick={async (ev) => {
