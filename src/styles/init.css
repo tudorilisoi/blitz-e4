@@ -19,7 +19,6 @@ body {
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-html {
-  width: 100%;
+.fix-scroll {
   padding-left: calc(100vw - 100%);
 }

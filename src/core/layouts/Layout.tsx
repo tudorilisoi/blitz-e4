@@ -19,9 +19,9 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen w-screen">
+      <div className="flex flex-col min-h-screen w-full">
         {/* Top Navigation Header */}
-        <header className="bg-blue-800 py-4 ">
+        <header className="bg-blue-800 py-4 fix-scroll">
           <nav className="container mx-auto px-6 p-1">
             {/* Add your header content here */}
             <Link href={Routes.Home()}>
@@ -31,15 +31,17 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         </header>
 
         {/* Main Content */}
-        <main className="flex-grow py-6 px-6 container mx-auto relative">
-          {/* <div className="container mx-auto py-6 px-2"> */}
-          {/* Render child components */}
-          <OverlayProvider>{children}</OverlayProvider>
-          {/* </div> */}
-        </main>
+        <div className="flex-grow fix-scroll">
+          <main className="py-6 px-6 container mx-auto relative">
+            {/* <div className="container mx-auto py-6 px-2"> */}
+            {/* Render child components */}
+            <OverlayProvider>{children}</OverlayProvider>
+            {/* </div> */}
+          </main>
+        </div>
 
         {/* Footer */}
-        <footer className="bg-gray-200 py-4 px-2">
+        <footer className="bg-gray-200 py-4 px-2 fix-scroll">
           <div className="container mx-auto">
             {/* Add your footer content here */}
             <p className="text-gray-600">
