@@ -60,90 +60,91 @@ export const EditPost = () => {
     <>
       <Suspense fallback={Spinner()}>
         <Head>
-          <title>Edit Post {post.id}</title>
+          <title>Editare: {post.title}</title>
         </Head>
 
-        <>
-          <h1 className="text-3xl pb-4">Modifică anunţ</h1>
+        <div className="prose">
+          <h1 className="text-2xl">Modifică anunţ</h1>
+        </div>
 
-          <PostForm
-            onBlobsChange={setBlobs}
-            categories={categories || []}
-            submitText="Update Post"
-            schema={UpdatePostSchema}
-            initialValues={post}
-            onSubmit={async (values) => {
-              console.log("Blobs:", blobs)
-              toggle(true, reset)
-              try {
-                const updated = await updatePostMutation({
-                  ...values,
-                  id: post.id,
-                })
+        <PostForm
+          onBlobsChange={setBlobs}
+          categories={categories || []}
+          submitText="Update Post"
+          schema={UpdatePostSchema}
+          initialValues={post}
+          onSubmit={async (values) => {
+            console.log("Blobs:", blobs)
+            toggle(true, reset)
+            try {
+              const updated = await updatePostMutation({
+                ...values,
+                id: post.id,
+              })
 
-                /* const blobsValue = {}
+              /* const blobsValue = {}
                 Object.entries(blobs).forEach(([id, blob]) => {
                   blobsValue[id] = blob.blob
                 }) */
 
-                let completedImagecount = 0
-                const imageCount = Object.keys(blobs).length
-                imageCount &&
+              let completedImagecount = 0
+              const imageCount = Object.keys(blobs).length
+              imageCount &&
+                toggle(true, {
+                  component: <Spinner>{`Foto ${0}%`}</Spinner>,
+                })
+              const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
+                const image = createImageMutation({
+                  fileName: id,
+                  blob: blob.blob,
+                  postId: updated.id,
+                }).then((image) => {
+                  completedImagecount++
+                  const percent =
+                    completedImagecount === 0
+                      ? "0"
+                      : ((completedImagecount / imageCount) * 100).toFixed(2)
                   toggle(true, {
-                    component: <Spinner>{`Foto ${0}%`}</Spinner>,
+                    component: <Spinner>{`Foto ${percent}%`}</Spinner>,
                   })
-                const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
-                  const image = createImageMutation({
-                    fileName: id,
-                    blob: blob.blob,
-                    postId: updated.id,
-                  }).then((image) => {
-                    completedImagecount++
-                    const percent =
-                      completedImagecount === 0
-                        ? "0"
-                        : ((completedImagecount / imageCount) * 100).toFixed(2)
-                    toggle(true, {
-                      component: <Spinner>{`Foto ${percent}%`}</Spinner>,
-                    })
-                    updated.images.unshift(image)
-                    delete blobs[id]
-                    return image
-                  })
+                  updated.images.unshift(image)
+                  delete blobs[id]
                   return image
                 })
-                await Promise.all(promises)
+                return image
+              })
+              await Promise.all(promises)
 
-                const category = categories?.find((c) => c.id === updated.categoryId)
+              const category = categories?.find((c) => c.id === updated.categoryId)
 
-                // NOTE should remove() because we mess with .images
-                await remove()
-                await setQueryData(updated, { refetch: false })
+              // NOTE should remove() because we mess with .images
+              await remove()
+              await setQueryData(updated, { refetch: false })
 
-                //wait for the overlay to unblur
-                setTimeout(async () => {
-                  // await router.push(
-                  //   makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
-                  // )
-                }, 1000)
-                toggle(true, {
-                  component: <Spinner>{"Anunţul a fost modificat!"}</Spinner>,
-                })
+              //wait for the overlay to unblur
+              setTimeout(async () => {
+                // await router.push(
+                //   makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
+                // )
+              }, 1000)
+              toggle(true, {
+                component: <Spinner>{"Anunţul a fost modificat!"}</Spinner>,
+              })
 
-                toggle(false, { delay: 1500 })
-              } catch (error: any) {
-                toggle(true, {
-                  component: <Spinner onClick={() => toggle(false)}>{error.message}</Spinner>,
-                })
-                console.error(error)
-                return {
-                  [FORM_ERROR]: error.toString(),
-                }
-              } finally {
+              toggle(false, { delay: 1500 })
+            } catch (error: any) {
+              toggle(true, {
+                component: <Spinner onClick={() => toggle(false)}>{error.message}</Spinner>,
+              })
+              console.error(error)
+              return {
+                [FORM_ERROR]: error.toString(),
               }
-            }}
-          />
-        </>
+            } finally {
+            }
+          }}
+        />
+
         {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
       </Suspense>
     </>

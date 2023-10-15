@@ -5,32 +5,39 @@ import React from "react"
 import { OverlayProvider } from "../components/spinner/OverlayProvider"
 
 const NavBar = () => {
+  // NOTE for the bg highlight the container
   return (
-    <div className="navbar w-full mx-0">
-      <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">{"eRădăuţi"}</a>
+    <header className="fix-scroll bg-base-100" data-theme="dark">
+      <div className="navbar container mx-auto px-2">
+        <div className="flex-1">
+          <a className="btn btn-primary normal-case text-xl">daisyUI</a>
+        </div>
+        <div className="flex-none gap-2">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">{"A"}</div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>{"Publică anunţ"}</a>
-          </li>
-          <li>
-            <details className="text-primary">
-              <summary className="">{"Contul meu"}</summary>
-              <ul className="p-2 bg-base-100">
-                <li>
-                  <a>Link 1 xxxx xxxxx</a>
-                </li>
-                <li>
-                  <a>Link 2 xxxxx xxxxx</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </header>
   )
 }
 
@@ -51,13 +58,12 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
       </Head>
       <div className="flex flex-col min-h-screen w-full bg-slate-200">
         {/* Top Navigation Header */}
-        <header className="fix-scroll">
-          <NavBar />
-        </header>
+
+        <NavBar />
 
         {/* Main Content */}
         <div className="flex-grow fix-scroll">
-          <main className="py-6 px-6 container mx-auto relative">
+          <main className="py-6 px-2 container mx-auto relative">
             {/* <div className="container mx-auto py-6 px-2"> */}
             {/* Render child components */}
             <OverlayProvider>{children}</OverlayProvider>
