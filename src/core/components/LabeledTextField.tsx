@@ -57,20 +57,6 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
         errors={errors}
         name={name}
       />
-
-      <style jsx>{`
-        select,
-        input,
-        textarea {
-          /* font-size: 1rem; */
-          padding: 0.25rem 0.5rem;
-          border-radius: 0.3rem;
-          border: 1px solid black;
-          line-height: 120%;
-          /* appearance: none; */
-          /* margin-top: 0.5rem; */
-        }
-      `}</style>
     </div>
   )
 }
