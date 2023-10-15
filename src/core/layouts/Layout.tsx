@@ -19,7 +19,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen w-full">
         {/* Top Navigation Header */}
         <header className="bg-blue-800 py-4 ">
           <nav className="container mx-auto px-6 p-1">

@@ -12,9 +12,11 @@ body {
 }
 
 /* prevent horiz scroll jump */
+/* see https://dev.to/rashidshamloo/preventing-the-layout-shift-caused-by-scrollbars-2flp */
 html {
-  scrollbar-gutter: stable !important;
-  scrollbar-color: #228be6 #eee !important;
+  /* scrollbar-gutter: stable !important; */
+  /* scrollbar-color: #228be6 #eee !important; */
+  width: 100vw !important;
 }
 
 a {
