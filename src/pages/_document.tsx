@@ -8,7 +8,7 @@ class MyDocument extends Document {
   // }
   render() {
     return (
-      <Html lang="ro-RO">
+      <Html lang="ro-RO" className="text-[15px] sm:text-[20px]">
         <Head />
         <body>
           <Main />

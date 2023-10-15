@@ -12,23 +12,11 @@ module.exports = {
   content: ["./{src,app,pages}/**/*.{js,ts,jsx,tsx}"],
   // These options are passed through directly to PurgeCSS
 
-  theme: {
-    extend: {
-      backgroundImage: (theme) => ({
-        check: "url('/icons/check.svg')",
-        landscape: "url('/images/landscape/2.jpg')",
-      }),
-    },
+  daisyui: {
+    // themes: ["light", "dark", "cupcake"],
+    themes: ["light"],
   },
-  variants: {
-    extend: {
-      backgroundColor: ["checked"],
-      borderColor: ["checked"],
-      inset: ["checked"],
-      zIndex: ["hover", "active"],
-    },
-  },
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
   future: {
     purgeLayersByDefault: true,
   },

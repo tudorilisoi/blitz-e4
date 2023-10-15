@@ -32,6 +32,7 @@
     "@hookform/resolvers": "3.3.2",
     "@prisma/client": "5.4.2",
     "@socketlabs/email": "1.4.3",
+    "@tailwindcss/typography": "0.5.10",
     "autoprefixer": "10.x",
     "blitz": "2.0.0-beta.34",
     "critters": "0.0.20",

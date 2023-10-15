@@ -4,6 +4,36 @@ import Link from "next/link"
 import React from "react"
 import { OverlayProvider } from "../components/spinner/OverlayProvider"
 
+const NavBar = () => {
+  return (
+    <div className="navbar w-full mx-0">
+      <div className="flex-1">
+        <a className="btn btn-ghost normal-case text-xl">{"eRădăuţi"}</a>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <a>{"Publică anunţ"}</a>
+          </li>
+          <li>
+            <details className="text-primary">
+              <summary className="">{"Contul meu"}</summary>
+              <ul className="p-2 bg-base-100">
+                <li>
+                  <a>Link 1 xxxx xxxxx</a>
+                </li>
+                <li>
+                  <a>Link 2 xxxxx xxxxx</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
 const Layout: BlitzLayout<{ title?: string; description?: string; children?: React.ReactNode }> = ({
   title,
   description,
@@ -19,15 +49,10 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen w-full">
+      <div className="flex flex-col min-h-screen w-full bg-slate-200">
         {/* Top Navigation Header */}
-        <header className="bg-blue-800 py-4 fix-scroll">
-          <nav className="container mx-auto px-6 p-1">
-            {/* Add your header content here */}
-            <Link href={Routes.Home()}>
-              <span className="text-white text-2xl ml-1 leading-none m-0">{navTitle}</span>
-            </Link>
-          </nav>
+        <header className="fix-scroll">
+          <NavBar />
         </header>
 
         {/* Main Content */}
