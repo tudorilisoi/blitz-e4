@@ -1,4 +1,3 @@
-import { Image } from "@prisma/client"
 import { NotFoundError } from "blitz"
 import db from "db"
 import fs from "fs"
@@ -74,4 +73,13 @@ const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number
     .then(function (info) {
       console.log("Thumb info is ", info)
     })
+}
+
+export const removeStoredImages = async (fileName) => {
+  const paths = [getImagePath(fileName, false), getImagePath(fileName, true)]
+  for (let p of paths) {
+    if (fs.existsSync(p)) {
+      await fsp.unlink(p)
+    }
+  }
 }
