@@ -1,4 +1,23 @@
+# Setup
+
+- fork the repo <https://github.com/tudorilisoi/blitz-e4>
+- git clone **your fork** on to your machine
+- `git add remote origin https://github.com/tudorilisoi/blitz-e4`
+- unpack the tar file from <> in the root of your project
+- ask me for the .env.local file ;) and paste it in the project root
+
+# Workflow
+
+- checkout a feature branch such as `git checkout issue-3321`
+- git commit, git push, then go to github and create a pull request by comparing to origin/master
+- run `yarn install` or `npm install`
+- run `npx blitz db seed`
+- run `yarn run dev` or `npm run dev`
+-
+
 # Developer TODO
+
+Note: Maybe later on these will be converted to GH issues
 
 - ✔ implement socketlabs mail
 - ✔ import posts
