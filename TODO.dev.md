@@ -1,4 +1,6 @@
-# Setup
+# e3
+
+## Setup
 
 - fork the repo <https://github.com/tudorilisoi/blitz-e4>
 - git clone **your fork** on to your machine
@@ -6,7 +8,7 @@
 - unpack the tar file from [this link](https://drive.google.com/file/d/16J31FEiM-OQ7v1hbygz84C_2X1EM8T7D/view?usp=sharing>) in the root of your project
 - ask me for the .env.local file ;) and paste it in the project root
 
-# Workflow
+## Workflow
 
 - checkout a feature branch such as `git checkout issue-3321`
 - git commit, git push, then go to github and create a pull request by comparing to origin/master
@@ -14,12 +16,12 @@
 - run `npx blitz db seed`
 - run `yarn run dev` or `npm run dev`
 
-# Random notes
+## Random notes
 
 If a route is not (yet) linked in the app itself you can run
 `npx blitz routes` and take a look at the GET routes
 
-# Developer TODO
+## Developer TODO
 
 Note: Maybe later on these will be converted to GH issues
 
