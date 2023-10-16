@@ -66,12 +66,14 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
 
         {/* Main Content */}
         <div className="flex-grow fix-scroll">
-          <main className="py-6 px-2 container mx-auto relative">
-            {/* <div className="container mx-auto py-6 px-2"> */}
-            {/* Render child components */}
-            <OverlayProvider>{children}</OverlayProvider>
-            {/* </div> */}
-          </main>
+          <OverlayProvider>
+            <main className="py-6 px-2 container mx-auto relative">
+              {/* <div className="container mx-auto py-6 px-2"> */}
+              {/* Render child components */}
+              {children}
+              {/* </div> */}
+            </main>
+          </OverlayProvider>
         </div>
 
         {/* Footer */}
