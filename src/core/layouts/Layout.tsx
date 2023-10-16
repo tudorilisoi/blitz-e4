@@ -75,10 +75,10 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         </div>
 
         {/* Footer */}
-        <footer className="bg-neutral-content py-4 px-2 fix-scroll">
+        <footer className="bg-neutral py-4 px-2 fix-scroll">
           <div className="container mx-auto">
             {/* Add your footer content here */}
-            <p className="text-base-300 font-extrabold">
+            <p className="neutral-content font-extrabold">
               © {new Date().getFullYear()} {"eRădăuţi v3"}
             </p>
           </div>

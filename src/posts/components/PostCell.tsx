@@ -12,7 +12,7 @@ const PostCell = ({ post, category }: { post: Post & { images: Image[] }; catego
         </Link>
       </h2>
       {images.length > 0 ? <span className="text-sm ">{post.images.length} fotografii</span> : null}
-      <p className="text-base-content">{shortenText(post.body, 140)}</p>
+      <p className="text-neutral-800">{shortenText(post.body, 140)}</p>
     </div>
   )
 }
