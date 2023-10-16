@@ -54,34 +54,32 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
 
   const title = `Anunţuri: ${category.title} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri: ${category.title} p.${page} ${category.description} `
+  const hasPrev = page > 1
   return (
     <Layout title={title} description={description}>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {posts.map((post) => PostCell({ post, category }))}
       </div>
-      <nav aria-label="Page navigation" className="text-center mt-4">
-        <ul className="inline-flex w-60 ">
-          <Link key={prevPageURL} href={page === 1 ? "#" : prevPageURL}></Link>
 
-          <Link href={!hasMore ? "#" : nextPageURL}></Link>
-        </ul>
-      </nav>
-      <div className="join grid grid-cols-2">
+      <nav className="join grid grid-cols-2 mt-6">
         <Link
-          className="join-item btn btn-outline px-0"
+          className={`btn btn-outline   join-item ${
+            !hasPrev ? "btn-neutral hover:btn-neutral" : " border-primary hover:btn-primary"
+          }`}
           key={prevPageURL}
-          href={page === 1 ? "#" : prevPageURL}
+          href={!hasPrev ? "#" : prevPageURL}
         >
-          <button disabled={page === 1} className=" btn btn-ghost w-full ">
-            « Înapoi
-          </button>
+          « Înapoi
         </Link>
-        <Link className="join-item btn btn-outline px-0" href={!hasMore ? "#" : nextPageURL}>
-          <button disabled={!hasMore} className=" btn btn-ghost ">
-            Înainte »
-          </button>
+        <Link
+          className={`btn btn-outline join-item ${
+            !hasMore ? "btn-neutral hover:btn-neutral" : "border-primary hover:btn-primary"
+          }`}
+          href={!hasMore ? "#" : nextPageURL}
+        >
+          Înainte »
         </Link>
-      </div>
+      </nav>
     </Layout>
   )
 }
