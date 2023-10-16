@@ -12,6 +12,15 @@ module.exports = {
   content: ["./{src,app,pages}/**/*.{js,ts,jsx,tsx}"],
   // These options are passed through directly to PurgeCSS
 
+  theme: {
+    extend: {
+      flexGrow: {
+        2: "2",
+        3: "3",
+      },
+    },
+  },
+
   daisyui: {
     // themes: ["light", "dark", "cupcake"],
 
