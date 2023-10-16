@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
+import SimpleNav from "src/core/components/SimpleNav"
 import Layout from "src/core/layouts/Layout"
 import PostCell from "src/posts/components/PostCell"
 import getCategories from "src/posts/queries/getCategories"
@@ -46,6 +47,8 @@ export const getServerSideProps = gSSP(async (args) => {
   // return { props: {} }
 })
 
+export { SimpleNav }
+
 export default function PostsNavPage({ category, posts, page, hasMore }) {
   const router = useRouter()
 
@@ -60,26 +63,9 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {posts.map((post) => PostCell({ post, category }))}
       </div>
-
-      <nav className="join grid grid-cols-2 mt-6">
-        <Link
-          className={`btn btn-outline   join-item ${
-            !hasPrev ? "btn-neutral hover:btn-neutral" : " border-primary hover:btn-primary"
-          }`}
-          key={prevPageURL}
-          href={!hasPrev ? "#" : prevPageURL}
-        >
-          « Înapoi
-        </Link>
-        <Link
-          className={`btn btn-outline join-item ${
-            !hasMore ? "btn-neutral hover:btn-neutral" : "border-primary hover:btn-primary"
-          }`}
-          href={!hasMore ? "#" : nextPageURL}
-        >
-          Înainte »
-        </Link>
-      </nav>
+      <SimpleNav
+        {...{ prevLink: hasPrev ? prevPageURL : null, nextLink: hasMore ? nextPageURL : null }}
+      />
     </Layout>
   )
 }
