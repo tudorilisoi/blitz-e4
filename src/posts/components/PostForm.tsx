@@ -17,8 +17,12 @@ type ExtendedFormProps<S extends z.ZodType<any, any>> = FormProps<S> & {
 export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps<S>) {
   const values: any = props.initialValues
   // console.log("V", values)
-  const labelProps = { className: "label text-secondary font-bold mb-1 mt-2" }
+  const labelProps = {
+    className:
+      "label text-secondary hover:text-accent-focus focus-within:text-primary font-bold mb-1 mt-2",
+  }
   const outerProps = { className: "flex flex-col text-0xl" }
+  const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   const { onBlobsChange, categories, ...restProps } = props
   return (
     <Form<S> {...restProps}>
@@ -30,7 +34,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Titlul anunţului"
         name="title"
         type="text"
-        className="input input-bordered bg-base-200"
+        className={labelClassName}
       />
       <LabeledTextField
         labelProps={labelProps}
@@ -39,7 +43,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Categorie"
         name="categoryId"
         type="number"
-        className="select input-bordered bg-base-200"
+        className={labelClassName}
       >
         <option key={-1} value="">
           Selectaţi o categorie
@@ -59,7 +63,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         rows={10}
         label="Textul anunţului"
         name="body"
-        className="textarea textarea-bordered bg-base-200"
+        className="textarea textarea-bordered bg-base-200 focus:outline-secondary-focus"
       />
 
       {/* <LabeledTextField labelProps={labelProps} outerProps={outerProps} label="currency" name="currency" type="text" /> */}
@@ -70,7 +74,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Preţ"
           name="price"
           type="number"
-          className="input input-bordered bg-base-200 mr-0"
+          className={labelClassName}
         />
         <LabeledTextField
           labelProps={labelProps}
@@ -79,7 +83,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Moneda"
           name="currency"
           type="number"
-          className="select input-bordered bg-base-200"
+          className="select input-bordered bg-base-200 focus:outline-secondary-focus"
         >
           <option key={"noCurrency"} value="">
             {"Selectaţi ('EUR/RON')"}
