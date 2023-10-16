@@ -3,18 +3,21 @@
 ## Setup
 
 - fork the repo <https://github.com/tudorilisoi/blitz-e4>
-- git clone **your fork** on to your machine
+- `git clone` **your fork** on to your machine
 - `git add remote origin https://github.com/tudorilisoi/blitz-e4`
 - unpack the tar file from [this link](https://drive.google.com/file/d/16J31FEiM-OQ7v1hbygz84C_2X1EM8T7D/view?usp=sharing>) in the root of your project
 - ask me for the .env.local file ;) and paste it in the project root
+- install postgres with docker following [these steps](https://www.commandprompt.com/education/how-to-install-and-set-up-docker-postgresql-environment)
+- adjust your `DATABASE_URL` in `.env.local`
+- run `yarn install` or `npm install`
+- run `npx blitz db seed`
 
 ## Workflow
 
 - checkout a feature branch such as `git checkout issue-3321`
-- git commit, git push, then go to github and create a pull request by comparing to origin/master
-- run `yarn install` or `npm install`
-- run `npx blitz db seed`
 - run `yarn run dev` or `npm run dev`
+- do stuff
+- git commit, git push, then go to github and create a pull request by comparing to origin/master
 
 ## Random notes
 
