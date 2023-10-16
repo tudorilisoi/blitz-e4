@@ -60,30 +60,28 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
         {posts.map((post) => PostCell({ post, category }))}
       </div>
       <nav aria-label="Page navigation" className="text-center mt-4">
-        <ul className="inline-flex ">
-          <Link key={prevPageURL} href={page === 1 ? "#" : prevPageURL}>
-            <li>
-              <button
-                disabled={page === 1}
-                className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-l-lg focus:shadow-outline hover:bg-indigo-100"
-              >
-                Prev
-              </button>
-            </li>
-          </Link>
+        <ul className="inline-flex w-60 ">
+          <Link key={prevPageURL} href={page === 1 ? "#" : prevPageURL}></Link>
 
-          <Link href={!hasMore ? "#" : nextPageURL}>
-            <li>
-              <button
-                disabled={!hasMore}
-                className="h-10 px-5 text-indigo-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-indigo-100"
-              >
-                Next
-              </button>
-            </li>
-          </Link>
+          <Link href={!hasMore ? "#" : nextPageURL}></Link>
         </ul>
       </nav>
+      <div className="join grid grid-cols-2">
+        <Link
+          className="join-item btn btn-outline px-0"
+          key={prevPageURL}
+          href={page === 1 ? "#" : prevPageURL}
+        >
+          <button disabled={page === 1} className=" btn btn-ghost w-full ">
+            « Înapoi
+          </button>
+        </Link>
+        <Link className="join-item btn btn-outline px-0" href={!hasMore ? "#" : nextPageURL}>
+          <button disabled={!hasMore} className=" btn btn-ghost ">
+            Înainte »
+          </button>
+        </Link>
+      </div>
     </Layout>
   )
 }

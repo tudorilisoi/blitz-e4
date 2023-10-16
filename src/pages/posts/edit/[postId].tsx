@@ -1,9 +1,11 @@
 import { useParam } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
+import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Suspense, useEffect, useState } from "react"
+import { ErrorNotification } from "src/core/components/ErrorNotification"
 import { BlobsState } from "src/core/components/image/UploadGrid"
 
 import { useOverlay } from "src/core/components/spinner/OverlayProvider"
@@ -19,7 +21,7 @@ import getCategories from "src/posts/queries/getCategories"
 import getPost from "src/posts/queries/getPost"
 import { UpdatePostSchema } from "src/posts/schemas"
 
-const SuccessOverlay = ({ post, ...props }: { post: PostWithIncludes }) => {
+const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes }) => {
   const { toggle } = useOverlay()
 
   return (
@@ -141,12 +143,12 @@ export const EditPost = () => {
                 await setQueryData(updated, { refetch: false })
 
                 toggle(true, {
-                  component: <SuccessOverlay post={updated} />,
+                  component: <SuccessNotification post={updated} />,
                 })
                 // toggle(false, { delay: 1500 })
               } catch (error: any) {
                 toggle(true, {
-                  component: <Spinner onClick={() => toggle(false)}>{error.message}</Spinner>,
+                  component: <ErrorNotification {...{ post, error }} />,
                 })
                 console.error(error)
                 return {
