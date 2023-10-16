@@ -7,7 +7,7 @@ import { OverlayProvider } from "../components/spinner/OverlayProvider"
 const NavBar = () => {
   // NOTE for the bg highlight the container
   return (
-    <header className="fix-scroll bg-neutral shadow-lg">
+    <header className="fix-scroll bg-base-200 shadow-lg">
       <div className="navbar container mx-auto px-2">
         <div className="flex-1">
           <Link href={Routes.Home()}>
@@ -77,10 +77,10 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         </div>
 
         {/* Footer */}
-        <footer className="bg-neutral py-4 px-2 fix-scroll">
+        <footer className="bg-base-200 py-4 px-2 fix-scroll">
           <div className="container mx-auto">
             {/* Add your footer content here */}
-            <p className="text-neutral-content font-extrabold">
+            <p className="text-base-content font-extrabold">
               © {new Date().getFullYear()} {"eRădăuţi v3"}
             </p>
           </div>
