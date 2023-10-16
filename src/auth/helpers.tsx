@@ -31,6 +31,6 @@ export const guardEdit = async (model: HasAuthor | null, context) => {
   }
   const allowed = await mayEdit(model, context)
   if (!allowed) {
-    throw new AuthorizationError("Aceess denied")
+    throw new AuthorizationError("Acces refuzat")
   }
 }
