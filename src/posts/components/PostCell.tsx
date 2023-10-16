@@ -1,4 +1,3 @@
-import { Category } from "@prisma/client"
 import Link from "next/link"
 import { shortenText } from "src/helpers"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"

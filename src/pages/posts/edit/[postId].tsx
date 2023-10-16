@@ -1,6 +1,5 @@
 import { useParam } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
-import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
