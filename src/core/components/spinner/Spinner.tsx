@@ -27,7 +27,9 @@ const Spinner = (props?) => {
           wrapperStyle={{ textAlign: "center", justifyContent: "center" }}
           visible={true}
         />
-        <div className="mt-4 text-3xl sm:text-6xl">{props?.children || "Un moment..."}</div>
+        <div className="mt-4 text-3xl sm:text-5xl text-black">
+          {props?.children || "Un moment..."}
+        </div>
       </div>
     </ViewportCentered>
   )
