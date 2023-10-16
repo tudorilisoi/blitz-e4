@@ -29,6 +29,8 @@ If a route is not (yet) linked in the app itself you can run
 
 ## Developer TODO
 
+X = not implemented, P = partially implemented
+
 Note: Maybe later on these will be converted to GH issues
 
 - ✔ implement socketlabs mail
