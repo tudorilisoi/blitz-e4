@@ -8,6 +8,7 @@
 - unpack the tar file from [this link](https://drive.google.com/file/d/16J31FEiM-OQ7v1hbygz84C_2X1EM8T7D/view?usp=sharing>) in the root of your project
 - ask me for the .env.local file ;) and paste it in the project root
 - install postgres with docker following [these steps](https://www.commandprompt.com/education/how-to-install-and-set-up-docker-postgresql-environment)
+- install DBeaver from [here](https://dbeaver.io/download/)
 - adjust your `DATABASE_URL` in `.env.local`
 - install node **v18.18.0**
 - run `yarn install` or `npm install`
