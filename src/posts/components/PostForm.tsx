@@ -39,7 +39,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Categorie"
         name="categoryId"
         type="number"
-        className="input"
+        className="select"
       >
         <option key={-1} value="">
           Selectaţi o categorie
@@ -79,7 +79,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Moneda"
           name="currency"
           type="number"
-          className="input"
+          className="select"
         >
           <option key={"noCurrency"} value="">
             {"Selectaţi ('EUR/RON')"}
