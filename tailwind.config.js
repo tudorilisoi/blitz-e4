@@ -26,9 +26,9 @@ module.exports = {
 
     // NOTE see https://daisyui.com/theme-generator/
     themes: [
-      // "valentine",
+      // "dark",
       {
-        dark: {
+        "e3-dark": {
           "color-scheme": "dark",
           // NOTE may extend or just provide the required colors below
           // ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
