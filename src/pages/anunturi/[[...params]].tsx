@@ -61,7 +61,7 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
   return (
     <Layout title={title} description={description}>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-        {posts.map((post) => PostCell({ post, category }))}
+        {posts.map((post) => PostCell({ post }))}
       </div>
       <SimpleNav
         {...{ prevLink: hasPrev ? prevPageURL : null, nextLink: hasMore ? nextPageURL : null }}

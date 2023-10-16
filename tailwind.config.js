@@ -26,7 +26,7 @@ module.exports = {
 
     // NOTE see https://daisyui.com/theme-generator/
     themes: [
-      // "light",
+      // "valentine",
       {
         dark: {
           "color-scheme": "dark",
@@ -38,6 +38,7 @@ module.exports = {
           secondary: "teal",
           accent: "#06b6d4",
           neutral: "#444",
+          error: "#dc2828",
           "base-100": "#222",
         },
       },
