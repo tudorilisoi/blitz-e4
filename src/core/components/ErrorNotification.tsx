@@ -3,7 +3,7 @@ import ViewportCentered from "./spinner/ViewPortCentered"
 import { messageClassName } from "./spinner/Spinner"
 import { useOverlay } from "./spinner/OverlayProvider"
 
-export const ErrorNotification = ({ error, ...props }: { post: PostWithIncludes; error: any }) => {
+export const ErrorNotification = ({ error, ...props }: { error: any }) => {
   const { toggle } = useOverlay()
 
   return (
