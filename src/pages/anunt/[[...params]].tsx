@@ -4,11 +4,13 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
+import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
 
-export const makePostNavUrl = (postSlug: string, categorySlug: string, postId: number) => {
-  return `/anunt/${categorySlug}/${postSlug}-${postId}`
+export const makePostNavUrl = (post: PostWithIncludes) => {
+  const { slug, id } = post
+  return `/anunt/${post.category.slug}/${slug}-${id}`
 }
 
 export const getServerSideProps = gSSP(async (args) => {

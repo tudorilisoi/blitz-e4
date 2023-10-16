@@ -18,7 +18,9 @@ export const authorSelect = userFields.reduce((acc, f) => {
 }, userFields) as Prisma.UserSelect
 
 // NOTE see https://www.prisma.io/docs/concepts/components/prisma-client/filtering-and-sorting
+// Note mirrored as a type in post helpers
 export const postInclude = {
   author: { select: authorSelect },
   images: { select: imageSelect, orderBy: { createdAt: "desc" } },
+  category: { select: { id: true, title: true, slug: true } },
 } as Prisma.PostInclude
