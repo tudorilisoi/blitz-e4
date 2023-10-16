@@ -17,7 +17,7 @@ type ExtendedFormProps<S extends z.ZodType<any, any>> = FormProps<S> & {
 export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps<S>) {
   const values: any = props.initialValues
   // console.log("V", values)
-  const labelProps = { className: "text-1xl font-bold mb-1 mt-2" }
+  const labelProps = { className: "label text-secondary font-bold mb-1 mt-2" }
   const outerProps = { className: "flex flex-col text-0xl" }
   const { onBlobsChange, categories, ...restProps } = props
   return (
@@ -30,6 +30,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Titlul anunţului"
         name="title"
         type="text"
+        className="input"
       />
       <LabeledTextField
         labelProps={labelProps}
@@ -38,6 +39,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Categorie"
         name="categoryId"
         type="number"
+        className="input"
       >
         <option key={-1} value="">
           Selectaţi o categorie
@@ -57,6 +59,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         rows={10}
         label="Textul anunţului"
         name="body"
+        className="textarea textarea-bordered"
       />
 
       {/* <LabeledTextField labelProps={labelProps} outerProps={outerProps} label="currency" name="currency" type="text" /> */}
@@ -67,6 +70,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Preţ"
           name="price"
           type="number"
+          className="input mr-0"
         />
         <LabeledTextField
           labelProps={labelProps}
@@ -75,6 +79,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Moneda"
           name="currency"
           type="number"
+          className="input"
         >
           <option key={"noCurrency"} value="">
             {"Selectaţi ('EUR/RON')"}
