@@ -23,7 +23,7 @@
 ## Random notes
 
 If a route is not (yet) linked in the app itself you can run
-`npx blitz routes` and take a look at the GET routes
+`npx blitz routes` and take a look at the GET routes. You can then just append the url to localhost:3000 to view it in the browser
 
 ## Developer TODO
 
