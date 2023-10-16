@@ -17,7 +17,7 @@ const NavBar = () => {
         <div className="flex-none gap-2 mr-2 text-neutral-content">Publică anunţ</div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn  btn-accent">
+            <label tabIndex={0} className="btn  btn-secondary">
               <div className="w-10 rounded-full">{"Cont"}</div>
             </label>
             <ul

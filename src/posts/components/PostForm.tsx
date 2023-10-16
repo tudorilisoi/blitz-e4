@@ -30,7 +30,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Titlul anunţului"
         name="title"
         type="text"
-        className="input"
+        className="input input-bordered"
       />
       <LabeledTextField
         labelProps={labelProps}
@@ -39,7 +39,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Categorie"
         name="categoryId"
         type="number"
-        className="select"
+        className="select input-bordered"
       >
         <option key={-1} value="">
           Selectaţi o categorie
@@ -70,7 +70,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Preţ"
           name="price"
           type="number"
-          className="input mr-0"
+          className="input input-bordered mr-0"
         />
         <LabeledTextField
           labelProps={labelProps}
@@ -79,7 +79,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           label="Moneda"
           name="currency"
           type="number"
-          className="select"
+          className="select input-bordered"
         >
           <option key={"noCurrency"} value="">
             {"Selectaţi ('EUR/RON')"}
