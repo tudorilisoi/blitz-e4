@@ -20,13 +20,12 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   const msg = {
     from: process.env.MAIL_FROM as string,
     to,
-    subject: "Your Password Reset Instructions",
+    subject: "eRădăuţi: resetează parola",
     message: `
-      <h1>Reset Your Password</h1>
-      <h3>NOTE: You must set up a production email integration in mailers/forgotPasswordMailer.ts</h3>
-
+      <h1>Reset Resetează parola</h1>
+      <p>Ai solicitat resetarea parolei</p>
       <a href="${resetUrl}">
-        Click here to set a new password
+        Click aici pentru a reseta parola
       </a>
     `,
   }
