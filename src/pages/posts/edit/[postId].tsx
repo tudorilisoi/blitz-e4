@@ -71,7 +71,7 @@ export const EditPost = () => {
           <PostForm
             onBlobsChange={setBlobs}
             categories={categories || []}
-            submitText="Update Post"
+            submitText="Publică"
             schema={UpdatePostSchema}
             initialValues={post}
             onSubmit={async (values) => {
@@ -82,10 +82,7 @@ export const EditPost = () => {
                   ...values,
                   id: post.id,
                 })
-                /* const blobsValue = {}
-                  Object.entries(blobs).forEach(([id, blob]) => {
-                    blobsValue[id] = blob.blob
-                  }) */
+
                 let completedImagecount = 0
                 const imageCount = Object.keys(blobs).length
                 imageCount &&
@@ -153,10 +150,6 @@ const EditPostPage = () => {
     <Suspense fallback={Spinner()}>
       <div className="">
         <EditPost />
-
-        <p>
-          <Link href={Routes.PostsPage()}>Posts</Link>
-        </p>
       </div>
     </Suspense>
   )
