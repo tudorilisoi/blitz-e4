@@ -10,8 +10,8 @@
 - install postgres with docker following [these steps](https://www.commandprompt.com/education/how-to-install-and-set-up-docker-postgresql-environment)
 - install DBeaver from [here](https://dbeaver.io/download/)
 - adjust your `DATABASE_URL` in `.env.local`
-- install node **v18.18.0**
-- run `yarn install` or `npm install`
+- install node **v18.18.0**, then run `npm i -g yarn`
+- run `yarn install`
 - run `npx blitz db seed`
 
 ## Workflow
@@ -19,6 +19,7 @@
 - checkout a feature branch such as `git checkout issue-3321`
 - run `yarn run dev` or `npm run dev`
 - do stuff
+- need to add packages? use `yarn add <package>`
 - `git pull origin/master`, `git commit`, `git push`, then go to `github.com/sergiu-D/*your-fork*` and create a pull request by comparing to origin/master
 
 ## Random notes
