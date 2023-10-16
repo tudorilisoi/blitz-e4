@@ -41,7 +41,7 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ auth guard post and image
 - ✔ verify/guard post when uploading image
 - ✔ Overlay: better contrast on mobile devices
-- X find some way to implement a consistent UI over Tailwind
+- P find some way to implement a consistent UI over Tailwind (currently using daisyUI)
 - X implement images as a tab in the post edit form
 - X implement the home page with categories list
 - X implement view ad page
