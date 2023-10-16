@@ -9,6 +9,7 @@
 - ask me for the .env.local file ;) and paste it in the project root
 - install postgres with docker following [these steps](https://www.commandprompt.com/education/how-to-install-and-set-up-docker-postgresql-environment)
 - adjust your `DATABASE_URL` in `.env.local`
+- install node **v18.18.0**
 - run `yarn install` or `npm install`
 - run `npx blitz db seed`
 
