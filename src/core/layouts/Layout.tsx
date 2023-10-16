@@ -14,7 +14,7 @@ const NavBar = () => {
             <span className="btn btn-circle btn-primary normal-case">e3</span>
           </Link>
         </div>
-        <div className="flex-none gap-2 mr-2 text-neutral-content">Publică anunţ</div>
+        <div className="flex-none gap-2 mr-2 text-base-content">Publică anunţ</div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn  btn-secondary">
