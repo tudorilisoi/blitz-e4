@@ -1,4 +1,4 @@
-import { Routes, useParam } from "@blitzjs/next"
+import { useParam } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import Head from "next/head"
 import Link from "next/link"
@@ -7,14 +7,39 @@ import { Suspense, useEffect, useState } from "react"
 import { BlobsState } from "src/core/components/image/UploadGrid"
 
 import { useOverlay } from "src/core/components/spinner/OverlayProvider"
-import Spinner from "src/core/components/spinner/Spinner"
+import Spinner, { messageClassName } from "src/core/components/spinner/Spinner"
+import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import createImage from "src/images/mutations/createImage"
+import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { FORM_ERROR, PostForm } from "src/posts/components/PostForm"
+import { PostWithIncludes } from "src/posts/helpers"
 import updatePost from "src/posts/mutations/updatePost"
 import getCategories from "src/posts/queries/getCategories"
 import getPost from "src/posts/queries/getPost"
 import { UpdatePostSchema } from "src/posts/schemas"
+
+const SuccessOverlay = ({ post, ...props }: { post: PostWithIncludes }) => {
+  const { toggle } = useOverlay()
+
+  return (
+    <ViewportCentered>
+      <div className="min-w-fit max-w-3xl mx-auto">
+        <h2 className={messageClassName}>{"Anunţul a fost modificat!"}</h2>
+        <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">
+          <Link className={"grow-2"} onClick={() => toggle(false)} href={makePostNavUrl(post)}>
+            <button className="btn btn-primary w-full">Mergi la anunţ</button>
+          </Link>
+          <div className="grow-1 mx-auto">
+            <button onClick={() => toggle(false)} className="btn btn-secondary">
+              Modifică din nou
+            </button>
+          </div>
+        </div>
+      </div>
+    </ViewportCentered>
+  )
+}
 
 export const EditPost = () => {
   const [blobs, setBlobs] = useState({} as BlobsState)
@@ -114,16 +139,11 @@ export const EditPost = () => {
                 // NOTE should remove() because we mess with .images
                 await remove()
                 await setQueryData(updated, { refetch: false })
-                //wait for the overlay to unblur
-                setTimeout(async () => {
-                  // await router.push(
-                  //   makePostNavUrl(updated.slug, category?.slug || "NX", updated.id)
-                  // )
-                }, 1000)
+
                 toggle(true, {
-                  component: <Spinner>{"Anunţul a fost modificat!"}</Spinner>,
+                  component: <SuccessOverlay post={updated} />,
                 })
-                toggle(false, { delay: 1500 })
+                // toggle(false, { delay: 1500 })
               } catch (error: any) {
                 toggle(true, {
                   component: <Spinner onClick={() => toggle(false)}>{error.message}</Spinner>,
