@@ -7,14 +7,14 @@ import { OverlayProvider } from "../components/spinner/OverlayProvider"
 const NavBar = () => {
   // NOTE for the bg highlight the container
   return (
-    <header className="fix-scroll bg-base-100 shadow-lg">
+    <header className="fix-scroll bg-neutral shadow-lg">
       <div className="navbar container mx-auto px-2">
         <div className="flex-1">
           <Link href={Routes.Home()}>
             <span className="btn btn-circle btn-primary normal-case">e3</span>
           </Link>
         </div>
-        <div className="flex-none gap-2 mr-2">Publică anunţ</div>
+        <div className="flex-none gap-2 mr-2 text-neutral-content">Publică anunţ</div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn  btn-accent">
@@ -59,7 +59,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen w-full bg-slate-200">
+      <div className="flex flex-col min-h-screen w-full bg-base-100">
         {/* Top Navigation Header */}
 
         <NavBar />
@@ -78,7 +78,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         <footer className="bg-neutral py-4 px-2 fix-scroll">
           <div className="container mx-auto">
             {/* Add your footer content here */}
-            <p className="neutral-content font-extrabold">
+            <p className="text-neutral-content font-extrabold">
               © {new Date().getFullYear()} {"eRădăuţi v3"}
             </p>
           </div>
