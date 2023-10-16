@@ -22,7 +22,7 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
     to,
     subject: "eRădăuţi: resetează parola",
     message: `
-      <h1>Reset Resetează parola</h1>
+      <h1>Resetează parola</h1>
       <p>Ai solicitat resetarea parolei</p>
       <a href="${resetUrl}">
         Click aici pentru a reseta parola
