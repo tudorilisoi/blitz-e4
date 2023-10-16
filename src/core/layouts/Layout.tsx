@@ -10,12 +10,13 @@ const NavBar = () => {
     <header className="fix-scroll bg-base-100" data-theme="dark">
       <div className="navbar container mx-auto px-2">
         <div className="flex-1">
-          <a className="btn btn-primary normal-case text-xl">daisyUI</a>
+          <a className="btn btn-circle btn-primary normal-case">e3</a>
         </div>
+        <div className="flex-none gap-2 mr-2">Publică anunţ</div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">{"A"}</div>
+            <label tabIndex={0} className="btn  bg-secondary-content text-primary">
+              <div className="w-10 rounded-full">{"Cont"}</div>
             </label>
             <ul
               tabIndex={0}

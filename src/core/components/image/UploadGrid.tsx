@@ -84,8 +84,8 @@ export default function UploadGrid({
 
   return (
     <>
-      <label className="bg-blue-700 text-xl inline-block rounded-2xl p-1 px-4 text-white hover:bg-blue-300 ">
-        <PhotoIcon className="h-10 w-10 inline-block mr-2 " />
+      <label className="btn btn-primary">
+        <PhotoIcon className="h-8 w-8 inline-block mr-1 " />
         {"Adaugă fotografii"}
         <input
           className="hidden"

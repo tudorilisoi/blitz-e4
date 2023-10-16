@@ -63,7 +63,7 @@ export const EditPost = () => {
           <title>Editare: {post.title}</title>
         </Head>
 
-        <div className="prose">
+        <div className="prose mb-3">
           <h1 className="text-2xl">Modifică anunţ</h1>
         </div>
 
@@ -155,7 +155,7 @@ const EditPostPage = () => {
   // return <Loading />
   return (
     <Suspense fallback={Spinner()}>
-      <div className="max-w-4xl">
+      <div className="">
         <EditPost />
 
         <p>

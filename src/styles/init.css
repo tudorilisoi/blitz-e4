@@ -20,5 +20,6 @@ body {
 }
 
 .fix-scroll {
+  @apply max-w-6xl mx-auto w-full;
   padding-left: calc(100vw - 100%);
 }
