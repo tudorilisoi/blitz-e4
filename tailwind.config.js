@@ -1,7 +1,7 @@
 // see https://www.tailwind-kit.com/started
 
 module.exports = {
-  important: true,
+  important: false,
   // Active dark mode on class basis
   darkMode: "class",
   i18n: {
