@@ -18,7 +18,7 @@
 - checkout a feature branch such as `git checkout issue-3321`
 - run `yarn run dev` or `npm run dev`
 - do stuff
-- git commit, git push, then go to github and create a pull request by comparing to origin/master
+- `git pull origin/master`, `git commit`, `git push`, then go to github and create a pull request by comparing to origin/master
 
 ## Random notes
 
