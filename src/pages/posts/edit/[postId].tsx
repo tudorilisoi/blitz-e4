@@ -64,7 +64,7 @@ export const EditPost = () => {
         </Head>
 
         <div className="prose mb-3">
-          <h1 className="text-2xl text-secondary">Modifică anunţ</h1>
+          <h1 className="text-2xl text-neutral-600">Modifică anunţ</h1>
         </div>
 
         <PostForm

@@ -1,4 +1,4 @@
-// @see https://www.tailwind-kit.com/started
+// see https://www.tailwind-kit.com/started
 
 module.exports = {
   important: true,
@@ -14,7 +14,23 @@ module.exports = {
 
   daisyui: {
     // themes: ["light", "dark", "cupcake"],
-    themes: ["dark"],
+
+    // NOTE see https://daisyui.com/theme-generator/
+    themes: [
+      {
+        dark: {
+          "color-scheme": "dark",
+          // NOTE may extend or just provide the required color below
+          ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
+          //these are required, the others are generated
+          primary: "#303f9f",
+          secondary: "teal",
+          accent: "#06b6d4",
+          neutral: "#888",
+          "base-100": "#333",
+        },
+      },
+    ],
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   future: {

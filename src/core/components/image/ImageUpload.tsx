@@ -13,7 +13,7 @@ const styles = {
     alignItems: "center",
   },
   thumb: {
-    // maxHeight: "200px",
+    minHeight: "100px",
     maxWidth: "100%",
     display: "block",
   },
@@ -181,7 +181,7 @@ const ImageUpload = ({ file, onThumbReady, onError }) => {
 
   return (
     <div style={styles.wrapper}>
-      {!message ? null : <div>{message}</div>}
+      {!message ? null : <div style={styles.thumb}>{message}</div>}
       <canvas
         style={{ ...styles.thumb, display: showThumb ? "block" : "none" }}
         id={thumbID}
