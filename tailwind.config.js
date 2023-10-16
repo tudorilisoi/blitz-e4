@@ -20,9 +20,10 @@ module.exports = {
       {
         dark: {
           "color-scheme": "dark",
-          // NOTE may extend or just provide the required color below
+          // NOTE may extend or just provide the required colors below
           ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
-          //these are required, the others are generated
+          // these are required, the others are generated
+          // TODO read about the semantics here: https://daisyui.com/docs/colors/#-2
           primary: "#303f9f",
           secondary: "teal",
           accent: "#06b6d4",
