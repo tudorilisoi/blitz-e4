@@ -26,7 +26,7 @@ module.exports = {
 
     // NOTE see https://daisyui.com/theme-generator/
     themes: [
-      // "dark",
+      // "light",
       {
         "e3-dark": {
           "color-scheme": "dark",
