@@ -7,6 +7,30 @@ import fs from "fs"
 
 import db from "./index"
 
+const cliProgress = require("cli-progress")
+
+// create new container
+const multibar = new cliProgress.MultiBar(
+  {
+    clearOnComplete: false,
+    hideCursor: true,
+    forceRedraw: true,
+    etaBuffer: 100,
+    format: "{model}[{bar}] {percentage}% | ETA: {eta}s | {value}/{total}",
+  },
+  cliProgress.Presets.shades_grey
+)
+
+const updatePB = (pb, model) => {
+  pb.update(pb.value + 1, { model })
+}
+
+const logger = (...args) => {
+  const str = args.map((a) => a as string).join(" ")
+  multibar.log("> " + str + "\n")
+  // console.log("> " + str)
+}
+
 function mapPost(post: Record<string, any>): Prisma.PostUncheckedCreateInput {
   const {
     id,
@@ -55,25 +79,31 @@ const importPosts = async () => {
   let jsonData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xclassified.json`).toString())
     .xclassified.map(mapPost)
     .filter((data) => data !== null)
-  console.log("PostData parsed")
+  logger("PostData parsed")
+  // add bars
+  const pb = multibar.create(0, 0, { model: "Posts".padEnd(15) })
+  pb.setTotal(jsonData.length)
 
   let missingUsers = 0
   let postCount = 0
 
   for (let data of jsonData) {
+    pb.increment()
+    // updatePB(pb, "Posts")
     const user = await db.user.findFirst({ where: { id: data.userId } })
     if (!user) {
-      console.log(`Missig user #${data.userId}`)
+      logger(`Missig user #${data.userId}`)
       missingUsers++
-      return false
+      continue
     }
     const record = await db.post.create({ data })
     postCount++
-    // console.log(record)
+    // logger(record)
   }
 
-  console.log(`PostData imported ${postCount} records`)
-  console.log(`PostData skipped ${missingUsers} records because missing user`)
+  logger(`PostData imported ${postCount} records`)
+  logger(`PostData skipped ${missingUsers} records because missing user`)
+  pb.stop()
 }
 
 const mapCategory = (c): Prisma.CategoryUncheckedCreateInput => {
@@ -90,7 +120,7 @@ const importCategories = async () => {
   let jsonData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xcategory.json`).toString())
     .xcategory.map(mapCategory)
     .filter((data) => data !== null)
-  console.log("CategoryData parsed")
+  logger("CategoryData parsed")
 
   for (const data of jsonData) {
     {
@@ -98,7 +128,7 @@ const importCategories = async () => {
     }
   }
 
-  console.log("CategoryData imported")
+  logger("CategoryData imported")
 }
 
 const mapUpload = (c): Prisma.ImageUncheckedCreateInput => {
@@ -117,30 +147,35 @@ const importImages = async () => {
   let jsonData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xupload.json`).toString())
     .xupload.map(mapUpload)
     .filter((data) => data !== null)
-  console.log("UploadData parsed")
+  logger("UploadData parsed")
+
+  const pb = multibar.create(0, 0, { model: "Images".padEnd(15) })
+  pb.setTotal(jsonData.length)
 
   for (const data of jsonData) {
+    // updatePB(pb, "Images")
+    pb.increment()
     try {
       const post = await db.post.findFirst({
         where: { id: data.postId },
         select: { userId: true },
       })
       if (!post) {
-        console.log("ORPHAN UPLOAD", data.fileName)
-        return
+        logger("ORPHAN UPLOAD", data.fileName)
+        continue
       }
       data.userId = post.userId
       const record = await db.image.create({ data })
     } catch (error) {
       if (error.meta?.field_name === "Image_postId_fkey (index)") {
-        console.log(`SKIP image ${data.id} because of missing post ${data.postId} `)
+        logger(`SKIP image ${data.id} because of missing post ${data.postId} `)
       } else {
-        console.log(`SKIP image ${data.id}: ${error.message}`)
+        logger(`SKIP image ${data.id}: ${error.message}`)
       }
     }
   }
 
-  console.log("UploadData imported")
+  logger("UploadData imported")
 }
 
 export default async () => {
@@ -148,11 +183,11 @@ export default async () => {
 
   try {
     await db.image.deleteMany({ where: {} })
-    console.log("Images deleted")
+    logger("Images deleted")
     await db.post.deleteMany({ where: {} })
-    console.log("Posts deleted")
+    logger("Posts deleted")
     await db.category.deleteMany({ where: {} })
-    console.log("Categories deleted")
+    logger("Categories deleted")
 
     await importCategories()
     await importPosts()
@@ -160,5 +195,7 @@ export default async () => {
   } catch (error) {
     console.warn("ERROR IMPORTING POSTS.")
     console.error(error)
+  } finally {
+    multibar.stop()
   }
 }
