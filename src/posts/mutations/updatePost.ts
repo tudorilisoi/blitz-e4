@@ -9,20 +9,16 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export default resolver.pipe(
-  resolver.zod(UpdatePostSchema),
-  resolver.authorize(),
-  async ({ id, ...input }, context) => {
-    const data = {
-      ...input,
-      slug: makeSlug(input.title),
-    }
-
-    const existing = await db.post.findFirst({ where: { id } })
-    await guardEdit(existing, context)
-    await db.post.update({ where: { id }, data, select: { id: true } })
-    const post = await getPost({ id }, context)
-    await delay(1500)
-    return post
+export default resolver.pipe(resolver.zod(UpdatePostSchema), async ({ id, ...input }, context) => {
+  const data = {
+    ...input,
+    slug: makeSlug(input.title),
   }
-)
+
+  const existing = await db.post.findFirst({ where: { id } })
+  await guardEdit(existing, context)
+  await db.post.update({ where: { id }, data, select: { id: true } })
+  const post = await getPost({ id }, context)
+  await delay(1500)
+  return post
+})
