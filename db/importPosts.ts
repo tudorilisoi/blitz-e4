@@ -58,20 +58,21 @@ const importPosts = async () => {
   console.log("PostData parsed")
 
   let missingUsers = 0
-  const res = await Promise.all(
-    jsonData.map(async (data: Prisma.PostUncheckedCreateInput) => {
-      const user = await db.user.findFirst({ where: { id: data.userId } })
-      if (!user) {
-        console.log(`Missig user #${data.userId}`)
-        missingUsers++
-        return false
-      }
-      const record = await db.post.create({ data })
-      // console.log(record)
-    })
-  )
+  let postCount = 0
 
-  console.log(`PostData imported ${res.length} records`)
+  for (let data of jsonData) {
+    const user = await db.user.findFirst({ where: { id: data.userId } })
+    if (!user) {
+      console.log(`Missig user #${data.userId}`)
+      missingUsers++
+      return false
+    }
+    const record = await db.post.create({ data })
+    postCount++
+    // console.log(record)
+  }
+
+  console.log(`PostData imported ${postCount} records`)
   console.log(`PostData skipped ${missingUsers} records because missing user`)
 }
 
