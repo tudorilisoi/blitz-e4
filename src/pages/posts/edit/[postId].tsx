@@ -1,5 +1,6 @@
 import { useParam } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
+import { FaceSmileIcon } from "@heroicons/react/24/outline"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -26,6 +27,9 @@ const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes }) => 
   return (
     <ViewportCentered>
       <div className="min-w-fit max-w-3xl mx-auto">
+        <div className="text-center">
+          <FaceSmileIcon className="h-[104px] w-[104px] inline-block text-success-content" />
+        </div>
         <h2 className={messageClassName}>{"Anunţul a fost modificat!"}</h2>
         <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">
           <Link className={"grow-2"} onClick={() => toggle(false)} href={makePostNavUrl(post)}>
