@@ -2,7 +2,8 @@
   "name": "blitz-e4",
   "version": "1.0.0",
   "scripts": {
-    "dev": "blitz dev  -H 0.0.0.0",
+    "dev": "blitz dev",
+    "devx": "blitz dev  -H 192.168.22.100",
     "build": "blitz build",
     "start": "blitz start",
     "studio": "blitz prisma studio",
