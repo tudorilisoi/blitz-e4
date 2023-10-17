@@ -9,8 +9,7 @@ const GetPost = z.object({
   id: z.number().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(resolver.zod(GetPost), resolver.authorize(), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+export default resolver.pipe(resolver.zod(GetPost), async ({ id }) => {
   const post = await db.post.findFirst({
     where: { id },
     include: postInclude,
