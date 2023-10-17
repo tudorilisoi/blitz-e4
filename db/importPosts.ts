@@ -1,17 +1,22 @@
 import { S, makeSlug } from "../src/helpers"
+import { LRUCache } from "lru-cache"
 
 // To access your database
 // Append api/* to import from api and web/* to import from web
-import { PostStatuses, Prisma } from "@prisma/client"
+import { Post, PostStatuses, Prisma } from "@prisma/client"
 import fs from "fs"
 
 import db from "./index"
+
+// NOTE saves 5 seconds :P
+const postsCache = new LRUCache({ max: 5000 })
 
 const cliProgress = require("cli-progress")
 
 // create new container
 const multibar = new cliProgress.MultiBar(
   {
+    fps: 5,
     clearOnComplete: false,
     hideCursor: true,
     forceRedraw: true,
@@ -20,10 +25,6 @@ const multibar = new cliProgress.MultiBar(
   },
   cliProgress.Presets.shades_grey
 )
-
-const updatePB = (pb, model) => {
-  pb.update(pb.value + 1, { model })
-}
 
 const logger = (...args) => {
   const str = args.map((a) => a as string).join(" ")
@@ -155,11 +156,18 @@ const importImages = async () => {
   for (const data of jsonData) {
     // updatePB(pb, "Images")
     pb.increment()
+    const { postId } = data
+    let post: any = postsCache.get(postId)
     try {
-      const post = await db.post.findFirst({
-        where: { id: data.postId },
-        select: { userId: true },
-      })
+      if (!post) {
+        post = await db.post.findFirst({
+          where: { id: postId },
+          select: { userId: true },
+        })
+        post && postsCache.set(postId, post)
+      } else {
+        // logger("CACHED POST", postId)
+      }
       if (!post) {
         logger("ORPHAN UPLOAD", data.fileName)
         continue
