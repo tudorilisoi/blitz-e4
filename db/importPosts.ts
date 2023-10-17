@@ -92,12 +92,11 @@ const importCategories = async () => {
     .filter((data) => data !== null)
   console.log("CategoryData parsed")
 
-  await Promise.all(
-    jsonData.map(async (data) => {
+  for (const data of jsonData) {
+    {
       const record = await db.category.create({ data })
-      // console.log(record)
-    })
-  )
+    }
+  }
 
   console.log("CategoryData imported")
 }
@@ -120,28 +119,26 @@ const importImages = async () => {
     .filter((data) => data !== null)
   console.log("UploadData parsed")
 
-  await Promise.all(
-    jsonData.map(async (data) => {
-      try {
-        const post = await db.post.findFirst({
-          where: { id: data.postId },
-          select: { userId: true },
-        })
-        if (!post) {
-          console.log("ORPHAN UPLOAD", data.fileName)
-          return
-        }
-        data.userId = post.userId
-        const record = await db.image.create({ data })
-      } catch (error) {
-        if (error.meta?.field_name === "Image_postId_fkey (index)") {
-          console.log(`SKIP image ${data.id} because of missing post ${data.postId} `)
-        } else {
-          console.log(`SKIP image ${data.id}: ${error.message}`)
-        }
+  for (const data of jsonData) {
+    try {
+      const post = await db.post.findFirst({
+        where: { id: data.postId },
+        select: { userId: true },
+      })
+      if (!post) {
+        console.log("ORPHAN UPLOAD", data.fileName)
+        return
       }
-    })
-  )
+      data.userId = post.userId
+      const record = await db.image.create({ data })
+    } catch (error) {
+      if (error.meta?.field_name === "Image_postId_fkey (index)") {
+        console.log(`SKIP image ${data.id} because of missing post ${data.postId} `)
+      } else {
+        console.log(`SKIP image ${data.id}: ${error.message}`)
+      }
+    }
+  }
 
   console.log("UploadData imported")
 }
