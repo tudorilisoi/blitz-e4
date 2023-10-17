@@ -48,6 +48,7 @@ export const importUsers = async () => {
     await db.category.deleteMany({ where: {} })
     console.log("Categories deleted")
 
+    await db.token.deleteMany({ where: {} })
     await db.user.deleteMany({ where: {} })
     console.log("Users deleted")
 
