@@ -88,12 +88,15 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
       <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
         <div className="filtered-bg-image-inside h-[300px] flex flex-col content-start">
           <Link
-            className=" min-h-[4.5rem] bg-primary bg-opacity-70 text-shadow-sm shadow-black "
+            className="  bg-primary bg-opacity-70 text-shadow-sm shadow-black "
             href={makePostNavUrl(post)}
           >
-            <h2 className="p-2 text-xl  font-semibold text-white hover:underline break-words line-clamp-2 ">
-              {post.title}
-            </h2>
+            {/* NOTE line-clamp gets confused with padding so wrap text with a div */}
+            <div className="p-2">
+              <h2 className="text-xl  font-semibold text-white hover:underline break-words line-clamp-2 min-h-[3.5rem] ">
+                {post.title}
+              </h2>
+            </div>
           </Link>
         </div>
       </HeaderImage>
