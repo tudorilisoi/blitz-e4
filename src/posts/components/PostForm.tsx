@@ -43,7 +43,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         label="Categorie"
         name="categoryId"
         type="number"
-        className={labelClassName}
+        className="select input-bordered bg-base-200 focus:outline-secondary-focus"
       >
         <option key={-1} value="">
           Selectaţi o categorie
