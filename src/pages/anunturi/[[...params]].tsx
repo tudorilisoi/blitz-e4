@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
@@ -61,7 +60,8 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
   return (
     <Layout title={title} description={description}>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-        {posts.map((post) => PostCell({ post }))}
+        {/* NOTE spreading post for fast refresh in dev mode */}
+        {posts.map((post) => PostCell({ post: { ...post } }))}
       </div>
       <SimpleNav
         {...{ prevLink: hasPrev ? prevPageURL : null, nextLink: hasMore ? nextPageURL : null }}
