@@ -6,6 +6,9 @@ import logout from "src/auth/mutations/logout"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes, BlitzPage } from "@blitzjs/next"
 import Spinner from "src/core/components/spinner/Spinner"
+import { gSSP } from "src/blitz-server"
+import getCategories from "src/posts/queries/getCategories"
+import CategoryCell from "src/posts/components/CategoryCell"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -41,13 +44,25 @@ const UserInfo = () => {
     )
   }
 }
+export const getServerSideProps = gSSP(async (args) => {
+  const { query, ctx } = args
+  const categories = await getCategories({}, ctx)
+  return { props: { categories } }
+})
 
-const Home: BlitzPage = () => {
+const Home = ({ categories }) => {
   return (
     <Layout title="Home">
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Anunţuri</h1>
+      </div>
       <div>
         <Suspense fallback={<Spinner />}>
-          <UserInfo />
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+            {categories.map((c) => (
+              <CategoryCell category={c} />
+            ))}
+          </div>
         </Suspense>
       </div>
     </Layout>
