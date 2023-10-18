@@ -1,5 +1,17 @@
 // see https://www.tailwind-kit.com/started
 
+const plugin = require("tailwindcss/plugin")
+const textShadowPlugin = plugin(function ({ matchUtilities, theme }) {
+  matchUtilities(
+    {
+      "text-shadow": (value) => ({
+        textShadow: value,
+      }),
+    },
+    { values: theme("textShadow") }
+  )
+})
+
 module.exports = {
   important: false,
   // Active dark mode on class basis
@@ -17,6 +29,11 @@ module.exports = {
       flexGrow: {
         2: "2",
         3: "3",
+      },
+      textShadow: {
+        sm: "0 1px 2px var(--tw-shadow-color)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
       },
     },
   },
@@ -44,7 +61,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [textShadowPlugin, require("@tailwindcss/typography"), require("daisyui")],
   future: {
     purgeLayersByDefault: true,
   },
