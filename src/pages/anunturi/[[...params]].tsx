@@ -61,7 +61,9 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
     <Layout title={title} description={description}>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {/* NOTE spreading post for fast refresh in dev mode */}
-        {posts.map((post) => PostCell({ post: { ...post } }))}
+        {posts.map((post) => (
+          <PostCell key={post.id} post={{ ...post }} />
+        ))}
       </div>
       <SimpleNav
         {...{ prevLink: hasPrev ? prevPageURL : null, nextLink: hasMore ? nextPageURL : null }}
