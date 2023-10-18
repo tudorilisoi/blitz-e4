@@ -6,7 +6,7 @@ import PostCell from "src/posts/components/PostCell/PostCell"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
 
-const ITEMS_PER_PAGE = 9
+const ITEMS_PER_PAGE = 12
 
 export const makePostsNavUrl = (categorySlug: string, page: number) => {
   return `/anunturi/${categorySlug}${page === 1 ? "" : "/pagina-" + page}`

@@ -51,6 +51,7 @@ const HeaderImage = ({
             background-repeat: no-repeat;
             background-color: #333;
             filter: grayscale(100%); /* Apply a grayscale filter */
+            transition: all 0.3s ease-in-out;
           }
 
           .filtered-bg-image[data-url="${url}"]::before {
@@ -59,7 +60,7 @@ const HeaderImage = ({
           }
 
           .post-cell:hover .filtered-bg-image::before {
-            filter: grayscale(30%) !important;
+            filter: grayscale(0%);
           }
 
           .filtered-bg-image-inside {
