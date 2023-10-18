@@ -3,6 +3,7 @@ import truncate from "lodash/truncate"
 import upperFirst from "lodash/upperFirst"
 import { decode } from "html-entities"
 import striptags from "striptags"
+import Smart from "smart-plurals"
 
 export const makeSlug = (str) => {
   // TODO copy sanitization from ert2-now
@@ -88,4 +89,27 @@ export const S = function (str) {
   }
   this.get = () => this.str
   return this
+}
+
+const ro = Smart.Plurals.getRule("ro")
+
+interface PluralizeArgs {
+  none?: string
+  one: string
+  many: string
+}
+
+export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => {
+  switch (count) {
+    case 0:
+      return none || ""
+      break
+    case 1:
+      return one
+      break
+
+    default:
+      return many
+      break
+  }
 }
