@@ -18,15 +18,15 @@ const HeaderImage = ({
   let inner
   if (url) {
     inner = (
-      <div data-url={url} className="filtered-bg-image h-[200px]">
-        <div className="filtered-bg-image-inside">{children}</div>
+      <div data-url={url} className="filtered-bg-image h-[300px]">
+        {children}
       </div>
     )
   } else {
     inner = (
-      <div className="filtered-bg-image h-[200px]">
+      <div className="filtered-bg-image h-[300px]">
         <div className="filtered-bg-image-inside">
-          <div className="bg-neutral h-[200px]">{children}</div>
+          <div className="bg-neutral h-[300px]">{children}</div>
         </div>
       </div>
     )
@@ -41,7 +41,6 @@ const HeaderImage = ({
           }
 
           .filtered-bg-image::before {
-            opacity: 0.7;
             content: "";
             position: absolute;
             top: 0;
@@ -61,7 +60,6 @@ const HeaderImage = ({
 
           .post-cell:hover .filtered-bg-image::before {
             filter: grayscale(30%) !important;
-            opacity: 0.7;
           }
 
           .filtered-bg-image-inside {
@@ -71,7 +69,7 @@ const HeaderImage = ({
         `}
       </style>
       <div className="w-full overflow-hidden rounded-t-2xl" {...props}>
-        <div className="relative h-[200px] w-full ">
+        <div className="relative h-[300px] w-full ">
           {inner}
           {/* <div className="absolute top-0 left-0 right-0">{children}</div> */}
         </div>
@@ -86,15 +84,20 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
   const firstImage = !imageCount ? null : images[0]
   return (
     <div className="post-cell p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm ">
-      <div className="  text-base-content   ">
-        <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
-          <Link className="text-shadow-sm shadow-black" href={makePostNavUrl(post)}>
-            <h2 className="p-2 text-xl font-semibold mb-2 text-white   hover:underline">
-              {shortenText(post.title, 100)}
+      <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
+        <div className="filtered-bg-image-inside h-[300px] flex flex-col content-start">
+          <Link
+            className=" min-h-[4.5rem] bg-primary bg-opacity-70 text-shadow-sm shadow-black "
+            href={makePostNavUrl(post)}
+          >
+            <h2 className="p-2 text-xl  font-semibold text-white hover:underline break-words line-clamp-2 ">
+              {post.title}
             </h2>
           </Link>
-        </HeaderImage>
+        </div>
+      </HeaderImage>
 
+      <div className="  text-base-content   ">
         <div className="p-2">
           <span className="text-sm font-extrabold ">
             {pluralize(imageCount, {

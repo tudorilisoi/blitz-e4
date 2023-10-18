@@ -11,8 +11,8 @@ const fsp = fs.promises
 
 // 16:9 ratio
 const responsiveSize = {
-  w: 435,
-  h: 245,
+  w: 600,
+  h: 340,
 }
 
 export default async function serveUpload(req, res: ServerResponse) {

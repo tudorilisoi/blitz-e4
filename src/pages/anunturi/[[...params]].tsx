@@ -59,7 +59,7 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
   const hasPrev = page > 1
   return (
     <Layout title={title} description={description}>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         {/* NOTE spreading post for fast refresh in dev mode */}
         {posts.map((post) => (
           <PostCell key={post.id} post={{ ...post }} />
