@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
 import Layout from "src/core/layouts/Layout"
-import PostCell from "src/posts/components/PostCell"
+import PostCell from "src/posts/components/PostCell/PostCell"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
 
