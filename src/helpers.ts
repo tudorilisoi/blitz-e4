@@ -26,8 +26,8 @@ function HTMLToText(s) {
   return decode(striptags(s))
 }
 
-export const shortenText = (str, maxLength) => {
-  return truncate(str, { length: maxLength, separator: /(\W+)/ })
+export const shortenText = (str, maxLength, omission = "...") => {
+  return truncate(str, { length: maxLength, separator: /(\W+)/, omission })
 }
 
 export const nl2space = (str) => {

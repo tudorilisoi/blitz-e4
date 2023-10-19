@@ -23,7 +23,7 @@ const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
         })}
       </span>
 
-      <p className="">{shortenText(category.description, 140)}</p>
+      <p className="line-clamp-3">{shortenText(category.description, 140, "")}</p>
     </section>
   )
 }
