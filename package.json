@@ -1,7 +1,6 @@
 {
   "name": "blitz-e4",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "blitz dev",
     "devx": "blitz dev  -H 192.168.22.100",
@@ -84,6 +83,7 @@
     "pretty-quick": "3.1.3",
     "preview-email": "3.0.19",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "4.2.0",
     "typescript": "^5.2.2",
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "0.34.6"

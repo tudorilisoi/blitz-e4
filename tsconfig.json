@@ -20,5 +20,19 @@
     "tsBuildInfoFile": ".tsbuildinfo"
   },
   "exclude": ["node_modules", "**/*.e2e.ts", "cypress"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types"],
+  "ts-node": {
+    // "esm": true,
+    // "swc": true,
+    // "experimentalResolver": true,
+    "compilerOptions": {
+      // "moduleResolution": "node",
+      // "target": "es6",
+      // "esModuleInterop": true,
+      "module": "commonjs",
+      "isolatedModules": false
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+  }
 }

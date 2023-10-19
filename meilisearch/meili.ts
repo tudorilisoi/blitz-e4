@@ -1,17 +1,16 @@
-import _env from "@next/env"
+import { loadEnvConfig } from "@next/env"
 import { MeiliSearch } from "meilisearch"
-import path from "path"
+
 const root = process.cwd()
 console.log(`🚀 ~ root:`, root)
 
-_env.loadEnvConfig(root)
-
+loadEnvConfig(process.cwd())
 const client = new MeiliSearch({
   host: "http://localhost:7700",
   apiKey: process.env.MEILI_MASTER_KEY,
 })
 const init = async () => {
-  const indexes = ["posts"]
+  const indexes = ["Post"]
   for (let index of indexes) {
     try {
       const res = await client.createIndex(index, { primaryKey: "id" })
@@ -21,6 +20,7 @@ const init = async () => {
     }
   }
 }
+
 init()
   .then((res) => {
     console.log(`MEILI INIT DONE`, res)
@@ -28,3 +28,5 @@ init()
   .catch((error) => {
     console.error(`MEILI INIT ERROR`, error)
   })
+
+export { client as meiliClient }
