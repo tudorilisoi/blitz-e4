@@ -107,9 +107,6 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
     if (!e) {
       prefix = "de"
     }
-    if (last2digits == "00") {
-      prefix = "de"
-    }
   }
 
   switch (count) {
