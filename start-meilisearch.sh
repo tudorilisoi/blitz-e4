@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#!/bin/bash
 
 # Define the path to the .env files directory
 env_files_dir="."
@@ -28,10 +27,16 @@ else
   echo "$env_file does not exist."
 fi
 
-
-
-docker stop meili 2>&1
-sleep 5
+output=$(docker container ls|grep meili)
+if [ -n "$output" ]; then
+  echo "Stopping meili container..."
+  docker stop meili 2>&1
+  sleep 5
+  # You can further process the output here
+else
+  echo "meili not running"
+fi
+docker container rm meili 2>&1
 docker run -it\
   --name meili \
   --rm \
