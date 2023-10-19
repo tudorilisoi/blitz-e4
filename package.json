@@ -1,6 +1,7 @@
 {
   "name": "blitz-e4",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "blitz dev",
     "devx": "blitz dev  -H 192.168.22.100",
