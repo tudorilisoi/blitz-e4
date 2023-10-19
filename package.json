@@ -26,6 +26,13 @@
     ]
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.18.0",
+    "@trpc/client": "^10.40.0",
+    "@trpc/next": "^10.40.0",
+    "@trpc/react-query": "^10.40.0",
+    "@trpc/server": "^10.40.0",
+    "ws": "^8.0.0",
+    "next-auth": "^4.22.1",
     "@blitzjs/auth": "2.0.0-beta.34",
     "@blitzjs/next": "2.0.0-beta.34",
     "@blitzjs/rpc": "2.0.0-beta.34",
