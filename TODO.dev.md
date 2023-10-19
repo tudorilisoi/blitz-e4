@@ -50,6 +50,7 @@ Note: Maybe later on these will be converted to GH issues
 - X implement images as a tab in the post edit form
 - P implement the home page with categories list
 - X implement view ad page
+- X implement share button on view ad page
 - X implement login, logout, edit profile (name and phone only)
 - X implement "my ads" page
 - X maybe switch to formik for forms
