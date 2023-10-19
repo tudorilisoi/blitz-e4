@@ -84,7 +84,7 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
   const imageCount = images.length
   const firstImage = !imageCount ? null : images[0]
   return (
-    <div className="post-cell p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm ">
+    <section className="post-cell p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm ">
       <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
         <div className="filtered-bg-image-inside h-[300px] flex flex-col content-start">
           <Link
@@ -114,7 +114,7 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
         </div>
       </div>
       {/* {!imageCount ? null : <div className="w-20">19 oct.</div>} */}
-    </div>
+    </section>
   )
 }
 export default PostCell

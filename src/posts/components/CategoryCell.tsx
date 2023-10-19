@@ -5,7 +5,10 @@ import { CategoryWithCounters } from "../helpers"
 const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
   const { postCount } = category
   return (
-    <div key={category.id} className="p-4 rounded-md  bg-primary bg-opacity-20  text-base-content ">
+    <section
+      key={category.id}
+      className="p-4 rounded-md  bg-primary bg-opacity-20  text-base-content "
+    >
       <h2 className="text-xl font-semibold mb-2 text-accent hover:text-accent-focus hover:underline">
         <Link rel="prefetch" href={makePostsNavUrl(category.slug, 1)}>
           {shortenText(category.title, 100)}
@@ -21,7 +24,7 @@ const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
       </span>
 
       <p className="">{shortenText(category.description, 140)}</p>
-    </div>
+    </section>
   )
 }
 export default CategoryCell
