@@ -4,6 +4,7 @@ import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { PostWithIncludes } from "../../helpers"
 
 import { getImageUrl } from "src/core/components/image/helpers"
+import { Router, useRouter } from "next/router"
 
 const HeaderImage = ({
   url: providedURL,
@@ -80,17 +81,19 @@ const HeaderImage = ({
 }
 
 const PostCell = ({ post }: { post: PostWithIncludes }) => {
+  const router = useRouter()
   const { images } = post
   const imageCount = images.length
   const firstImage = !imageCount ? null : images[0]
+  const url = makePostNavUrl(post)
   return (
-    <section className="post-cell p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm ">
+    <section
+      className="post-cell p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm cursor-pointer "
+      onClick={() => router.push(url)}
+    >
       <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
         <div className="filtered-bg-image-inside h-[300px] flex flex-col content-start">
-          <Link
-            className="  bg-primary bg-opacity-70 text-shadow-sm shadow-black "
-            href={makePostNavUrl(post)}
-          >
+          <Link className="  bg-primary bg-opacity-80 text-shadow-sm shadow-black " href={url}>
             {/* NOTE line-clamp gets confused with padding so wrap text with a div */}
             <div className="p-2">
               <h2 className="text-xl  font-semibold text-white hover:underline break-words line-clamp-2 min-h-[3.5rem] ">
@@ -110,7 +113,7 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
               many: `${imageCount} fotografii`,
             })}
           </span>
-          <p className="">{shortenText(post.body, 140)}</p>
+          <p className="line-clamp-2">{shortenText(post.body, 200, "")}</p>
         </div>
       </div>
       {/* {!imageCount ? null : <div className="w-20">19 oct.</div>} */}
