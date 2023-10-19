@@ -45,7 +45,7 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ auth guard post and image
 - ✔ verify/guard post when uploading image
 - ✔ Overlay: better contrast on mobile devices
-- X implement a search interface
+- P implement a search interface; meilisearch is already setup
 - P find some way to implement a consistent UI over Tailwind (currently using daisyUI)
 - X implement images as a tab in the post edit form
 - P implement the home page with categories list
@@ -56,4 +56,4 @@ Note: Maybe later on these will be converted to GH issues
 - X maybe switch to formik for forms
 - X implement expire_status and send mail (only if post fresher than, say, 3 months)
 - X create a sitemap page with all the necesarry links for home, login, logout, create post, etc.
-- X line-clamp partial post body in PostCell
+- ✔ line-clamp partial post body in PostCell
