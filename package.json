@@ -40,6 +40,7 @@
     "daisyui": "3.9.3",
     "html-entities": "^2.4.0",
     "lodash": "^4.17.21",
+    "meilisearch": "0.35.0",
     "mime": "^3.0.0",
     "mime-types": "2.1.35",
     "next": "^13.5.5",
