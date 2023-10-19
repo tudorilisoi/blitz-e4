@@ -1,9 +1,8 @@
-import slugify from "slugify"
+import { decode } from "html-entities"
 import truncate from "lodash/truncate"
 import upperFirst from "lodash/upperFirst"
-import { decode } from "html-entities"
+import slugify from "slugify"
 import striptags from "striptags"
-import Smart from "smart-plurals"
 
 export const makeSlug = (str) => {
   // TODO copy sanitization from ert2-now
@@ -90,8 +89,6 @@ export const S = function (str) {
   this.get = () => this.str
   return this
 }
-
-const ro = Smart.Plurals.getRule("ro")
 
 interface PluralizeArgs {
   none?: string
