@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "blitz dev",
     "devx": "blitz dev  -H 192.168.22.100",
+    "meili": "meilisearch/start-meilisearch.sh",
     "build": "blitz build",
     "start": "blitz start",
     "studio": "blitz prisma studio",

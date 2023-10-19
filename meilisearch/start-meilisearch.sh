@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+# Get the script's directory
+script_dir="$(dirname "$0")"
 
 # Define the path to the .env files directory
 env_files_dir="."
@@ -41,6 +42,6 @@ docker run -it\
   --name meili \
   --rm \
   -p 7700:7700 \
-  -v $(pwd)/.meilidata:/meili_data \
+  -v $(script_dir)/.meilidata:/meili_data \
   getmeili/meilisearch:v1.4.1\
   meilisearch --master-key="$MEILI_MASTER_KEY"
