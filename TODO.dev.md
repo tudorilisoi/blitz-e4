@@ -55,3 +55,4 @@ Note: Maybe later on these will be converted to GH issues
 - X maybe switch to formik for forms
 - X implement expire_status and send mail (only if post fresher than, say, 3 months)
 - X create a sitemap page with all the necesarry links for home, login, logout, create post, etc.
+- X line-clamp partial post body in PostCell
