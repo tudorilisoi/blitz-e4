@@ -97,6 +97,18 @@ interface PluralizeArgs {
 }
 
 export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => {
+  let prefix = ``
+  const cstr = "" + count
+  if (count > 19) {
+    const last2digits = cstr.substring(cstr.length - 2)
+    const suff = parseInt(last2digits)
+    // ends in 00-19
+    const e = suff >= 1 && suff <= 19
+    if (!e) {
+      prefix = "de"
+    }
+  }
+
   switch (count) {
     case 0:
       return none || ""
@@ -106,7 +118,7 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
       break
 
     default:
-      return many
+      return `${many.replace(cstr, `${cstr} ${prefix}`)}`
       break
   }
 }
