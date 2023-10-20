@@ -4,10 +4,10 @@
     "module": "commonjs",
     "target": "ES2019",
     "lib": ["ES2019", "DOM"],
-    "isolatedModules": false,
+    "isolatedModules": true,
     "noEmit": false,
-    "outDir": "./build-ws"
+    "outDir": "build-ws"
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/ws-server/wsProdServer.js"],
   "exclude": ["node_modules", "src/**/*.test.ts"]
 }
