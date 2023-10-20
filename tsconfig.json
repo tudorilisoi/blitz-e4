@@ -30,7 +30,8 @@
       // "target": "es6",
       // "esModuleInterop": true,
       "module": "commonjs",
-      "isolatedModules": false
+      "isolatedModules": false,
+      "outDir": "build"
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]

@@ -58,3 +58,5 @@ lib-cov
 .meilidata
 
 public/logo-bg.xcf
+
+/build
