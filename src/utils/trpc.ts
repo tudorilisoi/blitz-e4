@@ -4,20 +4,16 @@ import { wsLink, createWSClient } from "@trpc/client/links/wsLink"
 import { createTRPCNext } from "@trpc/next"
 import type { inferProcedureOutput } from "@trpc/server"
 import { NextPageContext } from "next"
-import getConfig from "next/config"
 import type { AppRouter } from "src/server/routers/_app"
 import superjson from "superjson"
 
 // ℹ️ Type-only import:
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-and-export
 
-const APP_URL = "http://localhost:3000"
-const WS_URL = "ws://localhost:3001"
-
 function getEndingLink(ctx: NextPageContext | undefined) {
   if (typeof window === "undefined") {
     return httpBatchLink({
-      url: `${APP_URL}/api/trpc`,
+      url: `${process.env.NEXT_PUBLIC_NEXT_PUBLIC_APP_URL}/api/trpc`,
       headers() {
         if (!ctx?.req?.headers) {
           return {}
@@ -31,7 +27,7 @@ function getEndingLink(ctx: NextPageContext | undefined) {
     })
   }
   const client = createWSClient({
-    url: WS_URL,
+    url: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3001",
   })
   return wsLink<AppRouter>({
     client,

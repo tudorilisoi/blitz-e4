@@ -1,12 +1,10 @@
-globalThis.__BLITZ_SESSION_COOKIE_PREFIX = process.env.__BLITZ_SESSION_COOKIE_PREFIX
-import { authPlugin } from "src/blitz-server"
-import { createContext } from "./context"
-import { appRouter } from "./routers/_app"
+// NOTE DO NOT redorder or remove this import, next-auth getSession extects some globals
+export * from "./imports"
 import { applyWSSHandler } from "@trpc/server/adapters/ws"
 import ws from "ws"
-
-//fake blitz-auth
-authPlugin && console.log("authPlugin imported from main app")
+import { createContext } from "./context"
+import { appRouter } from "./routers/_app"
+import { NEXT_PUBLIC_WS_URL } from "./imports"
 
 const wss = new ws.Server({
   port: 3001,
@@ -19,7 +17,7 @@ wss.on("connection", (ws) => {
     console.log(`➖➖ Connection (${wss.clients.size})`)
   })
 })
-console.log("✅ WebSocket Server listening on ws://localhost:3001")
+console.log(`✅ WebSocket Server listening on ${NEXT_PUBLIC_WS_URL}`)
 
 process.on("SIGTERM", () => {
   console.log("SIGTERM")
