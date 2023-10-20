@@ -6,7 +6,8 @@
     "lib": ["ES2019", "DOM"],
     "isolatedModules": true,
     "noEmit": false,
-    "outDir": "build-ws"
+    "outDir": "build-ws",
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",

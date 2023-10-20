@@ -20,9 +20,9 @@ const init = async () => {
     }
   }
 }
-let initialized
-if (!initialized) {
-  initialized = true
+globalThis.__MEILI_INITIALIZED = false
+if (!globalThis.__MEILI_INITIALIZED) {
+  globalThis.__MEILI_INITIALIZED = true
 
   init()
     .then((res) => {
