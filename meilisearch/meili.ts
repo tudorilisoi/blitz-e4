@@ -20,13 +20,17 @@ const init = async () => {
     }
   }
 }
+let initialized
+if (!initialized) {
+  initialized = true
 
-init()
-  .then((res) => {
-    console.log(`MEILI INIT DONE`, res)
-  })
-  .catch((error) => {
-    console.error(`MEILI INIT ERROR`, error)
-  })
+  init()
+    .then((res) => {
+      console.log(`MEILI INIT DONE`, res)
+    })
+    .catch((error) => {
+      console.error(`MEILI INIT ERROR`, error)
+    })
+}
 
 export { client as meiliClient }

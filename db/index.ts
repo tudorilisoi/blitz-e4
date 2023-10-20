@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { PrismaClientOptions } from "@prisma/client/runtime/library"
 import { enhancePrisma } from "blitz"
-import { meiliClient } from "meilisearch/meili"
+import { meiliClient } from "../meilisearch/meili"
 
 const EnhancedPrisma = enhancePrisma(PrismaClient)
 const prismaOptions: PrismaClientOptions = {
