@@ -1,5 +1,5 @@
 import { createContext } from "./context"
-import { appRouter } from "./routers/_app"
+import { wsRouter } from "./routers/_app"
 import { applyWSSHandler } from "@trpc/server/adapters/ws"
 import http from "http"
 import next from "next"
@@ -27,7 +27,7 @@ void app.prepare().then(() => {
     void handle(req, res, parsedUrl)
   })
   const wss = new ws.Server({ server })
-  const handler = applyWSSHandler({ wss, router: appRouter, createContext })
+  const handler = applyWSSHandler({ wss, router: wsRouter, createContext })
 
   process.on("SIGTERM", () => {
     console.log("SIGTERM")

@@ -6,7 +6,7 @@ import { postRouter } from "./post"
 import { observable } from "@trpc/server/observable"
 import { clearInterval } from "timers"
 
-export const appRouter = router({
+export const wsRouter = router({
   healthcheck: publicProcedure.query(() => "yay!"),
 
   post: postRouter,
@@ -23,4 +23,4 @@ export const appRouter = router({
   }),
 })
 
-export type AppRouter = typeof appRouter
+export type wsRouter = typeof wsRouter

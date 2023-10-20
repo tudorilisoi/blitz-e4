@@ -4,7 +4,7 @@ import { wsLink, createWSClient } from "@trpc/client/links/wsLink"
 import { createTRPCNext } from "@trpc/next"
 import type { inferProcedureOutput } from "@trpc/server"
 import { NextPageContext } from "next"
-import type { AppRouter } from "src/server/routers/_app"
+import type { wsRouter } from "src/server/routers/_app"
 import superjson from "superjson"
 
 // ℹ️ Type-only import:
@@ -29,16 +29,16 @@ function getEndingLink(ctx: NextPageContext | undefined) {
   const client = createWSClient({
     url: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3001",
   })
-  return wsLink<AppRouter>({
+  return wsLink<wsRouter>({
     client,
   })
 }
 
 /**
- * A set of strongly-typed React hooks from your `AppRouter` type signature with `createReactQueryHooks`.
+ * A set of strongly-typed React hooks from your `wsRouter` type signature with `createReactQueryHooks`.
  * @link https://trpc.io/docs/react#3-create-trpc-hooks
  */
-export const trpc = createTRPCNext<AppRouter>({
+export const trpc = createTRPCNext<wsRouter>({
   config({ ctx }) {
     /**
      * If you want to use SSR, you need to use the server's full URL
@@ -79,5 +79,5 @@ export const trpc = createTRPCNext<AppRouter>({
  * This is a helper method to infer the output of a query resolver
  * @example type HelloOutput = inferQueryOutput<'hello'>
  */
-export type inferQueryOutput<TRouteKey extends keyof AppRouter["_def"]["queries"]> =
-  inferProcedureOutput<AppRouter["_def"]["queries"][TRouteKey]>
+export type inferQueryOutput<TRouteKey extends keyof wsRouter["_def"]["queries"]> =
+  inferProcedureOutput<wsRouter["_def"]["queries"][TRouteKey]>
