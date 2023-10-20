@@ -1,3 +1,4 @@
+import { Ctx } from "@blitzjs/next"
 /**
  * This is your entry point to setup the root configuration for tRPC on the server.
  * - `initTRPC` should only be used once per app.
@@ -11,6 +12,7 @@
 import { Context } from "./context"
 import { initTRPC, TRPCError } from "@trpc/server"
 import superjson from "superjson"
+import getCurrentUser from "src/users/queries/getCurrentUser"
 
 const t = initTRPC.context<Context>().create({
   /**
@@ -47,10 +49,10 @@ export const middleware = t.middleware
  */
 export const mergeRouters = t.mergeRouters
 
-const isAuthed = middleware(({ next, ctx }) => {
-  const user = ctx.session?.user
+const isAuthed = middleware(async ({ next, ctx }) => {
+  const user = await getCurrentUser(null, ctx)
 
-  if (!user?.name) {
+  if (!user) {
     throw new TRPCError({ code: "UNAUTHORIZED" })
   }
 
@@ -58,7 +60,7 @@ const isAuthed = middleware(({ next, ctx }) => {
     ctx: {
       user: {
         ...user,
-        name: user.name,
+        name: user.fullName,
       },
     },
   })

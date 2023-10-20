@@ -3,10 +3,10 @@
  */
 import * as trpcNext from "@trpc/server/adapters/next"
 import { createContext } from "src/ws-server/context"
-import { AppRouter, appRouter } from "src/ws-server/routers/_app"
+import { WSRouter, wsRouter } from "src/ws-server/routers/_app"
 
-export default trpcNext.createNextApiHandler<AppRouter>({
-  router: appRouter,
+export default trpcNext.createNextApiHandler<WSRouter>({
+  router: wsRouter,
   /**
    * @link https://trpc.io/docs/context
    */
