@@ -8,6 +8,12 @@
     "noEmit": false,
     "outDir": "build-ws"
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/ws-server/wsProdServer.js"],
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/ws-server/wsProdServer.js",
+    "src/blitz-client.js"
+  ],
   "exclude": ["node_modules", "src/**/*.test.ts"]
 }

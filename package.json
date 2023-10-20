@@ -7,7 +7,7 @@
     "_build": "blitz build",
     "build:0-clean": "yarn run clean",
     "build:1-blitz": "cross-env NODE_ENV=production blitz build",
-    "build:2-ws-trpc": "cross-env NODE_ENV=production PORT=3001 tsc --clean --project tsconfig.server.json",
+    "build:2-ws-trpc": "cross-env NODE_ENV=production PORT=3001 tsc --project tsconfig.server.json",
     "build": "run-s build:*",
     "dev:2-ws": "cross-env PORT=3001 tsx watch src/ws-server/wsServer.ts --tsconfig tsconfig.server.json ",
     "dev:1-blitz": "blitz dev",
