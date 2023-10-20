@@ -6,7 +6,7 @@
     "lib": ["ES2019", "DOM"],
     "isolatedModules": false,
     "noEmit": false,
-    "outDir": "build/ws-server"
+    "outDir": "build/ws"
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "src/**/*.test.ts"]
