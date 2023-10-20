@@ -25,7 +25,7 @@ db.$use(async (params, next) => {
 
   const actions = "create delete deleteMany".split(" ")
   return next(params).then(async (res) => {
-    await afterCreateOrUpdate(model, params, res)
+    await afterCreateOrUpdate("Post", params, res)
     return res
   })
 })
@@ -49,6 +49,7 @@ async function afterCreateOrUpdate(modelName, params, res) {
   }
   try {
     if (["create", "createMany", "update", "updateMany"].includes(action)) {
+      // TODO get actual data, where{} might not match anymore
       //@ts-ignore
       const records = await db[model].findMany({
         where: { id: res.id },
