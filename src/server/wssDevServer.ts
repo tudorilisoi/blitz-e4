@@ -1,7 +1,12 @@
+globalThis.__BLITZ_SESSION_COOKIE_PREFIX = process.env.__BLITZ_SESSION_COOKIE_PREFIX
+import { authPlugin } from "src/blitz-server"
 import { createContext } from "./context"
 import { appRouter } from "./routers/_app"
 import { applyWSSHandler } from "@trpc/server/adapters/ws"
 import ws from "ws"
+
+//fake blitz-auth
+authPlugin && console.log("authPlugin imported from main app")
 
 const wss = new ws.Server({
   port: 3001,

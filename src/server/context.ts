@@ -1,16 +1,16 @@
-import { getBlitzContext, getSession } from "@blitzjs/auth"
+import { SESSION_TYPE_ANONYMOUS_JWT } from "@blitzjs/auth"
 import { loadEnvConfig } from "@next/env"
 import * as trpc from "@trpc/server"
 import * as trpcNext from "@trpc/server/adapters/next"
 import { NodeHTTPCreateContextFnOptions } from "@trpc/server/adapters/node-http"
-import { IncomingMessage } from "http"
+import { IncomingMessage, OutgoingMessage, ServerResponse } from "http"
+import { authConfig } from "src/blitz-client"
 const projectDir = process.cwd()
 const conf = loadEnvConfig(projectDir)
 
 import ws from "ws"
 
-globalThis.__BLITZ_SESSION_COOKIE_PREFIX = process.env.__BLITZ_SESSION_COOKIE_PREFIX
-
+const { getSession } = require("@blitzjs/auth")
 /**
  * Creates context for an incoming request
  * @link https://trpc.io/docs/context
@@ -18,16 +18,23 @@ globalThis.__BLITZ_SESSION_COOKIE_PREFIX = process.env.__BLITZ_SESSION_COOKIE_PR
 export const createContext = async (
   opts: NodeHTTPCreateContextFnOptions<IncomingMessage, ws> | trpcNext.CreateNextContextOptions
 ) => {
-  // const session = await getSession(opts.req)
-
-  // console.log("createContext for", session?.user?.name ?? "unknown user")
   try {
-    const sess = await getSession(opts.req, opts.res)
-    const ctx = await getBlitzContext()
-    console.log(`🚀 ~ ctx:`, ctx)
+    const { req } = opts
+    // const res = new ServerResponse(req)
+    const res = opts.res
+    globalThis.__BLITZ_SESSION_COOKIE_PREFIX = authConfig.cookiePrefix
+    const ctx = await getSession(req, res)
+
+    console.log("WS SESSION", Object.keys(res.blitzCtx.session))
+    return res.blitzCtx.session
   } catch (error) {
     console.log(`🚀 ~ error:`, error)
-    // console.log(process.env)
+  }
+
+  const { req, res } = opts
+  // console.log("H:", req.headers)
+  if (req.headers.cookie) {
+    console.log("COOKIE:", req.headers.cookie)
   }
   return {
     session: {},
