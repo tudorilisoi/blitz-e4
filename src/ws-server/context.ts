@@ -1,4 +1,5 @@
-import { SESSION_TYPE_ANONYMOUS_JWT } from "@blitzjs/auth"
+import { Ctx } from "@blitzjs/next"
+import { SESSION_TYPE_ANONYMOUS_JWT, getBlitzContext } from "@blitzjs/auth"
 import { loadEnvConfig } from "@next/env"
 import * as trpc from "@trpc/server"
 import * as trpcNext from "@trpc/server/adapters/next"
@@ -17,7 +18,7 @@ const { getSession } = require("@blitzjs/auth")
  */
 export const createContext = async (
   opts: NodeHTTPCreateContextFnOptions<IncomingMessage, ws> | trpcNext.CreateNextContextOptions
-) => {
+): Promise<Ctx> => {
   try {
     const { req } = opts
     // const res = new ServerResponse(req)
@@ -31,14 +32,8 @@ export const createContext = async (
     console.log(`🚀 ~ error:`, error)
   }
 
-  const { req, res } = opts
-  // console.log("H:", req.headers)
-  if (req.headers.cookie) {
-    console.log("COOKIE:", req.headers.cookie)
-  }
-  return {
-    session: {},
-  }
+  const ctx = getBlitzContext()
+  return ctx
 }
 
 export type Context = trpc.inferAsyncReturnType<typeof createContext>

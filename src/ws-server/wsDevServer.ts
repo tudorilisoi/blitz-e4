@@ -6,8 +6,11 @@ import { createContext } from "./context"
 import { wsRouter } from "./routers/_app"
 import { NEXT_PUBLIC_WS_URL } from "./imports"
 
+let port = NEXT_PUBLIC_WS_URL || ":3001"
+port = port.substring(port.lastIndexOf(":") + 1)
+
 const wss = new ws.Server({
-  port: 3001,
+  port,
 })
 const handler = applyWSSHandler({ wss, router: wsRouter, createContext })
 
