@@ -9,7 +9,7 @@ import Layout from "src/core/layouts/Layout"
 import CategoryCell from "src/posts/components/CategoryCell"
 import getCategories from "src/posts/queries/getCategories"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
-import { trpc } from "src/utils/trpc"
+import { trpc } from "src/ws-utils/trpc"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()

@@ -2,7 +2,7 @@ import { AppProps, ErrorBoundary, ErrorComponent, ErrorFallbackProps } from "@bl
 import { AuthenticationError, AuthorizationError } from "blitz"
 import { withBlitz } from "src/blitz-client"
 import "src/styles/init.css"
-import { trpc } from "src/utils/trpc"
+import { trpc } from "src/ws-utils/trpc"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {

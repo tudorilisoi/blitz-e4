@@ -4,7 +4,7 @@ import { wsLink, createWSClient } from "@trpc/client/links/wsLink"
 import { createTRPCNext } from "@trpc/next"
 import type { inferProcedureOutput } from "@trpc/server"
 import { NextPageContext } from "next"
-import type { wsRouter } from "src/server/routers/_app"
+import type { wsRouter } from "src/ws-server/routers/_app"
 import superjson from "superjson"
 
 // ℹ️ Type-only import:
