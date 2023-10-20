@@ -25,8 +25,8 @@ export const createContext = async (
     globalThis.__BLITZ_SESSION_COOKIE_PREFIX = authConfig.cookiePrefix
     const ctx = await getSession(req, res)
 
-    console.log("WS SESSION", Object.keys(res.blitzCtx.session))
-    return res.blitzCtx.session
+    console.log("WS SESSION", res.blitzCtx.session.$publicData)
+    return res.blitzCtx
   } catch (error) {
     console.log(`🚀 ~ error:`, error)
   }

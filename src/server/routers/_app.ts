@@ -15,7 +15,7 @@ export const appRouter = router({
     return observable<number>((emit) => {
       const int = setInterval(() => {
         emit.next(Math.random())
-      }, 500)
+      }, 1000)
       return () => {
         clearInterval(int)
       }
