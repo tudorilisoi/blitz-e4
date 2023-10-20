@@ -23,4 +23,4 @@ export const wsRouter = router({
   }),
 })
 
-export type wsRouter = typeof wsRouter
+export type WSRouter = typeof wsRouter
