@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Get the script's directory
-script_dir="$(dirname "$0")"
+script_path=$(dirname "$(readlink -f "$0")")
+
+echo "Script dir is $script_path"
 
 # Define the path to the .env files directory
 env_files_dir="."
@@ -38,10 +40,11 @@ else
   echo "meili not running"
 fi
 docker container rm meili 2>&1
+
 docker run -it\
   --name meili \
   --rm \
   -p 7700:7700 \
-  -v $(script_dir)/.meilidata:/meili_data \
+  -v "$script_path/.meilidata:/meili_data" \
   getmeili/meilisearch:v1.4.1\
   meilisearch --master-key="$MEILI_MASTER_KEY"
