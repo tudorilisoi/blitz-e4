@@ -1,14 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "src/*": ["./src/*"]
+    },
     "module": "commonjs",
     "outDir": "dist",
-    "baseUrl": "./",
     "target": "ES2019",
     "lib": ["ES2019", "DOM"],
     "isolatedModules": false,
     "noEmit": false
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "src/**/*.test.ts", "**/*.e2e.ts", "cypress"]
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "meilisearch/**/*.tsx"],
+  "exclude": ["node_modules", "**/*.e2e.ts", "cypress", "src/**/*.test.ts"]
 }
