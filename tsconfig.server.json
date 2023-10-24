@@ -11,6 +11,6 @@
     "isolatedModules": false,
     "noEmit": false
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "meilisearch/**/*.tsx"],
-  "exclude": ["node_modules", "**/*.e2e.ts", "cypress", "src/**/*.test.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "**/*.e2e.ts", "cypress", "**/*.test.ts", "**/*.test.tsx"]
 }
