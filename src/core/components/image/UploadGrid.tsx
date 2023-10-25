@@ -96,7 +96,7 @@ export default function UploadGrid({
           type="file"
         />
       </label>
-      <div className={"grid grid-rows-1 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3"}>
+      <div className={"grid grid-rows-1 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4"}>
         {Object.entries(blobs).map(([id, blob]) => (
           <div
             key={id}

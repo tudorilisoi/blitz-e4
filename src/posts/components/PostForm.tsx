@@ -1,5 +1,5 @@
 import { Category, Image, currencies } from "@prisma/client"
-import React, { Suspense } from "react"
+import React, { Suspense, useState } from "react"
 import { FORM_ERROR, Form, FormProps } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
 import UploadGrid, { BlobsChangeCallback } from "src/core/components/image/UploadGrid"
@@ -24,10 +24,14 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   const outerProps = { className: "flex flex-col text-0xl" }
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   const { onBlobsChange, categories, ...restProps } = props
-  return (
+  const [activeTab, setActiveTab] = useState("post")
+
+  const grid = <UploadGrid images={values.images || []} onChange={onBlobsChange} />
+
+  const form = (
     <Form<S> {...restProps}>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
-      <UploadGrid images={values.images || []} onChange={onBlobsChange} />
+
       <LabeledTextField
         labelProps={labelProps}
         outerProps={outerProps}
@@ -65,7 +69,6 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         name="body"
         className="textarea textarea-bordered bg-base-200 focus:outline-secondary-focus"
       />
-
       {/* <LabeledTextField labelProps={labelProps} outerProps={outerProps} label="currency" name="currency" type="text" /> */}
       <div className="flex flex-row flex-wrap sm:flex-nowrap justify-start gap-2 align-top">
         <LabeledTextField
@@ -98,5 +101,21 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         </LabeledTextField>
       </div>
     </Form>
+  )
+  const postTabClass = `tab tab-lg tab-lifted ${activeTab === "post" ? "tab-active" : ""}`
+  const gridTabClass = `tab tab-lg tab-lifted ${activeTab === "photos" ? "tab-active" : ""}`
+  return (
+    <div>
+      <div className="tabs">
+        <a className={postTabClass} onClick={() => setActiveTab("post")}>
+          Anunţ
+        </a>
+        <a className={gridTabClass} onClick={() => setActiveTab("photos")}>
+          Fotografii
+        </a>
+      </div>
+      <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
+      <div className={`${activeTab === "photos" ? "" : "hidden"}`}>{grid}</div>
+    </div>
   )
 }
