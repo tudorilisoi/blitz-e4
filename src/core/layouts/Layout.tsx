@@ -79,7 +79,9 @@ const NavBar = () => {
             <span className="btn btn-circle btn-primary normal-case">e3</span>
           </Link>
         </div>
-        <div className="flex-none gap-2 mr-2 text-base-content">Publică anunţ</div>
+        <div className="flex-none gap-2 mr-2 text-base-content">
+          <Link href={Routes.NewPostPage()}>Publică anunţ</Link>
+        </div>
         <div className="flex-none gap-2">
           <Suspense>
             <UserInfo />

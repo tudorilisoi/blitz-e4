@@ -20,7 +20,9 @@ const NewPostPage = () => {
 
   return (
     <Layout title={"Create New Post"}>
-      <h1>Create New Post</h1>
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Publică anunţ</h1>
+      </div>
       <Suspense fallback={<div>Loading...</div>}>
         <PostForm
           categories={categories || []}
@@ -47,6 +49,6 @@ const NewPostPage = () => {
   )
 }
 
-NewPostPage.authenticate = true
+// NewPostPage.authenticate = true
 
 export default NewPostPage
