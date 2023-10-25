@@ -46,5 +46,5 @@ docker run -it\
   --rm \
   -p 7700:7700 \
   -v "$script_path/.meilidata:/meili_data" \
-  getmeili/meilisearch:v1.4.1\
+  getmeili/meilisearch:v1.4.2\
   meilisearch --master-key="$MEILI_MASTER_KEY"

@@ -59,9 +59,9 @@ const init = async () => {
     }
   }
 }
-globalThis.__MEILI_INITIALIZED = false
-if (!globalThis.__MEILI_INITIALIZED) {
-  globalThis.__MEILI_INITIALIZED = true
+process.env.__MEILI_INITIALIZED = ""
+if (!process.env.__MEILI_INITIALIZED) {
+  process.env.__MEILI_INITIALIZED = "true"
 
   init()
     .then((res) => {
