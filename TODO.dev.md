@@ -59,5 +59,5 @@ Note: Maybe later on these will be converted to GH issues
 - X create a sitemap page with all the necesarry links for home, login, logout, create post, etc.
 - ✔ line-clamp partial post body in PostCell
 - X add Google analytics
-- X fix WS prod server
+- ✔ fix WS prod server
 - X maybe implement chat
