@@ -19,14 +19,14 @@ const NewPostPage = () => {
   const [createPostMutation] = useMutation(createPost)
 
   return (
-    <Layout title={"Create New Post"}>
+    <Layout title={"Publică anunţ"}>
       <div className="prose mb-3">
         <h1 className="text-2xl text-base-content">Publică anunţ</h1>
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <PostForm
           categories={categories || []}
-          submitText="Create Post"
+          submitText="Publică anunţ"
           schema={CreatePostSchema}
           initialValues={{}}
           onSubmit={async (values) => {
