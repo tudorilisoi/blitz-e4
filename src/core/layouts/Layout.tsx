@@ -15,21 +15,22 @@ const UserInfo = () => {
     return (
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-secondary">
-          <span className="px-1">{"Cont"}</span>
+          <span className="px-1">{currentUser.fullName}</span>
         </label>
         <ul
           tabIndex={0}
           className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
         >
-          <li>
+          {/* <li>
             <a className="justify-between">
               Profile
               <span className="badge">New</span>
             </a>
-          </li>
+          </li> */}
 
           <li>
             <a
+              className="py-2"
               onClick={async () => {
                 await logoutMutation()
               }}
@@ -53,13 +54,13 @@ const UserInfo = () => {
           className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
         >
           <li>
-            <Link href={Routes.SignupPage()}>
+            <Link className="py-2" href={Routes.SignupPage()}>
               <strong>Creează cont</strong>
             </Link>
           </li>
 
           <li>
-            <Link href={Routes.LoginPage()}>
+            <Link className="py-2" href={Routes.LoginPage()}>
               <strong>Conectare</strong>
             </Link>
           </li>
