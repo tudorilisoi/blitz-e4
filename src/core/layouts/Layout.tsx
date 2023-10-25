@@ -68,6 +68,11 @@ const UserInfo = () => {
               <strong>Conectare</strong>
             </Link>
           </li>
+          <li>
+            <Link className="py-2" href={Routes.ForgotPasswordPage()}>
+              <strong>Am uitat parola</strong>
+            </Link>
+          </li>
         </ul>
       </div>
     </>
