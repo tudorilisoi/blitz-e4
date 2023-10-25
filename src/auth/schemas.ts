@@ -1,13 +1,17 @@
 import { z } from "zod"
 
+const e = (errMessage: string) => {
+  return { errorMap: () => ({ message: errMessage }) }
+}
+
 export const email = z
-  .string()
+  .string({ ...e("Tebuie să completaţi adresa de e-mail") })
   .email()
   .transform((str) => str.toLowerCase().trim())
 
 export const password = z
-  .string()
-  .min(10)
+  .string({ ...e("Parola trebuie să aibă minim 6 litere/cifre") })
+  .min(6)
   .max(100)
   .transform((str) => str.trim())
 
@@ -18,7 +22,7 @@ export const Signup = z.object({
 
 export const Login = z.object({
   email,
-  password: z.string(),
+  password: password,
 })
 
 export const ForgotPassword = z.object({
@@ -32,7 +36,7 @@ export const ResetPassword = z
     token: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords don't match",
+    message: "Parolele nu sunt la fel",
     path: ["passwordConfirmation"], // set the path of the error
   })
 
