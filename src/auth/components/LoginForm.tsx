@@ -20,7 +20,7 @@ export const LoginForm = (props: LoginFormProps) => {
   const outerProps = { className: "flex flex-col text-0xl" }
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   return (
-    <div>
+    <div className="max-w-screen-sm">
       <div className="prose mb-3">
         <h1 className="text-2xl text-base-content">Conectare</h1>
       </div>
