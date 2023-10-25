@@ -59,18 +59,7 @@ export const EditPost = () => {
       staleTime: Infinity,
     }
   )
-  const [updatePostMutation] = useMutation(
-    updatePost
-    // {},
-    /* {
-      onMutate: () => {
-        toggle(true)
-      },
-      onSettled: () => {
-        toggle(false)
-      },
-    } */
-  )
+  const [updatePostMutation] = useMutation(updatePost)
 
   const [createImageMutation] = useMutation(createImage)
 
