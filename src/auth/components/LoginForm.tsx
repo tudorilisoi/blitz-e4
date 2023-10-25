@@ -13,12 +13,20 @@ type LoginFormProps = {
 
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
+  const labelProps = {
+    className:
+      "label text-secondary hover:text-accent-focus focus-within:text-primary font-bold mb-1 mt-2",
+  }
+  const outerProps = { className: "flex flex-col text-0xl" }
+  const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   return (
     <div>
-      <h1>Login</h1>
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Conectare</h1>
+      </div>
 
       <Form
-        submitText="Login"
+        submitText="Conectare"
         schema={Login}
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values) => {
@@ -37,20 +45,30 @@ export const LoginForm = (props: LoginFormProps) => {
           }
         }}
       >
-        <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
+          name="email"
+          label="Email"
+          placeholder="Email"
+        />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
+          name="password"
+          label="Password"
+          placeholder="Password"
+          type="password"
+        />
         <div>
-          <Link href={Routes.ForgotPasswordPage()}>
-            Forgot your password?
-          </Link>
+          <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
         </div>
       </Form>
 
       <div style={{ marginTop: "1rem" }}>
-        Or{" "}
-        <Link href={Routes.SignupPage()}>
-          Sign Up
-        </Link>
+        sau <Link href={Routes.SignupPage()}>Creează cont</Link>
       </div>
     </div>
   )
