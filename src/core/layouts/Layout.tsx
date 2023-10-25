@@ -1,8 +1,73 @@
 import { BlitzLayout, Routes } from "@blitzjs/next"
 import Head from "next/head"
 import Link from "next/link"
-import React from "react"
+import React, { Suspense } from "react"
 import { OverlayProvider } from "../components/spinner/OverlayProvider"
+import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import { useMutation } from "@blitzjs/rpc"
+import logout from "src/auth/mutations/logout"
+
+const UserInfo = () => {
+  const currentUser = useCurrentUser()
+  const [logoutMutation] = useMutation(logout)
+
+  if (currentUser) {
+    return (
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-secondary">
+          <span className="px-1">{"Cont"}</span>
+        </label>
+        <ul
+          tabIndex={0}
+          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
+        >
+          <li>
+            <a className="justify-between">
+              Profile
+              <span className="badge">New</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              onClick={async () => {
+                await logoutMutation()
+              }}
+            >
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-secondary">
+          <span className="px-1">{"Cont"}</span>
+        </label>
+        <ul
+          tabIndex={0}
+          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
+        >
+          <li>
+            <Link href={Routes.SignupPage()}>
+              <strong>Creează cont</strong>
+            </Link>
+          </li>
+
+          <li>
+            <Link href={Routes.LoginPage()}>
+              <strong>Conectare</strong>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </>
+  )
+}
 
 const NavBar = () => {
   // NOTE for the bg highlight the container
@@ -16,28 +81,9 @@ const NavBar = () => {
         </div>
         <div className="flex-none gap-2 mr-2 text-base-content">Publică anunţ</div>
         <div className="flex-none gap-2">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn  btn-secondary">
-              <div className="w-10 rounded-full">{"Cont"}</div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          <Suspense>
+            <UserInfo />
+          </Suspense>
         </div>
       </div>
     </header>
