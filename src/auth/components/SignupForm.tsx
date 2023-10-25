@@ -3,6 +3,8 @@ import { Form, FORM_ERROR } from "src/core/components/Form"
 import signup from "src/auth/mutations/signup"
 import { Signup } from "src/auth/schemas"
 import { useMutation } from "@blitzjs/rpc"
+import { Routes } from "@blitzjs/next"
+import Link from "next/link"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -34,7 +36,16 @@ export const SignupForm = (props: SignupFormProps) => {
             console.dir(error)
             if (error.code === "P2002" && error.meta?.target?.includes("email")) {
               // This error comes from Prisma
-              return { email: "Acest cont există deja" }
+              return {
+                email: (
+                  <div>
+                    Acest cont există deja{" "}
+                    <Link className="btn btn-xs btn-secondary" href={Routes.LoginPage()}>
+                      Conectare
+                    </Link>
+                  </div>
+                ),
+              }
             } else {
               return { [FORM_ERROR]: error.toString() }
             }
