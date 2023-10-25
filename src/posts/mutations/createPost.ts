@@ -5,6 +5,7 @@ import { CreatePostSchema } from "../schemas"
 import { makeSlug } from "src/helpers"
 import getPost from "../queries/getPost"
 import { guardAuthenticated } from "src/auth/helpers"
+import { PostWithIncludes } from "../helpers"
 
 export default resolver.pipe(resolver.zod(CreatePostSchema), async (input, context) => {
   await guardAuthenticated(context)
@@ -23,7 +24,7 @@ export default resolver.pipe(resolver.zod(CreatePostSchema), async (input, conte
   }
   // delete data.categoryId
 
-  let post = await db.post.create({ data, select: { id: true } })
-  post = await getPost({ id: post.id }, context)
+  const _post = await db.post.create({ data, select: { id: true } })
+  const post = await getPost({ id: _post.id }, context)
   return post
 })

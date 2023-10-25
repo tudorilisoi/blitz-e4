@@ -21,7 +21,7 @@ import getCategories from "src/posts/queries/getCategories"
 import getPost from "src/posts/queries/getPost"
 import { UpdatePostSchema } from "src/posts/schemas"
 
-const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes }) => {
+export const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes }) => {
   const { toggle } = useOverlay()
 
   return (
