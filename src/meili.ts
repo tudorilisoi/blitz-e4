@@ -13,6 +13,37 @@ const init = async () => {
   const indexes = ["Post"]
   for (let index of indexes) {
     try {
+      const keys = await client.getKeys()
+      let searchKey = keys.results.find((k) => k.name === "PublicKeySearchAllIndexes")
+      console.log(`EXISTING searchKey:`, searchKey)
+
+      if (!searchKey) {
+        await client
+          .createKey({
+            uid: "4c607b1e15ccb4b1e0453d369039268d",
+            name: "PublicKeySearchAllIndexes",
+            actions: ["search"],
+            indexes: ["*"],
+            expiresAt: null,
+          })
+          .then((key) => {
+            searchKey = key
+            console.log("CREATED searchKey::", key)
+            // replaceEnv(".env", "NEXT_PUBLIC_MEILI_SEARCH_KEY", key.key)
+          })
+          .catch((err) => {
+            console.log("CREATE KEY ERR:", err)
+          })
+      }
+
+      if (searchKey && searchKey.key !== process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY) {
+        console.error(`Please update your env file by setting this:
+
+        NEXT_PUBLIC_MEILI_SEARCH_KEY=${searchKey.key}
+
+        `)
+      }
+
       const res = await client.createIndex(index, { primaryKey: "id" })
       console.log(`CREATE INDEX ${index}:`, res)
     } catch (error) {
@@ -34,3 +65,45 @@ if (!globalThis.__MEILI_INITIALIZED) {
 }
 
 export { client as meiliClient }
+
+function replaceEnv(envFilePath, targetVariable, newValue) {
+  const fs = require("fs")
+
+  // Specify the .env file path
+  // const envFilePath = '.env';
+
+  // Specify the variable you want to replace
+  // const targetVariable = "MY_VARIABLE"
+
+  // Specify the new value for the variable
+  // const newValue = "new_value"
+
+  fs.readFile(envFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error(`Error reading ${envFilePath}: ${err}`)
+      return
+    }
+
+    // Use regular expressions to replace the variable's value
+    let updatedEnv = data.replace(
+      new RegExp(`${targetVariable}=.+`),
+      `${targetVariable}=${newValue}`
+    )
+
+    if (data === updatedEnv && !updatedEnv.includes(`${targetVariable}=`)) {
+      updatedEnv = `
+      ${updatedEnv}
+      ${targetVariable}=${newValue}
+      `
+    }
+
+    // Write the updated .env file
+    fs.writeFile(envFilePath, updatedEnv, "utf8", (writeErr) => {
+      if (writeErr) {
+        console.error(`Error writing ${envFilePath}: ${writeErr}`)
+      } else {
+        console.log(`Updated ${envFilePath}: ${targetVariable}=${newValue}`)
+      }
+    })
+  })
+}
