@@ -19,7 +19,7 @@ const UserInfo = () => {
         </label>
         <ul
           tabIndex={0}
-          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
+          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-secondary rounded-box min-w-52"
         >
           {/* <li>
             <a className="justify-between">
@@ -28,9 +28,13 @@ const UserInfo = () => {
             </a>
           </li> */}
 
+          <li className="hover:bg-base-200">
+            <span className="py-2 text-base-content">{currentUser.email}</span>
+          </li>
+
           <li>
             <a
-              className="py-2"
+              className="py-2 text-secondary"
               onClick={async () => {
                 await logoutMutation()
               }}
@@ -51,7 +55,7 @@ const UserInfo = () => {
         </label>
         <ul
           tabIndex={0}
-          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-base-content rounded-box w-52"
+          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-secondary rounded-box w-52"
         >
           <li>
             <Link className="py-2" href={Routes.SignupPage()}>
