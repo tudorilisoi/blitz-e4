@@ -11,15 +11,14 @@ const ForgotPasswordPage: BlitzPage = () => {
 
   return (
     <Layout title="Forgot Your Password?">
-      <h1>Forgot your password?</h1>
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Ai uitat parola?</h1>
+      </div>
 
       {isSuccess ? (
-        <div>
-          <h2>Request Submitted</h2>
-          <p>
-            If your email is in our system, you will receive instructions to reset your password
-            shortly.
-          </p>
+        <div className="bg-info text-info-content rounded-md p-1 px-">
+          <h2 className="text-xl  ">Cererea a fost trimisă</h2>
+          <p>Veţi primi nformaţiile pe e-mail în scurt timp</p>
         </div>
       ) : (
         <Form
