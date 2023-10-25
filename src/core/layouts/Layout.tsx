@@ -35,7 +35,7 @@ const UserInfo = () => {
                 await logoutMutation()
               }}
             >
-              Logout
+              Deconectare
             </a>
           </li>
         </ul>
