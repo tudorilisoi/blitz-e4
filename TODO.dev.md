@@ -48,6 +48,7 @@ Note: Maybe later on these will be converted to GH issues
 - P implement a search interface; meilisearch is already setup
 - ✔ find some way to implement a consistent UI over Tailwind (currently using daisyUI)
 - X implement images as a tab in the post edit form
+- X use logger to warn in p_app about page not having getLayout
 - X fix multiple style jsx in posts nav page
 - P implement the home page with categories list
 - X implement view ad page
