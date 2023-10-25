@@ -51,15 +51,15 @@ export const LoginForm = (props: LoginFormProps) => {
           className={labelClassName}
           name="email"
           label="Email"
-          placeholder="Email"
+          placeholder=""
         />
         <LabeledTextField
           labelProps={labelProps}
           outerProps={outerProps}
           className={labelClassName}
           name="password"
-          label="Password"
-          placeholder="Password"
+          label="Parola"
+          placeholder=""
           type="password"
         />
         <div>
