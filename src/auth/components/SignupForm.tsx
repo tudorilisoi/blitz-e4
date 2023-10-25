@@ -10,12 +10,20 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
+  const labelProps = {
+    className:
+      "label text-secondary hover:text-accent-focus focus-within:text-primary font-bold mb-1 mt-2",
+  }
+  const outerProps = { className: "flex flex-col text-0xl" }
+  const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   return (
     <div>
-      <h1>Create an Account</h1>
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Creează cont</h1>
+      </div>
 
       <Form
-        submitText="Create Account"
+        submitText="Creează cont"
         schema={Signup}
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values) => {
@@ -26,15 +34,30 @@ export const SignupForm = (props: SignupFormProps) => {
             console.dir(error)
             if (error.code === "P2002" && error.meta?.target?.includes("email")) {
               // This error comes from Prisma
-              return { email: "This email is already being used" }
+              return { email: "Acest cont există deja" }
             } else {
               return { [FORM_ERROR]: error.toString() }
             }
           }
         }}
       >
-        <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
+          name="email"
+          label="Email"
+          placeholder=""
+        />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
+          name="password"
+          label="Parola"
+          placeholder=""
+          type="password"
+        />
       </Form>
     </div>
   )
