@@ -39,7 +39,7 @@ const UserInfo = () => {
               className="py-2 text-secondary"
               onClick={async () => {
                 await logoutMutation()
-                router.push("/")
+                await router.push("/")
               }}
             >
               Deconectare
