@@ -15,9 +15,18 @@ const ResetPasswordPage: BlitzPage = () => {
   console.log(`🚀 ~ token:`, token)
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
 
+  const labelProps = {
+    className:
+      "label text-secondary hover:text-accent-focus focus-within:text-primary font-bold mb-1 mt-2",
+  }
+  const outerProps = { className: "flex flex-col text-0xl" }
+  const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
+
   return (
-    <div>
-      <h1>Set a New Password</h1>
+    <div className="max-w-screen-sm">
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Setează o nouă parolă</h1>
+      </div>
 
       {isSuccess ? (
         <div>
@@ -28,7 +37,7 @@ const ResetPasswordPage: BlitzPage = () => {
         </div>
       ) : (
         <Form
-          submitText="Reset Password"
+          submitText="Resetează parola"
           schema={ResetPassword}
           initialValues={{
             password: "",
@@ -52,10 +61,20 @@ const ResetPasswordPage: BlitzPage = () => {
             }
           }}
         >
-          <LabeledTextField name="password" label="New Password" type="password" />
           <LabeledTextField
+            labelProps={labelProps}
+            outerProps={outerProps}
+            className={labelClassName}
+            name="password"
+            label="Parola nouă"
+            type="password"
+          />
+          <LabeledTextField
+            labelProps={labelProps}
+            outerProps={outerProps}
+            className={labelClassName}
             name="passwordConfirmation"
-            label="Confirm New Password"
+            label="Parola nouă (din nou)"
             type="password"
           />
         </Form>
@@ -65,6 +84,6 @@ const ResetPasswordPage: BlitzPage = () => {
 }
 
 ResetPasswordPage.redirectAuthenticatedTo = "/"
-ResetPasswordPage.getLayout = (page) => <Layout title="Reset Your Password">{page}</Layout>
+ResetPasswordPage.getLayout = (page) => <Layout title="Resetează parola">{page}</Layout>
 
 export default ResetPasswordPage
