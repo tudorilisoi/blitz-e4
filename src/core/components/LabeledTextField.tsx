@@ -50,9 +50,12 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
 
       <ErrorMessage
         render={({ message }) => (
-          <div role="alert" className="bg-error text-error-content mt-2 p-2 rounded-md">
+          <span
+            role="alert"
+            className="bg-error text-error-content mt-2 p-1 px-2 rounded-md inline-block w-fit"
+          >
             {message}
-          </div>
+          </span>
         )}
         errors={errors}
         name={name}
