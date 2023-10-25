@@ -6,8 +6,10 @@ import { OverlayProvider } from "../components/spinner/OverlayProvider"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import { useMutation } from "@blitzjs/rpc"
 import logout from "src/auth/mutations/logout"
+import { useRouter } from "next/router"
 
 const UserInfo = () => {
+  const router = useRouter()
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
 
@@ -37,6 +39,7 @@ const UserInfo = () => {
               className="py-2 text-secondary"
               onClick={async () => {
                 await logoutMutation()
+                router.push("/")
               }}
             >
               Deconectare
