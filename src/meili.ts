@@ -11,39 +11,47 @@ const client = new MeiliSearch({
 })
 const init = async () => {
   const indexes = ["Post"]
+
+  const keys = await client.getKeys()
+  let searchKey = keys.results.find((k) => k.name === "PublicKeySearchAllIndexes")
+  console.log(`EXISTING searchKey:`, searchKey)
+
+  if (!searchKey) {
+    await client
+      .createKey({
+        uid: "4c607b1e15ccb4b1e0453d369039268d",
+        name: "PublicKeySearchAllIndexes",
+        actions: ["search"],
+        indexes: ["*"],
+        expiresAt: null,
+      })
+      .then((key) => {
+        searchKey = key
+        console.log("CREATED searchKey::", key)
+        // replaceEnv(".env", "NEXT_PUBLIC_MEILI_SEARCH_KEY", key.key)
+      })
+      .catch((err) => {
+        console.log("CREATE KEY ERR:", err)
+      })
+  }
+
+  if (searchKey && searchKey.key !== process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY) {
+    console.error(`Please update your env file by setting this:
+
+    NEXT_PUBLIC_MEILI_SEARCH_KEY=${searchKey.key}
+
+    `)
+  }
+
+  const { results: existingIndexes } = await client.getIndexes()
+
   for (let index of indexes) {
+    let idx = existingIndexes.find((i) => i.uid === index)
+    if (idx) {
+      console.log(`EXISTING INDEX`, index)
+      continue
+    }
     try {
-      const keys = await client.getKeys()
-      let searchKey = keys.results.find((k) => k.name === "PublicKeySearchAllIndexes")
-      console.log(`EXISTING searchKey:`, searchKey)
-
-      if (!searchKey) {
-        await client
-          .createKey({
-            uid: "4c607b1e15ccb4b1e0453d369039268d",
-            name: "PublicKeySearchAllIndexes",
-            actions: ["search"],
-            indexes: ["*"],
-            expiresAt: null,
-          })
-          .then((key) => {
-            searchKey = key
-            console.log("CREATED searchKey::", key)
-            // replaceEnv(".env", "NEXT_PUBLIC_MEILI_SEARCH_KEY", key.key)
-          })
-          .catch((err) => {
-            console.log("CREATE KEY ERR:", err)
-          })
-      }
-
-      if (searchKey && searchKey.key !== process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY) {
-        console.error(`Please update your env file by setting this:
-
-        NEXT_PUBLIC_MEILI_SEARCH_KEY=${searchKey.key}
-
-        `)
-      }
-
       const res = await client.createIndex(index, { primaryKey: "id" })
       console.log(`CREATE INDEX ${index}:`, res)
     } catch (error) {
