@@ -17,6 +17,7 @@ const init = async () => {
   console.log(`EXISTING searchKey:`, searchKey)
 
   if (!searchKey) {
+    // NOTE the actual searchKey.key which is used client-side is deterministic based on given uid
     await client
       .createKey({
         uid: "4c607b1e15ccb4b1e0453d369039268d",
