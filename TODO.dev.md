@@ -40,6 +40,7 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ install and use tailwind
 - ✔ fix upload filename and make it unique on the server
 - ✔ responsive images server-side and/or using next/image
+- X implement a toast provider of sorts
 - X handle useQuery and UseMutation errors in `_app`
 - X reset password: keep link/token as to avoid confusion or make it last really long
 - X check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023)
