@@ -41,7 +41,7 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ fix upload filename and make it unique on the server
 - ✔ responsive images server-side and/or using next/image
 - X handle useQuery and UseMutation errors
-- X check SocketLabs for the daily/monthly rate
+- X check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023)
 - ✔ refresh/invalidate post after update
 - ✔ auth guard post and image
 - ✔ verify/guard post when uploading image
