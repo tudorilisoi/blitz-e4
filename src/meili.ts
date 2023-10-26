@@ -2,7 +2,7 @@ import { loadEnvConfig } from "@next/env"
 import { MeiliSearch } from "meilisearch"
 
 const root = process.cwd()
-console.log(`🚀 ~ root:`, root)
+console.log(`MEILI: root`, root)
 
 loadEnvConfig(process.cwd())
 const client = new MeiliSearch({
@@ -14,7 +14,7 @@ const init = async () => {
 
   const keys = await client.getKeys()
   let searchKey = keys.results.find((k) => k.name === "PublicKeySearchAllIndexes")
-  console.log(`EXISTING searchKey:`, searchKey)
+  console.log(`MEILI: EXISTING searchKey:`, searchKey)
 
   if (!searchKey) {
     // NOTE the actual searchKey.key which is used client-side is deterministic based on given uid
@@ -28,16 +28,16 @@ const init = async () => {
       })
       .then((key) => {
         searchKey = key
-        console.log("CREATED searchKey::", key)
+        console.log("MEILI: CREATED searchKey::", key)
         // replaceEnv(".env", "NEXT_PUBLIC_MEILI_SEARCH_KEY", key.key)
       })
       .catch((err) => {
-        console.log("CREATE KEY ERR:", err)
+        console.log("MEILI: CREATE KEY ERR:", err)
       })
   }
 
   if (searchKey && searchKey.key !== process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY) {
-    console.error(`Please update your env file by setting this:
+    console.error(`MEILI: Please update your env file by setting this:
 
     NEXT_PUBLIC_MEILI_SEARCH_KEY=${searchKey.key}
 
@@ -49,14 +49,14 @@ const init = async () => {
   for (let index of indexes) {
     let idx = existingIndexes.find((i) => i.uid === index)
     if (idx) {
-      console.log(`EXISTING INDEX`, index)
+      console.log(`MEILI: EXISTING INDEX`, index)
       continue
     }
     try {
       const res = await client.createIndex(index, { primaryKey: "id" })
-      console.log(`CREATE INDEX ${index}:`, res)
+      console.log(`MEILI: CREATE INDEX ${index}:`, res)
     } catch (error) {
-      console.log(`ERROR ${index} index `, error)
+      console.log(`MEILI: ERROR ${index} index `, error)
     }
   }
 }
@@ -66,10 +66,10 @@ if (!process.env.__MEILI_INITIALIZED) {
 
   init()
     .then((res) => {
-      console.log(`MEILI INIT DONE`, res)
+      console.log(`MEILI: INIT DONE`, res)
     })
     .catch((error) => {
-      console.error(`MEILI INIT ERROR`, error)
+      console.error(`MEILI: INIT ERROR`, error)
     })
 }
 

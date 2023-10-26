@@ -15,15 +15,15 @@ const wss = new ws.Server({
 const handler = applyWSSHandler({ wss, router: wsRouter, createContext })
 
 wss.on("connection", (ws) => {
-  console.log(`++ Connection (${wss.clients.size})`)
+  console.log(`WS: ++ Connection (${wss.clients.size})`)
   ws.once("close", () => {
-    console.log(`-- Connection (${wss.clients.size})`)
+    console.log(`WS: -- Connection (${wss.clients.size})`)
   })
 })
-console.log(`✅ WebSocket Server listening on ${NEXT_PUBLIC_WS_URL}`)
+console.log(`WS: ✅ WebSocket Server listening on ${NEXT_PUBLIC_WS_URL}`)
 
 process.on("SIGTERM", () => {
-  console.log("SIGTERM")
+  console.log("WS: SIGTERM")
   handler.broadcastReconnectNotification()
   wss.close()
 })
