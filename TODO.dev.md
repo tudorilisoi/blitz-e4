@@ -54,8 +54,8 @@ Note: Maybe later on these will be converted to GH issues
 - P implement the home page with categories list
 - X va:1 implement view ad page
 - X va:2 implement share button on view ad page
-- P implement login, logout, edit profile (name and phone only)
-- X implement "my ads" page
+- P auth:1 implement login, logout, edit profile (name and phone only)
+- X auth:2 implement "my ads" page
 - X maybe switch to formik for forms
 - X maybe implement DM with tRPC subscriptions
 - X implement expire_status and send mail (only if post fresher than, say, 3 months)
