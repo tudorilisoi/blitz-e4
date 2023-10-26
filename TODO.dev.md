@@ -43,6 +43,7 @@ Note: Maybe later on these will be converted to GH issues
 - X implement a toast provider of sorts
 - X handle useQuery and UseMutation errors in `_app`
 - X reset password: keep link/token as to avoid confusion or make it last really long
+- X maybe implement meili synonims
 - X check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023) "Billing Period 10/15/23 - 11/15/23"
 - ✔ refresh/invalidate post after update
 - ✔ auth guard post and image
