@@ -52,9 +52,9 @@ Note: Maybe later on these will be converted to GH issues
 - X use logger to warn in `_app` about page not having getLayout
 - X fix multiple style jsx in posts nav page
 - P implement the home page with categories list
-- X implement view ad page
-- X implement share button on view ad page
-- X implement login, logout, edit profile (name and phone only)
+- X va:1 implement view ad page
+- X va:2 implement share button on view ad page
+- P implement login, logout, edit profile (name and phone only)
 - X implement "my ads" page
 - X maybe switch to formik for forms
 - X maybe implement DM with tRPC subscriptions
