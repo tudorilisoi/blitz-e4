@@ -51,6 +51,7 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ find some way to implement a consistent UI over Tailwind (currently using daisyUI)
 - X implement images as a tab in the post edit form
 - X use logger to warn in `_app` about page not having getLayout
+- X use consistent logger as configured in blitz
 - X fix multiple style jsx in posts nav page
 - P implement the home page with categories list
 - X va:1 implement view ad page
