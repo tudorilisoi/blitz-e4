@@ -11,7 +11,7 @@
     "build": "run-s build:*",
     "dev:1-blitz": "blitz dev",
     "dev:2-ws": "cross-env PORT=3001 tsx watch src/ws-server/wsServer.ts --tsconfig tsconfig.server.json ",
-    "dev": "run-p dev:*",
+    "dev": "cross-env NODE_ENV=development run-p dev:*",
     "devx": "blitz dev  -H 192.168.22.100",
     "meili": "meilisearch/start-meilisearch.sh",
     "start:1-blitz": "blitz start",
