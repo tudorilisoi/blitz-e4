@@ -46,7 +46,7 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ auth guard post and image
 - ✔ verify/guard post when uploading image
 - ✔ Overlay: better contrast on mobile devices
-- P implement a search interface; meilisearch is already setup
+- P implement a search interface; meilisearch is already setup, see also NEXT_PUBLIC_MEILI_SEARCH_KEY in `.env\*` f iles
 - ✔ find some way to implement a consistent UI over Tailwind (currently using daisyUI)
 - X implement images as a tab in the post edit form
 - X use logger to warn in `_app` about page not having getLayout
