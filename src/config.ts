@@ -1,4 +1,4 @@
-import { Prisma } from "db"
+import { Prisma } from "@prisma/client"
 import path from "path"
 export const UPLOADS_PATH = path.resolve(process.cwd(), ".data/uploads")
 
