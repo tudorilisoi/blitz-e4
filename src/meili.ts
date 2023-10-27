@@ -50,6 +50,14 @@ const init = async () => {
     let idx = existingIndexes.find((i) => i.uid === index)
     if (idx) {
       console.log(`MEILI: EXISTING INDEX`, index)
+      if (index === "Post") {
+        client.index(index).updateSynonyms({
+          chirie: ["închiriez", "închiriere", "închiriază", "închiriat"],
+          vand: ["vanzare", "vandut", "vinde"],
+        })
+        const synonims = await client.index(index).getSynonyms()
+        console.log(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
+      }
       continue
     }
     try {

@@ -36,9 +36,10 @@ const postSelect = {
   title: true,
   body: true,
   phone: true,
+  price: true,
   category: { select: { title: true, slug: true } },
   author: {
-    select: { fullName: true, phone: true },
+    select: { fullName: true, phone: true, email: true },
   },
 }
 
@@ -54,7 +55,7 @@ async function afterCreateOrUpdate(modelName, params, res) {
       //@ts-ignore
       const records = await db[model].findMany({
         where: { id: res.id },
-        select: postInclude,
+        select: postSelect,
       })
       console.log(`DB: ${action} ${model} res`, res, records)
       meiliClient.index(model).addDocuments(records)
