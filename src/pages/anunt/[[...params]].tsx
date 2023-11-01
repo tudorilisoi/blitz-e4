@@ -3,7 +3,9 @@ import { Category, Post } from "@prisma/client"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
+import ImageGallery from "src/core/components/image/ImageGallery"
 import Layout from "src/core/layouts/Layout"
+import { S } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
@@ -45,14 +47,27 @@ export const getServerSideProps = gSSP(async (args) => {
   return { props: { category, post: posts[0] } }
 })
 
-export default function PostPage({ category, post }: { category: Category; post: Post }) {
+export default function PostPage({
+  category,
+  post,
+}: {
+  category: Category
+  post: PostWithIncludes
+}) {
   const router = useRouter()
   const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   const description = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   return (
     <Layout title={title} description={description}>
-      {<pre>{JSON.stringify(post, null, 4)}</pre>}
+      <>
+        <div className="prose mb-3">
+          <h1 className="text-2xl text-base-content">{post.title}</h1>
+          <p className="text-2xl text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
+        </div>
+        <ImageGallery images={post.images} />
+      </>
       <Link href={Routes.EditPostPage({ postId: post.id })}>Edit</Link>
     </Layout>
   )
 }
+// TODO move layout to getLayout
