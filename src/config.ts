@@ -8,7 +8,12 @@ let userFields: any = Prisma.dmmf.datamodel.models.find((model) => model.name ==
 // NOTE get all scalar-like fields and omit sensitive fields
 userFields = userFields.filter((f) => f.kind !== "object").map((f) => f.name)
 
-export const imageSelect = { id: true, fileName: true } as Prisma.ImageSelect
+export const imageSelect = {
+  id: true,
+  fileName: true,
+  width: true,
+  height: true,
+} as Prisma.ImageSelect
 
 export const authorSelect = userFields.reduce((acc, f) => {
   if (!UNSAFE_USER_FIELDS.includes(f)) {

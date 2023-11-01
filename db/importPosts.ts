@@ -133,7 +133,7 @@ const importCategories = async () => {
 }
 
 const mapUpload = (c): Prisma.ImageUncheckedCreateInput => {
-  const { id, parent_id, server_name, date_created, date_modified } = c
+  const { id, parent_id, server_name, date_created, date_modified, width, height } = c
   return {
     id,
     fileName: server_name,
@@ -141,6 +141,8 @@ const mapUpload = (c): Prisma.ImageUncheckedCreateInput => {
     createdAt: new Date(date_created),
     updatedAt: new Date(date_modified),
     userId: 0,
+    width,
+    height,
   }
 }
 
