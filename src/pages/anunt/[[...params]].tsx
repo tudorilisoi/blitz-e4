@@ -60,7 +60,7 @@ export default function PostPage({
   return (
     <Layout title={title} description={description}>
       <>
-        <div className="prose mb-3">
+        <div className="prose mb-4">
           <h1 className="text-2xl text-base-content">{post.title}</h1>
           <p className="text-lg text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
         </div>
