@@ -290,7 +290,7 @@ const init = async () => {
     if (idx) {
       console.log(`MEILI: EXISTING INDEX`, index)
       if (index === "Post") {
-        client.index(index).updateSynonyms({
+        await client.index(index).updateSynonyms({
           chirie: ["închiriez", "închiriere", "închiriază", "închiriat"],
           vand: ["vanzare", "vandut", "vinde"],
         })
