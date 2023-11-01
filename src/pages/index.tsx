@@ -29,7 +29,7 @@ function AboutPage() {
   )
 }
 
-const Home = ({ categories }) => {
+const _Home = ({ categories }) => {
   return (
     <Layout title="Home">
       <div className="prose mb-3">
@@ -44,9 +44,9 @@ const Home = ({ categories }) => {
   )
 }
 
-const _Home = ({ categories }) => {
+const Home = ({ categories }) => {
   return (
-    <Layout title="Home">
+    <>
       <div className="prose mb-3">
         <h1 className="text-2xl text-base-content">Anunţuri</h1>
       </div>
@@ -59,8 +59,8 @@ const _Home = ({ categories }) => {
           </div>
         </Suspense>
       </div>
-    </Layout>
+    </>
   )
 }
-
+Home.getLayout = (page) => <Layout>{page}</Layout>
 export default Home

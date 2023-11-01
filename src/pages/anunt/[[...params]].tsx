@@ -58,16 +58,14 @@ export default function PostPage({
   const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   const description = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   return (
-    <Layout title={title} description={description}>
-      <>
-        <div className="prose mb-4">
-          <h1 className="text-2xl text-base-content">{post.title}</h1>
-          <p className="text-lg text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
-        </div>
-        <ImageGallery images={post.images} />
-      </>
+    <>
+      <div className="prose mb-4">
+        <h1 className="text-2xl text-base-content">{post.title}</h1>
+        <p className="text-lg text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
+      </div>
+      <ImageGallery images={post.images} />
       <Link href={Routes.EditPostPage({ postId: post.id })}>Edit</Link>
-    </Layout>
+    </>
   )
 }
-// TODO move layout to getLayout
+PostPage.getLayout = (page) => <Layout>{page}</Layout>

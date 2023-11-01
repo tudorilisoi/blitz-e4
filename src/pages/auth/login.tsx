@@ -7,15 +7,15 @@ const LoginPage: BlitzPage = () => {
   const router = useRouter()
 
   return (
-    <Layout title="Conectare">
+    <>
       <LoginForm
         onSuccess={(_user) => {
           const next = router.query.next ? decodeURIComponent(router.query.next as string) : "/"
           return router.push(next)
         }}
       />
-    </Layout>
+    </>
   )
 }
-
+LoginPage.getLayout = (page) => <Layout title="Conectare">{page}</Layout>
 export default LoginPage

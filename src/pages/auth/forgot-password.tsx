@@ -17,7 +17,7 @@ const ForgotPasswordPage: BlitzPage = () => {
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
 
   return (
-    <Layout title="Forgot Your Password?">
+    <>
       <div className="max-w-screen-sm">
         <div className="prose mb-3">
           <h1 className="text-2xl text-base-content">Ai uitat parola?</h1>
@@ -53,8 +53,8 @@ const ForgotPasswordPage: BlitzPage = () => {
           </Form>
         )}
       </div>
-    </Layout>
+    </>
   )
 }
-
+ForgotPasswordPage.getLayout = (page) => <Layout title="Ai uitat parola?">{page}</Layout>
 export default ForgotPasswordPage

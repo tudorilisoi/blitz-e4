@@ -7,10 +7,10 @@ const SignupPage: BlitzPage = () => {
   const router = useRouter()
 
   return (
-    <Layout title="Creează cont">
+    <>
       <SignupForm onSuccess={() => router.push(Routes.Home())} />
-    </Layout>
+    </>
   )
 }
-
+SignupPage.getLayout = (page) => <Layout title="Creează cont">{page}</Layout>
 export default SignupPage

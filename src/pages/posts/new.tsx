@@ -115,6 +115,6 @@ const NewPostPage = () => {
 }
 
 // NewPostPage.authenticate = true
-//note: without getLayout the overlay breaks
+// NOTE: without getLayout the overlay breaks
 NewPostPage.getLayout = (page) => <Layout>{page}</Layout>
 export default NewPostPage
