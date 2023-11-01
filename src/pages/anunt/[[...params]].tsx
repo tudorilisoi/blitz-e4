@@ -62,7 +62,7 @@ export default function PostPage({
       <>
         <div className="prose mb-3">
           <h1 className="text-2xl text-base-content">{post.title}</h1>
-          <p className="text-2xl text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
+          <p className="text-lg text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
         </div>
         <ImageGallery images={post.images} />
       </>
