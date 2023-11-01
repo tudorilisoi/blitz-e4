@@ -1,6 +1,7 @@
 import Gallery from "react-photo-gallery"
 import { getImageUrl } from "./helpers"
 import Lightbox from "yet-another-react-lightbox"
+import Zoom from "yet-another-react-lightbox/plugins/zoom"
 import "yet-another-react-lightbox/styles.css"
 import { useCallback, useState } from "react"
 const ImageGallery = ({ images }) => {
@@ -19,7 +20,11 @@ const ImageGallery = ({ images }) => {
     setIndex(-1)
   }, [])
 
-  const slides = photos.map((p) => ({ src: p.src }))
+  const slides = photos.map((p) => ({
+    src: p.src,
+    height: p.height * 3,
+    width: p.width * 3,
+  }))
 
   return (
     <>
@@ -29,7 +34,16 @@ const ImageGallery = ({ images }) => {
 
       <Gallery photos={photos} onClick={openLightbox} />
 
-      <Lightbox open={index > -1} index={index} close={closeLightbox} slides={slides} />
+      <Lightbox
+        plugins={[Zoom]}
+        open={index > -1}
+        index={index}
+        close={closeLightbox}
+        slides={slides}
+        zoom={{
+          maxZoomPixelRatio: 3,
+        }}
+      />
     </>
   )
 }
