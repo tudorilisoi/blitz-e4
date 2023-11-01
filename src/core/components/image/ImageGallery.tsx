@@ -2,6 +2,7 @@ import Gallery from "react-photo-gallery"
 import { getImageUrl } from "./helpers"
 import Lightbox from "yet-another-react-lightbox"
 import Zoom from "yet-another-react-lightbox/plugins/zoom"
+import Counter from "yet-another-react-lightbox/plugins/counter"
 import "yet-another-react-lightbox/styles.css"
 import { useCallback, useState } from "react"
 const ImageGallery = ({ images }) => {
@@ -35,11 +36,12 @@ const ImageGallery = ({ images }) => {
       <Gallery photos={photos} onClick={openLightbox} />
 
       <Lightbox
-        plugins={[Zoom]}
+        plugins={[Counter, Zoom]}
         open={index > -1}
         index={index}
         close={closeLightbox}
         slides={slides}
+        counter={{ container: { style: { position: "absolute", top: "16px", left: "16px" } } }}
         zoom={{
           maxZoomPixelRatio: 3,
         }}
