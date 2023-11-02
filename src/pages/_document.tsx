@@ -9,7 +9,13 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="ro-RO" className="text-[15px] sm:text-[18px]">
+        <link
+          href="https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,500,600,700,800,900&display=swap&subset=latin-ext"
+          rel="stylesheet"
+        />
+
         <Head />
+
         <body>
           <Main />
           <NextScript />
