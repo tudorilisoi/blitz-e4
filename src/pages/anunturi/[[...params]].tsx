@@ -1,5 +1,7 @@
+import { Routes } from "@blitzjs/next"
 import { PostStatuses } from "@prisma/client"
 import Head from "next/head"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
@@ -65,8 +67,14 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
         <title>{title}</title>
         <meta key="description" name="description" content={description} />
       </Head>
-      <div className="text-2xl font-extrabold mb-4 flex flex-row flex-wrap">
-        <h1 className="flex-grow">Anunţuri: {category.title} </h1>
+      <div className="font-extrabold text-2xl mb-4 flex flex-row flex-wrap">
+        <h1 className="flex-grow">
+          <Link className="link link-secondary" href={Routes.Home()}>
+            Anunţuri
+          </Link>
+          {" > "}
+          {category.title}
+        </h1>
         <span className="flex-none text-neutral-content">
           p.{page}/{numPages}
         </span>
