@@ -12,6 +12,7 @@ const UserInfo = () => {
   const router = useRouter()
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
+  const ulClass = `mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52`
 
   if (currentUser) {
     return (
@@ -19,10 +20,7 @@ const UserInfo = () => {
         <label tabIndex={0} className="btn btn-secondary">
           <span className="px-1">{currentUser.fullName}</span>
         </label>
-        <ul
-          tabIndex={0}
-          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-secondary rounded-box min-w-52"
-        >
+        <ul tabIndex={0} className={ulClass}>
           {/* <li>
             <a className="justify-between">
               Profile
@@ -30,19 +28,19 @@ const UserInfo = () => {
             </a>
           </li> */}
 
-          <li className="hover:bg-base-200">
-            <span className="py-2 text-base-content">{currentUser.email}</span>
+          <li className="!hover:bg-base-200">
+            <span className="py-2 text-base-content font-extrabold">{currentUser.email}</span>
           </li>
 
           <li>
             <a
-              className="py-2 text-secondary"
+              className="py-2 text-accent-focus hover:text-accent"
               onClick={async () => {
                 await logoutMutation()
                 await router.push("/")
               }}
             >
-              Deconectare
+              <strong>Deconectare</strong>
             </a>
           </li>
         </ul>
@@ -56,10 +54,7 @@ const UserInfo = () => {
         <label tabIndex={0} className="btn btn-secondary">
           <span className="px-1">{"Cont"}</span>
         </label>
-        <ul
-          tabIndex={0}
-          className="group mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52"
-        >
+        <ul tabIndex={0} className={ulClass}>
           <li>
             <Link className="py-2 hover:text-accent" href={Routes.SignupPage()}>
               <strong>Creează cont</strong>
