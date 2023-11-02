@@ -5,6 +5,7 @@ import { PostWithIncludes } from "../../helpers"
 
 import { getImageUrl } from "src/core/components/image/helpers"
 import { Router, useRouter } from "next/router"
+import styles from "./PostCell.module.css"
 
 const HeaderImage = ({
   url: providedURL,
@@ -14,62 +15,24 @@ const HeaderImage = ({
   url: string | null
   children: React.ReactNode
 }) => {
+  console.log("styles", styles)
   // const url = providedURL || "/logo-bg.png"
-  const url = providedURL || "/logo-bg.png"
-  let inner
-  if (url) {
-    inner = (
-      <div data-url={url} className="filtered-bg-image h-[300px]">
-        {children}
-      </div>
-    )
-  } else {
-    inner = (
-      <div className="filtered-bg-image h-[300px]">
-        <div className="filtered-bg-image-inside">
-          <div className="bg-neutral h-[300px]">{children}</div>
-        </div>
-      </div>
-    )
-  }
+  const url = encodeURI(providedURL || "/logo-bg.png")
 
+  const bgClass = `${styles["bgImageOuter"]} h-[300px]`
+  let inner
+  inner = (
+    <div data-url={url} className={bgClass}>
+      {children}
+    </div>
+  )
+
+  const bgStyle = `
+  [data-url="${url}"]::before { background-image: url("${url}") !important; }
+  `
   return (
     <>
-      <style jsx global>
-        {`
-          .filtered-bg-image {
-            position: relative;
-          }
-
-          .filtered-bg-image::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-color: #333;
-            filter: grayscale(100%); /* Apply a grayscale filter */
-            transition: all 0.3s ease-in-out;
-          }
-
-          .filtered-bg-image[data-url="${url}"]::before {
-            background-image: url("${url}");
-            background-size: cover;
-          }
-
-          .post-cell:hover .filtered-bg-image::before {
-            filter: grayscale(0%);
-          }
-
-          .filtered-bg-image-inside {
-            /* This will make it stack on top of the ::before */
-            position: relative;
-          }
-        `}
-      </style>
+      <style key={url}>{bgStyle}</style>
       <div className="w-full overflow-hidden rounded-t-2xl" {...props}>
         <div className="relative h-[300px] w-full ">
           {inner}
@@ -86,13 +49,49 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
   const imageCount = images.length
   const firstImage = !imageCount ? null : images[0]
   const url = makePostNavUrl(post)
+  const imageUrl = encodeURI(firstImage ? getImageUrl(firstImage, true) : "/logo-bg.png")
+  const imgStyle = {
+    backgroundImage: `url("${imageUrl}")`,
+  }
+
   return (
     <section
-      className="post-cell p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm cursor-pointer "
+      className={`${styles.postCell} group border border-neutral hover:border-primary  flex flex-row flex-nowrap p-0 rounded-md rounded-l-2xl
+
+      bg-primary bg-opacity-20 shadow-sm cursor-pointer`}
+    >
+      <div style={imgStyle} className={`${styles.bgImage} flex-none w-[30%] rounded-l-2xl`}></div>
+      <div className="flex-none w-[70%]  ">
+        <div className="bg-primary bg-opacity-40 group-hover:bg-opacity-80 rounded-tr-md  ">
+          <div className="p-2 pl-3">
+            <Link href={url}>
+              <h2 className="text-lg  font-semibold text-primary-content  break-words line-clamp-2 min-h-[3.2rem] ">
+                {post.title}
+              </h2>
+            </Link>
+          </div>
+        </div>
+        <div className="p-2">
+          <p className="line-clamp-2">{shortenText(post.body, 200, "")}</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const _PostCell = ({ post }: { post: PostWithIncludes }) => {
+  const router = useRouter()
+  const { images } = post
+  const imageCount = images.length
+  const firstImage = !imageCount ? null : images[0]
+  const url = makePostNavUrl(post)
+  return (
+    <section
+      className={`${styles["post-cell"]} p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm cursor-pointer `}
       onClick={() => router.push(url)}
     >
       <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
-        <div className="filtered-bg-image-inside h-[300px] flex flex-col content-start">
+        <div className={`${styles["bgImageInner"]} h-[300px] flex flex-col content-start`}>
           <Link className="  bg-primary bg-opacity-80 text-shadow-sm shadow-black " href={url}>
             {/* NOTE line-clamp gets confused with padding so wrap text with a div */}
             <div className="p-2">
