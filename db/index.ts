@@ -7,7 +7,7 @@ import { meiliClient } from "src/meili"
 const EnhancedPrisma = enhancePrisma(PrismaClient)
 const prismaOptions: PrismaClientOptions = {
   // Enable query logging
-  // log: ["query"],
+  log: ["query"],
 }
 
 export * from "@prisma/client"

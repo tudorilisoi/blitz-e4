@@ -1,3 +1,4 @@
+import { PostStatuses } from "@prisma/client"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
@@ -29,7 +30,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const { posts, count, hasMore } = await getPosts(
     {
       // @ts-ignore
-      where: { categoryId: category.id },
+      where: { categoryId: category.id, status: { not: PostStatuses.EXPIRED } },
       orderBy: { createdAt: "desc" },
       take: ITEMS_PER_PAGE,
       skip: (page - 1) * ITEMS_PER_PAGE,
