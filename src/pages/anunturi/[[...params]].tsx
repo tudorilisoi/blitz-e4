@@ -1,4 +1,5 @@
 import { PostStatuses } from "@prisma/client"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
@@ -27,7 +28,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const pageSlug = params[1] || null
   const page = Number(pageSlug?.split("-")[1] || 1)
 
-  const { posts, count, hasMore } = await getPosts(
+  const { posts, count, hasMore, numPages } = await getPosts(
     {
       // @ts-ignore
       where: { categoryId: category.id, status: { not: PostStatuses.EXPIRED } },
@@ -43,13 +44,13 @@ export const getServerSideProps = gSSP(async (args) => {
     }
   }
 
-  return { props: { category, posts, count, hasMore, page } }
+  return { props: { category, posts, count, hasMore, page, numPages } }
   // return { props: {} }
 })
 
 export { SimpleNav }
 
-export default function PostsNavPage({ category, posts, page, hasMore }) {
+export default function PostsNavPage({ category, posts, page, hasMore, numPages }) {
   const router = useRouter()
 
   const prevPageURL = makePostsNavUrl(category.slug, page - 1)
@@ -60,6 +61,16 @@ export default function PostsNavPage({ category, posts, page, hasMore }) {
   const hasPrev = page > 1
   return (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta key="description" name="description" content={description} />
+      </Head>
+      <div className="text-2xl font-extrabold mb-4 flex flex-row flex-wrap">
+        <h1 className="flex-grow">Anunţuri: {category.title} </h1>
+        <span className="flex-none text-neutral-content">
+          p.{page}/{numPages}
+        </span>
+      </div>
       <div className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 `}>
         {/* NOTE spreading post for fast refresh in dev mode */}
         {posts.map((post) => (

@@ -24,11 +24,12 @@ export default resolver.pipe(async ({ where, orderBy, skip = 0, take = 100 }: Ge
         include: postInclude,
       }),
   })
-
+  const numPages = Math.ceil(count / take)
   return {
     posts,
     nextPage,
     hasMore,
     count,
+    numPages,
   }
 })
