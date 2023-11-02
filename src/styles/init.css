@@ -18,12 +18,6 @@ body {
   font-family: Nunito, PT Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-h1,
-h2,
-h3 {
-  /* letter-spacing: 0.06em; */
-  /* -webkit-font-smoothing: antialiased; */
-}
 
 .fix-scroll {
   @apply mx-auto w-full;
