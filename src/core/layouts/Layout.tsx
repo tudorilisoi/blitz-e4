@@ -81,7 +81,7 @@ const NavBar = () => {
   // NOTE for the bg highlight the container
   return (
     <header className="fix-scroll bg-base-200 shadow-lg">
-      <div className="navbar container mx-auto px-2">
+      <div className="navbar container mx-auto px-6 py-4">
         <div className="flex-1">
           <Link href={Routes.Home()}>
             <span className="btn btn-circle btn-primary normal-case">e3</span>
@@ -123,7 +123,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         {/* Main Content */}
         <div className="flex-grow fix-scroll">
           <OverlayProvider>
-            <main className="py-6 px-2 container mx-auto relative">
+            <main className="py-6 px-6 container mx-auto relative">
               {/* <div className="container mx-auto py-6 px-2"> */}
               {/* Render child components */}
               {children}
@@ -134,7 +134,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
 
         {/* Footer */}
         <footer className="bg-base-200  fix-scroll">
-          <div className="container mx-auto py-4 px-2">
+          <div className="container mx-auto py-4 px-6">
             {/* Add your footer content here */}
             <p className="text-base-content font-extrabold">
               © {new Date().getFullYear()} {"eRădăuţi v3"}
