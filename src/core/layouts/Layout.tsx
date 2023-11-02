@@ -58,21 +58,21 @@ const UserInfo = () => {
         </label>
         <ul
           tabIndex={0}
-          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-secondary rounded-box w-52"
+          className="group mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52"
         >
           <li>
-            <Link className="py-2" href={Routes.SignupPage()}>
+            <Link className="py-2 hover:text-accent" href={Routes.SignupPage()}>
               <strong>Creează cont</strong>
             </Link>
           </li>
 
           <li>
-            <Link className="py-2" href={Routes.LoginPage()}>
+            <Link className="py-2 hover:text-accent" href={Routes.LoginPage()}>
               <strong>Conectare</strong>
             </Link>
           </li>
           <li>
-            <Link className="py-2" href={Routes.ForgotPasswordPage()}>
+            <Link className="py-2 hover:text-accent" href={Routes.ForgotPasswordPage()}>
               <strong>Am uitat parola</strong>
             </Link>
           </li>
