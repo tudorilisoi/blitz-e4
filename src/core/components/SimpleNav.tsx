@@ -16,7 +16,7 @@ const SimpleNav = ({ prevLink, nextLink }) => {
         className={`btn btn-outline join-item bg-primary bg-opacity-30 ${
           !nextLink ? "btn-disabled" : " border-primary hover:btn-primary"
         }`}
-        key={"simplenav-prev"}
+        key={"simplenav-next"}
         href={nextLink || "#"}
       >
         Înainte »
