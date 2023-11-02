@@ -63,7 +63,9 @@ export default function PostPage({
         <h1 className="text-2xl text-base-content">{post.title}</h1>
         <p className="text-lg text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
       </div>
-      <ImageGallery images={post.images} />
+      <div className={post.images.length == 1 ? "max-w-[45vw]" : ""}>
+        <ImageGallery images={post.images} />
+      </div>
       <Link href={Routes.EditPostPage({ postId: post.id })}>Edit</Link>
     </>
   )
