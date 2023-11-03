@@ -106,7 +106,7 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
           {category.title}
         </h1>
         <span className="flex-none text-neutral-content">
-          p.{page}/{numPages}
+          p. {page}/{numPages}
         </span>
       </div>
       <div className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 `}>
