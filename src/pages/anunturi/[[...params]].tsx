@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
+import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import getCategories from "src/posts/queries/getCategories"
@@ -40,7 +41,7 @@ export const getServerSideProps = gSSP(async (args) => {
     },
     ctx
   )
-  if (page > Math.ceil(count / ITEMS_PER_PAGE)) {
+  if (page > numPages && numPages > 0) {
     return {
       notFound: true,
     }
@@ -61,15 +62,44 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
   const title = `Anunţuri: ${category.title} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri: ${category.title} p.${page} ${category.description} `
   const hasPrev = page > 1
+  const head = (
+    <Head>
+      <title>{title}</title>
+      <meta key="description" name="description" content={description} />
+    </Head>
+  )
+
+  if (numPages === 0) {
+    return (
+      <ViewportCentered>
+        <div className="text-2xl">
+          <h1 className="block mb-4">
+            Nu sunt anunţuri deocamdată în categoria „{category.title}”
+          </h1>
+          <div className="flex w-fit mx-auto">
+            <div className="grid h-20 flex-grow card rounded-box place-items-center">
+              <Link className="btn btn-secondary" href={Routes.Home()}>
+                Vezi toate anunţurile
+              </Link>
+            </div>
+            <div className="divider divider-horizontal px-6">sau</div>
+            <div className="grid h-20 flex-grow card rounded-box place-items-center">
+              <Link className="btn btn-primary" href={Routes.NewPostPage()}>
+                Publică un anunţ
+              </Link>
+            </div>
+          </div>
+        </div>
+      </ViewportCentered>
+    )
+  }
+
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta key="description" name="description" content={description} />
-      </Head>
+      {head}
       <div className="font-extrabold text-2xl mb-4 flex flex-row flex-wrap">
         <h1 className="flex-grow">
-          <Link className="link link-secondary" href={Routes.Home()}>
+          <Link className="link link-hover " href={Routes.Home()}>
             Anunţuri
           </Link>
           {" > "}
