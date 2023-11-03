@@ -99,7 +99,7 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
       {head}
       <div className="font-extrabold text-2xl mb-4 flex flex-row flex-wrap">
         <h1 className="flex-grow">
-          <Link className="link link-hover " href={Routes.Home()}>
+          <Link className="link link-hover text-accent-focus " href={Routes.Home()}>
             Anunţuri
           </Link>
           {" > "}
