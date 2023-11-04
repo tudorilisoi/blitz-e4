@@ -3,6 +3,10 @@ import ViewportCentered from "./spinner/ViewPortCentered"
 import { messageClassName } from "./spinner/Spinner"
 import { useOverlay } from "./overlay/OverlayProvider"
 
+export const ErrorIcon = () => (
+  <FaceFrownIcon className="h-[104px] w-[104px] inline-block text-error" />
+)
+
 export const ErrorNotification = ({ error, ...props }: { error: any }) => {
   const { toggle } = useOverlay()
 

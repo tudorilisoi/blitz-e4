@@ -5,29 +5,29 @@ import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import "src/styles/init.css"
 import { trpc } from "src/ws-utils/trpc"
 import styles from "src/core/components/overlay/Overlay.module.css"
+import { ErrorMessage } from "@hookform/error-message"
+import { ErrorIcon, ErrorNotification } from "src/core/components/ErrorNotification"
+import { ReactNode } from "react"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
-  let returnValue: JSX.Element | null = null
+  let returnValue: ReactNode | null = null
   if (error instanceof AuthenticationError) {
-    returnValue = <div>Error: You are not authenticated</div>
+    returnValue = "Must login"
   } else if (error instanceof AuthorizationError) {
-    returnValue = (
-      <ErrorComponent
-        statusCode={error.statusCode}
-        title="Sorry, you are not authorized to access this"
-      />
-    )
+    returnValue = "Not authorized"
   } else {
-    returnValue = (
-      <ErrorComponent
-        statusCode={(error as any)?.statusCode || 400}
-        title={error.message || error.name}
-      />
-    )
+    returnValue = error.message || error.name
   }
   return (
     <>
-      <ViewportCentered>{returnValue}</ViewportCentered>
+      <ViewportCentered>
+        <div className="flex flex-col place-content-center mx-auto rounded-2xl min-h-[40vh] w-[50vw] bg-black bg-opacity-80 text-center">
+          <span className="inline-block mb-4">
+            <ErrorIcon />
+          </span>
+          <h1 className="text-2xl text-error">{returnValue}</h1>
+        </div>
+      </ViewportCentered>
       <div className={`h-screen ${styles.blurContainer} ${styles.blurActive}`}></div>
     </>
   )
