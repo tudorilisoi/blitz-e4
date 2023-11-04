@@ -4,6 +4,7 @@ import { withBlitz } from "src/blitz-client"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import "src/styles/init.css"
 import { trpc } from "src/ws-utils/trpc"
+import styles from "src/core/components/overlay/Overlay.module.css"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   let returnValue: JSX.Element | null = null
@@ -24,7 +25,12 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
       />
     )
   }
-  return <ViewportCentered>{returnValue}</ViewportCentered>
+  return (
+    <>
+      <ViewportCentered>{returnValue}</ViewportCentered>
+      <div className={`h-screen ${styles.blurContainer} ${styles.blurActive}`}></div>
+    </>
+  )
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
