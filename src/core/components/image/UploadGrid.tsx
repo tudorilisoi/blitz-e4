@@ -3,7 +3,7 @@ import { PhotoIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { Image } from "@prisma/client"
 import { useEffect, useState } from "react"
 import deleteImage from "src/images/mutations/deleteImage"
-import { useOverlay } from "../spinner/OverlayProvider"
+import { useOverlay } from "../overlay/OverlayProvider"
 import ImageUpload, { ImageThumb } from "./ImageUpload"
 import { getImageUrl } from "src/core/components/image/helpers"
 

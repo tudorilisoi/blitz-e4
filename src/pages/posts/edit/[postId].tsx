@@ -8,7 +8,7 @@ import { Suspense, useEffect, useState } from "react"
 import { ErrorNotification } from "src/core/components/ErrorNotification"
 import { BlobsState } from "src/core/components/image/UploadGrid"
 
-import { useOverlay } from "src/core/components/spinner/OverlayProvider"
+import { useOverlay } from "src/core/components/overlay/OverlayProvider"
 import Spinner, { messageClassName } from "src/core/components/spinner/Spinner"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"

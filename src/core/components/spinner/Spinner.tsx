@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Watch } from "react-loader-spinner"
-import { OVERLAY_TRANSITION_DURATION } from "./OverlayProvider"
+import { OVERLAY_TRANSITION_DURATION } from "../overlay/OverlayProvider"
 import ViewportCentered from "./ViewPortCentered"
 
 export const messageClassName = "mt-4 text-3xl sm:text-5xl text-black"

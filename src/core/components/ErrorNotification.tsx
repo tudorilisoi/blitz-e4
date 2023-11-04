@@ -1,7 +1,7 @@
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import ViewportCentered from "./spinner/ViewPortCentered"
 import { messageClassName } from "./spinner/Spinner"
-import { useOverlay } from "./spinner/OverlayProvider"
+import { useOverlay } from "./overlay/OverlayProvider"
 
 export const ErrorNotification = ({ error, ...props }: { error: any }) => {
   const { toggle } = useOverlay()

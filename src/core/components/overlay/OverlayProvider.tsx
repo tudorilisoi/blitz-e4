@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react"
 import { useStore } from "../useStore"
-import Spinner from "./Spinner"
-import ViewportCentered from "./ViewPortCentered"
+import Spinner from "../spinner/Spinner"
+import ViewportCentered from "../spinner/ViewPortCentered"
 
 export const OVERLAY_TRANSITION_DURATION = 200
 
