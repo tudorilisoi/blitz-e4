@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo, useState } from "react"
 import { useStore } from "../useStore"
 import Spinner from "../spinner/Spinner"
 import ViewportCentered from "../spinner/ViewPortCentered"
+import styles from "./Overlay.module.css"
 
 export const OVERLAY_TRANSITION_DURATION = 200
 
@@ -27,8 +28,6 @@ const ctx: ContextType = {
 }
 
 const OverlayContext = createContext(ctx)
-
-const useTimer = (id) => {}
 
 const OverlayProvider = ({ children }) => {
   const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(false)
@@ -64,31 +63,13 @@ const OverlayProvider = ({ children }) => {
       value={{ isOverlayDisplayed, toggle, spinner, reset: { component: spinner } }}
     >
       <>
-        <style jsx>{`
-          .blur-container {
-            position: relative;
-            transition: filter ${OVERLAY_TRANSITION_DURATION / 1000}s ease-in-out; /* Apply transition to the filter property */
-          }
-          .blur-active {
-            filter: blur(5px);
-          }
-
-          /* Apply an alpha fade effect */
-          .blur-active::after {
-            content: "";
-            background: rgba(255, 255, 255, 0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 80;
-          }
-        `}</style>
         <div
           key={"spinner_provider_children_wrapper"}
-          className={isOverlayDisplayed ? "blur-container blur-active" : "blur-container"}
+          className={
+            isOverlayDisplayed
+              ? `${styles.blurContainer} ${styles.blurActive}`
+              : styles.blurContainer
+          }
         >
           {children}
         </div>
