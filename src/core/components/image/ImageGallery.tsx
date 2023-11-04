@@ -7,7 +7,7 @@ import "yet-another-react-lightbox/styles.css"
 import { useCallback, useState } from "react"
 const ImageGallery = ({ images }) => {
   const photos = images.map((i) => ({
-    src: getImageUrl(i, false),
+    src: getImageUrl(i, true),
     width: i.width,
     height: i.height,
   }))
@@ -21,10 +21,10 @@ const ImageGallery = ({ images }) => {
     setIndex(-1)
   }, [])
 
-  const slides = photos.map((p) => ({
-    src: p.src,
-    height: p.height * 3,
-    width: p.width * 3,
+  const slides = images.map((i) => ({
+    src: getImageUrl(i, false),
+    height: i.height * 3,
+    width: i.width * 3,
   }))
 
   return (
