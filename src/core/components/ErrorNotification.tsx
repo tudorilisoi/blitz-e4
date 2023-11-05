@@ -12,9 +12,9 @@ export const ErrorNotification = ({ error, ...props }: { error: any }) => {
 
   return (
     <ViewportCentered>
-      <div className="min-w-fit max-w-3xl mx-auto">
+      <div className="flex flex-col place-content-center mx-auto rounded-2xl min-h-[40vh] w-[50vw] bg-black bg-opacity-80 text-center">
         <div className="text-center">
-          <FaceFrownIcon className="h-[104px] w-[104px] inline-block text-error" />
+          <ErrorIcon />
         </div>
         <h2 className={`${messageClassName} text-error`}>{`Eroare: ${error.message}`}</h2>
         <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">

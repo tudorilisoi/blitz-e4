@@ -1,14 +1,12 @@
-import { AppProps, ErrorBoundary, ErrorComponent, ErrorFallbackProps } from "@blitzjs/next"
+import { AppProps, ErrorBoundary, ErrorFallbackProps } from "@blitzjs/next"
 import { AuthenticationError, AuthorizationError } from "blitz"
+import { ReactNode } from "react"
 import { withBlitz } from "src/blitz-client"
+import { ErrorIcon } from "src/core/components/ErrorNotification"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
+import Layout from "src/core/layouts/Layout"
 import "src/styles/init.css"
 import { trpc } from "src/ws-utils/trpc"
-import styles from "src/core/components/overlay/Overlay.module.css"
-import { ErrorMessage } from "@hookform/error-message"
-import { ErrorIcon, ErrorNotification } from "src/core/components/ErrorNotification"
-import { ReactNode } from "react"
-import Layout from "src/core/layouts/Layout"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   let returnValue: ReactNode | null = null
