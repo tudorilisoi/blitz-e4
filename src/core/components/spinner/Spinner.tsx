@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { Watch } from "react-loader-spinner"
-import { OVERLAY_TRANSITION_DURATION } from "../overlay/OverlayProvider"
-import ViewportCentered from "./ViewPortCentered"
+import {
+  OVERLAY_TRANSITION_DURATION,
+  messageClassName,
+  messageWrapperClassName,
+} from "../overlay/OverlayProvider"
 
-export const messageClassName = "mt-4 text-3xl sm:text-5xl text-black"
+import ViewportCentered from "./ViewPortCentered"
 
 const Spinner = (props?) => {
   const [visible, setVisible] = useState(false)
@@ -19,12 +22,12 @@ const Spinner = (props?) => {
   }
   return (
     <ViewportCentered>
-      <div className="px-2">
+      <div className={messageWrapperClassName}>
         <Watch
           height="80"
           width="80"
           radius="48"
-          color="#000"
+          color="#eee"
           ariaLabel="watch-loading"
           wrapperStyle={{ textAlign: "center", justifyContent: "center" }}
           visible={true}

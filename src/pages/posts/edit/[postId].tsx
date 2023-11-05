@@ -8,8 +8,12 @@ import { Suspense, useEffect, useState } from "react"
 import { ErrorNotification } from "src/core/components/ErrorNotification"
 import { BlobsState } from "src/core/components/image/UploadGrid"
 
-import { useOverlay } from "src/core/components/overlay/OverlayProvider"
-import Spinner, { messageClassName } from "src/core/components/spinner/Spinner"
+import {
+  messageClassName,
+  messageWrapperClassName,
+  useOverlay,
+} from "src/core/components/overlay/OverlayProvider"
+import Spinner from "src/core/components/spinner/Spinner"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import createImage from "src/images/mutations/createImage"
@@ -26,17 +30,17 @@ export const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes
 
   return (
     <ViewportCentered>
-      <div className="min-w-fit max-w-3xl mx-auto">
+      <div className={messageWrapperClassName}>
         <div className="text-center">
-          <FaceSmileIcon className="h-[104px] w-[104px] inline-block text-success-content" />
+          <FaceSmileIcon className="h-[104px] w-[104px] inline-block text-success" />
         </div>
         <h2 className={messageClassName}>{"Anunţul a fost modificat!"}</h2>
         <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">
           <Link className={"grow-2"} onClick={() => toggle(false)} href={makePostNavUrl(post)}>
-            <button className="btn btn-primary w-full">Mergi la anunţ</button>
+            <button className="btn btn-secondary w-full">Mergi la anunţ</button>
           </Link>
           <div className="grow-1 mx-auto">
-            <button onClick={() => toggle(false)} className="btn btn-secondary">
+            <button onClick={() => toggle(false)} className="btn btn-primary">
               Modifică din nou
             </button>
           </div>

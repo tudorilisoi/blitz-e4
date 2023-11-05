@@ -5,6 +5,9 @@ import ViewportCentered from "../spinner/ViewPortCentered"
 import styles from "./Overlay.module.css"
 
 export const OVERLAY_TRANSITION_DURATION = 200
+export const messageClassName = "mt-4 text-3xl sm:text-5xl text-neutral-content"
+export const messageWrapperClassName =
+  "flex flex-col place-content-center mx-auto rounded-2xl min-h-[40vh] w-fit min-w-[80vw] md:min-w-[40vw]  max-w-[70vw] p-6 bg-black bg-opacity-80 text-center"
 
 interface ToggleOptions {
   delay?: number

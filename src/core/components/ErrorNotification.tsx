@@ -1,6 +1,6 @@
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import ViewportCentered from "./spinner/ViewPortCentered"
-import { messageClassName } from "./spinner/Spinner"
+import { messageClassName, messageWrapperClassName } from "./overlay/OverlayProvider"
 import { useOverlay } from "./overlay/OverlayProvider"
 
 export const ErrorIcon = () => (
@@ -12,7 +12,7 @@ export const ErrorNotification = ({ error, ...props }: { error: any }) => {
 
   return (
     <ViewportCentered>
-      <div className="flex flex-col place-content-center mx-auto rounded-2xl min-h-[40vh] w-[50vw] bg-black bg-opacity-80 text-center">
+      <div className={messageWrapperClassName}>
         <div className="text-center">
           <ErrorIcon />
         </div>

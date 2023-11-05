@@ -66,7 +66,7 @@ export function Form<S extends z.ZodType<any, any>>({
         )}
 
         {submitText && (
-          <button className="btn btn-primary" type="submit" disabled={ctx.formState.isSubmitting}>
+          <button className="btn btn-secondary" type="submit" disabled={ctx.formState.isSubmitting}>
             {submitText}
           </button>
         )}

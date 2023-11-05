@@ -3,6 +3,7 @@ import { AuthenticationError, AuthorizationError } from "blitz"
 import { ReactNode } from "react"
 import { withBlitz } from "src/blitz-client"
 import { ErrorIcon } from "src/core/components/ErrorNotification"
+import { messageWrapperClassName } from "src/core/components/overlay/OverlayProvider"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import "src/styles/init.css"
@@ -20,7 +21,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
   return (
     <Layout>
       <ViewportCentered>
-        <div className="flex flex-col place-content-center mx-auto rounded-2xl min-h-[40vh] w-[50vw] bg-black bg-opacity-80 text-center">
+        <div className={messageWrapperClassName}>
           <span className="inline-block mb-4">
             <ErrorIcon />
           </span>
