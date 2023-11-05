@@ -1,5 +1,6 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
+import { useSearchParams } from "next/navigation"
 import forgotPassword from "src/auth/mutations/forgotPassword"
 import { ForgotPassword } from "src/auth/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -8,6 +9,8 @@ import Layout from "src/core/layouts/Layout"
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
+  const searchParams = useSearchParams()
+  const email = searchParams.get("email") || ""
 
   const labelProps = {
     className:
@@ -31,7 +34,7 @@ const ForgotPasswordPage: BlitzPage = () => {
           <Form
             submitText="Trimite e-mail de resetare"
             schema={ForgotPassword}
-            initialValues={{ email: "" }}
+            initialValues={{ email }}
             onSubmit={async (values) => {
               try {
                 await forgotPasswordMutation(values)

@@ -5,12 +5,15 @@ import { Signup } from "src/auth/schemas"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 
 type SignupFormProps = {
   onSuccess?: () => void
 }
 
 export const SignupForm = (props: SignupFormProps) => {
+  const searchParams = useSearchParams()
+  const email = searchParams.get("email") || ""
   const [signupMutation] = useMutation(signup)
   const labelProps = {
     className:
@@ -27,7 +30,7 @@ export const SignupForm = (props: SignupFormProps) => {
       <Form
         submitText="Creează cont"
         schema={Signup}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email, password: "" }}
         onSubmit={async (values) => {
           try {
             await signupMutation(values)

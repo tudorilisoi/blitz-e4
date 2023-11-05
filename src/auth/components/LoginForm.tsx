@@ -6,12 +6,15 @@ import login from "src/auth/mutations/login"
 import { Login } from "src/auth/schemas"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
+import { useSearchParams } from "next/navigation"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
 }
 
 export const LoginForm = (props: LoginFormProps) => {
+  const searchParams = useSearchParams()
+  const email = searchParams.get("email") || ""
   const [loginMutation] = useMutation(login)
   const labelProps = {
     className:
@@ -28,7 +31,7 @@ export const LoginForm = (props: LoginFormProps) => {
       <Form
         submitText="Conectare"
         schema={Login}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email, password: "" }}
         onSubmit={async (values) => {
           try {
             const user = await loginMutation(values)
