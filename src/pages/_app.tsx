@@ -8,6 +8,7 @@ import styles from "src/core/components/overlay/Overlay.module.css"
 import { ErrorMessage } from "@hookform/error-message"
 import { ErrorIcon, ErrorNotification } from "src/core/components/ErrorNotification"
 import { ReactNode } from "react"
+import Layout from "src/core/layouts/Layout"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   let returnValue: ReactNode | null = null
@@ -19,7 +20,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
     returnValue = error.message || error.name
   }
   return (
-    <>
+    <Layout>
       <ViewportCentered>
         <div className="flex flex-col place-content-center mx-auto rounded-2xl min-h-[40vh] w-[50vw] bg-black bg-opacity-80 text-center">
           <span className="inline-block mb-4">
@@ -28,8 +29,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
           <h1 className="text-2xl text-error">{returnValue}</h1>
         </div>
       </ViewportCentered>
-      <div className={`h-screen ${styles.blurContainer} ${styles.blurActive}`}></div>
-    </>
+    </Layout>
   )
 }
 
