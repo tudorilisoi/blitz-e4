@@ -5,6 +5,10 @@ import { Role } from "types"
 import { Signup } from "../schemas"
 
 export default resolver.pipe(resolver.zod(Signup), async ({ email, password }, ctx) => {
+  const existing = await db.user.findFirst({ where: { email } })
+  if (existing) {
+    throw new Error("Acest cont există deja")
+  }
   const hashedPassword = await SecurePassword.hash(password.trim())
   const user = await db.user.create({
     data: { email: email.toLowerCase().trim(), hashedPassword, role: "USER" },
