@@ -29,7 +29,7 @@ const ctx: ContextType = {
 
 const OverlayContext = createContext(ctx)
 
-const OverlayProvider = ({ children }) => {
+const OverlayProvider = ({ children, ...rest }) => {
   const [isOverlayDisplayed, setIsOverlayDisplayed] = useState(false)
   const spinner = useMemo(() => <Spinner />, [])
   const [component, setComponent] = useState(spinner)
@@ -62,7 +62,7 @@ const OverlayProvider = ({ children }) => {
     <OverlayContext.Provider
       value={{ isOverlayDisplayed, toggle, spinner, reset: { component: spinner } }}
     >
-      <>
+      <div {...rest}>
         <div
           key={"spinner_provider_children_wrapper"}
           className={
@@ -74,7 +74,7 @@ const OverlayProvider = ({ children }) => {
           {children}
         </div>
         {isOverlayDisplayed ? <ViewportCentered>{component}</ViewportCentered> : null}
-      </>
+      </div>
     </OverlayContext.Provider>
   )
 }

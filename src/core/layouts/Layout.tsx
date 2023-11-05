@@ -120,9 +120,9 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
 
         <NavBar />
 
-        {/* Main Content */}
-        <div className="flex-grow fix-scroll">
-          <OverlayProvider>
+        {/* Main Content; NOTE: flex-grow flex flex-col inherits height */}
+        <div className="flex-grow flex flex-col fix-scroll">
+          <OverlayProvider className="flex-grow flex flex-col">
             <main className="py-6 px-6 container mx-auto relative">
               {/* <div className="container mx-auto py-6 px-2"> */}
               {/* Render child components */}

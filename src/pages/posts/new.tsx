@@ -29,7 +29,6 @@ const NewPostPage = () => {
 
   const onSubmit = async (values) => {
     console.log("Blobs:", blobs)
-    debugger
     // toggle(false, reset)
     toggle(true, reset)
     // return
