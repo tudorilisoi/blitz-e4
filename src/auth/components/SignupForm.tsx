@@ -39,7 +39,10 @@ export const SignupForm = (props: SignupFormProps) => {
                 email: (
                   <div>
                     {error.message}{" "}
-                    <Link className="btn btn-xs btn-secondary" href={Routes.LoginPage()}>
+                    <Link
+                      className="btn btn-xs btn-secondary"
+                      href={Routes.LoginPage({ email: values.email })}
+                    >
                       Conectare
                     </Link>
                   </div>

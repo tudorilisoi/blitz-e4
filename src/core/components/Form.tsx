@@ -30,7 +30,7 @@ export function Form<S extends z.ZodType<any, any>>({
   ...props
 }: FormProps<S>) {
   const ctx = useForm<z.infer<S>>({
-    mode: "onBlur",
+    mode: "onChange",
     resolver: schema ? zodResolver(schema) : undefined,
     defaultValues: initialValues,
   })
