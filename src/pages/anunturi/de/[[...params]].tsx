@@ -104,7 +104,7 @@ export default function PostsByAuthorNavPage({ author, posts, page, hasMore, num
           <Link className="link link-hover text-accent-focus " href={Routes.Home()}>
             Anunţuri
           </Link>
-          {" > "}
+          {" > de "}
           {author.fullName}
         </h1>
         <span className="flex-none text-neutral-content">
