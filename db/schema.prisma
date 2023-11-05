@@ -112,14 +112,14 @@ enum CronStatuses {
 }
 
 model CronMail {
-  // id              Int           @id @default(autoincrement())
-  orderId       String       @id @unique @default("") @db.VarChar(255) // sau Int dacă aşa e tabela de orders
-  //throttle 5 secs
+  id            Int          @id @default(autoincrement())
   lastExecuted  DateTime?
   status        CronStatuses
   // max retries = 5
   retries       Int          @default(0)
   lastErrorJson String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
 }
 
 model Post {

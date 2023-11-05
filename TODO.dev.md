@@ -45,6 +45,9 @@ Note: Maybe later on these will be converted to GH issues
 - X reset password: keep link/token as to avoid confusion or make it last really long
 - ✔ maybe implement meili synonims
 - ✔ check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023) "Billing Period 10/15/23 - 11/15/23"
+
+  setup a an emails model {id, mailParams} so we know not to send unless the count from the last 15th is <2000
+
 - ✔ refresh/invalidate post after update
 - ✔ auth guard post and image
 - ✔ verify/guard post when uploading image
