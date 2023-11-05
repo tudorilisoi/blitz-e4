@@ -241,19 +241,28 @@ const allowedWords = ["două", "trei", "patru", "cinci", "halbă"]
 const stopwordsFiltered = stopWords.filter((w) => !allowedWords.includes(w))
 
 const root = process.cwd()
-console.log(`MEILI: root`, root)
 
 loadEnvConfig(process.cwd())
 const client = new MeiliSearch({
   host: "http://localhost:7700",
   apiKey: process.env.MEILI_MASTER_KEY,
 })
+
+const logger = (...args) => {
+  if (!process.env.MEILI_VERBOSE) {
+    return null
+  }
+  return console.log.apply(console.log, args)
+}
+
+logger(`MEILI: root`, root)
+
 const init = async () => {
   const indexes = ["Post"]
 
   const keys = await client.getKeys()
   let searchKey = keys.results.find((k) => k.name === "PublicKeySearchAllIndexes")
-  console.log(`MEILI: EXISTING searchKey:`, searchKey)
+  logger(`MEILI: EXISTING searchKey:`, searchKey)
 
   if (!searchKey) {
     // NOTE the actual searchKey.key which is used client-side is deterministic based on given uid
@@ -267,11 +276,11 @@ const init = async () => {
       })
       .then((key) => {
         searchKey = key
-        console.log("MEILI: CREATED searchKey::", key)
+        logger("MEILI: CREATED searchKey::", key)
         // replaceEnv(".env", "NEXT_PUBLIC_MEILI_SEARCH_KEY", key.key)
       })
       .catch((err) => {
-        console.log("MEILI: CREATE KEY ERR:", err)
+        logger("MEILI: CREATE KEY ERR:", err)
       })
   }
 
@@ -288,27 +297,27 @@ const init = async () => {
   for (let index of indexes) {
     let idx = existingIndexes.find((i) => i.uid === index)
     if (idx) {
-      console.log(`MEILI: EXISTING INDEX`, index)
+      logger(`MEILI: EXISTING INDEX`, index)
       if (index === "Post") {
         await client.index(index).updateSynonyms({
           chirie: ["închiriez", "închiriere", "închiriază", "închiriat"],
           vand: ["vanzare", "vandut", "vinde"],
         })
         const synonims = await client.index(index).getSynonyms()
-        console.log(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
+        logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
         let settings = await client.index(index).getSettings()
         settings.stopWords = stopwordsFiltered
         await client.index(index).updateSettings(settings)
         settings = await client.index(index).getSettings()
-        console.log(`MEILI: ${index} SETTINGS`, settings)
+        logger(`MEILI: ${index} SETTINGS`, settings)
       }
       continue
     }
     try {
       const res = await client.createIndex(index, { primaryKey: "id" })
-      console.log(`MEILI: CREATE INDEX ${index}:`, res)
+      logger(`MEILI: CREATE INDEX ${index}:`, res)
     } catch (error) {
-      console.log(`MEILI: ERROR ${index} index `, error)
+      logger(`MEILI: ERROR ${index} index `, error)
     }
   }
 }
@@ -318,7 +327,7 @@ if (!process.env.__MEILI_INITIALIZED) {
 
   init()
     .then((res) => {
-      console.log(`MEILI: INIT DONE`, res)
+      logger(`MEILI: INIT DONE`, res)
     })
     .catch((error) => {
       console.error(`MEILI: INIT ERROR`, error)
@@ -363,7 +372,7 @@ function replaceEnv(envFilePath, targetVariable, newValue) {
       if (writeErr) {
         console.error(`Error writing ${envFilePath}: ${writeErr}`)
       } else {
-        console.log(`Updated ${envFilePath}: ${targetVariable}=${newValue}`)
+        logger(`Updated ${envFilePath}: ${targetVariable}=${newValue}`)
       }
     })
   })

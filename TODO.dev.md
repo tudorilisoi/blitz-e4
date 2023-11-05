@@ -51,7 +51,8 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ Overlay: better contrast on mobile devices
 - P implement a search interface; meilisearch is already setup, see also NEXT_PUBLIC_MEILI_SEARCH_KEY in `.env\*` f iles
 - ✔ find some way to implement a consistent UI over Tailwind (currently using daisyUI)
-- X implement images as a tab in the post edit form
+- P implement images as a tab in the post edit form; needs sitcky buttons
+- X implement collapsible help text for title, body in post form
 - X use logger to warn in `_app` about page not having getLayout
 - X use consistent logger as configured in blitz
 - ✔ fix multiple style jsx in posts nav page
