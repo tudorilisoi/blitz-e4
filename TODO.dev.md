@@ -57,10 +57,10 @@ Note: Maybe later on these will be converted to GH issues
 - X use consistent logger as configured in blitz
 - ✔ fix multiple style jsx in posts nav page
 - P implement the home page with categories list
-- X va:1 implement view ad page
+- P va:1 implement view ad page
 - X va:2 implement share button on view ad page
 - P auth:1 implement login, logout, edit profile (name and phone only)
-- X auth:2 implement "my ads" page
+- P auth:2 implement "my ads" page
 - X maybe switch to formik for forms
 - X maybe implement DM/chat with tRPC subscriptions;
 
