@@ -8,7 +8,7 @@ export default resolver.pipe(resolver.zod(Signup), async ({ email, password }, c
   const existing = await db.user.findFirst({ where: { email } })
   if (existing) {
     const err: any = new Error("Acest cont există deja")
-    err.code = "USER_EXISTS"
+    err.name = "USER_EXISTS"
     err.statusCode = 500
     throw err
   }

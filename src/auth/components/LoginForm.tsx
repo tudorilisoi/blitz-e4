@@ -34,13 +34,41 @@ export const LoginForm = (props: LoginFormProps) => {
             const user = await loginMutation(values)
             props.onSuccess?.(user)
           } catch (error: any) {
-            if (error instanceof AuthenticationError) {
-              return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
-            } else {
-              return {
-                [FORM_ERROR]:
-                  "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
-              }
+            switch (error.name) {
+              case "ACCOUNT_NOT_FOUND":
+                return {
+                  email: (
+                    <div>
+                      {error.message}{" "}
+                      <Link
+                        className="btn btn-xs btn-secondary"
+                        href={Routes.SignupPage({ email: values.email })}
+                      >
+                        Creează cont
+                      </Link>
+                    </div>
+                  ),
+                }
+                break
+              case "WRONG_PASSWORD":
+                return {
+                  password: (
+                    <div>
+                      {error.message}{" "}
+                      <Link
+                        className="btn btn-xs btn-secondary"
+                        href={Routes.ForgotPasswordPage({ email: values.email })}
+                      >
+                        Resetează parola
+                      </Link>
+                    </div>
+                  ),
+                }
+                break
+
+              default:
+                return { [FORM_ERROR]: error.toString() }
+                break
             }
           }
         }}
@@ -62,14 +90,7 @@ export const LoginForm = (props: LoginFormProps) => {
           placeholder=""
           type="password"
         />
-        <div>
-          <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
-        </div>
       </Form>
-
-      <div style={{ marginTop: "1rem" }}>
-        sau <Link href={Routes.SignupPage()}>Creează cont</Link>
-      </div>
     </div>
   )
 }

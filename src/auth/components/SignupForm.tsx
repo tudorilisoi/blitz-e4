@@ -34,7 +34,7 @@ export const SignupForm = (props: SignupFormProps) => {
             props.onSuccess?.()
           } catch (error: any) {
             console.dir(error)
-            if (error.code === "USER_EXISTS") {
+            if (error.name === "USER_EXISTS") {
               return {
                 email: (
                   <div>
