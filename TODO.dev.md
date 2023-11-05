@@ -41,10 +41,10 @@ Note: Maybe later on these will be converted to GH issues
 - ✔ fix upload filename and make it unique on the server
 - ✔ responsive images server-side and/or using next/image
 - X implement a toast provider of sorts
-- X handle useQuery and UseMutation errors in `_app`
+- P handle useQuery and UseMutation errors in `_app`
 - X reset password: keep link/token as to avoid confusion or make it last really long
-- X maybe implement meili synonims
-- X check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023) "Billing Period 10/15/23 - 11/15/23"
+- ✔ maybe implement meili synonims
+- ✔ check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023) "Billing Period 10/15/23 - 11/15/23"
 - ✔ refresh/invalidate post after update
 - ✔ auth guard post and image
 - ✔ verify/guard post when uploading image
@@ -54,17 +54,16 @@ Note: Maybe later on these will be converted to GH issues
 - X implement images as a tab in the post edit form
 - X use logger to warn in `_app` about page not having getLayout
 - X use consistent logger as configured in blitz
-- X fix multiple style jsx in posts nav page
+- ✔ fix multiple style jsx in posts nav page
 - P implement the home page with categories list
 - X va:1 implement view ad page
 - X va:2 implement share button on view ad page
 - P auth:1 implement login, logout, edit profile (name and phone only)
 - X auth:2 implement "my ads" page
 - X maybe switch to formik for forms
-- X maybe implement DM with tRPC subscriptions
+- X maybe implement DM/chat with tRPC subscriptions
 - X implement expire_status and send mail (only if post fresher than, say, 3 months)
 - X create a sitemap page with all the necesarry links for home, login, logout, create post, etc.
 - ✔ line-clamp partial post body in PostCell
 - X add Google analytics
 - ✔ fix WS prod server
-- X maybe implement chat
