@@ -14,7 +14,7 @@ import getUser from "src/users/queries/getUser"
 
 const ITEMS_PER_PAGE = 12
 
-export const makePostsByAuthorNavUrl = (author: User, page: number) => {
+export const makePostsByAuthorNavUrl = (author: User, page: number = 1) => {
   const slug = makeSlug(author.fullName || "rădăuţean")
   return `/anunturi/de/${slug}-${author.id}/${page === 1 ? "" : "/pagina-" + page}`
 }
