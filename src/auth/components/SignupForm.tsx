@@ -34,12 +34,11 @@ export const SignupForm = (props: SignupFormProps) => {
             props.onSuccess?.()
           } catch (error: any) {
             console.dir(error)
-            if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-              // This error comes from Prisma
+            if (error.code === "USER_EXISTS") {
               return {
                 email: (
                   <div>
-                    Acest cont există deja{" "}
+                    {error.message}{" "}
                     <Link className="btn btn-xs btn-secondary" href={Routes.LoginPage()}>
                       Conectare
                     </Link>
