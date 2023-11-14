@@ -5,7 +5,7 @@ const e = (errMessage: string) => {
 }
 
 export const email = z
-  .string({ ...e("Tebuie să completaţi adresa de e-mail") })
+  .string({ ...e("Trebuie să completaţi adresa de e-mail") })
   .email()
   .transform((str) => str.toLowerCase().trim())
 
@@ -14,6 +14,11 @@ export const password = z
   .min(6)
   .max(100)
   .transform((str) => str.trim())
+
+export const VerifyEmail = z.object({
+  email,
+  activationKey: z.string().min(21),
+})
 
 const validatePhone = new RegExp(/^[+]?(\d{5,12})$/)
 export const Signup = z
