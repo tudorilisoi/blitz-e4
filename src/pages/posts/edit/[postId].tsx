@@ -1,4 +1,4 @@
-import { useParam } from "@blitzjs/next"
+import { Routes, useParam } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import { FaceSmileIcon } from "@heroicons/react/24/outline"
 import Head from "next/head"
@@ -20,13 +20,34 @@ import createImage from "src/images/mutations/createImage"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { FORM_ERROR, PostForm } from "src/posts/components/PostForm"
 import { PostWithIncludes } from "src/posts/helpers"
+import createPost from "src/posts/mutations/createPost"
 import updatePost from "src/posts/mutations/updatePost"
 import getCategories from "src/posts/queries/getCategories"
 import getPost from "src/posts/queries/getPost"
 import { UpdatePostSchema } from "src/posts/schemas"
 
-export const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes }) => {
+export const SuccessNotification = ({
+  isNew,
+  post,
+  ...props
+}: {
+  isNew: boolean
+  post: PostWithIncludes
+}) => {
+  const router = useRouter()
   const { toggle } = useOverlay()
+
+  let returnToEdit, message
+  if (isNew) {
+    message = "Anunţul a fost publicat!"
+    returnToEdit = () => {
+      toggle(false)
+      router.push(Routes.EditPostPage({ postId: post.id }))
+    }
+  } else {
+    message = "Anunţul a fost modificat!"
+    returnToEdit = () => toggle(false)
+  }
 
   return (
     <ViewportCentered>
@@ -34,14 +55,14 @@ export const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes
         <div className="text-center">
           <FaceSmileIcon className="h-[104px] w-[104px] inline-block text-success" />
         </div>
-        <h2 className={messageClassName}>{"Anunţul a fost modificat!"}</h2>
+        <h2 className={messageClassName}>{message}</h2>
         <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">
           <Link className={"grow-2"} onClick={() => toggle(false)} href={makePostNavUrl(post)}>
-            <button className="btn btn-secondary w-full">Mergi la anunţ</button>
+            <button className="btn btn-secondary w-full">Vezi anunţul</button>
           </Link>
           <div className="grow-1 mx-auto">
-            <button onClick={() => toggle(false)} className="btn btn-primary">
-              Modifică din nou
+            <button onClick={returnToEdit} className="btn btn-primary">
+              Modifică anunţul
             </button>
           </div>
         </div>
@@ -52,9 +73,11 @@ export const SuccessNotification = ({ post, ...props }: { post: PostWithIncludes
 
 export const EditPost = () => {
   const [blobs, setBlobs] = useState({} as BlobsState)
-  const router = useRouter()
+
   const { toggle, reset } = useOverlay()
-  const postId = useParam("postId", "number")
+  const postId = useParam("postId", "number") || -1
+  const isNew = postId === -1
+
   const [post, { setQueryData, remove, refetch, ...other }] = useQuery(
     getPost,
     { id: postId },
@@ -63,6 +86,7 @@ export const EditPost = () => {
       staleTime: Infinity,
     }
   )
+  const [createPostMutation] = useMutation(createPost)
   const [updatePostMutation] = useMutation(updatePost)
 
   const [createImageMutation] = useMutation(createImage)
@@ -79,91 +103,103 @@ export const EditPost = () => {
     refetch().catch(() => null)
   }, [])
 
+  let pageTitle = `Modifică anunţ: ${post.title}`
+  let pageHeading = `Modifică anunţ`
+  if (isNew) {
+    pageTitle = `Publică anunţ`
+    pageHeading = `Publică anunţ`
+  }
+
   return (
     <>
-      <Suspense fallback={Spinner()}>
-        <Head>
-          <title>Editare: {post.title}</title>
-        </Head>
+      <Head>
+        <title>{pageTitle}</title>
+      </Head>
 
-        <div className="prose mb-3">
-          <h1 className="text-2xl text-base-content">Modifică anunţ</h1>
-        </div>
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">{pageHeading}</h1>
+      </div>
 
-        <div className="max-w-3xl">
-          <PostForm
-            onBlobsChange={setBlobs}
-            categories={categories || []}
-            submitText="Publică"
-            schema={UpdatePostSchema}
-            initialValues={post}
-            onSubmit={async (values) => {
-              console.log("Blobs:", blobs)
-              toggle(true, reset)
-              try {
-                const updated = await updatePostMutation({
+      <div className="max-w-3xl">
+        <PostForm
+          onBlobsChange={setBlobs}
+          categories={categories || []}
+          submitText="Publică"
+          schema={UpdatePostSchema}
+          initialValues={post}
+          onSubmit={async (values) => {
+            console.log("PostForm Blobs:", blobs)
+            console.log("PostForm Values:", values)
+            toggle(true, reset)
+            try {
+              let updated
+              if (post.id > 0) {
+                updated = await updatePostMutation({
                   ...values,
                   id: post.id,
                 })
+              } else {
+                updated = await createPostMutation(values)
+              }
 
-                let completedImagecount = 0
-                const imageCount = Object.keys(blobs).length
-                imageCount &&
+              let completedImagecount = 0
+              const imageCount = Object.keys(blobs).length
+              imageCount &&
+                toggle(true, {
+                  component: <Spinner>{`Foto ${0}%`}</Spinner>,
+                })
+              const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
+                const image = createImageMutation({
+                  fileName: id,
+                  blob: blob.blob,
+                  postId: updated.id,
+                }).then((image) => {
+                  completedImagecount++
+                  const percent =
+                    completedImagecount === 0
+                      ? "0"
+                      : ((completedImagecount / imageCount) * 100).toFixed(2)
                   toggle(true, {
-                    component: <Spinner>{`Foto ${0}%`}</Spinner>,
+                    component: <Spinner>{`Foto ${percent}%`}</Spinner>,
                   })
-                const promises = Object.entries(blobs).map(async ([id, blob], idx) => {
-                  const image = createImageMutation({
-                    fileName: id,
-                    blob: blob.blob,
-                    postId: updated.id,
-                  }).then((image) => {
-                    completedImagecount++
-                    const percent =
-                      completedImagecount === 0
-                        ? "0"
-                        : ((completedImagecount / imageCount) * 100).toFixed(2)
-                    toggle(true, {
-                      component: <Spinner>{`Foto ${percent}%`}</Spinner>,
-                    })
-                    updated.images.unshift(image)
-                    delete blobs[id]
-                    return image
-                  })
+                  updated.images.unshift(image)
+                  delete blobs[id]
                   return image
                 })
-                await Promise.all(promises)
-                const category = categories?.find((c) => c.id === updated.categoryId)
-                // NOTE should remove() because we mess with .images
+                return image
+              })
+              await Promise.all(promises)
+              const category = categories?.find((c) => c.id === updated.categoryId)
+              // NOTE should remove() because we mess with .images
+              if (!isNew) {
                 await remove()
                 await setQueryData(updated, { refetch: false })
-
-                toggle(true, {
-                  component: <SuccessNotification post={updated} />,
-                })
-                // toggle(false, { delay: 1500 })
-              } catch (error: any) {
-                toggle(true, {
-                  component: <ErrorNotification {...{ post, error }} />,
-                })
-                console.error(error)
-                return {
-                  [FORM_ERROR]: error.toString(),
-                }
-              } finally {
               }
-            }}
-          />
-        </div>
 
-        {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
-      </Suspense>
+              toggle(true, {
+                component: <SuccessNotification isNew={isNew} post={updated} />,
+              })
+              // toggle(false, { delay: 1500 })
+            } catch (error: any) {
+              toggle(true, {
+                component: <ErrorNotification {...{ post, error }} />,
+              })
+              console.error(error)
+              return {
+                [FORM_ERROR]: error.toString(),
+              }
+            } finally {
+            }
+          }}
+        />
+      </div>
+
+      {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
     </>
   )
 }
 
 const EditPostPage = () => {
-  // return <Loading />
   return (
     <Suspense fallback={Spinner()}>
       <div className="">
