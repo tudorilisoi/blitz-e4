@@ -1,7 +1,8 @@
 import { SecurePassword } from "@blitzjs/auth/secure-password"
 import { resolver } from "@blitzjs/rpc"
-import db from "db"
-import { Role } from "types"
+import db, { UserRoles } from "db"
+import { signupMailer } from "mailers/signupMailer"
+import { nanoid } from "nanoid"
 import { Signup } from "../schemas"
 
 export default resolver.pipe(
@@ -19,14 +20,18 @@ export default resolver.pipe(
       data: {
         email: email.toLowerCase().trim(),
         hashedPassword,
-        role: "USER",
+        role: UserRoles.USER_UNVERIFIED,
         fullName,
         phone,
+        activationKey: nanoid(),
       },
-      select: { id: true, fullName: true, email: true, role: true },
+      select: { id: true, fullName: true, email: true, role: true, activationKey: true },
     })
 
-    await ctx.session.$create({ userId: user.id, role: user.role as Role })
+    await signupMailer({ to: email, activationKey: user.activationKey || "oo_OO" }).send()
+
+    // NOTE auto login
+    // await ctx.session.$create({ userId: user.id, role: user.role as Role })
     return user
   }
 )

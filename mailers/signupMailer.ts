@@ -7,25 +7,25 @@
 
 import { sendMail } from "integrations/socketlabsEmail"
 
-type ResetPasswordMailer = {
+type SignupMailer = {
   to: string
-  token: string
+  activationKey: string
 }
 
-export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
+export function signupMailer({ to, activationKey }: SignupMailer) {
   // In production, set NEXT_PUBLIC_APP_URL to your production server origin
   const origin = process.env.NEXT_PUBLIC_APP_URL || process.env.BLITZ_DEV_SERVER_ORIGIN
-  const resetUrl = `${origin}/auth/reset-password?token=${token}`
+  const verifyUrl = `${origin}/auth/autoLogin?activationKey=${activationKey}`
 
   const msg = {
     from: process.env.MAIL_FROM as string,
     to,
-    subject: "eRădăuţi.ro: resetează parola",
+    subject: "eRădăuţi.ro: activează contul",
     message: `
-      <h1>Resetează parola</h1>
-      <p>Ai solicitat resetarea parolei</p>
-      <a href="${resetUrl}">
-        Click aici pentru a reseta parola
+      <h1>Activează contul</h1>
+      <p>Ai solicitat înregistrarea pe situl eRădăuţi.ro</p>
+      <a href="${verifyUrl}">
+        Click aici pentru a activa contul
       </a>
     `,
   }

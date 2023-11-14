@@ -60,6 +60,7 @@
     "meilisearch": "0.35.0",
     "mime": "^3.0.0",
     "mime-types": "2.1.35",
+    "nanoid": "5.0.3",
     "next": "^13.5.6",
     "next-auth": "^4.24.3",
     "pica": "9.0.1",
