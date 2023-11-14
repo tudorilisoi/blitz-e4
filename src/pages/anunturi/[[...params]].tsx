@@ -13,7 +13,7 @@ import getPosts from "src/posts/queries/getPosts"
 
 const ITEMS_PER_PAGE = 12
 
-export const makePostsNavUrl = (categorySlug: string, page: number) => {
+export const makePostsNavUrl = (categorySlug: string, page: number = 1) => {
   return `/anunturi/${categorySlug}${page === 1 ? "" : "/pagina-" + page}`
 }
 

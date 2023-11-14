@@ -5,10 +5,12 @@ import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import ImageGallery from "src/core/components/image/ImageGallery"
 import Layout from "src/core/layouts/Layout"
-import { S } from "src/helpers"
+import { S, formatDate } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
+import { makePostsNavUrl } from "../anunturi/[[...params]]"
+import Head from "next/head"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -55,18 +57,50 @@ export default function PostPage({
   post: PostWithIncludes
 }) {
   const router = useRouter()
+  const sanitizedBody = S(post.body).obscurePhoneNumbers().get()
+
   const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
-  const description = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
+  const description = `${S(sanitizedBody).shortenText(200).get()}`
+  const head = (
+    <Head>
+      <meta name="og:title" content={title} />
+      <meta name="og:description" content={description} />
+      <title>{title}</title>
+      <meta key="description" name="description" content={description} />
+    </Head>
+  )
   return (
     <>
-      <div className="prose mb-4">
-        <h1 className="text-2xl text-base-content">{post.title}</h1>
-        <p className="text-lg text-base-content">{S(post.body).obscurePhoneNumbers().get()}</p>
+      {head}
+      <div className="flex flex-col sm:flex-row mb-4">
+        <div className="flex-grow">
+          <div className="prose">
+            <h1 className="text-2xl text-base-content">
+              <Link
+                className="link link-hover text-accent-focus "
+                href={makePostsNavUrl(post.category.slug)}
+              >
+                {post.category.title}
+              </Link>{" "}
+              {post.title}
+            </h1>
+            <p className="text-lg text-base-content">
+              <span className="inline-block bg-neutral p-2 rounded text-sm ">
+                {formatDate(post.updatedAt, formatDate.short)}
+              </span>{" "}
+              {sanitizedBody}
+            </p>
+          </div>
+        </div>
+        <div className="pl-6">
+          <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
+            Modifică
+          </Link>
+        </div>
       </div>
       <div className={post.images.length == 1 ? "max-w-[45vw]" : ""}>
         <ImageGallery images={post.images} />
       </div>
-      <Link href={Routes.EditPostPage({ postId: post.id })}>Edit</Link>
     </>
   )
 }

@@ -133,6 +133,6 @@ export const formatDate = (dateStr, formatStr) => {
   return dayjs(dateStr).format(_formatStr)
 }
 
-formatDate.short = `D MMM`
+formatDate.short = `D MMM YYYY`
 formatDate.longDateTime = "D MMMM YYYY h:mm a"
 formatDate.longDate = "D MMMM YYYY"
