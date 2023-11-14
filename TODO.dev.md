@@ -36,6 +36,7 @@ X = not implemented, P = partially implemented
 Note: Maybe later on these will be converted to GH issues
 
 - X implement close/archive post as soft delete (solved, expired)
+- X implement welcome/verify e-mail
 - X publish live
 - ✔ implement socketlabs mail
 - ✔ import posts
