@@ -5,6 +5,7 @@ import Layout from "src/core/layouts/Layout"
 
 const SignupPage: BlitzPage = () => {
   const router = useRouter()
+  // TODO onSuccess display an overlay to wait for verification email
 
   return (
     <>
