@@ -31,7 +31,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const pageSlug = params[1] || null
   const page = Number(pageSlug?.split("-")[1] || 1)
 
-  const { posts, count, hasMore, numPages } = await getPosts(
+  const { posts, count, hasMore, numPages, permissions } = await getPosts(
     {
       // @ts-ignore
       where: { categoryId: category.id, status: { not: PostStatuses.EXPIRED } },
@@ -47,7 +47,7 @@ export const getServerSideProps = gSSP(async (args) => {
     }
   }
 
-  return { props: { category, posts, count, hasMore, page, numPages } }
+  return { props: { category, posts, count, hasMore, page, numPages, permissions } }
   // return { props: {} }
 })
 

@@ -11,6 +11,7 @@ import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
 import { makePostsNavUrl } from "../anunturi/[[...params]]"
 import Head from "next/head"
+import getPermissions, { PermissionFlags } from "src/posts/queries/getPermissions"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -20,6 +21,8 @@ export const makePostNavUrl = (post: PostWithIncludes) => {
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
   const params = query.params as string[]
+  const postSlug = params[1] || ""
+  const postId = Number(postSlug.substring(postSlug.lastIndexOf("-") + 1))
   const categorySlug = params[0]
   const categories = await getCategories({ where: { slug: categorySlug } }, ctx)
   if (categories.length !== 1) {
@@ -28,10 +31,8 @@ export const getServerSideProps = gSSP(async (args) => {
     }
   }
   const category = categories[0]
-  const postSlug = params[1] || ""
-  const postId = Number(postSlug.substring(postSlug.lastIndexOf("-") + 1))
 
-  const { posts } = await getPosts(
+  const { posts, permissions } = await getPosts(
     {
       // @ts-ignore
       where: { id: postId },
@@ -46,15 +47,17 @@ export const getServerSideProps = gSSP(async (args) => {
       notFound: true,
     }
   }
-  return { props: { category, post: posts[0] } }
+  return { props: { category, post: posts[0], permissionFlags: permissions[postId] } }
 })
 
 export default function PostPage({
   category,
   post,
+  permissionFlags,
 }: {
   category: Category
   post: PostWithIncludes
+  permissionFlags: PermissionFlags
 }) {
   const router = useRouter()
   const sanitizedBody = S(post.body).obscurePhoneNumbers().get()
@@ -92,11 +95,13 @@ export default function PostPage({
             </p>
           </div>
         </div>
-        <div className="pl-6">
-          <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
-            Modifică
-          </Link>
-        </div>
+        {!permissionFlags.mayEdit ? null : (
+          <div className="pl-6">
+            <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
+              Modifică
+            </Link>
+          </div>
+        )}
       </div>
       <div className={post.images.length == 1 ? "max-w-[45vw]" : ""}>
         <ImageGallery images={post.images} />

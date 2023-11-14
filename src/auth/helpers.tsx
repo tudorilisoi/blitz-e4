@@ -1,7 +1,8 @@
 import { AuthorizationError, NotFoundError } from "blitz"
 import getCurrentUser from "src/users/queries/getCurrentUser"
 
-interface HasAuthor {
+export interface HasAuthor {
+  id: number
   userId: number
 }
 
@@ -12,7 +13,7 @@ export const isAuthenticated = async (context) => {
 
 export const isAuthor = async (model: HasAuthor, context) => {
   const user = await getCurrentUser(null, context)
-  return user && model.userId === user.id
+  return !user ? false : model.userId === user.id
 }
 
 export const mayEdit = async (model: HasAuthor, context) => {
