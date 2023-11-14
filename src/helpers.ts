@@ -3,6 +3,11 @@ import truncate from "lodash/truncate"
 import upperFirst from "lodash/upperFirst"
 import slugify from "slugify"
 import striptags from "striptags"
+import dayjs from "dayjs"
+import "dayjs/locale/ro"
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime)
+dayjs.locale("ro")
 
 export const makeSlug = (str) => {
   // TODO copy sanitization from ert2-now
@@ -122,3 +127,12 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
       break
   }
 }
+
+export const formatDate = (dateStr, formatStr) => {
+  const _formatStr = formatStr || formatDate.longDate
+  return dayjs(dateStr).format(_formatStr)
+}
+
+formatDate.short = `D MMM`
+formatDate.longDateTime = "D MMMM YYYY h:mm a"
+formatDate.longDate = "D MMMM YYYY"

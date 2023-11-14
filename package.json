@@ -54,6 +54,7 @@
     "blitz": "2.0.0-beta.34",
     "critters": "0.0.20",
     "daisyui": "3.9.3",
+    "dayjs": "1.11.10",
     "html-entities": "^2.4.0",
     "lodash": "^4.17.21",
     "meilisearch": "0.35.0",
