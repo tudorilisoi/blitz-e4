@@ -76,7 +76,7 @@ export default function PostsByAuthorNavPage({ author, posts, page, hasMore, num
     return (
       <ViewportCentered>
         <div className="text-2xl">
-          <h1 className="block mb-4">{author.fullName} nu a pubicat anunţuri deocamdată”</h1>
+          <h1 className="block mb-4">{author.fullName} nu a publicat anunţuri deocamdată</h1>
           <div className="flex w-fit mx-auto">
             <div className="grid h-20 flex-grow card rounded-box place-items-center">
               <Link className="btn btn-secondary" href={Routes.Home()}>
