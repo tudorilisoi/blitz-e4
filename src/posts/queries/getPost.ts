@@ -11,7 +11,7 @@ const GetPost = z.object({
 })
 
 export default resolver.pipe(resolver.zod(GetPost), async ({ id }) => {
-  if (id == -1) {
+  if (id === -1) {
     const newPost = {
       id,
       title: "",
@@ -20,7 +20,6 @@ export default resolver.pipe(resolver.zod(GetPost), async ({ id }) => {
       // currency: null,
       // categoryId: null,
     } as PostWithIncludes
-    console.log(`🚀 ~ resolver.pipe ~ newPost:`, newPost)
     return newPost
   }
 

@@ -75,7 +75,7 @@ export default function PostPage({
       <div className="flex flex-col sm:flex-row mb-4">
         <div className="flex-grow">
           <div className="prose">
-            <h1 className="text-2xl text-base-content">
+            <h1 className="not-prose font-extrabold text-2xl text-base-content">
               <Link
                 className="link link-hover text-accent-focus "
                 href={makePostsNavUrl(post.category.slug)}
