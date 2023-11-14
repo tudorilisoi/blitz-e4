@@ -15,12 +15,16 @@ const UserInfo = () => {
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
   const ulClass = `mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52`
+  const closeDropdown = () => {
+    //@ts-ignore
+    document.activeElement?.blur()
+  }
 
   if (currentUser) {
     const myPostsUrl = makePostsByAuthorNavUrl(currentUser as User)
     return (
       <div className="dropdown dropdown-end">
-        <label tabIndex={0} className="btn btn-secondary">
+        <label tabIndex={0} id="layoutDropdown" className="btn btn-secondary">
           <span className="px-1">{currentUser.fullName}</span>
         </label>
         <ul tabIndex={0} className={ulClass}>
@@ -36,13 +40,22 @@ const UserInfo = () => {
           </li>
 
           <li>
-            <Link href={myPostsUrl}>Anunturile mele</Link>
+            <a
+              className="py-2 text-accent-focus hover:text-accent"
+              onClick={async () => {
+                closeDropdown()
+                await router.push(myPostsUrl)
+              }}
+            >
+              <strong>Anunturile mele</strong>
+            </a>
           </li>
 
           <li>
             <a
               className="py-2 text-accent-focus hover:text-accent"
               onClick={async () => {
+                closeDropdown()
                 await logoutMutation()
                 await router.push("/")
               }}
