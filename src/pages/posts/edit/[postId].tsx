@@ -40,9 +40,9 @@ export const SuccessNotification = ({
   let returnToEdit, message
   if (isNew) {
     message = "Anunţul a fost publicat!"
-    returnToEdit = () => {
+    returnToEdit = async () => {
       toggle(false)
-      router.push(Routes.EditPostPage({ postId: post.id }))
+      await router.push(Routes.EditPostPage({ postId: post.id }))
     }
   } else {
     message = "Anunţul a fost modificat!"
