@@ -7,6 +7,8 @@ import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import { useMutation } from "@blitzjs/rpc"
 import logout from "src/auth/mutations/logout"
 import { useRouter } from "next/router"
+import { makePostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
+import { User } from "@prisma/client"
 
 const UserInfo = () => {
   const router = useRouter()
@@ -15,6 +17,7 @@ const UserInfo = () => {
   const ulClass = `mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52`
 
   if (currentUser) {
+    const myPostsUrl = makePostsByAuthorNavUrl(currentUser as User)
     return (
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-secondary">
@@ -30,6 +33,10 @@ const UserInfo = () => {
 
           <li className="!hover:bg-base-200">
             <span className="py-2 text-base-content font-extrabold">{currentUser.email}</span>
+          </li>
+
+          <li>
+            <Link href={myPostsUrl}>Anunturile mele</Link>
           </li>
 
           <li>

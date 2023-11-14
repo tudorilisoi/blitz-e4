@@ -16,7 +16,7 @@ const ITEMS_PER_PAGE = 12
 
 export const makePostsByAuthorNavUrl = (author: User, page: number = 1) => {
   const slug = makeSlug(author.fullName || "rădăuţean")
-  return `/anunturi/de/${slug}-${author.id}/${page === 1 ? "" : "/pagina-" + page}`
+  return `/anunturi/de/${slug}-${author.id}${page === 1 ? "" : "/pagina-" + page}`
 }
 
 export const getServerSideProps = gSSP(async (args) => {
