@@ -10,6 +10,7 @@ function mapUser(xuser: Record<string, any>): Prisma.UserUncheckedCreateInput | 
     id,
     email,
     phone,
+    username,
     first_name,
     last_name,
     status,
@@ -20,12 +21,19 @@ function mapUser(xuser: Record<string, any>): Prisma.UserUncheckedCreateInput | 
   if (status === 2) {
     return null
   }
+  let fullName = username
+  if (first_name || last_name) {
+    const _fullName = `${first_name.trim()} ${last_name.trim()}`.trim()
+    if (_fullName.length > username.length) {
+      fullName = _fullName
+    }
+  }
   // const [hashedPassword, salt] = hashPassword(`` + Math.random() * 100)
   return {
     id,
     phone,
     email,
-    fullName: `${first_name} ${last_name}`.trim(),
+    fullName,
     role: "USER",
     createdAt: new Date(date_created),
     updatedAt: new Date(date_modified),

@@ -73,6 +73,7 @@ enum TokenType {
 enum UserRoles {
   SUPERADMIN
   USER
+  USER_UNVERIFIED
 }
 
 enum PostStatuses {
