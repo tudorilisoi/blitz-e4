@@ -15,10 +15,26 @@ export const password = z
   .max(100)
   .transform((str) => str.trim())
 
-export const Signup = z.object({
-  email,
-  password,
-})
+const validatePhone = new RegExp(/^[+]?(\d{5,12})$/)
+export const Signup = z
+  .object({
+    email,
+    password,
+    passwordConfirmation: password,
+    fullName: z
+      .string({ ...e("Trebuie să completaţi numele dvs sau numele firmei (min. 6 litere)") })
+      .min(6)
+      .max(100)
+      .transform((str) => str.trim()),
+    phone: z
+      .string({ ...e("Trebuie să completaţi nr. de telefon") })
+      .refine((v) => validatePhone.test(v.trim()), "Nr. de telefon trebuie să conţină numai cifre")
+      .transform((str) => str.trim()),
+  })
+  .refine((data) => data.password === data.passwordConfirmation, {
+    message: "Parolele nu sunt la fel",
+    path: ["passwordConfirmation"], // set the path of the error
+  })
 
 export const Login = z.object({
   email,

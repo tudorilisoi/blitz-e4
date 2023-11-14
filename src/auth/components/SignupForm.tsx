@@ -69,8 +69,33 @@ export const SignupForm = (props: SignupFormProps) => {
           labelProps={labelProps}
           outerProps={outerProps}
           className={labelClassName}
+          name="fullName"
+          label="Nume / numele firmei"
+          placeholder=""
+        />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
+          name="phone"
+          label="Nr. de telefon"
+          placeholder=""
+        />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
           name="password"
           label="Parola"
+          placeholder=""
+          type="password"
+        />
+        <LabeledTextField
+          labelProps={labelProps}
+          outerProps={outerProps}
+          className={labelClassName}
+          name="passwordConfirmation"
+          label="Parola din nou"
           placeholder=""
           type="password"
         />
