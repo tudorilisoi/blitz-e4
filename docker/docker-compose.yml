@@ -9,20 +9,30 @@ services:
       dockerfile: ./Dockerfile.postgres
 
     container_name: "e4-pg"
+    env_file: ./.env
     tty: true # Enables debugging capabilities when attached to this container.
-    environment:
-      - POSTGRES_PASSWORD=psql
-    stdin_open: true
-
+    # stdin_open: true
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
+  meili:
+    image: getmeili/meilisearch:v1.4.2
+    container_name: "e4-meili"
+    env_file: ./.env
+    # ports:
+    #   - 7700:7700
+    volumes:
+      - ../.data/meili:/meili_data
   web:
     build:
       context: .
       dockerfile: ./Dockerfile.nodejs
     container_name: "e4-http"
     tty: true # Enables debugging capabilities when attached to this container.
+    depends_on:
+      - meili
+      - db
     links:
+      - meili
       - db
     # command: sh -c 'npm install && npm start'
     ports:

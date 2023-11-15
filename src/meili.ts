@@ -244,7 +244,7 @@ const root = process.cwd()
 
 loadEnvConfig(process.cwd())
 const client = new MeiliSearch({
-  host: "http://localhost:7700",
+  host: process.env.MEILI_URL || "http://localhost:7700",
   apiKey: process.env.MEILI_MASTER_KEY,
 })
 
