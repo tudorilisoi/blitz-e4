@@ -2,7 +2,7 @@ FROM  docker.io/bitnami/node:18
 ENV DEBIAN_FRONTEND noninteractive
 
 #TODO make this into a script for both pg and node
-RUN apt-get update && apt-get install -y iputils-ping \
+RUN apt-get update && apt-get install -y iputils-ping build-essential libpq-dev openssl \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN npm i -g npm@10.2.3 yarn@1.22.19
