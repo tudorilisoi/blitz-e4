@@ -10,7 +10,7 @@ dayjs.extend(relativeTime)
 dayjs.locale("ro")
 
 export const makeSlug = (str) => {
-  // TODO copy sanitization from ert2-now
+  // TODO copy sanitization from e3-razzle
   let ret = str
   ret = ret.trim()
   ret = slugify(ret)
