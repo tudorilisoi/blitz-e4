@@ -17,7 +17,9 @@ services:
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
   web:
-    image: docker.io/bitnami/node:18
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nodejs
     container_name: "e4-http"
     tty: true # Enables debugging capabilities when attached to this container.
     links:
