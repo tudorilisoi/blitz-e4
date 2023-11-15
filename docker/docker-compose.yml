@@ -1,0 +1,22 @@
+# Copyright VMware, Inc.
+# SPDX-License-Identifier: APACHE-2.0
+
+version: "3.1"
+
+services:
+  db:
+    image: postgres:12.16
+    environment:
+      - POSTGRES_PASSWORD=psql
+    volumes:
+      - ../.data/pg:/var/lib/postgresql/data
+  web:
+    links:
+      - db
+    tty: true # Enables debugging capabilities when attached to this container.
+    image: docker.io/bitnami/node:18
+    # command: sh -c 'npm install && npm start'
+    ports:
+      - 3000:3000
+    volumes:
+      - ../:/app
