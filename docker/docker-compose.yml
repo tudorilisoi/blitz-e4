@@ -53,3 +53,4 @@ services:
       - 3001:3001
     volumes:
       - ../:/app
+      - /tmp/e4-web-tmp/:/tmp
