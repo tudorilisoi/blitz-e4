@@ -1,5 +1,5 @@
 # NOTE version is important for mem_limit, no swarm
-version: "2.4"
+version: "2"
 services:
   db:
     build:
@@ -24,11 +24,23 @@ services:
       - ../.data/meili:/meili_data
   web:
     mem_limit: 1G
+    # environment:
+    #   - CURRENT_GUID=${CURRENT_GUID}
+    #   - CURRENT_UID=${CURRENT_UID}
+
     build:
       context: .
       dockerfile: ./Dockerfile.nodejs
+      args:
+        CURRENT_GUID: ${CURRENT_GUID}
+        CURRENT_UID: ${CURRENT_UID}
     container_name: "e4-http"
     tty: true # Enables debugging capabilities when attached to this container.
+    # run as me
+    # get the ids like this:
+    # export CURRENT_UID_GID=$(id -u):$(id -g)
+    user: ${CURRENT_UID}:${CURRENT_GUID}
+
     depends_on:
       - meili
       - db
