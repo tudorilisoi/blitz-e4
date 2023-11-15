@@ -7,15 +7,17 @@
 
 import { sendMail } from "integrations/socketlabsEmail"
 
-type SignupMailer = {
+type VerifyEmailMailerParams = {
   to: string
   activationKey: string
 }
 
-export function signupMailer({ to, activationKey }: SignupMailer) {
+export function verifyEmailMailer({ to, activationKey }: VerifyEmailMailerParams) {
   // In production, set NEXT_PUBLIC_APP_URL to your production server origin
   const origin = process.env.NEXT_PUBLIC_APP_URL || process.env.BLITZ_DEV_SERVER_ORIGIN
-  const verifyUrl = `${origin}/auth/autoLogin?activationKey=${activationKey}`
+  const verifyUrl = `${origin}/auth/verify?activationKey=${encodeURIComponent(
+    activationKey
+  )}&email=${encodeURIComponent(to)}`
 
   const msg = {
     from: process.env.MAIL_FROM as string,
