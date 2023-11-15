@@ -17,7 +17,7 @@ const VerifyPage: BlitzPage = () => {
   console.log(`🚀 ~ activationKey:`, activationKey, email)
   const [verifyMutation] = useMutation(verifyEmail)
   useEffect(() => {
-    const activate = async () => {
+    const activate = async (): Promise<void> => {
       try {
         await verifyMutation({ email, activationKey })
 
@@ -26,7 +26,8 @@ const VerifyPage: BlitzPage = () => {
         toggle(true, { component: <ErrorNotification error={error}></ErrorNotification> })
       }
     }
-    activate()
+    // NOTE fixes @typescript-eslint/no-floating-promises
+    activate().catch(() => {})
   }, [])
   return <></>
 }
