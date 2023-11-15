@@ -2,15 +2,16 @@
 # SPDX-License-Identifier: APACHE-2.0
 
 version: "3.1"
-
 services:
   db:
+    container_name: "e4-pg"
     image: postgres:12.16
     environment:
       - POSTGRES_PASSWORD=psql
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
   web:
+    container_name: "e4-http"
     links:
       - db
     tty: true # Enables debugging capabilities when attached to this container.
@@ -18,5 +19,6 @@ services:
     # command: sh -c 'npm install && npm start'
     ports:
       - 3000:3000
+      - 3001:3001
     volumes:
       - ../:/app
