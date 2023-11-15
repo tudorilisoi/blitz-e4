@@ -18,8 +18,10 @@ services:
     image: getmeili/meilisearch:v1.4.2
     container_name: "e4-meili"
     env_file: ./.env
-    # ports:
-    #   - 7700:7700
+
+    #for direct debug
+    ports:
+      - 7700:7700
     volumes:
       - ../.data/meili:/meili_data
   web:
