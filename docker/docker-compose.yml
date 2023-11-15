@@ -4,18 +4,24 @@
 version: "3.1"
 services:
   db:
-    image: postgres:12.16
+    build:
+      context: .
+      dockerfile: ./Dockerfile.postgres
+
     container_name: "e4-pg"
+    tty: true # Enables debugging capabilities when attached to this container.
     environment:
       - POSTGRES_PASSWORD=psql
+    stdin_open: true
+
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
   web:
     image: docker.io/bitnami/node:18
     container_name: "e4-http"
+    tty: true # Enables debugging capabilities when attached to this container.
     links:
       - db
-    tty: true # Enables debugging capabilities when attached to this container.
     # command: sh -c 'npm install && npm start'
     ports:
       - 3000:3000
