@@ -47,7 +47,7 @@ export const importUsers = async () => {
     let userData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xuser.json`).toString())
       .xuser.map(mapUser)
       .filter((data) => data !== null)
-    console.log("UserData parsed")
+    console.log(`UserData parsed ${userData.length} records`)
 
     await db.image.deleteMany({ where: {} })
     console.log("Images deleted")
