@@ -2,6 +2,7 @@ import { resolver } from "@blitzjs/rpc"
 import db, { UserRoles } from "db"
 import { Role } from "types"
 import { VerifyEmail } from "../schemas"
+import { sleep } from "src/helpers"
 
 export class VerifyEmailError extends Error {
   name = "VerifyEmailError"
@@ -9,7 +10,7 @@ export class VerifyEmailError extends Error {
 }
 
 export default resolver.pipe(resolver.zod(VerifyEmail), async ({ email, activationKey }, ctx) => {
-  // 5. Since token is valid, now we can update the user's password
+  await sleep(2000)
 
   const user = await db.user.findFirst({
     where: { email, activationKey },

@@ -136,3 +136,7 @@ export const formatDate = (dateStr, formatStr) => {
 formatDate.short = `D MMM YYYY`
 formatDate.longDateTime = "D MMMM YYYY h:mm a"
 formatDate.longDate = "D MMMM YYYY"
+
+export const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
