@@ -57,7 +57,7 @@ async function afterCreateOrUpdate(modelName, params, res) {
         where: { id: res.id },
         select: postSelect,
       })
-      console.log(`DB: ${action} ${model} res`, res, records)
+      // console.log(`DB: ${action} ${model} res`, res, records)
       meiliClient.index(model).addDocuments(records)
     }
   } catch (error) {}

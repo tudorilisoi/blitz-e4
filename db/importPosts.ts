@@ -77,7 +77,9 @@ function mapPost(post: Record<string, any>): Prisma.PostUncheckedCreateInput {
   }
 }
 const importPosts = async () => {
-  let jsonData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xclassified.json`).toString())
+  let jsonData = JSON.parse(
+    fs.readFileSync(`${__dirname}/../.data/db_seed/xclassified.json`).toString()
+  )
     .xclassified.map(mapPost)
     .filter((data) => data !== null)
   logger("PostData parsed")
@@ -118,7 +120,9 @@ const mapCategory = (c): Prisma.CategoryUncheckedCreateInput => {
 }
 
 const importCategories = async () => {
-  let jsonData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xcategory.json`).toString())
+  let jsonData = JSON.parse(
+    fs.readFileSync(`${__dirname}/../.data/db_seed/xcategory.json`).toString()
+  )
     .xcategory.map(mapCategory)
     .filter((data) => data !== null)
   logger("CategoryData parsed")
@@ -147,7 +151,9 @@ const mapUpload = (c): Prisma.ImageUncheckedCreateInput => {
 }
 
 const importImages = async () => {
-  let jsonData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xupload.json`).toString())
+  let jsonData = JSON.parse(
+    fs.readFileSync(`${__dirname}/../.data/db_seed/xupload.json`).toString()
+  )
     .xupload.map(mapUpload)
     .filter((data) => data !== null)
   logger("UploadData parsed")

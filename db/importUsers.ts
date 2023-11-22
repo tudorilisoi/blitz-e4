@@ -44,7 +44,9 @@ function mapUser(xuser: Record<string, any>): Prisma.UserUncheckedCreateInput | 
 }
 export const importUsers = async () => {
   try {
-    let userData = JSON.parse(fs.readFileSync(`${__dirname}/../.data/xuser.json`).toString())
+    let userData = JSON.parse(
+      fs.readFileSync(`${__dirname}/../.data/db_seed/xuser.json`).toString()
+    )
       .xuser.map(mapUser)
       .filter((data) => data !== null)
     console.log(`UserData parsed ${userData.length} records`)
