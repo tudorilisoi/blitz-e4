@@ -10,11 +10,19 @@ if [ "$1" == "dev" ]; then
 elif [ "$1" == "start" ]; then
     echo "Running start command"
     export WEB_CMD='yarn build; yarn run start:1-blitz'
-    # Add your start command here
+elif [ "$1" == "stop" ]; then
+    echo "Running stop command"
+    docker-compose -f "$script_path/docker-compose.yml" down 2>&1
+    exit 0
+elif [ "$1" == "logs" ]; then
+    echo "Running logs command"
+    docker-compose -f "$script_path/docker-compose.yml" logs -f
+    exit 0
 else
-    echo "Invalid argument. Usage: $0 [dev|start]"
+    echo "Invalid argument. Usage: $0 [dev|start|stop]"
     exit 1
 fi
+
 mkdir -p /tmp/e4-web-tmp
 mkdir -p /tmp/e4-web-cache
 # set +e
