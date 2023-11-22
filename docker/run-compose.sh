@@ -2,6 +2,19 @@
 script_path=$(dirname "$(readlink -f "$0")")
 export CURRENT_UID=$(id -u)
 export CURRENT_GUID=$(id -g)
+
+# NOTE running without WS
+if [ "$1" == "dev" ]; then
+    echo "Running development command"
+    export WEB_CMD='yarn run dev:1-blitz'
+elif [ "$1" == "start" ]; then
+    echo "Running start command"
+    export WEB_CMD='yarn build; yarn run start:1-blitz'
+    # Add your start command here
+else
+    echo "Invalid argument. Usage: $0 [dev|start]"
+    exit 1
+fi
 mkdir -p /tmp/e4-web-tmp
 mkdir -p /tmp/e4-web-cache
 # set +e

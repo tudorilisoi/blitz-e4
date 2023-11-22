@@ -47,7 +47,7 @@ services:
     links:
       - meili
       - db
-    # command: sh -c 'npm install && npm start'
+    command: sh -c '${WEB_CMD}'
     ports:
       - 3000:3000
       - 3001:3001
