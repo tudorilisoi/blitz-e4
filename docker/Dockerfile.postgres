@@ -6,5 +6,5 @@ RUN apt-get update && apt-get install -y iputils-ping \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 #custom port so we don-t clash with the host
-CMD ["-p", "5433"]
+CMD ["-p", "5442"]
 

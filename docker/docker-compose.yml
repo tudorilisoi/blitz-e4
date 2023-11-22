@@ -10,6 +10,8 @@ services:
     env_file: ./.env
     tty: true # Enables debugging capabilities when attached to this container.
     # stdin_open: true
+    ports:
+      - 5442:5442
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
   meili:
