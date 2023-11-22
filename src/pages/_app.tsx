@@ -41,4 +41,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
-export default trpc.withTRPC(withBlitz(MyApp))
+// TODO maybe enable WS withTRPC on individual pages
+// export default trpc.withTRPC(withBlitz(MyApp))
+export default withBlitz(MyApp)
