@@ -54,6 +54,7 @@ export const LoginForm = (props: LoginFormProps) => {
                 }
                 break
               case "WRONG_PASSWORD":
+              case "PASSWORD_NEEDS_RESET":
                 return {
                   password: (
                     <div>

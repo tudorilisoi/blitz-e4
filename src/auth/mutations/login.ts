@@ -14,6 +14,14 @@ export const authenticateUser = async (rawEmail: string, rawPassword: string) =>
     err.name = "ACCOUNT_NOT_FOUND"
     throw err
   }
+
+  if (user.hashedPassword === "CHANGEME") {
+    const err = new AuthenticationError("Trebuie să resetaţi parola")
+    err.statusCode = 401
+    err.name = "PASSWORD_NEEDS_RESET"
+    throw err
+  }
+
   try {
     const result = await SecurePassword.verify(user.hashedPassword, password)
     if (result === SecurePassword.VALID_NEEDS_REHASH) {
