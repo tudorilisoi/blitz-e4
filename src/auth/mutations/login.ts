@@ -35,7 +35,7 @@ export const authenticateUser = async (rawEmail: string, rawPassword: string) =>
     console.log(`🚀 ~ authenticateUser ~ error:`, error)
     if (error.statusCode === 401) {
       const err = new AuthenticationError("Parola este incorectă")
-      err.statusCode = 404
+      err.statusCode = 401
       err.name = "WRONG_PASSWORD"
       throw err
     }
