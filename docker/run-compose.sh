@@ -9,7 +9,7 @@ if [ "$1" == "dev" ]; then
     export WEB_CMD='yarn run dev:1-blitz'
 elif [ "$1" == "start" ]; then
     echo "Running start command"
-    export WEB_CMD='yarn build; yarn run start:1-blitz'
+    export WEB_CMD='yarn build:1-blitz; yarn run start:1-blitz'
 elif [ "$1" == "stop" ]; then
     echo "Running stop command"
     docker-compose -f "$script_path/docker-compose.yml" down 2>&1
@@ -27,5 +27,5 @@ mkdir -p /tmp/e4-web-tmp
 mkdir -p /tmp/e4-web-cache
 # set +e
 # docker build --build-arg CURRENT_GUID=$CURRENT_GUID CURRENT_UID=$CURRENT_UID -f ./Dockerfile.nodejs
-docker-compose -f "$script_path/docker-compose.yml" down 2>&1
+docker-compose -f "$script_path/docker-compose.yml" down --remove-orphans 2>&1
 docker-compose -f "$script_path/docker-compose.yml" up --build -d

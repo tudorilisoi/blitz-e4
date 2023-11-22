@@ -53,6 +53,5 @@ services:
       - 3001:3001
     volumes:
       - ../:/app
-      - ../:/app//data/uploads
       - /tmp/e4-web-tmp/:/tmp
       - /tmp/e4-web-cache/:/home/tudor/.cache
