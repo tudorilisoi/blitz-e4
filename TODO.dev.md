@@ -36,6 +36,7 @@ X = not implemented, P = partially implemented
 Note: Maybe later on these will be converted to GH issues
 
 - X implement close/archive post as soft delete (solved, expired)
+- X P0 close slideshow on navigate away
 - P implement welcome/verify e-mail needs redirects
 - X check for verified tstatus on login
 - X publish live (fix images symlink first), make a synctool conf
