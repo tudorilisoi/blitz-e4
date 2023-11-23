@@ -5,3 +5,5 @@ export const useCurrentUser = () => {
   const [user] = useQuery(getCurrentUser, null)
   return user
 }
+
+export type CurrentUser = ReturnType<typeof useCurrentUser>
