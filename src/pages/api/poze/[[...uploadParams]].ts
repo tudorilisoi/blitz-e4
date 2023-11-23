@@ -1,14 +1,12 @@
 import { formatDate } from "./../../../helpers"
 import { NotFoundError } from "blitz"
 import db from "db"
+import gm from "gm"
 import fs from "fs"
 import { ServerResponse } from "http"
 import mime from "mime-types"
-import sharp from "sharp"
 import { UPLOADS_PATH } from "src/config"
-
-sharp.cache(false)
-sharp.concurrency(1)
+import gc from "expose-gc/function"
 
 const fsp = fs.promises
 // NOTE Only assets that are in the public directory at build time will be served by Next.js
@@ -95,7 +93,7 @@ const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number
   if (exists) {
     return
   }
-  await sharp(path)
+  /* await sharp(path)
     .resize(w, h, {
       kernel: sharp.kernel.nearest,
       fit: sharp.fit.inside,
@@ -106,7 +104,30 @@ const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number
     .then(function (info) {
       console.log("Thumb info is ", info)
       global.gc && global.gc()
-    })
+    }) */
+
+  // Read the image file
+  // const imageBuffer = await fsp.readFile(path)
+
+  // Resize the image using GraphicsMagick
+  const p = new Promise((resolve, reject) => {
+    gm(path)
+      .resize(w, h, ">")
+      .gravity("Center")
+      // .extent(w, h)
+      .write(destPath, (err) => {
+        if (err) {
+          console.log(`🚀 ~ .write ~ err:`, err)
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      })
+  })
+  const resizedImageBuffer = await p
+
+  console.log(`Thumbnail successfully created: ${destPath}`)
+  gc()
 }
 
 export const removeStoredImages = async (fileName) => {

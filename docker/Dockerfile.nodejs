@@ -7,7 +7,9 @@ ARG CURRENT_GUID
 RUN echo ARGS: ${CURRENT_UID}:${CURRENT_GUID}
 RUN groupadd -r -g ${CURRENT_GUID} tudor && useradd tudor -u${CURRENT_UID} -g${CURRENT_GUID} -m -d/home/tudor -s /bin/bash
 
-RUN install_packages iputils-ping build-essential libpq-dev openssl sudo mc locales locales-all psmisc libjemalloc-dev
+RUN install_packages iputils-ping build-essential libpq-dev openssl sudo mc locales locales-all psmisc libjemalloc-dev \
+graphicsmagick
+
 RUN locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
