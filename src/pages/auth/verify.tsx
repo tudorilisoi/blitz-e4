@@ -38,10 +38,10 @@ const VerifyPage: BlitzPage<{ query }> = ({ query }) => {
 
   return (
     <>
-      <h1>Se verifică</h1>
+      <h1>Se activează</h1>
       <pre>{JSON.stringify(query, null, 2)}</pre>
     </>
   )
 }
-VerifyPage.getLayout = (page) => <Layout title="Conectare">{page}</Layout>
+VerifyPage.getLayout = (page) => <Layout title="Activarea contului">{page}</Layout>
 export default VerifyPage
