@@ -6,6 +6,7 @@ import { ServerResponse } from "http"
 import mime from "mime-types"
 import sharp from "sharp"
 import { UPLOADS_PATH } from "src/config"
+sharp.cache(false)
 const fsp = fs.promises
 // NOTE Only assets that are in the public directory at build time will be served by Next.js
 // Because of this we need to serve uploads dynamically
@@ -68,14 +69,20 @@ const serveImage = async (res, req, path) => {
     }
   }
 
-  const blob = await fsp.readFile(path)
   const mimeType = mime.lookup(path)
   res.setHeader("Content-Type", mimeType)
   res.setHeader("Content-Length", size)
   res.setHeader("Last-Modified", mtime.toUTCString())
   res.setHeader("Cache-Control", `public, max-age=${3600}, stale-while-revalidate=59`)
-  res.write(blob)
-  res.end()
+  const fileStream = fs.createReadStream(path)
+  // Pipe the file stream to the response stream
+  fileStream.pipe(res)
+  // Handle errors during streaming
+  fileStream.on("error", (err) => {
+    console.error("Error reading file:", err)
+    res.statusCode = 500
+    res.end("Internal Server Error")
+  })
 }
 
 const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number; h: number }) => {
