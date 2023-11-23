@@ -1,3 +1,4 @@
+import gm from "gm"
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
 import fs from "fs"
@@ -8,7 +9,6 @@ import { UPLOADS_PATH, imageSelect } from "src/config"
 import getPost from "src/posts/queries/getPost"
 import getCurrentUser from "src/users/queries/getCurrentUser"
 import { CreateImageSchema } from "../schemas"
-import sharp from "sharp"
 const fsp = fs.promises
 
 export default resolver.pipe(resolver.zod(CreateImageSchema), async (input, context) => {
@@ -29,13 +29,22 @@ export default resolver.pipe(resolver.zod(CreateImageSchema), async (input, cont
   const normalizedName = `${postId}-${image.id}-${slugify(decodeURI(fileName))}`
   const rawData = blob.substring(blob.indexOf(",") + 1)
   let buff = Buffer.from(rawData, "base64")
-  const meta = await sharp(buff).metadata()
-  console.log(`🚀 ~ resolver.pipe ~ meta:`, meta)
-  await fsp.writeFile(`${UPLOADS_PATH}/${normalizedName}`, buff)
-  const updatedImage = await db.image.update({
-    where: { id: image.id },
-    data: { fileName: normalizedName, width: meta.width, height: meta.height },
-  })
 
+  const writeP = new Promise((resolve, reject) => {
+    gm(buff).identify(async (err, data) => {
+      if (err) {
+        reject(err)
+      }
+      const { size } = data
+      console.log(`🚀 ~ gm ~ data:`, data.size)
+      await fsp.writeFile(`${UPLOADS_PATH}/${normalizedName}`, buff)
+      const updatedImage = await db.image.update({
+        where: { id: image.id },
+        data: { fileName: normalizedName, width: size.width, height: size.height },
+      })
+      resolve(updatedImage)
+    })
+  })
+  const updatedImage = await writeP
   return updatedImage
 })
