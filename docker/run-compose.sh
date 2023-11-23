@@ -3,6 +3,11 @@ script_path=$(dirname "$(readlink -f "$0")")
 export CURRENT_UID=$(id -u)
 export CURRENT_GUID=$(id -g)
 
+if grep -sq 'docker\|lxc' /proc/1/cgroup; then
+    echo "Cannot run inside a container"
+    exit 1;
+fi
+
 # NOTE running without WS
 if [ "$1" == "dev" ]; then
     echo "Running development command"
