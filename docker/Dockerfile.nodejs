@@ -2,14 +2,12 @@ FROM  docker.io/bitnami/node:18
 ENV DEBIAN_FRONTEND noninteractive
 
 
-RUN env
-
 ARG CURRENT_UID
 ARG CURRENT_GUID
 RUN echo ARGS: ${CURRENT_UID}:${CURRENT_GUID}
 RUN groupadd -r -g ${CURRENT_GUID} tudor && useradd tudor -u${CURRENT_UID} -g${CURRENT_GUID} -m -d/home/tudor -s /bin/bash
 
-RUN install_packages iputils-ping build-essential libpq-dev openssl sudo mc locales locales-all psmisc
+RUN install_packages iputils-ping build-essential libpq-dev openssl sudo mc locales locales-all psmisc libjemalloc-dev
 RUN locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
@@ -17,6 +15,11 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 COPY sudoers /etc/sudoers
+
+# for node sharp memory leaks
+# https://github.com/lovell/sharp/issues/1803#issuecomment-1314897269
+ENV LD_PRELOAD /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+RUN echo "/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" >> /etc/ld.so.preload
 
 RUN npm i -g npm@10.2.3 yarn@1.22.19
 

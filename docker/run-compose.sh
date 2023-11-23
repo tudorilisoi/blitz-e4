@@ -7,7 +7,7 @@ if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Cannot run inside a container"
     exit 1;
 fi
-
+#JEMALLOC="/usr/lib/x86_64-linux-gnu/libjemalloc.so.2"
 # NOTE running without WS
 if [ "$1" == "dev" ]; then
     echo "Running development command"

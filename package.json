@@ -55,6 +55,7 @@
     "critters": "0.0.20",
     "daisyui": "4.4.3",
     "dayjs": "1.11.10",
+    "expose-gc": "1.0.0",
     "html-entities": "^2.4.0",
     "lodash": "^4.17.21",
     "meilisearch": "0.36.0",

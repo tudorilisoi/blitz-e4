@@ -4,6 +4,7 @@ import { simpleRolesIsAuthorized } from "@blitzjs/auth"
 import { BlitzLogger } from "blitz"
 import db from "db"
 import { authConfig } from "./blitz-client"
+import gc from "expose-gc"
 
 export const authPlugin = AuthServerPlugin({
   ...authConfig,

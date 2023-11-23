@@ -6,7 +6,10 @@ import { ServerResponse } from "http"
 import mime from "mime-types"
 import sharp from "sharp"
 import { UPLOADS_PATH } from "src/config"
+
 sharp.cache(false)
+sharp.concurrency(1)
+
 const fsp = fs.promises
 // NOTE Only assets that are in the public directory at build time will be served by Next.js
 // Because of this we need to serve uploads dynamically
@@ -102,6 +105,7 @@ const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number
     .toFile(destPath)
     .then(function (info) {
       console.log("Thumb info is ", info)
+      global.gc && global.gc()
     })
 }
 
