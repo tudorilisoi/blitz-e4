@@ -1,3 +1,4 @@
+import { formatDate } from "./../../../helpers"
 import { NotFoundError } from "blitz"
 import db from "db"
 import fs from "fs"
@@ -16,7 +17,7 @@ const responsiveSize = {
 }
 
 export default async function serveUpload(req, res: ServerResponse) {
-  console.log(req.query)
+  console.log("serveUpload:", req.headers)
   const { uploadParams } = req.query
   // URI: /responsive/id/....rest or /id/...rest
   const responsive = uploadParams[0] === "responsive"
@@ -34,11 +35,11 @@ export default async function serveUpload(req, res: ServerResponse) {
     }
     const path = getImagePath(image.fileName, responsive)
     res.statusCode = 200
-    await serveImage(res, path)
+    await serveImage(res, req, path)
   } catch (error) {
     const notFoundPath = `${process.cwd()}/public/404.webp`
     res.statusCode = 404
-    await serveImage(res, notFoundPath)
+    await serveImage(res, req, notFoundPath)
 
     return
   }
@@ -47,10 +48,32 @@ export const getImagePath = (fileName: string, responsive: boolean) => {
   return `${UPLOADS_PATH}${responsive ? "/miniaturi/" : "/"}${fileName}`
 }
 
-const serveImage = async (res, path) => {
+const serveImage = async (res, req, path) => {
+  const { mtime, size } = fs.statSync(path)
+  var reqModDate = req.headers["if-modified-since"]
+
+  //check if if-modified-since header is the same as the mtime of the file
+  if (reqModDate != null) {
+    reqModDate = new Date(reqModDate)
+    console.log(
+      `🚀 ~ serveImage ~ if-modified-since:`,
+      formatDate(reqModDate, formatDate.longDateTime)
+    )
+    if (reqModDate.getTime() < mtime.getTime()) {
+      res.statusCode = 304
+      console.log(`304 ${path}`)
+      res.setHeader("Last-Modified", mtime.toUTCString())
+      res.end()
+      return true
+    }
+  }
+
   const blob = await fsp.readFile(path)
   const mimeType = mime.lookup(path)
   res.setHeader("Content-Type", mimeType)
+  res.setHeader("Content-Length", size)
+  res.setHeader("Last-Modified", mtime.toUTCString())
+  res.setHeader("Cache-Control", `public, max-age=${3600}, stale-while-revalidate=59`)
   res.write(blob)
   res.end()
 }

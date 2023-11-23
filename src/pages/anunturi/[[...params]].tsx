@@ -18,7 +18,8 @@ export const makePostsNavUrl = (categorySlug: string, page: number = 1) => {
 }
 
 export const getServerSideProps = gSSP(async (args) => {
-  const { query, ctx } = args
+  const { query, ctx, res } = args
+  res.setHeader("Cache-Control", `public, max-age=${3600}, stale-while-revalidate=59`)
   const params = query.params as string[]
   const categorySlug = params[0]
   const categories = await getCategories({ where: { slug: categorySlug } }, ctx)
