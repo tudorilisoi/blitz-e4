@@ -9,7 +9,7 @@ import { S, formatDate } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
-import { makePostsNavUrl } from "../anunturi/[[...params]]"
+import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 import Head from "next/head"
 import getPermissions, { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
@@ -90,10 +90,14 @@ export default function PostPage({
   category,
   post,
   permissionFlags,
+  nextPost,
+  prevPost,
 }: {
   category: Category
   post: PostWithIncludes
   permissionFlags: PermissionFlags
+  prevPost: PostWithIncludes | null
+  nextPost: PostWithIncludes | null
 }) {
   const router = useRouter()
   const sanitizedBody = S(post.body).obscurePhoneNumbers().get()
@@ -107,6 +111,14 @@ export default function PostPage({
       <title>{title}</title>
       <meta key="description" name="description" content={description} />
     </Head>
+  )
+  const pagination = (
+    <SimpleNav
+      nextLink={nextPost ? makePostNavUrl(nextPost) : null}
+      prevLink={prevPost ? makePostNavUrl(prevPost) : null}
+      nextText="Următorul"
+      prevText="Anteriorul"
+    />
   )
   return (
     <>
@@ -142,6 +154,7 @@ export default function PostPage({
       <div className={post.images.length == 1 ? "max-w-[45vw]" : ""}>
         <ImageGallery images={post.images} />
       </div>
+      {pagination}
     </>
   )
 }
