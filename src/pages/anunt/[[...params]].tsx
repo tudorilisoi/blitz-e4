@@ -1,5 +1,5 @@
 import { Routes } from "@blitzjs/next"
-import { Category, Post } from "@prisma/client"
+import { Category, Post, PostStatuses } from "@prisma/client"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
@@ -12,6 +12,7 @@ import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
 import { makePostsNavUrl } from "../anunturi/[[...params]]"
 import Head from "next/head"
 import getPermissions, { PermissionFlags } from "src/posts/queries/getPermissions"
+import getPosts from "src/posts/queries/getPosts"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -32,22 +33,57 @@ export const getServerSideProps = gSSP(async (args) => {
   }
   const category = categories[0]
 
-  const { posts, permissions } = await getPaginatedPosts(
+  const { posts, permissions } = await getPosts(
     {
       // @ts-ignore
       where: { id: postId },
-      orderBy: {},
       take: 1,
       skip: 0,
     },
     ctx
   )
-  if (posts.length !== 1) {
+  if (posts.length === 0) {
     return {
       notFound: true,
     }
   }
-  return { props: { category, post: posts[0], permissionFlags: permissions[postId] } }
+  const post = posts[0]
+
+  const cArgs = {
+    cursor: { id: post?.id },
+    take: -1,
+    skip: 1,
+    where: {
+      status: { not: PostStatuses.EXPIRED },
+      categoryId: post?.categoryId,
+    },
+    orderBy: { updatedAt: "desc" },
+  }
+
+  // @ts-ignore
+  const { posts: prevPosts } = await getPosts(cArgs, ctx)
+  // @ts-ignore
+  const { posts: nextPosts } = await getPosts({ ...cArgs, take: 1 }, ctx)
+  console.log(
+    `🚀 ~ getServerSideProps ~ prevPosts:`,
+    (prevPosts || []).map((p) => p.title)
+  )
+  console.log(
+    `🚀 ~ getServerSideProps ~ nextPosts:`,
+    (nextPosts || []).map((p) => p.title)
+  )
+  const prevPost = prevPosts.length == 1 ? prevPosts[0] : null
+  const nextPost = nextPosts.length == 1 ? nextPosts[0] : null
+
+  return {
+    props: {
+      category,
+      post,
+      permissionFlags: permissions[postId],
+      prevPost,
+      nextPost,
+    },
+  }
 })
 
 export default function PostPage({

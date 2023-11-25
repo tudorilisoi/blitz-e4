@@ -36,7 +36,7 @@ export const getServerSideProps = gSSP(async (args) => {
     {
       // @ts-ignore
       where: { userId: authorId },
-      orderBy: { createdAt: "desc" },
+      orderBy: { updatedAt: "desc" },
       take: ITEMS_PER_PAGE,
       skip: (page - 1) * ITEMS_PER_PAGE,
     },
