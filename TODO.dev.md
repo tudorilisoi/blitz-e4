@@ -35,12 +35,16 @@ X = not implemented, P = partially implemented
 
 Note: Maybe later on these will be converted to GH issues
 
+- X P0 implement close/archive post as soft delete (solved, expired)
+- X P0 overlay on e-mail verify
+- X P0 delete non-uploaded images
+- X P0 publish to eradauti.ro instead of mobilecenta.com
+- X check for verified status on login
+- ✔ publish live (fix images symlink first), make a synctool conf
+- X P1 check for existing email on signup
 - X cookiescript
-- X implement close/archive post as soft delete (solved, expired)
-- X P0 close slideshow on navigate away
+- ✔ P0 close slideshow on navigate away
 - P implement welcome/verify e-mail needs redirects
-- X check for verified tstatus on login
-- X publish live (fix images symlink first), make a synctool conf
 - ✔ implement socketlabs mail
 - ✔ import posts
 - ✔ install and use tailwind
