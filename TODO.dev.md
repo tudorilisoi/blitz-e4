@@ -35,6 +35,7 @@ X = not implemented, P = partially implemented
 
 Note: Maybe later on these will be converted to GH issues
 
+- X cookiescript
 - X implement close/archive post as soft delete (solved, expired)
 - X P0 close slideshow on navigate away
 - P implement welcome/verify e-mail needs redirects
