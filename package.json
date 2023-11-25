@@ -113,7 +113,8 @@
     "tsx": "4.3.0",
     "typescript": "^5.3.2",
     "vite-tsconfig-paths": "4.2.1",
-    "vitest": "0.34.6"
+    "vitest": "0.34.6",
+    "webpack-remove-serviceworker-plugin": "1.0.0"
   },
   "private": true
 }
