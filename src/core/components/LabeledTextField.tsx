@@ -22,16 +22,21 @@ export const PasswordField = (props) => {
   console.log(`🚀 ~ PasswordField ~ props:`, props)
   const [visible, setvisible] = useState(false)
 
-  const { Tag, tagProps } = props
+  const { Tag, tagProps, getValues } = props
   let cn = tagProps.className || ""
+
   cn = `${cn} join-item`
   cn = `input join-item bordered border-r-0`
+
   const newProps = {
     ...tagProps,
+    disabled: getValues().password === "" && tagProps.name === "passwordConfirmation",
     type: visible ? "text" : "password",
     className: cn,
   }
-
+  if (getValues().password === "" && tagProps.name === "passwordConfirmation") {
+    props.setValue("passwordConfirmation", "")
+  }
   const input = <Tag {...newProps} />
   const Icon = visible ? EyeSlashIcon : EyeIcon
 
@@ -66,6 +71,8 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
 
   const {
     register,
+    getValues,
+    setValue,
     formState: { isSubmitting, errors },
   } = useFormContext()
 
@@ -80,7 +87,7 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
   let tag
 
   if (otherProps.type === "password") {
-    tag = <PasswordField Tag={Tag} tagProps={tprops} />
+    tag = <PasswordField Tag={Tag} tagProps={tprops} getValues={getValues} setValue={setValue} />
   } else {
     tag = <Tag {...tprops}>{children}</Tag>
   }
