@@ -13,6 +13,7 @@ import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 import Head from "next/head"
 import getPermissions, { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
+import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -116,8 +117,16 @@ export default function PostPage({
     <SimpleNav
       nextLink={nextPost ? makePostNavUrl(nextPost) : null}
       prevLink={prevPost ? makePostNavUrl(prevPost) : null}
-      nextText="Următorul"
-      prevText="Anteriorul"
+      prevText={
+        <span className="flex-grow" title={prevPost?.title || ""}>
+          {prevSymbol}Anunţul anterior
+        </span>
+      }
+      nextText={
+        <span className="flex-grow" title={nextPost?.title || ""}>
+          Anunţul următor{nextSymbol}
+        </span>
+      }
     />
   )
   return (

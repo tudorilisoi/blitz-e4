@@ -1,10 +1,21 @@
 import Link from "next/link"
-
+export const prevSymbol = "« "
+export const nextSymbol = " »"
 const SimpleNav = ({
   prevLink,
   nextLink,
-  prevText = "Înapoi" as React.ReactNode,
-  nextText = "Înainte" as React.ReactNode,
+  prevText = (
+    <span className="flex-grow">
+      {prevSymbol}
+      {"Înapoi"}
+    </span>
+  ) as React.ReactNode,
+  nextText = (
+    <span className="flex-grow">
+      {"Înainte"}
+      {nextSymbol}
+    </span>
+  ) as React.ReactNode,
 }) => {
   return (
     <nav className="join grid grid-cols-2 mt-6">
@@ -15,7 +26,7 @@ const SimpleNav = ({
         key={"simplenav-prev"}
         href={prevLink || "#"}
       >
-        « {prevText}
+        {prevText}
       </Link>
       <Link
         className={`btn btn-outline join-item bg-primary bg-opacity-30 text-xl ${
@@ -24,7 +35,7 @@ const SimpleNav = ({
         key={"simplenav-next"}
         href={nextLink || "#"}
       >
-        {nextText} »
+        {nextText}
       </Link>
     </nav>
   )
