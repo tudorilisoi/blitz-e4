@@ -37,6 +37,7 @@ Note: Maybe later on these will be converted to GH issues
 
 - X P0 implement close/archive post as soft delete (solved, expired)
 - X P0 overlay on e-mail verify
+- X P0 overlay on password reset; also copy handlePasswdConfirmation from signup
 - X P0 delete non-uploaded images
 - X P0 publish to eradauti.ro instead of mobilecenta.com
 - X check for verified status on login
