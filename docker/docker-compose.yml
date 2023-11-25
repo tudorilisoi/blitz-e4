@@ -25,7 +25,7 @@ services:
     volumes:
       - ../.data/meili:/meili_data
   web:
-    mem_limit: 1G
+    mem_limit: ${WEB_MEM_LIMIT}
     # environment:
     #   - CURRENT_GUID=${CURRENT_GUID}
     #   - CURRENT_UID=${CURRENT_UID}
