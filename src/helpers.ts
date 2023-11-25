@@ -6,6 +6,8 @@ import striptags from "striptags"
 import dayjs from "dayjs"
 import "dayjs/locale/ro"
 import relativeTime from "dayjs/plugin/relativeTime"
+import utc from "dayjs/plugin/utc"
+dayjs.extend(utc)
 dayjs.extend(relativeTime)
 dayjs.locale("ro")
 
@@ -130,7 +132,7 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
 
 export const formatDate = (dateStr, formatStr) => {
   const _formatStr = formatStr || formatDate.longDate
-  return dayjs(dateStr).format(_formatStr)
+  return dayjs.utc(dateStr).format(_formatStr)
 }
 
 formatDate.short = `D MMM YYYY`
