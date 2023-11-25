@@ -6,6 +6,7 @@ import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { useRef } from "react"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -13,6 +14,8 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const searchParams = useSearchParams()
+  const ref = useRef<any>()
+  console.log(`🚀 ~ SignupForm ~ ref:`, ref)
   const email = searchParams.get("email") || ""
   const [signupMutation] = useMutation(signup)
   const labelProps = {
@@ -21,6 +24,21 @@ export const SignupForm = (props: SignupFormProps) => {
   }
   const outerProps = { className: "flex flex-col text-0xl" }
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
+  const handlePasswordConfirmation = (ev) => {
+    console.log(`🚀 ~ SignupForm ~ ref:`, ref)
+    const _ref = ref?.current
+    if (!_ref) {
+      return
+    }
+    const values = _ref.getValues() || {}
+    console.log(`🚀 ~ handlePasswordConfirmation ~ values:`, values)
+    if (values.password === values.passwordConfirmation) {
+      _ref.clearErrors("password")
+      _ref.clearErrors("passwordConfirmation")
+    }
+    _ref.trigger("password")
+    _ref.trigger("passwordConfirmation")
+  }
   return (
     <div className="max-w-screen-sm">
       <div className="prose mb-3">
@@ -30,6 +48,7 @@ export const SignupForm = (props: SignupFormProps) => {
       <Form
         submitText="Creează cont"
         schema={Signup}
+        controller={ref}
         initialValues={{ email, password: "" }}
         onSubmit={async (values) => {
           try {
@@ -82,6 +101,7 @@ export const SignupForm = (props: SignupFormProps) => {
           placeholder=""
         />
         <LabeledTextField
+          onKeyUp={handlePasswordConfirmation}
           labelProps={labelProps}
           outerProps={outerProps}
           className={labelClassName}
@@ -91,6 +111,7 @@ export const SignupForm = (props: SignupFormProps) => {
           type="password"
         />
         <LabeledTextField
+          onKeyUp={handlePasswordConfirmation}
           labelProps={labelProps}
           outerProps={outerProps}
           className={labelClassName}
