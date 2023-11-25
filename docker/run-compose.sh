@@ -33,7 +33,7 @@ elif [ "$1" == "logs" ]; then
     docker-compose -f "$script_path/docker-compose.yml" logs -f
     exit 0
 else
-    echo "Invalid argument. Usage: $0 [dev|start|stop]"
+    echo "Invalid argument. Usage: $0 [dev|start|stop|build|logs]"
     exit 1
 fi
 
