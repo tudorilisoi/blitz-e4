@@ -26,7 +26,7 @@ export const PasswordField = (props) => {
   let cn = tagProps.className || ""
 
   cn = `${cn} join-item`
-  cn = `input join-item bordered border-r-0`
+  cn = `join-item px-2`
 
   const newProps = {
     ...tagProps,
@@ -41,10 +41,10 @@ export const PasswordField = (props) => {
   const Icon = visible ? EyeSlashIcon : EyeIcon
 
   return (
-    <div className="join w-fit group bordered focus-within:border-2">
+    <div className="join w-fit group input input-bordered px-0">
       {input}
       <div
-        className=" btn btn-ghost join-item border-l-2  bordered"
+        className=" btn  btn-primary join-item px-4 "
         onClick={() => setvisible((prevValue) => !prevValue)}
       >
         <span>
