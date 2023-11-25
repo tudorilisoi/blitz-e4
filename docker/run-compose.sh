@@ -14,6 +14,7 @@ yarn build:1-blitz;
 EXTRA_ARGS="-d"
 export WEB_MEM_LIMIT="1G"
 #JEMALLOC="/usr/lib/x86_64-linux-gnu/libjemalloc.so.2"
+
 # NOTE running without WS
 if [ "$1" == "dev" ]; then
     echo "Running development command"
@@ -28,6 +29,7 @@ elif [ "$1" == "stop" ]; then
     exit 0
 elif [ "$1" == "build" ]; then
     echo "Running build command"
+     export WEB_MEM_LIMIT="4G"
     export WEB_CMD=$YARN
     EXTRA_ARGS="--abort-on-container-exit" # no detach
 elif [ "$1" == "logs" ]; then
