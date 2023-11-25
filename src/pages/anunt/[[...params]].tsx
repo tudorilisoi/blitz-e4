@@ -8,7 +8,7 @@ import Layout from "src/core/layouts/Layout"
 import { S, formatDate } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
-import getPosts from "src/posts/queries/getPosts"
+import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
 import { makePostsNavUrl } from "../anunturi/[[...params]]"
 import Head from "next/head"
 import getPermissions, { PermissionFlags } from "src/posts/queries/getPermissions"
@@ -32,7 +32,7 @@ export const getServerSideProps = gSSP(async (args) => {
   }
   const category = categories[0]
 
-  const { posts, permissions } = await getPosts(
+  const { posts, permissions } = await getPaginatedPosts(
     {
       // @ts-ignore
       where: { id: postId },

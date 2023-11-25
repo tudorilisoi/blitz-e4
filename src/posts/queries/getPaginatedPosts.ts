@@ -4,11 +4,11 @@ import db, { Prisma } from "db"
 import { postInclude } from "src/config"
 import { getPermissionsForPosts } from "./getPermissions"
 
-interface GetPostsInput
+interface getPaginatedPostsInput
   extends Pick<Prisma.PostFindManyArgs, "where" | "orderBy" | "skip" | "take"> {}
 
 export default resolver.pipe(
-  async ({ where, orderBy, skip = 0, take = 100 }: GetPostsInput, ctx) => {
+  async ({ where, orderBy, skip = 0, take = 100 }: getPaginatedPostsInput, ctx) => {
     const {
       items: posts,
       hasMore,

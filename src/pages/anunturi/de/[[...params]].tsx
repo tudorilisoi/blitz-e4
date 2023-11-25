@@ -9,7 +9,7 @@ import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import { makeSlug } from "src/helpers"
 import PostCell from "src/posts/components/PostCell/PostCell"
-import getPosts from "src/posts/queries/getPosts"
+import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
 import getUser from "src/users/queries/getUser"
 
 const ITEMS_PER_PAGE = 12
@@ -32,7 +32,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const pageSlug = params[1] || null
   const page = Number(pageSlug?.split("-")[1] || 1)
 
-  const { posts, count, hasMore, numPages } = await getPosts(
+  const { posts, count, hasMore, numPages } = await getPaginatedPosts(
     {
       // @ts-ignore
       where: { userId: authorId },
