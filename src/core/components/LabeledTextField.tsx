@@ -19,7 +19,6 @@ export type FieldOwnProps<E extends React.ElementType> = {
 }
 
 export const PasswordField = (props) => {
-  console.log(`🚀 ~ PasswordField ~ props:`, props)
   const [visible, setvisible] = useState(false)
 
   const { Tag, tagProps, getValues } = props
