@@ -8,7 +8,7 @@ import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 import ImageGallery from "src/core/components/image/ImageGallery"
 import { getImageUrl } from "src/core/components/image/helpers"
 import Layout from "src/core/layouts/Layout"
-import { S, formatDate } from "src/helpers"
+import { S, canonical, formatDate } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import { PermissionFlags } from "src/posts/queries/getPermissions"
@@ -116,13 +116,31 @@ export default function PostPage({
       </>
     )
   }
+  const canonicalUrl = canonical(makePostNavUrl(post))
   const head = (
     <Head>
       <title>{title}</title>
+      <link rel="canonical" content={canonicalUrl} />
       <meta key="description" name="description" content={description} />
+      <meta name="og:url" content={canonicalUrl} />
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />
       {ogImage}
+      <meta property="og:type" content="article" />
+      <meta
+        property="article:modified_time"
+        content={formatDate(post.updatedAt, formatDate.ISO)}
+      ></meta>
+      <meta
+        property="article:published_time"
+        content={formatDate(post.createdAt, formatDate.ISO)}
+      ></meta>
+      <meta property="article:section" content={`${post.category.title}`} />
+      <meta property="article:tag" content={`${post.category.title}`} />
+      <meta property="article:tag" content={`eRădăuţi`} />
+      <meta property="article:tag" content={`Rădăuţi`} />
+      <meta property="article:tag" content={`Suceava`} />
+      <meta property="article:tag" content={`Anunţuri`} />
     </Head>
   )
   const pagination = (

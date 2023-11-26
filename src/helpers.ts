@@ -132,13 +132,21 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
 
 export const formatDate = (dateStr, formatStr) => {
   const _formatStr = formatStr || formatDate.longDate
+  if (formatStr === "ISO") {
+    return dayjs.utc(dateStr).toISOString()
+  }
   return dayjs.utc(dateStr).format(_formatStr)
 }
 
+formatDate.ISO = `ISO`
 formatDate.short = `D MMM YYYY`
 formatDate.longDateTime = "D MMMM YYYY h:mm a"
 formatDate.longDate = "D MMMM YYYY"
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+export const canonical = (url: string) => {
+  return process.env.NEXT_PUBLIC_APP_URL + url
 }
