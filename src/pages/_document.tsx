@@ -36,8 +36,8 @@ function dedupeHead(elems) {
     Object.values(buffer).forEach((element) => {
       result.push(element)
     })
-    const _result = result.map((i) => ({ type: i.type, props: i.props }))
-    console.log(`🚀 ~ dedupeHead ~ result:`, _result)
+    // const _result = result.map((i) => ({ type: i.type, props: i.props }))
+    // console.log(`🚀 ~ dedupeHead ~ result:`, _result)
   }
 
   return result
