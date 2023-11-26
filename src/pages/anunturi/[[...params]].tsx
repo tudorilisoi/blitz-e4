@@ -66,7 +66,7 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
   const head = (
     <Head>
       <title>{title}</title>
-      <meta key="description" name="description" content={description} />
+      <meta name="description" content={description} />
     </Head>
   )
 

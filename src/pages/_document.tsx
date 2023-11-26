@@ -29,13 +29,15 @@ function dedupeHead(elems) {
           break
         default:
           result.push(elem)
-          console.log(`ADD/SKIP [${key}]`, elem.props)
+          // console.log(`ADD/SKIP [${key}]`, elem.props)
           break
       }
     }
     Object.values(buffer).forEach((element) => {
       result.push(element)
     })
+    const _result = result.map((i) => ({ type: i.type, props: i.props }))
+    console.log(`🚀 ~ dedupeHead ~ result:`, _result)
   }
 
   return result

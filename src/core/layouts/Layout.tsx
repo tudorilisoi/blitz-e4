@@ -137,13 +137,12 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <title key="title">{_title}</title>
-        <meta key="description" name="description" content={_description} />
+        <title>{_title}</title>
+        <meta name="description" content={_description} />
         {/* Ai noştri ca brazii! */}
         <meta property="og:locale" content="ro_RO" />
         <meta name="og:title" content={_title} />
-        <meta key="og:description" name="description" content={_description} />
-        {ogImage}
+        <meta name="description" content={_description} />
       </Head>
       <div className="flex flex-col min-h-screen w-full bg-base-100">
         {/* Top Navigation Header */}

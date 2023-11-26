@@ -112,7 +112,7 @@ export default function PostPage({
     <Head>
       <title>{title}</title>
       <link rel="canonical" content={canonicalUrl} />
-      <meta key="description" name="description" content={description} />
+      <meta name="description" content={description} />
       <meta name="og:url" content={canonicalUrl} />
       <meta name="og:title" content={title} />
       <meta name="og:description" content={description} />

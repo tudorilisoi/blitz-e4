@@ -68,7 +68,7 @@ export default function PostsByAuthorNavPage({ author, posts, page, hasMore, num
   const head = (
     <Head>
       <title>{title}</title>
-      <meta key="description" name="description" content={description} />
+      <meta name="description" content={description} />
     </Head>
   )
 
