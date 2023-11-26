@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 import ImageGallery from "src/core/components/image/ImageGallery"
-import { getImageUrl } from "src/core/components/image/helpers"
+import { OGImage } from "src/core/components/image/OGImage"
 import Layout from "src/core/layouts/Layout"
 import { S, canonical, formatDate } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
@@ -105,17 +105,8 @@ export default function PostPage({
 
   const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   const description = `${S(sanitizedBody).shortenText(200).get()}`
-  let ogImage: JSX.Element | null = null
-  const image = post.images.length > 0 ? post.images[0] : null
-  if (image) {
-    ogImage = (
-      <>
-        <meta property="og:image" content={getImageUrl(image, true)} />
-        <meta property="og:image:width" content={`${image.width}`} />
-        <meta property="og:image:height" content={`${image.height}`} />
-      </>
-    )
-  }
+  const ogImage = OGImage(post.images[0] ?? null)
+
   const canonicalUrl = canonical(makePostNavUrl(post))
   const head = (
     <Head>
