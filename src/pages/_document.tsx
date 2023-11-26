@@ -1,4 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document"
+import React from "react"
 
 function dedupeHead(elems) {
   const result: React.ReactElement[] = []
@@ -9,8 +10,16 @@ function dedupeHead(elems) {
       const elem = elems[i],
         type = elem.type,
         props = elem.props
-      let uniqueProp = props.itemprop || props.property || props.name || props.href
-      let key = `${type}::uniqueProp: ${uniqueProp}`
+      let uniqueProp =
+        props.itemprop ||
+        props.property ||
+        props.name ||
+        props.href ||
+        "props:" + Object.keys(props).join(",")
+      if (!uniqueProp) {
+        console.log(`🚀 ~ dedupeHead ~ elem:`, elem)
+      }
+      let key = `${type}::uniqueProp:${uniqueProp}`
 
       /** Dedupe */
       switch (type) {
@@ -25,7 +34,10 @@ function dedupeHead(elems) {
             // console.log("ADD meta", key, elem)
             console.log(`OWR [${key}]`, buffer[key]?.props, elem.props)
           }
-          buffer[key] = elem
+          const newProps = { ...props, key }
+          const uniqueElem = React.createElement(type, newProps)
+          buffer[key] = uniqueElem
+          // buffer[key] = elem
           break
         default:
           result.push(elem)
@@ -36,7 +48,10 @@ function dedupeHead(elems) {
     Object.values(buffer).forEach((element) => {
       result.push(element)
     })
-    // const _result = result.map((i) => ({ type: i.type, props: i.props }))
+    const _result = result.map((i) => {
+      return JSON.stringify(i)
+    })
+    console.log(`🚀 ~ dedupeHead keys:`, Object.keys(buffer))
     // console.log(`🚀 ~ dedupeHead ~ result:`, _result)
   }
 
