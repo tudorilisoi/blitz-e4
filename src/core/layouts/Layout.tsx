@@ -143,6 +143,7 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         <meta property="og:locale" content="ro_RO" />
         <meta name="og:title" content={_title} />
         <meta name="description" content={_description} />
+        {ogImage}
       </Head>
       <div className="flex flex-col min-h-screen w-full bg-base-100">
         {/* Top Navigation Header */}
