@@ -301,7 +301,10 @@ const init = async () => {
       if (index === "Post") {
         await client.index(index).updateSynonyms({
           chirie: ["închiriez", "închiriere", "închiriază", "închiriat"],
-          vand: ["vanzare", "vandut", "vinde"],
+          "de vinzare": ["vand"],
+          vand: ["de vanzare", "vanzare", "vandut", "vinde"],
+          "vand telefon": ["vand telefon mobil", "smartphone"],
+          vinzare: ["de vanzare", "vanzare", "vandut", "vinde", "vand"],
         })
         const synonims = await client.index(index).getSynonyms()
         logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
