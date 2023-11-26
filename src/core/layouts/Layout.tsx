@@ -9,6 +9,7 @@ import logout from "src/auth/mutations/logout"
 import { useRouter } from "next/router"
 import { makePostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { User } from "@prisma/client"
+import { OGImage } from "../components/image/OGImage"
 
 const UserInfo = () => {
   const router = useRouter()
@@ -127,15 +128,22 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
 }) => {
   const navTitle = "eRădăuţi v3"
   const _title = title || navTitle
+  const ogImage = OGImage(null)
+  const _description =
+    description ||
+    `e-Rădăuţi: Anunţuri imobiliare, maşini, locuri de muncă. Anunţuri pentru Rădăuţi/Suceava`
   return (
     <>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
         <title key="title">{_title}</title>
+        <meta key="description" name="description" content={_description} />
         {/* Ai noştri ca brazii! */}
         <meta property="og:locale" content="ro_RO" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {!description ? null : <meta key="description" name="description" content={description} />}
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="og:title" content={_title} />
+        <meta key="og:description" name="description" content={_description} />
+        {ogImage}
       </Head>
       <div className="flex flex-col min-h-screen w-full bg-base-100">
         {/* Top Navigation Header */}
