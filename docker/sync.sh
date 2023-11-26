@@ -18,11 +18,12 @@ fi
 
 script_path=$(dirname "$(readlink -f "$0")")
 
+cd "$script_path"
 echo "git reset --hard"
 git reset --hard
-
 echo "git pull"
 git pull
+cd -
 
 echo "$script_path/run-compose.sh build"
 $script_path/run-compose.sh build
