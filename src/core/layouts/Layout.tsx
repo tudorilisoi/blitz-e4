@@ -131,6 +131,8 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
     <>
       <Head>
         <title key="title">{_title}</title>
+        {/* Ai noştri ca brazii! */}
+        <meta property="og:locale" content="ro_RO" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {!description ? null : <meta key="description" name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />

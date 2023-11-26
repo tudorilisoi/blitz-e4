@@ -1,19 +1,19 @@
 import { Routes } from "@blitzjs/next"
-import { Category, Post, PostStatuses } from "@prisma/client"
+import { Category, PostStatuses } from "@prisma/client"
+import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
+import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 import ImageGallery from "src/core/components/image/ImageGallery"
+import { getImageUrl } from "src/core/components/image/helpers"
 import Layout from "src/core/layouts/Layout"
 import { S, formatDate } from "src/helpers"
 import { PostWithIncludes } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
-import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
-import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
-import Head from "next/head"
-import getPermissions, { PermissionFlags } from "src/posts/queries/getPermissions"
+import { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
-import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
+import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -105,12 +105,24 @@ export default function PostPage({
 
   const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
   const description = `${S(sanitizedBody).shortenText(200).get()}`
+  let ogImage: JSX.Element | null = null
+  const image = post.images.length > 0 ? post.images[0] : null
+  if (image) {
+    ogImage = (
+      <>
+        <meta property="og:image" content={getImageUrl(image, true)} />
+        <meta property="og:image:width" content={`${image.width}`} />
+        <meta property="og:image:height" content={`${image.height}`} />
+      </>
+    )
+  }
   const head = (
     <Head>
-      <meta name="og:title" content={title} />
-      <meta name="og:description" content={description} />
       <title>{title}</title>
       <meta key="description" name="description" content={description} />
+      <meta name="og:title" content={title} />
+      <meta name="og:description" content={description} />
+      {ogImage}
     </Head>
   )
   const pagination = (
