@@ -1,4 +1,5 @@
 import Document, { Html, Main, NextScript, Head } from "next/document"
+import DocumentHead from "src/core/components/DocumentHead"
 
 class MyDocument extends Document {
   // Only uncomment if you need to customize this behaviour
@@ -14,7 +15,7 @@ class MyDocument extends Document {
           rel="stylesheet"
         />
 
-        <Head />
+        <DocumentHead />
 
         <body>
           <Main />
