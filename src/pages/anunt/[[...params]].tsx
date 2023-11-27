@@ -165,7 +165,7 @@ export default function PostPage({
               </Link>{" "}
               {post.title}
             </h1>
-            <p className="text-lg text-base-content">
+            <p className="text-lg text-base-content whitespace-pre-line	">
               <span className="inline-block bg-neutral p-2 rounded text-sm ">
                 {formatDate(post.updatedAt, formatDate.short)}
               </span>{" "}
