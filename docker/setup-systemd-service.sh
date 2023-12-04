@@ -24,6 +24,17 @@ BASE_DIR="/home/tudor/Documents/dev"
 
 SRV_NAME=$1
 SERVICE_FILE="docker-compose@$SRV_NAME.service"
+
+if [ "$2" == "-u" ]; then
+    # read -p "Press enter to continue"
+    sudo systemctl stop "$SERVICE_FILE"
+    sudo rm -f "/etc/systemd/system/$SERVICE_FILE"
+    sudo systemctl daemon-reload
+    echo "Service $SERVICE_FILE removed."
+    exit 0;
+fi
+
+
 # cp docker-compose@.service "$SERVICE_FILE"
 WDIR="$BASE_DIR/$SRV_NAME/docker"
 
