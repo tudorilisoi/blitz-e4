@@ -26,8 +26,8 @@ SRV_NAME=$1
 SERVICE_FILE="docker-compose@$SRV_NAME.service"
 
 if [ "$2" == "-u" ]; then
-    # read -p "Press enter to continue"
     sudo systemctl stop "$SERVICE_FILE"
+    sudo systemctl disable "$SERVICE_FILE"
     sudo rm -f "/etc/systemd/system/$SERVICE_FILE"
     sudo systemctl daemon-reload
     echo "Service $SERVICE_FILE removed."
@@ -42,12 +42,14 @@ rm "/tmp/$SERVICE_FILE" 2>&1
 sed "s#WDIR#$WDIR#g" docker-compose@.service > "/tmp/$SERVICE_FILE"
 
 cat "/tmp/$SERVICE_FILE"
+read -p "Press enter to continue"
 
 #debug
 # exit
 
 sudo cp "/tmp/$SERVICE_FILE" "/etc/systemd/system/$SERVICE_FILE"
 rm "/tmp/$SERVICE_FILE"
+sudo systemctl enable "$SERVICE_FILE"
 sudo systemctl daemon-reload
 sudo systemctl restart "$SERVICE_FILE"
 
