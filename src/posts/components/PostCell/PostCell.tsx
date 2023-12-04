@@ -88,7 +88,7 @@ const _PostCell = ({ post }: { post: PostWithIncludes }) => {
   const url = makePostNavUrl(post)
   return (
     <section
-      className={`${styles["post-cell"]} p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm cursor-pointer `}
+      className={`${styles["postCell"]} p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm cursor-pointer `}
       onClick={() => router.push(url)}
     >
       <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
