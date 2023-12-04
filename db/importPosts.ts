@@ -80,7 +80,7 @@ const importPosts = async () => {
   let jsonData = JSON.parse(
     fs.readFileSync(`${__dirname}/../.data/db_seed/xclassified.json`).toString()
   )
-    .xclassified.map(mapPost)
+    .data.map(mapPost)
     .filter((data) => data !== null)
   logger("PostData parsed")
   // add bars
@@ -123,7 +123,7 @@ const importCategories = async () => {
   let jsonData = JSON.parse(
     fs.readFileSync(`${__dirname}/../.data/db_seed/xcategory.json`).toString()
   )
-    .xcategory.map(mapCategory)
+    .data.map(mapCategory)
     .filter((data) => data !== null)
   logger("CategoryData parsed")
 
@@ -154,7 +154,7 @@ const importImages = async () => {
   let jsonData = JSON.parse(
     fs.readFileSync(`${__dirname}/../.data/db_seed/xupload.json`).toString()
   )
-    .xupload.map(mapUpload)
+    .data.map(mapUpload)
     .filter((data) => data !== null)
   logger("UploadData parsed")
 

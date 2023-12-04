@@ -47,7 +47,7 @@ export const importUsers = async () => {
     let userData = JSON.parse(
       fs.readFileSync(`${__dirname}/../.data/db_seed/xuser.json`).toString()
     )
-      .xuser.map(mapUser)
+      .data.map(mapUser)
       .filter((data) => data !== null)
     console.log(`UserData parsed ${userData.length} records`)
 
