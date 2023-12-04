@@ -1159,10 +1159,10 @@
     supports-color "8.1.1"
     url "0.11.0"
 
-"@blitzjs/generator@2.0.0-beta.35":
-  version "2.0.0-beta.35"
-  resolved "https://registry.yarnpkg.com/@blitzjs/generator/-/generator-2.0.0-beta.35.tgz#c4c751d796750c5503e567bbb4181b9fe7d7481d"
-  integrity sha512-cITNriRG2kBy+J9HEwMA8q1ZRrTZYQPl4639Ru4Y2KBb/XoWY/oZjhpv3ES+doDac4oFiuz2DxxT98EqM0a67Q==
+"@blitzjs/generator@2.0.0-beta.36":
+  version "2.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@blitzjs/generator/-/generator-2.0.0-beta.36.tgz#9655d20165bc28080ae6f4122d2a298abb0f7378"
+  integrity sha512-Vi7kzKp/hq/jvpweDhP+3KT+u3ry5boEBqb4LMMI/5Nn+04u5zbWQ9kLrqQXO3iT7QxE8brdNUofHiHjdfNN0Q==
   dependencies:
     "@babel/core" "7.12.10"
     "@babel/plugin-transform-typescript" "7.12.1"
@@ -2848,12 +2848,12 @@ bl@^4.0.3:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-blitz@2.0.0-beta.35:
-  version "2.0.0-beta.35"
-  resolved "https://registry.yarnpkg.com/blitz/-/blitz-2.0.0-beta.35.tgz#8226418b0e631af8781e942588d3767d072a873d"
-  integrity sha512-lb+RhwPB5g4Fp0N4T/ef74iJAezV5tbjKGG0ESO/S+gr1fdWMXTOCoW8LG8JtPHrxc47hGDK3hlgN9LwyAPf8w==
+blitz@2.0.0-beta.36:
+  version "2.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/blitz/-/blitz-2.0.0-beta.36.tgz#22b20edcd3576f333fb119140b2e14ba587732c3"
+  integrity sha512-oJwlKOgbXxtJKRt2S8gc93MfVp4N3uEHaRd0vSwCZRniKKE1GYr8zHtC4rxTNkJKPCtcytx2vvSlueovan47Uw==
   dependencies:
-    "@blitzjs/generator" "2.0.0-beta.35"
+    "@blitzjs/generator" "2.0.0-beta.36"
     "@mrleebo/prisma-ast" "0.2.6"
     "@types/global-agent" "2.1.1"
     arg "5.0.1"
