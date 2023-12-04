@@ -41,7 +41,7 @@ Note: Maybe later on these will be converted to GH issues
 - X P0 delete non-uploaded images
 - X P0 publish to eradauti.ro instead of mobilecenta.com
 - X check for verified status on login
-- ✔ publish live (fix images symlink first), make a synctool conf
+- ✔ publish live (fix images symlink first), make a synctool conf (done)
 - X P1 check for existing email on signup
 - X cookiescript
 - ✔ P0 close slideshow on navigate away
