@@ -7,13 +7,11 @@ After=docker.service
 Type=simple
 Restart=always
 RemainAfterExit=true
-WorkingDirectory=/home/tudor/Documents/dev/%i/docker
-# production @ionos
-# WorkingDirectory=/home/tudor/www/%i/docker
+WorkingDirectory=/home/tudor/Documents/dev/pauls.ro/docker
 User=tudor
 Group=tudor
-ExecStart=/home/tudor/Documents/dev/%i/docker/run-compose.sh start
-ExecStop=/home/tudor/Documents/dev/%i/docker/run-compose.sh stop
+ExecStart=/home/tudor/Documents/dev/pauls.ro/docker/run-compose.sh start
+ExecStop=/home/tudor/Documents/dev/pauls.ro/docker/run-compose.sh stop
 
 [Install]
 WantedBy=multi-user.target
