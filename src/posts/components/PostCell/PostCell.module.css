@@ -2,7 +2,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-color: #333;
-  filter: grayscale(100%); /* Apply a grayscale filter */
+  filter: grayscale(70%); /* Apply a grayscale filter */
   transition: all 0.3s ease-in-out;
   background-size: cover;
 }
