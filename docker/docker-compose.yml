@@ -1,5 +1,6 @@
 # NOTE version is important for mem_limit, no swarm
 version: "2"
+name: "eradauti"
 services:
   db:
     build:

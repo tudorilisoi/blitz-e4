@@ -1,0 +1,19 @@
+[Unit]
+Description=%i service with docker compose
+PartOf=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+Restart=always
+RemainAfterExit=true
+WorkingDirectory=/home/tudor/Documents/dev/%i/docker
+# production @ionos
+# WorkingDirectory=/home/tudor/www/%i/docker
+User=tudor
+Group=tudor
+ExecStart=/home/tudor/Documents/dev/%i/docker/run-compose.sh start
+ExecStop=/home/tudor/Documents/dev/%i/docker/run-compose.sh stop
+
+[Install]
+WantedBy=multi-user.target
