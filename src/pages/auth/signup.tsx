@@ -14,7 +14,7 @@ const SignupPage: BlitzPage = () => {
   const router = useRouter()
   const { toggle } = useOverlay()
 
-  const signupSuccess = (
+  const successNotification = (
     <ViewportCentered>
       <div className={messageWrapperClassName}>
         <div className="text-center">
@@ -30,7 +30,7 @@ const SignupPage: BlitzPage = () => {
 
   return (
     <>
-      <SignupForm onSuccess={() => toggle(true, { component: signupSuccess })} />
+      <SignupForm onSuccess={() => toggle(true, { component: successNotification })} />
     </>
   )
 }
