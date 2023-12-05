@@ -97,6 +97,17 @@ export const LoginForm = (props: LoginFormProps) => {
           type="password"
         />
       </Form>
+      <div className="mt-6">
+        <p>
+          {" Nu ai un cont?   "}
+          <Link
+            className="inline-block ml-2 underline text-secondary-content"
+            href={Routes.SignupPage()}
+          >
+            <strong>Creează cont</strong>
+          </Link>{" "}
+        </p>
+      </div>
     </div>
   )
 }
