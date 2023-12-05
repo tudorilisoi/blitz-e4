@@ -105,7 +105,8 @@ const NavBar = () => {
       <div className="navbar container mx-auto px-6 py-4">
         <div className="flex-1">
           <Link href={Routes.Home()}>
-            <span className="btn btn-circle btn-primary normal-case">e3</span>
+            {/* <span className="btn btn-circle btn-primary normal-case">e3</span> */}
+            <img src="/logo.png" className="h-14 w-14" alt="eRădăuţi: ghid rădăuţean din 2005" />
           </Link>
         </div>
         <div className="flex-none gap-2 mr-2 text-base-content">
