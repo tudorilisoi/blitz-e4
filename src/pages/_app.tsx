@@ -11,6 +11,7 @@ import { trpc } from "src/ws-utils/trpc"
 
 // "react-photo-gallery" does funky measurements in the DOM
 // this upsets next.js, monkey patch FTW
+// TODO maybe wrap the Imagegallery in next/dynamic
 if (typeof window === "undefined") {
   React.useLayoutEffect = React.useEffect
 }
@@ -27,7 +28,9 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
   // Note forceOverlay to achieve the OverlayProvider effect
   return (
     <>
-      <Layout forceOverlay={true}></Layout>
+      <Layout forceOverlay={true}>
+        <h1 className="text-2xl text-error">{returnValue}</h1>
+      </Layout>
       <ViewportCentered>
         <div className={messageWrapperClassName}>
           <span className="inline-block mb-4">
