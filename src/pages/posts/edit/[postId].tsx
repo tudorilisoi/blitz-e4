@@ -1,12 +1,12 @@
 import { Routes, useParam } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
-import { FaceSmileIcon } from "@heroicons/react/24/outline"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Suspense, useEffect, useState } from "react"
 import { ErrorNotification } from "src/core/components/ErrorNotification"
 import { BlobsState } from "src/core/components/image/UploadGrid"
+import { SuccessIcon } from "src/core/components/notifications"
 
 import {
   messageClassName,
@@ -53,7 +53,7 @@ export const SuccessNotification = ({
     <ViewportCentered>
       <div className={messageWrapperClassName}>
         <div className="text-center">
-          <FaceSmileIcon className="h-[104px] w-[104px] inline-block text-success" />
+          <SuccessIcon />
         </div>
         <h2 className={messageClassName}>{message}</h2>
         <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">

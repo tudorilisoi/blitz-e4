@@ -1,15 +1,36 @@
-import { BlitzPage, Routes } from "@blitzjs/next"
+import { BlitzPage } from "@blitzjs/next"
 import { useRouter } from "next/router"
 import { SignupForm } from "src/auth/components/SignupForm"
+import { SuccessIcon } from "src/core/components/notifications"
+import {
+  messageClassName,
+  messageWrapperClassName,
+  useOverlay,
+} from "src/core/components/overlay/OverlayProvider"
+import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 
 const SignupPage: BlitzPage = () => {
   const router = useRouter()
-  // TODO onSuccess display an overlay to wait for verification email
+  const { toggle } = useOverlay()
+
+  const signupSuccess = (
+    <ViewportCentered>
+      <div className={messageWrapperClassName}>
+        <div className="text-center">
+          <SuccessIcon />
+        </div>
+        <h2 className={messageClassName}>{"Contul a fost creat"}</h2>
+        <h3 className="text-2xl text-neutral-content">
+          {"Citiţi e-mailul (inclusiv secţiunea spam) pentru a activa contul"}
+        </h3>
+      </div>
+    </ViewportCentered>
+  )
 
   return (
     <>
-      <SignupForm onSuccess={() => router.push(Routes.Home())} />
+      <SignupForm onSuccess={() => toggle(true, { component: signupSuccess })} />
     </>
   )
 }
