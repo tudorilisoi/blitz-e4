@@ -1,7 +1,8 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 import { SignupForm } from "src/auth/components/SignupForm"
-import { InfoIcon, SuccessIcon } from "src/core/components/notifications"
+import { InfoIcon } from "src/core/components/notifications"
 import {
   messageClassName,
   messageWrapperClassName,
@@ -14,6 +15,12 @@ const SignupPage: BlitzPage = () => {
   const router = useRouter()
   const { toggle } = useOverlay()
 
+  // cleanup on unmount, start fresh, end fresh
+  useEffect(() => {
+    toggle(false)
+    return () => toggle(false)
+  }, [])
+
   const successNotification = (
     <ViewportCentered>
       <div className={messageWrapperClassName}>
@@ -24,6 +31,14 @@ const SignupPage: BlitzPage = () => {
         <h3 className="text-2xl text-neutral-content">
           {"Citiţi e-mailul (inclusiv secţiunea spam) pentru a activa contul"}
         </h3>
+        <button
+          onClick={() => {
+            toggle(false)
+          }}
+          className="btn btn-secondary"
+        >
+          OK
+        </button>
       </div>
     </ViewportCentered>
   )
