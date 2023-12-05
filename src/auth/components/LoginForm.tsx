@@ -99,7 +99,7 @@ export const LoginForm = (props: LoginFormProps) => {
       </Form>
       <div className="mt-6">
         <p>
-          {" Nu ai un cont?   "}
+          {"Nu ai un cont?"}
           <Link
             className="inline-block ml-2 underline text-secondary-content"
             href={Routes.SignupPage()}
