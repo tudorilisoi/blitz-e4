@@ -7,7 +7,7 @@ import login from "./login"
 
 export class ResetPasswordError extends Error {
   name = "ResetPasswordError"
-  message = "Reset password link is invalid or it has expired."
+  message = "Acest link de resetare a expirat sau nu este valid"
 }
 
 export default resolver.pipe(resolver.zod(ResetPassword), async ({ password, token }, ctx) => {
