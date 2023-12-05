@@ -4,6 +4,8 @@ import Spinner from "../spinner/Spinner"
 import ViewportCentered from "../spinner/ViewPortCentered"
 import styles from "./Overlay.module.css"
 
+export const overlayStyles = styles
+
 export const OVERLAY_TRANSITION_DURATION = 200
 export const messageClassName = "mt-4 text-3xl sm:text-5xl text-neutral-content"
 export const messageWrapperClassName =
@@ -65,19 +67,8 @@ const OverlayProvider = ({ children, ...rest }) => {
     <OverlayContext.Provider
       value={{ isOverlayDisplayed, toggle, spinner, reset: { component: spinner } }}
     >
-      <div {...rest}>
-        <div
-          key={"spinner_provider_children_wrapper"}
-          className={
-            isOverlayDisplayed
-              ? `${styles.blurContainer} ${styles.blurActive}`
-              : styles.blurContainer
-          }
-        >
-          {children}
-        </div>
-        {isOverlayDisplayed ? <ViewportCentered>{component}</ViewportCentered> : null}
-      </div>
+      {children}
+      {isOverlayDisplayed ? <ViewportCentered>{component}</ViewportCentered> : null}
     </OverlayContext.Provider>
   )
 }
@@ -91,4 +82,13 @@ const useOverlay = () => {
   return context
 }
 
-export { OverlayProvider, useOverlay }
+const useOverlayClassNames = (forceOn = false) => {
+  const { isOverlayDisplayed } = useOverlay()
+  let cn = overlayStyles.blurContainer
+  if (forceOn || isOverlayDisplayed) {
+    cn = `${cn} ${overlayStyles.blurActive}`
+  }
+  return cn
+}
+
+export { OverlayProvider, useOverlay, useOverlayClassNames }

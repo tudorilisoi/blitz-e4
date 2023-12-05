@@ -63,7 +63,9 @@ export const LoginForm = (props: LoginFormProps) => {
                         className="btn btn-xs btn-secondary"
                         href={Routes.ForgotPasswordPage({ email: values.email })}
                       >
-                        Resetează parola
+                        {error.name === "PASSWORD_NEEDS_RESET"
+                          ? "Trebuie să resetezi parola"
+                          : "Ai uitat parola?"}
                       </Link>
                     </div>
                   ),

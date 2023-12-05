@@ -1,15 +1,15 @@
 import { BlitzLayout, Routes } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
+import { User } from "@prisma/client"
 import Head from "next/head"
 import Link from "next/link"
-import React, { Suspense } from "react"
-import { OverlayProvider } from "../components/overlay/OverlayProvider"
-import { useCurrentUser } from "src/users/hooks/useCurrentUser"
-import { useMutation } from "@blitzjs/rpc"
-import logout from "src/auth/mutations/logout"
 import { useRouter } from "next/router"
+import React, { Suspense } from "react"
+import logout from "src/auth/mutations/logout"
 import { makePostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
-import { User } from "@prisma/client"
+import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import { OGImage } from "../components/image/OGImage"
+import { OverlayProvider, useOverlayClassNames } from "../components/overlay/OverlayProvider"
 
 const UserInfo = () => {
   const router = useRouter()
@@ -121,11 +121,14 @@ const NavBar = () => {
   )
 }
 
-const Layout: BlitzLayout<{ title?: string; description?: string; children?: React.ReactNode }> = ({
-  title,
-  description,
-  children,
-}) => {
+const Layout: BlitzLayout<{
+  forceOverlay?: boolean
+  title?: string
+  description?: string
+  children?: React.ReactNode
+}> = ({ title, description, children, forceOverlay }) => {
+  const overlaycx = useOverlayClassNames(forceOverlay || false)
+  console.log(`🚀 ~ overlaycx:`, overlaycx)
   const navTitle = "eRădăuţi v3"
   const _title = title || navTitle
   const ogImage = OGImage(null)
@@ -151,15 +154,13 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
         <NavBar />
 
         {/* Main Content; NOTE: flex-grow flex flex-col inherits height */}
-        <div className="flex-grow flex flex-col fix-scroll">
-          <OverlayProvider className="flex-grow flex flex-col">
-            <main className="py-6 px-6 container mx-auto relative">
-              {/* <div className="container mx-auto py-6 px-2"> */}
-              {/* Render child components */}
-              {children}
-              {/* </div> */}
-            </main>
-          </OverlayProvider>
+        <div className={overlaycx + " flex-grow flex flex-col fix-scroll"}>
+          <main className={" py-6 px-6 container mx-auto relative"}>
+            {/* <div className="container mx-auto py-6 px-2"> */}
+            {/* Render child components */}
+            {children}
+            {/* </div> */}
+          </main>
         </div>
 
         {/* Footer */}
@@ -176,4 +177,8 @@ const Layout: BlitzLayout<{ title?: string; description?: string; children?: Rea
   )
 }
 
-export default Layout
+export default (props) => (
+  <OverlayProvider>
+    <Layout {...props} />
+  </OverlayProvider>
+)

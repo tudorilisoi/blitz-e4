@@ -24,8 +24,10 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
   } else {
     returnValue = error.message || error.name
   }
+  // Note forceOverlay to achieve the OverlayProvider effect
   return (
-    <Layout>
+    <>
+      <Layout forceOverlay={true}></Layout>
       <ViewportCentered>
         <div className={messageWrapperClassName}>
           <span className="inline-block mb-4">
@@ -34,7 +36,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
           <h1 className="text-2xl text-error">{returnValue}</h1>
         </div>
       </ViewportCentered>
-    </Layout>
+    </>
   )
 }
 
