@@ -1,7 +1,7 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useRouter } from "next/router"
 import { SignupForm } from "src/auth/components/SignupForm"
-import { SuccessIcon } from "src/core/components/notifications"
+import { InfoIcon, SuccessIcon } from "src/core/components/notifications"
 import {
   messageClassName,
   messageWrapperClassName,
@@ -18,7 +18,7 @@ const SignupPage: BlitzPage = () => {
     <ViewportCentered>
       <div className={messageWrapperClassName}>
         <div className="text-center">
-          <SuccessIcon />
+          <InfoIcon />
         </div>
         <h2 className={messageClassName}>{"Contul a fost creat"}</h2>
         <h3 className="text-2xl text-neutral-content">

@@ -36,23 +36,23 @@ X = not implemented, P = partially implemented
 Note: Maybe later on these will be converted to GH issues
 
 - X P0 implement close/archive post as soft delete (solved, expired)
-- X P0 overlay on e-mail verify
 - X P0 overlay on password reset; also copy handlePasswdConfirmation from signup
 - X P0 delete non-uploaded images
 - X P0 publish to eradauti.ro instead of mobilecenta.com
 - X check for verified status on login
-- ✔ publish live (fix images symlink first), make a synctool conf (done)
 - X P1 check for existing email on signup
 - X cookiescript
+- ✔ publish live (fix images symlink first), make a synctool conf (done)
 - ✔ P0 close slideshow on navigate away
-- P implement welcome/verify e-mail needs redirects
+- P implement welcome e-mail needs redirects
+- ✔ P0 overlay on e-mail verify
 - ✔ implement socketlabs mail
 - ✔ import posts
 - ✔ install and use tailwind
 - ✔ fix upload filename and make it unique on the server
 - ✔ responsive images server-side and/or using next/image
 - X implement a toast provider of sorts
-- P handle useQuery and UseMutation errors in `_app`
+- ✔ handle useQuery and UseMutation errors in `_app`
 - X reset password: keep link/token as to avoid confusion or make it last really long
 - ✔ maybe implement meili synonims
 - ✔ check SocketLabs for the daily/monthly rate (2000/month as of Oct 27, 2023) "Billing Period 10/15/23 - 11/15/23"
