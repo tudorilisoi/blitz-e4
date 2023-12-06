@@ -20,7 +20,7 @@ clear
 
 BASE_DIR="/home/tudor/Documents/dev"
 # production @ionos
-# BASE_DIR="/home/tudor/www"
+BASE_DIR="/home/tudor/www"
 
 SRV_NAME=$1
 SERVICE_FILE="docker-compose@$SRV_NAME.service"

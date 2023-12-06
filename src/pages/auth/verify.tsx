@@ -1,4 +1,4 @@
-import { BlitzPage } from "@blitzjs/next"
+import { BlitzPage, Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { Suspense, useEffect, useState } from "react"
 import verifyEmail from "src/auth/mutations/verifyEmail"
@@ -55,4 +55,8 @@ VerifyPage.getLayout = (page) => (
     <Suspense>{page}</Suspense>
   </Layout>
 )
+VerifyPage.redirectAuthenticatedTo = ({ session }) => {
+  return "/"
+}
+
 export default VerifyPage
