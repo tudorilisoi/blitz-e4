@@ -1,9 +1,10 @@
 import { SecurePassword } from "@blitzjs/auth/secure-password"
 import { resolver } from "@blitzjs/rpc"
 import { AuthenticationError } from "blitz"
-import db from "db"
+import db, { UserRoles } from "db"
 import { Role } from "types"
 import { Login } from "../schemas"
+import { verifyEmailMailer } from "mailers/verifyEmailMailer"
 
 export const authenticateUser = async (rawEmail: string, rawPassword: string) => {
   const { email, password } = Login.parse({ email: rawEmail, password: rawPassword })
@@ -12,6 +13,16 @@ export const authenticateUser = async (rawEmail: string, rawPassword: string) =>
     const err = new AuthenticationError("Acest e-mail nu este înregistrat, creaţi un cont")
     err.statusCode = 404
     err.name = "ACCOUNT_NOT_FOUND"
+    throw err
+  }
+
+  if (user.role === UserRoles.USER_UNVERIFIED) {
+    const err = new AuthenticationError(
+      "Contul nu este activat, vi s-a trimis pe e-mail un mesaj de activare"
+    )
+    err.statusCode = 401
+    err.name = "ACCOUNT_NOT_VERIFIED"
+    await verifyEmailMailer({ to: user.email, activationKey: user.activationKey || "oo_OO" }).send()
     throw err
   }
 

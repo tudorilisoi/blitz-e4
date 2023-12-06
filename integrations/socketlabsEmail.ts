@@ -1,4 +1,5 @@
 import { SocketLabsClient, BasicMessage } from "@socketlabs/email"
+import { sleep } from "src/helpers"
 
 const client = new SocketLabsClient(
   parseInt(process.env.SOCKETLABS_SERVER_ID as string),
@@ -31,6 +32,8 @@ const sendMail = async (args: mailArgs) => {
   if (to !== process.env.MAIL_BCC) {
     basicMessage.addBccEmailAddress(process.env.MAIL_BCC)
   }
+  // poor man's throttle
+  await sleep(5000)
   return client.send(basicMessage)
 }
 
