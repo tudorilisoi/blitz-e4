@@ -43,14 +43,15 @@ const OverlayProvider = ({ children, ...rest }) => {
   const toggle = (newValue: any, options: ToggleOptions = {}) => {
     const { delay, component } = options
     const nextValue = newValue !== undefined ? newValue : !isOverlayDisplayed
+    let timer = getStore()
     if (component) {
       setComponent(component)
     }
     if (!delay) {
+      clearTimeout(timer)
       setIsOverlayDisplayed(nextValue)
       return
     }
-    let timer = getStore()
     if (timer) {
       console.log("Cancel timer toggle", timer)
       clearTimeout(timer)
