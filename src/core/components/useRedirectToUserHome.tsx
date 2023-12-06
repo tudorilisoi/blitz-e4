@@ -9,3 +9,20 @@ export const useRedirectToUserHome = () => {
     router.push(makePostsByAuthorNavUrl(currentUser))
   }
 }
+
+export const useUserHome = () => {
+  const router = useRouter()
+  const currentUser = useCurrentUser()
+  if (!currentUser) {
+    return {
+      url: null,
+      redirect: () => null,
+    }
+  }
+  const url = makePostsByAuthorNavUrl(currentUser)
+  const redirect = () => router.push(url)
+  return {
+    url,
+    redirect,
+  }
+}
