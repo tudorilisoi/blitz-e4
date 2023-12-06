@@ -36,7 +36,7 @@ X = not implemented, P = partially implemented
 Note: Maybe later on these will be converted to GH issues
 
 - X P0 implement close/archive post as soft delete (solved, expired)
-- X P0 delete non-uploaded images
+- X P0 delete non-uploaded images, mode the publish button and change tabs color
 - X P0 publish to eradauti.ro instead of mobilecenta.com
 - ✔ check for verified status on login
 - X P1 check for existing email on signup
