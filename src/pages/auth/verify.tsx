@@ -11,7 +11,7 @@ import getCurrentUser from "src/users/queries/getCurrentUser"
 
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
-  const user = getCurrentUser(null, ctx)
+  const user = await getCurrentUser(null, ctx)
   return { props: { query, user } }
 })
 
