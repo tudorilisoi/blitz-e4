@@ -1,12 +1,12 @@
-import { AuthenticationError, PromiseReturnType } from "blitz"
+import { Routes } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
+import { PromiseReturnType } from "blitz"
 import Link from "next/link"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/core/components/Form"
+import { useSearchParams } from "next/navigation"
 import login from "src/auth/mutations/login"
 import { Login } from "src/auth/schemas"
-import { useMutation } from "@blitzjs/rpc"
-import { Routes } from "@blitzjs/next"
-import { useSearchParams } from "next/navigation"
+import { FORM_ERROR, Form } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
 import { useOverlay } from "src/core/components/overlay/OverlayProvider"
 
 type LoginFormProps = {
@@ -36,7 +36,10 @@ export const LoginForm = (props: LoginFormProps) => {
         initialValues={{ email, password: "" }}
         onSubmit={async (values) => {
           try {
-            toggle(true, reset)
+            // timer won't come up unless more than one second has passed
+            // it's cancelled in finally{}
+            // this may be the case when sending activation email
+            toggle(true, { ...reset, delay: 1000 })
             const user = await loginMutation(values)
             props.onSuccess?.(user)
           } catch (error: any) {
