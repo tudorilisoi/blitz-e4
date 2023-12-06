@@ -1,7 +1,6 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { useSearchParams } from "next/navigation"
-import { useEffect } from "react"
 import forgotPassword from "src/auth/mutations/forgotPassword"
 import { ForgotPassword } from "src/auth/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -18,11 +17,7 @@ import Layout from "src/core/layouts/Layout"
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
   const { toggle, reset } = useOverlay()
-  // cleanup on unmount, start fresh, end fresh
-  useEffect(() => {
-    toggle(false)
-    return () => toggle(false)
-  }, [])
+
   const successNotification = (
     <ViewportCentered>
       <div className={messageWrapperClassName}>

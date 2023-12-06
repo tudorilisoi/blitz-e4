@@ -4,12 +4,16 @@ import { User } from "@prisma/client"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React, { Suspense } from "react"
+import React, { Suspense, useEffect } from "react"
 import logout from "src/auth/mutations/logout"
 import { makePostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import { OGImage } from "../components/image/OGImage"
-import { OverlayProvider, useOverlayClassNames } from "../components/overlay/OverlayProvider"
+import {
+  OverlayProvider,
+  useOverlay,
+  useOverlayClassNames,
+} from "../components/overlay/OverlayProvider"
 
 const UserInfo = () => {
   const router = useRouter()
@@ -129,7 +133,17 @@ const Layout: BlitzLayout<{
   children?: React.ReactNode
 }> = ({ title, description, children, forceOverlay }) => {
   const overlaycx = useOverlayClassNames(forceOverlay || false)
-  console.log(`🚀 ~ overlaycx:`, overlaycx)
+  const { toggle } = useOverlay()
+
+  // cleanup on unmount
+  const router = useRouter()
+  useEffect(() => {
+    router.events.on("routeChangeStart", (url, { shallow }) => {
+      console.log("routeChangeStart: close overlay")
+      toggle(false)
+      console.log(`routing to ${url}`, `is shallow routing: ${shallow}`)
+    })
+  }, [])
   const navTitle = "eRădăuţi v3"
   const _title = title || navTitle
   const ogImage = OGImage(null)

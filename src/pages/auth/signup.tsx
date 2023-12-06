@@ -1,6 +1,5 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
 import { SignupForm } from "src/auth/components/SignupForm"
 import { InfoIcon } from "src/core/components/notifications"
 import {
@@ -14,12 +13,6 @@ import Layout from "src/core/layouts/Layout"
 const SignupPage: BlitzPage = () => {
   const router = useRouter()
   const { toggle } = useOverlay()
-
-  // cleanup on unmount, start fresh, end fresh
-  useEffect(() => {
-    toggle(false)
-    return () => toggle(false)
-  }, [])
 
   const successNotification = (
     <ViewportCentered>
