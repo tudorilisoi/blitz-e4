@@ -7,6 +7,7 @@ import { Login } from "src/auth/schemas"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
 import { useSearchParams } from "next/navigation"
+import { useOverlay } from "src/core/components/overlay/OverlayProvider"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -14,6 +15,7 @@ type LoginFormProps = {
 
 export const LoginForm = (props: LoginFormProps) => {
   const searchParams = useSearchParams()
+  const { toggle, reset } = useOverlay()
   const email = searchParams.get("email") || ""
   const [loginMutation] = useMutation(login)
   const labelProps = {
@@ -34,6 +36,7 @@ export const LoginForm = (props: LoginFormProps) => {
         initialValues={{ email, password: "" }}
         onSubmit={async (values) => {
           try {
+            toggle(true, reset)
             const user = await loginMutation(values)
             props.onSuccess?.(user)
           } catch (error: any) {
@@ -76,6 +79,8 @@ export const LoginForm = (props: LoginFormProps) => {
                 return { [FORM_ERROR]: error.toString() }
                 break
             }
+          } finally {
+            toggle(false)
           }
         }}
       >
