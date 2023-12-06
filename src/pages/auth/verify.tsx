@@ -1,10 +1,11 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import verifyEmail from "src/auth/mutations/verifyEmail"
 import { gSSP } from "src/blitz-server"
 import { ErrorNotification } from "src/core/components/ErrorNotification"
 import { useOverlay } from "src/core/components/overlay/OverlayProvider"
+import { useRedirectToUserHome } from "src/core/components/useRedirectToUserHome"
 import Layout from "src/core/layouts/Layout"
 
 export const getServerSideProps = gSSP(async (args) => {
@@ -17,6 +18,7 @@ const VerifyPage: BlitzPage<{ query }> = ({ query }) => {
   const { toggle, reset } = useOverlay()
   const [verifyMutation] = useMutation(verifyEmail)
   const [verified, setVerified] = useState(false)
+  useRedirectToUserHome()
 
   useEffect(() => {
     const activate = async (): Promise<void> => {
@@ -43,5 +45,9 @@ const VerifyPage: BlitzPage<{ query }> = ({ query }) => {
     </>
   )
 }
-VerifyPage.getLayout = (page) => <Layout title="Activarea contului">{page}</Layout>
+VerifyPage.getLayout = (page) => (
+  <Layout title="Activarea contului">
+    <Suspense>{page}</Suspense>
+  </Layout>
+)
 export default VerifyPage

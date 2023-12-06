@@ -1,6 +1,7 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 import forgotPassword from "src/auth/mutations/forgotPassword"
 import { ForgotPassword } from "src/auth/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -12,11 +13,13 @@ import {
   useOverlay,
 } from "src/core/components/overlay/OverlayProvider"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
+import { useRedirectToUserHome } from "src/core/components/useRedirectToUserHome"
 import Layout from "src/core/layouts/Layout"
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
   const { toggle, reset } = useOverlay()
+  useRedirectToUserHome()
 
   const successNotification = (
     <ViewportCentered>
@@ -79,5 +82,9 @@ const ForgotPasswordPage: BlitzPage = () => {
     </>
   )
 }
-ForgotPasswordPage.getLayout = (page) => <Layout title="Ai uitat parola?">{page}</Layout>
+ForgotPasswordPage.getLayout = (page) => (
+  <Layout title="Ai uitat parola?">
+    <Suspense>{page}</Suspense>
+  </Layout>
+)
 export default ForgotPasswordPage

@@ -10,6 +10,7 @@ import Layout from "src/core/layouts/Layout"
 import { makeSlug } from "src/helpers"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
+import getCurrentUser from "src/users/queries/getCurrentUser"
 import getUser from "src/users/queries/getUser"
 
 const ITEMS_PER_PAGE = 12
@@ -29,6 +30,7 @@ export const getServerSideProps = gSSP(async (args) => {
   let authorId: any = authorSlug.substring(authorSlug.lastIndexOf("-") + 1)
   authorId = parseInt(authorId)
   const author = await getUser({ id: authorId }, ctx)
+  const currentUser = await getCurrentUser(null, ctx)
 
   const pageSlug = params[1] || null
   const page = Number(pageSlug?.split("-")[1] || 1)
@@ -49,14 +51,21 @@ export const getServerSideProps = gSSP(async (args) => {
     }
   }
 
-  const ret = { props: { author, posts, count, hasMore, page, numPages } }
+  const ret = { props: { currentUser, author, posts, count, hasMore, page, numPages } }
   console.log(`🚀 ~ getServerSideProps ~ ret:`, ret)
   return ret
 })
 
 export { SimpleNav }
 
-export default function PostsByAuthorNavPage({ author, posts, page, hasMore, numPages }) {
+export default function PostsByAuthorNavPage({
+  currentUser,
+  author,
+  posts,
+  page,
+  hasMore,
+  numPages,
+}) {
   const router = useRouter()
   // return <>PENDING</>
 
@@ -74,20 +83,24 @@ export default function PostsByAuthorNavPage({ author, posts, page, hasMore, num
   )
 
   if (numPages === 0) {
+    let message = `${author.fullName} nu a publicat anunţuri deocamdată`
+    if (author.id === currentUser.id) {
+      message = `${author.fullName}, nu ai publicat anunţuri deocamdată`
+    }
     return (
       <ViewportCentered>
         <div className="text-2xl">
-          <h1 className="block mb-4">{author.fullName} nu a publicat anunţuri deocamdată</h1>
+          <h1 className="block mb-4">{message}</h1>
           <div className="flex w-fit mx-auto">
             <div className="grid h-20 flex-grow card rounded-box place-items-center">
-              <Link className="btn btn-secondary" href={Routes.Home()}>
-                Vezi toate anunţurile
+              <Link className="btn btn-primary" href={Routes.NewPostPage()}>
+                Publică un anunţ
               </Link>
             </div>
             <div className="divider divider-horizontal px-6">sau</div>
             <div className="grid h-20 flex-grow card rounded-box place-items-center">
-              <Link className="btn btn-primary" href={Routes.NewPostPage()}>
-                Publică un anunţ
+              <Link className="btn btn-secondary" href={Routes.Home()}>
+                Vezi toate anunţurile
               </Link>
             </div>
           </div>
