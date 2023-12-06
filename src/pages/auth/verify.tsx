@@ -7,13 +7,15 @@ import { ErrorNotification } from "src/core/components/ErrorNotification"
 import { useOverlay } from "src/core/components/overlay/OverlayProvider"
 import { useRedirectToUserHome } from "src/core/components/useRedirectToUserHome"
 import Layout from "src/core/layouts/Layout"
+import getCurrentUser from "src/users/queries/getCurrentUser"
 
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
-  return { props: { query } }
+  const user = getCurrentUser(null, ctx)
+  return { props: { query, user } }
 })
 
-const VerifyPage: BlitzPage<{ query }> = ({ query }) => {
+const VerifyPage: BlitzPage<{ query }> = ({ query, user }) => {
   const { activationKey, email } = query
   const { toggle, reset } = useOverlay()
   const [verifyMutation] = useMutation(verifyEmail)
@@ -21,6 +23,9 @@ const VerifyPage: BlitzPage<{ query }> = ({ query }) => {
   useRedirectToUserHome()
 
   useEffect(() => {
+    if (user) {
+      return
+    }
     const activate = async (): Promise<void> => {
       try {
         toggle(true, reset)
