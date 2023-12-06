@@ -1,11 +1,14 @@
 #!/bin/bash
-sudo apt-get install pass gnupg2
 
-# create a gpg2 key
-gpg2 --gen-key
+# One time setupŞ 3 steps
+# 1)
+# sudo apt-get install pass gnupg2
 
-# create the password store using the gpg user id
-pass init $gpg_id
+# 2) create a gpg2 key
+# gpg2 --gen-key
+
+# 3) create the password store using the gpg user id
+# pass init $gpg_id
 
 
 
