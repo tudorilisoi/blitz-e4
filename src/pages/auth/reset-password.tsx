@@ -74,7 +74,7 @@ const ResetPasswordPage: BlitzPage = () => {
             outerProps={outerProps}
             className={labelClassName}
             name="passwordConfirmation"
-            label="Parola nouă (din nou)"
+            label="Repetă parola nouă"
             type="password"
           />
         </Form>
