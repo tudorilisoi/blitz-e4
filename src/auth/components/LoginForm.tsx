@@ -67,7 +67,7 @@ export const LoginForm = (props: LoginFormProps) => {
                         href={Routes.ForgotPasswordPage({ email: values.email })}
                       >
                         {error.name === "PASSWORD_NEEDS_RESET"
-                          ? "Trebuie să resetezi parola"
+                          ? "Resetează parola"
                           : "Ai uitat parola?"}
                       </Link>
                     </div>

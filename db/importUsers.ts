@@ -4,6 +4,7 @@ import type { Prisma } from "@prisma/client"
 import db from "./index"
 // import { hashPassword } from '@redwoodjs/auth-dbauth-api'
 import fs from "fs"
+import { nanoid } from "nanoid"
 
 function mapUser(xuser: Record<string, any>): Prisma.UserUncheckedCreateInput | null {
   const {
@@ -40,6 +41,7 @@ function mapUser(xuser: Record<string, any>): Prisma.UserUncheckedCreateInput | 
     // lastVisitAt: !date_last_visit ? null : new Date(date_last_visit),
     // salt,
     hashedPassword: "CHANGEME",
+    activationKey: nanoid(),
   }
 }
 export const importUsers = async () => {
