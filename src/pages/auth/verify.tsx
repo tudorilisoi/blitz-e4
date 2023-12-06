@@ -15,7 +15,7 @@ export const getServerSideProps = gSSP(async (args) => {
   return { props: { query, user } }
 })
 
-const VerifyPage: BlitzPage<{ query }> = ({ query, user }) => {
+const VerifyPage: BlitzPage<{ query; user }> = ({ query, user }) => {
   const { activationKey, email } = query
   const { toggle, reset } = useOverlay()
   const [verifyMutation] = useMutation(verifyEmail)
