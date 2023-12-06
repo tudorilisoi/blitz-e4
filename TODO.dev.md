@@ -36,12 +36,12 @@ X = not implemented, P = partially implemented
 Note: Maybe later on these will be converted to GH issues
 
 - X P0 implement close/archive post as soft delete (solved, expired)
-- X P0 overlay on password reset; also copy handlePasswdConfirmation from signup
 - X P0 delete non-uploaded images
 - X P0 publish to eradauti.ro instead of mobilecenta.com
 - X check for verified status on login
 - X P1 check for existing email on signup
 - X cookiescript
+- ✔ P0 overlay on forgot password; also copy successNotification from signup
 - ✔ publish live (fix images symlink first), make a synctool conf (done)
 - ✔ P0 close slideshow on navigate away
 - P implement welcome e-mail needs redirects
