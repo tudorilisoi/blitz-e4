@@ -13,8 +13,9 @@ import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
 import getUser from "src/users/queries/getUser"
 
 const ITEMS_PER_PAGE = 12
+type RouteUser = Pick<User, "id" | "fullName">
 
-export const makePostsByAuthorNavUrl = (author: User, page: number = 1) => {
+export const makePostsByAuthorNavUrl = (author: RouteUser, page: number = 1) => {
   const slug = makeSlug(author.fullName || "rădăuţean")
   return `/anunturi/de/${slug}-${author.id}${page === 1 ? "" : "/pagina-" + page}`
 }
