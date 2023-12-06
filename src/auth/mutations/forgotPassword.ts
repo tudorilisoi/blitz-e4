@@ -5,7 +5,7 @@ import { forgotPasswordMailer } from "mailers/forgotPasswordMailer"
 import { ForgotPassword } from "../schemas"
 import { sleep } from "src/helpers"
 
-const RESET_PASSWORD_TOKEN_EXPIRATION_IN_HOURS = 4
+const RESET_PASSWORD_TOKEN_EXPIRATION_IN_HOURS = 24
 
 export default resolver.pipe(resolver.zod(ForgotPassword), async ({ email }) => {
   // 1. Get the user

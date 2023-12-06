@@ -1,4 +1,5 @@
 import { sendMail } from "integrations/socketlabsEmail"
+import { formatDate, formatDateTZ } from "src/helpers"
 
 type ResetPasswordMailer = {
   to: string
@@ -9,11 +10,12 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   // In production, set NEXT_PUBLIC_APP_URL to your production server origin
   const origin = process.env.NEXT_PUBLIC_APP_URL || process.env.BLITZ_DEV_SERVER_ORIGIN
   const resetUrl = `${origin}/auth/reset-password?token=${token}`
+  const dateStr = formatDateTZ(Date(), formatDate.longDateTime)
 
   const msg = {
     from: process.env.MAIL_FROM as string,
     to,
-    subject: "eRădăuţi.ro: resetează parola",
+    subject: `eRădăuţi.ro: resetează parola [${dateStr}]`,
     message: `
       <h1>Resetează parola</h1>
       <p>Ai solicitat resetarea parolei</p>
