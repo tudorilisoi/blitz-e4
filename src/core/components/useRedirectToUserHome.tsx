@@ -6,7 +6,7 @@ export const useRedirectToUserHome = () => {
   const router = useRouter()
   const currentUser = useCurrentUser()
   if (currentUser) {
-    router.push(makePostsByAuthorNavUrl(currentUser))
+    void router.push(makePostsByAuthorNavUrl(currentUser))
   }
 }
 
