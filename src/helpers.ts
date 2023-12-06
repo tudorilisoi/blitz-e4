@@ -5,9 +5,11 @@ import slugify from "slugify"
 import striptags from "striptags"
 import dayjs from "dayjs"
 import "dayjs/locale/ro"
+import timezone from "dayjs/plugin/timezone"
 import relativeTime from "dayjs/plugin/relativeTime"
 import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
+dayjs.extend(timezone)
 dayjs.extend(relativeTime)
 dayjs.locale("ro")
 
@@ -136,6 +138,11 @@ export const formatDate = (dateStr, formatStr) => {
     return dayjs.utc(dateStr).toISOString()
   }
   return dayjs.utc(dateStr).format(_formatStr)
+}
+
+export const formatDateTZ = (dateStr, formatStr, tz = "Europe/Bucharest") => {
+  const _formatStr = formatStr || formatDate.longDate
+  return dayjs.utc(dateStr).tz(tz).format(_formatStr)
 }
 
 formatDate.ISO = `ISO`
