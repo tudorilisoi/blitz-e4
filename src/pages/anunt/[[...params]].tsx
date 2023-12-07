@@ -1,5 +1,5 @@
 import { Routes } from "@blitzjs/next"
-import { Category, PostStatuses } from "@prisma/client"
+import { Category, PostStatuses, Prisma } from "@prisma/client"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -58,12 +58,10 @@ export const getServerSideProps = gSSP(async (args) => {
       status: { not: PostStatuses.EXPIRED },
       categoryId: post?.categoryId,
     },
-    orderBy: { updatedAt: "desc" },
+    orderBy: { updatedAt: "desc" } as Prisma.PostOrderByWithRelationInput,
   }
 
-  // @ts-ignore
   const { posts: prevPosts } = await getPosts(cArgs, ctx)
-  // @ts-ignore
   const { posts: nextPosts } = await getPosts({ ...cArgs, take: 1 }, ctx)
 
   const prevPost = prevPosts.length == 1 ? prevPosts[0] : null
