@@ -1,9 +1,14 @@
-# Tech stack (from bottom to top)
+# Intro
 
+- start with Lighthouse on https://mobilecenta.com (also mention Let's encrypt)
+
+## Tech stack (from bottom to top)
+
+- systemctl (maybe skip it)
 - docker
 - docker-compose
 - node.js
-- next.js (next/Link client-side routing demo, SSR, gSSP)
+- next.js (next/Link client-side routing demo with path segments, SSR, gSSP, cumulative next/Head)
 - meilisearch
 - blitz.js
   - prisma (migration, type generator)

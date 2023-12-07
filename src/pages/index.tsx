@@ -29,21 +29,6 @@ function AboutPage() {
   )
 }
 
-const _Home = ({ categories }) => {
-  return (
-    <Layout title="Home">
-      <div className="prose mb-3">
-        <h1 className="text-2xl text-base-content">Anunţuri</h1>
-      </div>
-      <div>
-        <Suspense fallback={<Spinner />}>
-          <AboutPage />
-        </Suspense>
-      </div>
-    </Layout>
-  )
-}
-
 const Home = ({ categories }) => {
   return (
     <>
