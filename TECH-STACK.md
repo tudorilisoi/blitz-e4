@@ -3,7 +3,7 @@
 - docker
 - docker-compose
 - node.js
-- next.js (Link client-side routing demo, SSR, gSSP)
+- next.js (next/Link client-side routing demo, SSR, gSSP)
 - meilisearch
 - blitz.js
   - prisma (migration, type generator)
