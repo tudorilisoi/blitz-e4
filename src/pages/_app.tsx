@@ -1,6 +1,6 @@
 import { AppProps, ErrorBoundary, ErrorFallbackProps, Routes } from "@blitzjs/next"
 import { AuthenticationError, AuthorizationError } from "blitz"
-import React, { ReactNode } from "react"
+import React, { ReactNode, useEffect } from "react"
 import { withBlitz } from "src/blitz-client"
 import { ErrorIcon, InfoIcon } from "src/core/components/notifications"
 import { messageWrapperClassName } from "src/core/components/overlay/OverlayProvider"
@@ -9,6 +9,7 @@ import Layout from "src/core/layouts/Layout"
 import "src/styles/init.css"
 // import { trpc } from "src/ws-utils/trpc"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 // "react-photo-gallery" does funky measurements in the DOM
 // this upsets next.js, monkey patch FTW
@@ -16,6 +17,9 @@ import Link from "next/link"
 if (typeof window === "undefined") {
   React.useLayoutEffect = React.useEffect
 }
+
+// const isProduction = process.env.NODE_ENV === "production";
+const isProduction = true
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   let returnValue: ReactNode | null = null
@@ -65,6 +69,28 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      /* invoke analytics function only for production */
+      if (isProduction) {
+        console.log("GTag push", document.title)
+        // @ts-ignore
+        window.dataLayer.push({
+          event: "pageview",
+          page: {
+            url: window.location,
+            title: document.title,
+          },
+        })
+      }
+    }
+    router.events.on("routeChangeComplete", handleRouteChange)
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange)
+    }
+  }, [router.events])
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
       {getLayout(<Component {...pageProps} />)}
