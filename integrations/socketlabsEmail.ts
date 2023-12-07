@@ -28,6 +28,9 @@ const sendMail = async (args: mailArgs) => {
 
   //Add a recipient by pushing a string to the To array
   basicMessage.to.push(to)
+  if (to !== process.env.MAIL_BCC) {
+    basicMessage.addBccEmailAddress(process.env.MAIL_BCC)
+  }
 
   if (to !== process.env.MAIL_BCC) {
     basicMessage.addBccEmailAddress(process.env.MAIL_BCC)
