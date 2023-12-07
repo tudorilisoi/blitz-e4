@@ -108,10 +108,11 @@ const Layout: BlitzLayout<{
         </footer>
       </div>
       <Script
+        id="gtag-lib"
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG_ID}`}
       ></Script>
-      <Script>
+      <Script id="gtag-init">
         {`window.dataLayer = window.dataLayer || [];
             function gtag(){
             window.dataLayer.push(arguments);
