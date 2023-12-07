@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 
-// const isProduction = process.env.NODE_ENV === "production";
-const isProduction = true
+const isProduction = process.env.NODE_ENV === "production"
+// const isProduction = true
 export const GTag = () => {
   const router = useRouter()
 
