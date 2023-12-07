@@ -39,11 +39,11 @@ module.exports = {
   },
 
   daisyui: {
-    // themes: ["light", "dark", "cupcake"],
+    // themes: ["halloween", "business", "corporate", "garden"],
 
     // NOTE see https://daisyui.com/theme-generator/
     themes: [
-      // "light",
+      // "business",
       {
         "e3-dark": {
           "color-scheme": "dark",
