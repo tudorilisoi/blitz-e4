@@ -21,7 +21,6 @@ export const GTag = () => {
     })
   }
 
-  useEffect(pushGTag, [])
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
       /* invoke analytics function only for production */
