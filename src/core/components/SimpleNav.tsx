@@ -18,9 +18,9 @@ const SimpleNav = ({
   ) as React.ReactNode,
 }) => {
   return (
-    <nav className="join grid grid-cols-2 mt-6">
+    <nav className="join flex flex-row flex-wrap mt-6">
       <Link
-        className={`btn btn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
+        className={`flex-grow mb-4 btn btn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
           !prevLink ? "btn-disabled" : " border-primary hover:btn-primary"
         }`}
         key={"simplenav-prev"}
@@ -29,7 +29,7 @@ const SimpleNav = ({
         {prevText}
       </Link>
       <Link
-        className={`btn btn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
+        className={`flex-grow mb-4 btn btn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
           !nextLink ? "btn-disabled" : " border-primary hover:btn-primary"
         }`}
         key={"simplenav-next"}
