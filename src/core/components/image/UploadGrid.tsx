@@ -9,6 +9,8 @@ import { getImageUrl } from "src/core/components/image/helpers"
 
 // import { BlobsState, useBlobs } from "./Uploadcontext"
 
+const MAX_PHOTOS = 5
+
 export type Upload = {
   file: File
   blob: string
@@ -65,9 +67,18 @@ export default function UploadGrid({
     }
   }
 
+  const onDeleteBlob = (id) => {
+    const newBlobs = { ...blobs }
+    delete newBlobs[id]
+    setBlobs(newBlobs)
+  }
+
   const onAddBlobs = (ev) => {
     ev.persist()
-    const newFiles = Array.from(ev.target.files ?? []) as File[]
+    let newFiles = Array.from(ev.target.files ?? []) as File[]
+
+    //slice to MAX_PHOTOS
+    newFiles = newFiles.slice(0, MAX_PHOTOS - _images.length)
     const newBlobs = { ...blobs }
     newFiles.forEach((f) => {
       const key = getFileID(f)
@@ -82,13 +93,16 @@ export default function UploadGrid({
     ev.target.value = ""
   }
 
+  const maxPhotosReached = _images.length + blobKeys.length === MAX_PHOTOS
+
   return (
     <>
-      <label className="btn btn-primary">
+      <label className={`btn ${maxPhotosReached ? "btn-warning" : "btn-primary"}`}>
         <PhotoIcon className="h-8 w-8 inline-block mr-1 " />
-        {"Adaugă fotografii"}
+        {maxPhotosReached ? `Aţi atins limita de ${MAX_PHOTOS} fotografii ` : "Adaugă fotografii"}
         <input
           className="hidden"
+          disabled={maxPhotosReached}
           multiple
           onChange={onAddBlobs}
           accept="image/*"
@@ -100,7 +114,7 @@ export default function UploadGrid({
         {Object.entries(blobs).map(([id, blob]) => (
           <div
             key={id}
-            className="rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center"
+            className="relative rounded-lg shadow-lg border-gray-300 border-2 p-1 flex flex-col justify-center"
           >
             <ImageUpload
               onThumbReady={(b64) => {
@@ -111,6 +125,15 @@ export default function UploadGrid({
               }}
               file={blob.file}
             />
+            <button
+              onClick={async (ev) => {
+                ev.preventDefault()
+                await onDeleteBlob(id)
+              }}
+              className="absolute shadow-md shadow-black right-2 top-2 h-10 w-10 inline-block text-center  bg-red-600 p-1 rounded-full text-white hover:bg-red-800"
+            >
+              <TrashIcon className="h-7 w-7 inline-block" />
+            </button>
           </div>
         ))}
         {_images.map((image) => (
