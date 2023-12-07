@@ -5,13 +5,14 @@
 ## Tech stack (from bottom to top)
 
 - systemctl (maybe skip it)
-- docker
+- socketlabs (maybe skip it)
+- docker (docker/run-compose.sh)
 - docker-compose
 - node.js
 - next.js (next/Link client-side routing demo with path segments, SSR, gSSP, cumulative next/Head)
   - server logs
 - blitz.js
-  - prisma (migration, type generator)
+  - prisma (migration, type generator, seed script, clickhouse)
   - tRPC (getPosts demo)
   - Zod/react-hook-form (shared schemata, login demo)
 - meilisearch <http://localhost:7700>
