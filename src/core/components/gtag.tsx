@@ -19,13 +19,9 @@ export const GTag = () => {
           }
           console.log("GTag push", page.page_title, page.page_location)
           // @ts-ignore
-          //   window.dataLayer.push({
-          //     event: "page_view",
-          //     page,
-          //   })
-
-          gtag("config", process.env.NEXT_PUBLIC_GTAG_ID, {
-            page_path: page.page_path,
+          window.dataLayer.push({
+            event: "page_view",
+            page,
           })
         }, 100)
       }
