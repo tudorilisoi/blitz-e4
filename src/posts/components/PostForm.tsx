@@ -23,7 +23,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   }
   const outerProps = { className: "flex flex-col text-0xl" }
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
-  const { onBlobsChange, categories, ...restProps } = props
+  const { onBlobsChange, categories, submitText, ...restProps } = props
   const [activeTab, setActiveTab] = useState("post")
 
   const grid = <UploadGrid images={values.images || []} onChange={onBlobsChange} />
@@ -102,21 +102,29 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
       </div>
     </>
   )
-  const postTabClass = `tab tab-lg tab-lifted ${activeTab === "post" ? "tab-active" : ""}`
-  const gridTabClass = `tab tab-lg tab-lifted ${activeTab === "photos" ? "tab-active" : ""}`
+  const activeTabClass = "tab-active !bg-primary"
+  const postTabClass = ` tab  !rounded-none bg-primary bg-opacity-50 ${
+    activeTab === "post" ? activeTabClass : ""
+  }`
+  const gridTabClass = ` tab !rounded-none bg-primary bg-opacity-50  ${
+    activeTab === "photos" ? activeTabClass : ""
+  }`
   return (
     <Form<S> {...restProps}>
-      <div>
-        <div className="tabs">
-          <a className={postTabClass} onClick={() => setActiveTab("post")}>
+      <div className=" ">
+        <div className="tabs  tabs-lg  ">
+          <span className={postTabClass} onClick={() => setActiveTab("post")}>
             Anunţ
-          </a>
-          <a className={gridTabClass} onClick={() => setActiveTab("photos")}>
+          </span>
+          <span className={gridTabClass} onClick={() => setActiveTab("photos")}>
             Fotografii
-          </a>
+          </span>
         </div>
-        <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
-        <div className={`${activeTab === "photos" ? "" : "hidden"}`}>{grid}</div>
+        <div className="bordered border-[1px] border-primary p-4 ">
+          <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
+          <div className={`${activeTab === "photos" ? "mt-4" : "hidden"}`}>{grid}</div>
+          <button className="btn btn-lg btn-secondary btn-block mt-4">{submitText}</button>
+        </div>
       </div>
     </Form>
   )
