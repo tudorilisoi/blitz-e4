@@ -7,6 +7,7 @@ import { messageWrapperClassName } from "src/core/components/overlay/OverlayProv
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import "src/styles/init.css"
+import "src/../public/fonts/fonts.css"
 // import { trpc } from "src/ws-utils/trpc"
 import Link from "next/link"
 

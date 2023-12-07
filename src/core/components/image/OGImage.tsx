@@ -9,7 +9,7 @@ export const OGImage = (image: Image | null) => {
     w = image.width
     h = image.height
   } else {
-    url = canonical("/logo.png")
+    url = canonical("/logo.webp")
     w = 200
     h = 200
   }
