@@ -14,7 +14,7 @@ interface mailArgs {
   textMessage?: string | undefined
 }
 
-const sendMail = async (args: mailArgs) => {
+const sendMail = async (args: mailArgs, throttle = true) => {
   const { to, subject, message, textMessage } = args
 
   let basicMessage = new BasicMessage()
@@ -33,7 +33,9 @@ const sendMail = async (args: mailArgs) => {
   }
 
   // poor man's throttle
-  await sleep(5000)
+  if (throttle) {
+    await sleep(5000)
+  }
   return client.send(basicMessage)
 }
 
