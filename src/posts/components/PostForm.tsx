@@ -1,5 +1,6 @@
 import { Category, Image, currencies } from "@prisma/client"
 import React, { Suspense, useState } from "react"
+import { useFormContext } from "react-hook-form"
 import { FORM_ERROR, Form, FormProps } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
 import UploadGrid, { BlobsChangeCallback } from "src/core/components/image/UploadGrid"
@@ -109,6 +110,31 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   const gridTabClass = ` tab !rounded-none bg-primary bg-opacity-50  ${
     activeTab === "photos" ? activeTabClass : ""
   }`
+
+  const SubmitButton = ({ text }) => {
+    const {
+      getValues,
+      setValue,
+      formState: { isSubmitting, errors },
+    } = useFormContext()
+
+    console.log("Form errors", errors)
+    return (
+      <button
+        onClick={(ev) => {
+          if (Object.keys(errors).length !== 0) {
+            setActiveTab("post")
+          }
+        }}
+        disabled={isSubmitting}
+        type="submit"
+        className="btn btn-lg btn-secondary btn-block mt-4"
+      >
+        {text}
+      </button>
+    )
+  }
+
   return (
     <Form<S> {...restProps}>
       <div className=" ">
@@ -123,7 +149,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         <div className="bordered border-[1px] rounded-lg rounded-t-none border-primary p-4  ">
           <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
           <div className={`${activeTab === "photos" ? "mt-4" : "hidden"}`}>{grid}</div>
-          <button className="btn btn-lg btn-secondary btn-block mt-4">{submitText}</button>
+          <SubmitButton text={submitText} />
         </div>
       </div>
     </Form>
