@@ -52,17 +52,24 @@ const Layout: BlitzLayout<{
   children?: React.ReactNode
 }> = ({ title, description, children, forceOverlay }) => {
   const overlaycx = useOverlayClassNames(forceOverlay || false)
-  const { toggle } = useOverlay()
+  const { toggle, isOverlayDisplayed } = useOverlay()
 
   // cleanup on unmount
   const router = useRouter()
   useEffect(() => {
-    router.events.on("routeChangeStart", (url, { shallow }) => {
+    const handler = (url, { shallow }) => {
+      if (!isOverlayDisplayed) {
+        return
+      }
       console.log("routeChangeStart: close overlay")
       toggle(false)
       console.log(`routing to ${url}`, `is shallow routing: ${shallow}`)
-    })
-  }, [])
+    }
+    router.events.on("routeChangeStart", handler)
+    return () => {
+      router.events.off("routeChangeStart", handler)
+    }
+  }, [isOverlayDisplayed])
   const navTitle = "eRădăuţi v3"
   const _title = title || navTitle
   const ogImage = OGImage(null)
