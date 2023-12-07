@@ -113,12 +113,9 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
 
   const SubmitButton = ({ text }) => {
     const {
-      getValues,
-      setValue,
       formState: { isSubmitting, errors },
     } = useFormContext()
 
-    console.log("Form errors", errors)
     return (
       <button
         onClick={(ev) => {
