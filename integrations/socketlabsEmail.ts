@@ -32,9 +32,6 @@ const sendMail = async (args: mailArgs) => {
     basicMessage.addBccEmailAddress(process.env.MAIL_BCC)
   }
 
-  if (to !== process.env.MAIL_BCC) {
-    basicMessage.addBccEmailAddress(process.env.MAIL_BCC)
-  }
   // poor man's throttle
   await sleep(5000)
   return client.send(basicMessage)
