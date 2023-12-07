@@ -1,13 +1,15 @@
 import { Routes } from "@blitzjs/next"
-import { PostStatuses } from "@prisma/client"
+import { Image, PostStatuses } from "@prisma/client"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import SimpleNav from "src/core/components/SimpleNav"
+import { getImageUrl } from "src/core/components/image/helpers"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import PostCell from "src/posts/components/PostCell/PostCell"
+import { PostWithIncludes, getImagesPreloadLinks } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
 
@@ -49,7 +51,6 @@ export const getServerSideProps = gSSP(async (args) => {
   }
 
   return { props: { category, posts, count, hasMore, page, numPages, permissions } }
-  // return { props: {} }
 })
 
 export { SimpleNav }
@@ -63,10 +64,12 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
   const title = `Anunţuri: ${category.title} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri: ${category.title} p.${page} ${category.description} `
   const hasPrev = page > 1
+  const imagePreloadLinks = getImagesPreloadLinks(posts)
   const head = (
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      {imagePreloadLinks}
     </Head>
   )
 
