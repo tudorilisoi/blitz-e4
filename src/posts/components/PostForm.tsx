@@ -103,13 +103,10 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
       </div>
     </>
   )
-  const activeTabClass = "tab-active !bg-primary"
-  const postTabClass = ` tab  !rounded-none bg-primary bg-opacity-50 ${
-    activeTab === "post" ? activeTabClass : ""
-  }`
-  const gridTabClass = ` tab !rounded-none bg-primary bg-opacity-50  ${
-    activeTab === "photos" ? activeTabClass : ""
-  }`
+  const activeTabClass = "tab-active bg-secondary bg-opacity-80"
+  const tabClass = "tab  !rounded-none bg-primary bg-opacity-40 hover:bg-primary"
+  const postTabClass = `${tabClass}    ${activeTab === "post" ? activeTabClass : ""}`
+  const gridTabClass = ` ${tabClass}  ${activeTab === "photos" ? activeTabClass : ""}`
 
   const SubmitButton = ({ text }) => {
     const {
