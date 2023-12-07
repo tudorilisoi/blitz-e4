@@ -11,6 +11,7 @@ import {
   useOverlayClassNames,
 } from "../components/overlay/OverlayProvider"
 import Script from "next/script"
+import { GTag } from "../components/gtag"
 
 // because https://nextjs.org/docs/messages/react-hydration-error
 const UserInfo = dynamic(() => import("./UserInfo"), { ssr: false })
@@ -78,6 +79,7 @@ const Layout: BlitzLayout<{
     `e-Rădăuţi: Anunţuri imobiliare, maşini, locuri de muncă. Anunţuri pentru Rădăuţi/Suceava`
   return (
     <>
+      <GTag />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
