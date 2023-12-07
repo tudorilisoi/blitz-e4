@@ -10,7 +10,9 @@ import {
   useOverlay,
   useOverlayClassNames,
 } from "../components/overlay/OverlayProvider"
+import Script from "next/script"
 
+// because https://nextjs.org/docs/messages/react-hydration-error
 const UserInfo = dynamic(() => import("./UserInfo"), { ssr: false })
 
 const NavBar = () => {
@@ -99,6 +101,19 @@ const Layout: BlitzLayout<{
           </div>
         </footer>
       </div>
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG_ID}`}
+      ></Script>
+      <Script>
+        {`window.dataLayer = window.dataLayer || [];
+            function gtag(){
+            window.dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GTAG_ID}');
+          `}
+      </Script>
     </>
   )
 }
