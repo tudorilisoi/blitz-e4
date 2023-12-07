@@ -21,7 +21,7 @@ export const GTag = () => {
           // @ts-ignore
           window.dataLayer.push({
             event: "page_view",
-            ...page,
+            page,
           })
         }, 100)
       }
