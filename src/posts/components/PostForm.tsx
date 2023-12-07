@@ -29,7 +29,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
   const grid = <UploadGrid images={values.images || []} onChange={onBlobsChange} />
 
   const form = (
-    <Form<S> {...restProps}>
+    <>
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
 
       <LabeledTextField
@@ -100,22 +100,24 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           })}
         </LabeledTextField>
       </div>
-    </Form>
+    </>
   )
   const postTabClass = `tab tab-lg tab-lifted ${activeTab === "post" ? "tab-active" : ""}`
   const gridTabClass = `tab tab-lg tab-lifted ${activeTab === "photos" ? "tab-active" : ""}`
   return (
-    <div>
-      <div className="tabs">
-        <a className={postTabClass} onClick={() => setActiveTab("post")}>
-          Anunţ
-        </a>
-        <a className={gridTabClass} onClick={() => setActiveTab("photos")}>
-          Fotografii
-        </a>
+    <Form<S> {...restProps}>
+      <div>
+        <div className="tabs">
+          <a className={postTabClass} onClick={() => setActiveTab("post")}>
+            Anunţ
+          </a>
+          <a className={gridTabClass} onClick={() => setActiveTab("photos")}>
+            Fotografii
+          </a>
+        </div>
+        <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
+        <div className={`${activeTab === "photos" ? "" : "hidden"}`}>{grid}</div>
       </div>
-      <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
-      <div className={`${activeTab === "photos" ? "" : "hidden"}`}>{grid}</div>
-    </div>
+    </Form>
   )
 }
