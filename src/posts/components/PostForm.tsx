@@ -65,7 +65,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
         labelProps={labelProps}
         outerProps={outerProps}
         as="textarea"
-        rows={10}
+        rows={8}
         label="Textul anunţului"
         name="body"
         className="textarea textarea-bordered bg-base-200 focus:outline-secondary-focus"
