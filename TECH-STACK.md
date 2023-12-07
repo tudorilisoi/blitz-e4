@@ -7,7 +7,7 @@
 - systemctl (maybe skip it)
 - socketlabs (maybe skip it)
 - docker (docker/run-compose.sh)
-- docker-compose
+- docker-compose (maybe deploy demo)
 - node.js
 - next.js (next/Link client-side routing demo with path segments, SSR, gSSP, cumulative next/Head)
   - server logs
