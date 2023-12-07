@@ -64,7 +64,13 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
   const title = `Anunţuri: ${category.title} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri: ${category.title} p.${page} ${category.description} `
   const hasPrev = page > 1
-  const imagePreloadLinks = getImagesPreloadLinks(posts)
+  const images = posts.reduce((acc: Image[], p: PostWithIncludes) => {
+    if (p.images[0]) {
+      acc.push(p.images[0])
+    }
+    return acc
+  }, [])
+  const imagePreloadLinks = getImagesPreloadLinks(images)
   const head = (
     <Head>
       <title>{title}</title>

@@ -1,3 +1,5 @@
+import { PostWithIncludes } from "src/posts/helpers"
+
 import { resolver } from "@blitzjs/rpc"
 import { paginate } from "blitz"
 import db, { Prisma } from "db"
@@ -23,7 +25,7 @@ export default resolver.pipe(
     if (cursor?.id === -1) {
       delete findArgs.cursor
     }
-    const posts = await db.post.findMany(findArgs)
+    const posts = (await db.post.findMany(findArgs)) as PostWithIncludes[]
 
     const permissions = await getPermissionsForPosts(posts, ctx)
     return {
