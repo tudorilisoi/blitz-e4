@@ -47,7 +47,11 @@ export default async function serveUpload(req, res: ServerResponse) {
   }
 }
 export const getImagePath = (fileName: string, responsive: boolean) => {
-  return `${UPLOADS_PATH}${responsive ? "/miniaturi/" : "/"}${fileName}`
+  let _fileName = `${UPLOADS_PATH}${responsive ? "/miniaturi/" : "/"}${fileName}`
+  if (responsive) {
+    _fileName = _fileName.replace(/\.([^.]+)?$/, ".webp")
+  }
+  return _fileName
 }
 
 const serveImage = async (res, req, path) => {
@@ -111,17 +115,18 @@ const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number
 
   // Resize the image using GraphicsMagick
   const p = new Promise((resolve, reject) => {
+    const maybeReject = (err) => {
+      if (err) {
+        reject(err)
+      }
+    }
     gm(path)
       .resize(w, h, ">")
       .gravity("Center")
       // .extent(w, h)
-      .write(destPath, (err) => {
-        if (err) {
-          console.log(`🚀 ~ .write ~ err:`, err)
-          reject(err)
-        } else {
-          resolve(true)
-        }
+      .toBuffer("webp", (err, buffer) => {
+        maybeReject(err)
+        return fsp.writeFile(destPath, buffer).then(resolve).catch(reject)
       })
   })
   const resizedImageBuffer = await p
