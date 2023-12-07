@@ -13,7 +13,9 @@ export const GTag = () => {
         window.setTimeout(() => {
           const page = {
             page_location: window.location.href,
+            page_path: window.location.pathname,
             page_title: document.title,
+            send_to: process.env.NEXT_PUBLIC_GTAG_ID,
           }
           console.log("GTag push", page.page_title, page.page_location)
           // @ts-ignore
