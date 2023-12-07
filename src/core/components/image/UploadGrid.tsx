@@ -48,7 +48,7 @@ export default function UploadGrid({
   const blobKeys = Object.keys(blobs)
 
   const onDeleteImage = async (id): Promise<void> => {
-    if (window.confirm("This will be deleted")) {
+    if (window.confirm("Ştergeţi definitiv această imagine?")) {
       try {
         toggle(true, { ...reset })
         await deleteImageMutation({ id })
