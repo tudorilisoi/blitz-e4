@@ -35,7 +35,7 @@ X = not implemented, P = partially implemented
 
 Note: Maybe later on these will be converted to GH issues
 
-- X P00 delete non-uploaded images, mode the publish button and change tabs color
+- ✔ P00 delete non-uploaded images, move the publish button and change tabs color
 - X P00 show contact info in post
 - X P00 publish to eradauti.ro instead of mobilecenta.com
 - X P0 implement close/archive post as soft delete (solved, expired)
