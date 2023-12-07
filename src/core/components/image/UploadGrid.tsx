@@ -89,13 +89,16 @@ export default function UploadGrid({
     ev.target.value = ""
   }
 
-  const maxPhotosReached = _images.length + blobKeys.length >= MAX_PHOTOS
+  const numPhotos = _images.length + blobKeys.length
+  const maxPhotosReached = numPhotos >= MAX_PHOTOS
 
   return (
     <>
       <label className={`btn ${maxPhotosReached ? "btn-warning" : "btn-primary"}`}>
         <PhotoIcon className="h-8 w-8 inline-block mr-1 " />
-        {maxPhotosReached ? `Aţi atins limita de ${MAX_PHOTOS} fotografii ` : "Adaugă fotografii"}
+        {maxPhotosReached
+          ? `Aţi atins limita de ${MAX_PHOTOS} fotografii `
+          : `Adaugă fotografii (${numPhotos}/${MAX_PHOTOS})`}
         <input
           className="hidden"
           disabled={maxPhotosReached}
