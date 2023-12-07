@@ -65,14 +65,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const { posts: prevPosts } = await getPosts(cArgs, ctx)
   // @ts-ignore
   const { posts: nextPosts } = await getPosts({ ...cArgs, take: 1 }, ctx)
-  console.log(
-    `🚀 ~ getServerSideProps ~ prevPosts:`,
-    (prevPosts || []).map((p) => p.title)
-  )
-  console.log(
-    `🚀 ~ getServerSideProps ~ nextPosts:`,
-    (nextPosts || []).map((p) => p.title)
-  )
+
   const prevPost = prevPosts.length == 1 ? prevPosts[0] : null
   const nextPost = nextPosts.length == 1 ? nextPosts[0] : null
 
