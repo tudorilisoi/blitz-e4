@@ -1,5 +1,5 @@
 import { Routes } from "@blitzjs/next"
-import { Category, PostStatuses, Prisma } from "@prisma/client"
+import { Category, Image, PostStatuses, Prisma } from "@prisma/client"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -99,6 +99,24 @@ export default function PostPage({
   const ogImage = OGImage(post.images[0] ?? null)
 
   const canonicalUrl = canonical(makePostNavUrl(post))
+  let preloadPosts: PostWithIncludes[] = []
+  if (nextPost) {
+    preloadPosts.unshift(nextPost)
+  }
+  if (prevPost) {
+    preloadPosts.push(prevPost)
+  }
+  //high priority
+  preloadPosts.unshift(post)
+
+  const images = preloadPosts.reduce((acc: Image[], p: PostWithIncludes) => {
+    if (p.images.length) {
+      acc = [...acc, ...p.images]
+    }
+    return acc
+  }, [])
+  const imagePreloadLinks = getImagesPreloadLinks(images)
+
   const head = (
     <Head>
       <title>{title}</title>
@@ -123,6 +141,7 @@ export default function PostPage({
       <meta property="article:tag" content={`Rădăuţi`} />
       <meta property="article:tag" content={`Suceava`} />
       <meta property="article:tag" content={`Anunţuri`} />
+      {imagePreloadLinks}
     </Head>
   )
   const pagination = (
