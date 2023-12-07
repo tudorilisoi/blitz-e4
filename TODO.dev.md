@@ -37,6 +37,7 @@ Note: Maybe later on these will be converted to GH issues
 
 - ✔ P00 delete non-uploaded images, move the publish button and change tabs color
 - X P00 show contact info in post
+- X P00 add post delete/archive button
 - X P00 publish to eradauti.ro instead of mobilecenta.com
 - X P0 implement close/archive post as soft delete (solved, expired)
 - ✔ check for verified status on login
