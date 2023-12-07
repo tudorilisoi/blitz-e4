@@ -7,10 +7,6 @@ import { useOverlay } from "../overlay/OverlayProvider"
 import ImageUpload, { ImageThumb } from "./ImageUpload"
 import { getImageUrl } from "src/core/components/image/helpers"
 
-// import { BlobsState, useBlobs } from "./Uploadcontext"
-
-const MAX_PHOTOS = 5
-
 export type Upload = {
   file: File
   blob: string
@@ -33,12 +29,12 @@ export default function UploadGrid({
   images: Image[]
   onChange?: BlobsChangeCallback
 }) {
+  const MAX_PHOTOS = parseInt(process.env.NEXT_PUBLIC_MAX_PHOTOS || "20", 10)
   const { toggle, reset } = useOverlay()
   const [deleteImageMutation] = useMutation(deleteImage)
   const [blobs, setBlobs] = useState({} as BlobsState)
   // const { blobs, setBlobs } = useBlobs()
   const [_images, setImages] = useState(images)
-  const max = 10
 
   useEffect(() => {
     console.log("BLOBS:", blobs)
@@ -93,7 +89,7 @@ export default function UploadGrid({
     ev.target.value = ""
   }
 
-  const maxPhotosReached = _images.length + blobKeys.length === MAX_PHOTOS
+  const maxPhotosReached = _images.length + blobKeys.length >= MAX_PHOTOS
 
   return (
     <>
