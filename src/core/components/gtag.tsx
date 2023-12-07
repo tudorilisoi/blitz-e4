@@ -12,14 +12,14 @@ export const GTag = () => {
       if (isProduction) {
         window.setTimeout(() => {
           const page = {
-            url: window.location.href,
-            title: document.title,
+            page_location: window.location.href,
+            page_title: document.title,
           }
-          console.log("GTag push", page.title, page.url)
+          console.log("GTag push", page.page_title, page.page_location)
           // @ts-ignore
           window.dataLayer.push({
-            event: "pageview",
-            page,
+            event: "page_view",
+            ...page,
           })
         }, 100)
       }
