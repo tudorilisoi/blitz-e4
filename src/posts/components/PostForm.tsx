@@ -120,7 +120,7 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
             Fotografii
           </span>
         </div>
-        <div className="bordered border-[1px] border-primary p-4 ">
+        <div className="bordered border-[1px] rounded-lg rounded-t-none border-primary p-4  ">
           <div className={`${activeTab === "post" ? "" : "hidden"}`}>{form}</div>
           <div className={`${activeTab === "photos" ? "mt-4" : "hidden"}`}>{grid}</div>
           <button className="btn btn-lg btn-secondary btn-block mt-4">{submitText}</button>
