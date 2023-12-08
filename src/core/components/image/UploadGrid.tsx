@@ -50,7 +50,7 @@ export default function UploadGrid({
   const onDeleteImage = async (id): Promise<void> => {
     if (window.confirm("Ştergeţi definitiv această imagine?")) {
       try {
-        toggle(true, { ...reset })
+        toggle(true, { ...reset, delay: 500 })
         await deleteImageMutation({ id })
         const idx = _images.findIndex((i) => i.id === id)
         _images.splice(idx, 1)
