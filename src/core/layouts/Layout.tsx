@@ -128,7 +128,7 @@ const Layout: BlitzLayout<{
             }
             gtag('js', new Date());
             // gtag('config', '${process.env.NEXT_PUBLIC_GTAG_ID}');
-            gtag('config', '${process.env.NEXT_PUBLIC_GTAG_ID}', { 'debug_mode':true, send_page_view: false });
+            gtag('config', '${process.env.NEXT_PUBLIC_GTAG_ID}', { 'debug_mode':true, send_page_view: true });
           `}
       </Script>
     </>
