@@ -17,7 +17,6 @@ const SimpleNav = ({
     </span>
   ) as React.ReactNode,
 }) => {
-  console.log("SN", prevLink, nextLink)
   return (
     <nav className="join flex flex-row flex-wrap mt-6">
       <Link
