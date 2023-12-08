@@ -13,7 +13,7 @@
   - server logs
 - blitz.js
   - prisma (migration, type generator, seed script, clickhouse)
-  - tRPC (getPosts demo)
+  - tRPC (edit post demo)
   - Zod/react-hook-form (shared schemata, login demo)
 - meilisearch <http://localhost:7700>
 - TailwindCSS (responsive grid)
