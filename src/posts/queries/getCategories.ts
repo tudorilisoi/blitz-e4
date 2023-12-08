@@ -1,5 +1,5 @@
 import { resolver } from "@blitzjs/rpc"
-import db, { Category, PostStatuses, Prisma } from "db"
+import db, { PostStatuses, Prisma } from "db"
 import { CategoryWithCounters } from "../helpers"
 
 interface GetCategoriesInput extends Pick<Prisma.CategoryFindManyArgs, "where" | "orderBy"> {}
