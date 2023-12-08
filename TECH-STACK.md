@@ -10,7 +10,7 @@
 - docker (docker/run-compose.sh)
 - docker-compose (maybe deploy demo)
 - node.js
-- next.js (next/Link client-side routing demo with path segments, SSR, gSSP, cumulative next/Head)
+- next.js (next/Link client-side routing demo with path segments, SSR/SPA, gSSP, cumulative next/Head)
   - server logs
 - blitz.js
   - prisma (migration, type generator, seed script, clickhouse)
