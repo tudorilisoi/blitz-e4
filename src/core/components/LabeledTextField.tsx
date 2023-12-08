@@ -29,7 +29,6 @@ export const PasswordField = (props) => {
 
   const newProps = {
     ...tagProps,
-    disabled: getValues().password === "" && tagProps.name === "passwordConfirmation",
     type: visible ? "text" : "password",
     className: cn,
   }
