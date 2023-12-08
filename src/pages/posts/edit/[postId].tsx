@@ -100,7 +100,7 @@ export const EditPost = () => {
   useEffect(() => {
     // refetch on mount
     console.log("MOUNT", other)
-    refetch().catch(() => null)
+    void refetch()
   }, [])
 
   let pageTitle = `Modifică anunţ: ${post.title}`
