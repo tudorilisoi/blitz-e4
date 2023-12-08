@@ -37,7 +37,6 @@ export const getServerSideProps = gSSP(async (args) => {
 
   const { posts, permissions } = await getPosts(
     {
-      // @ts-ignore
       where: { id: postId },
       take: 1,
       skip: 0,
