@@ -1,6 +1,7 @@
 # Intro
 
 - start with Lighthouse on https://mobilecenta.com (also mention Let's encrypt)
+- DX, productivity, optimization
 
 ## Tech stack (from bottom to top)
 
