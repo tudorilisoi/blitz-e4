@@ -35,6 +35,7 @@ export const getServerSideProps = gSSP(async (args) => {
 
   const { posts, count, hasMore, numPages, permissions } = await getPaginatedPosts(
     {
+      // NOTE category is logically there
       // @ts-ignore
       where: { categoryId: category.id, status: { not: PostStatuses.EXPIRED } },
       orderBy: { updatedAt: "desc" },
