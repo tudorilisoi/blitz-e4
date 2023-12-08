@@ -17,22 +17,21 @@ const SimpleNav = ({
     </span>
   ) as React.ReactNode,
 }) => {
+  console.log("SN", prevLink, nextLink)
   return (
     <nav className="join flex flex-row flex-wrap mt-6">
       <Link
-        className={`flex-grow mb-4 btn btn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
-          !prevLink ? "btn-disabled" : " border-primary hover:btn-primary"
+        className={`flex-grow mb-4 btn  xbtn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
+          !prevLink ? "btn-disabled" : " border-primary hover:btn-primary text-primary-content"
         }`}
-        key={"simplenav-prev"}
         href={prevLink || "#"}
       >
         {prevText}
       </Link>
       <Link
-        className={`flex-grow mb-4 btn btn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
-          !nextLink ? "btn-disabled" : " border-primary hover:btn-primary"
+        className={`flex-grow mb-4 btn  xbtn-outline join-item bg-primary bg-opacity-30 text-xl p-2 ${
+          !nextLink ? "btn-disabled" : " border-primary hover:btn-primary text-primary-content"
         }`}
-        key={"simplenav-next"}
         href={nextLink || "#"}
       >
         {nextText}
