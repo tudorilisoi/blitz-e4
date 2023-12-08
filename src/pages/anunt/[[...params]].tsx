@@ -168,7 +168,7 @@ export default function PostPage({
           <div className="prose">
             <h1 className="not-prose font-extrabold text-2xl text-base-content">
               <Link
-                className="link link-hover text-accent-focus "
+                className="link link-hover text-accent "
                 href={makePostsNavUrl(post.category.slug)}
               >
                 {post.category.title}
