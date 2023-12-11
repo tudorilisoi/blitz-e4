@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# One time setupŞ 3 steps
+# One time setup 3 steps
 # 1)
 # sudo apt-get install pass gnupg2
 
