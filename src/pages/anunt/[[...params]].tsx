@@ -15,6 +15,7 @@ import { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
 import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 import { useState } from "react"
+import { AtSymbolIcon, PhoneIcon } from "@heroicons/react/24/outline"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -122,7 +123,7 @@ export default function PostPage({
     const [show, setShow] = useState(false)
     if (!show) {
       return (
-        <button onClick={() => setShow(true)} className="btn btn-secondary btn-wide">
+        <button onClick={() => setShow(true)} className="btn btn-accent btn-wide">
           Informaţii de contact
         </button>
       )
@@ -131,9 +132,11 @@ export default function PostPage({
     return (
       <div className="grid grid-cols-2 gap-4">
         <a className="btn flex-grow btn-secondary" href={`tel://${phone}`}>
+          <PhoneIcon className="h-8 w-8" />
           {phone}
         </a>
         <a className="btn flex-grow btn-secondary" href={`mailto://${post.author.email}`}>
+          <AtSymbolIcon className="h-8 w-8" />
           {post.author.email}
         </a>
       </div>
