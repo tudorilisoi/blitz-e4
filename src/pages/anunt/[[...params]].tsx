@@ -213,14 +213,6 @@ export default function PostPage({
               </span>{" "}
               {sanitizedBody}
             </p>
-
-            <span className="block mb-2">
-              Anunţ publicat de{" "}
-              <Link href={getPostsByAuthorNavUrl(post.author)} className="font-bold text-accent">
-                {post.author.fullName}
-              </Link>
-            </span>
-            <ContactInfo post={post} />
           </div>
         </div>
         {!permissionFlags.mayEdit ? null : (
@@ -234,6 +226,17 @@ export default function PostPage({
       <div className={post.images.length == 1 ? "max-w-[45vw]" : ""}>
         <ImageGallery images={post.images} />
       </div>
+
+      <div className="my-6">
+        <ContactInfo post={post} />
+        <span className="block my-4">
+          Anunţ publicat de{" "}
+          <Link href={getPostsByAuthorNavUrl(post.author)} className="font-bold text-accent">
+            {post.author.fullName}
+          </Link>
+        </span>
+      </div>
+
       {pagination}
     </>
   )
