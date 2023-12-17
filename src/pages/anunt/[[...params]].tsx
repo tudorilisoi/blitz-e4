@@ -138,7 +138,7 @@ export default function PostPage({
         </a>
         <a className="btn flex-grow btn-secondary" href={`mailto://${post.author.email}`}>
           <AtSymbolIcon className="h-8 w-8" />
-          {post.author.email}
+          {`email: ${post.author.fullName}`}
         </a>
       </div>
     )
