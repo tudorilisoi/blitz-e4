@@ -124,7 +124,7 @@ export default function PostPage({
     const [show, setShow] = useState(false)
     if (!show) {
       return (
-        <button onClick={() => setShow(true)} className="btn btn-accent btn-wide">
+        <button rel="nofollow" onClick={() => setShow(true)} className="btn btn-accent btn-wide">
           Informaţii de contact
         </button>
       )
