@@ -16,6 +16,7 @@ import getPosts from "src/posts/queries/getPosts"
 import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 import { useState } from "react"
 import { AtSymbolIcon, PhoneIcon } from "@heroicons/react/24/outline"
+import { getPostsByAuthorNavUrl } from "../anunturi/de/[[...params]]"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -124,8 +125,12 @@ export default function PostPage({
     const [show, setShow] = useState(false)
     if (!show) {
       return (
-        <button rel="nofollow" onClick={() => setShow(true)} className="btn btn-accent btn-wide">
-          Informaţii de contact
+        <button
+          rel="nofollow"
+          onClick={() => setShow(true)}
+          className="btn btn-accent btn-responsive"
+        >
+          {`Informaţii de contact`}
         </button>
       )
     }
@@ -138,7 +143,7 @@ export default function PostPage({
         </a>
         <a className="btn flex-grow btn-secondary" href={`mailto://${post.author.email}`}>
           <AtSymbolIcon className="h-8 w-8" />
-          {`email: ${post.author.fullName}`}
+          {`email: ${post.author.email}`}
         </a>
       </div>
     )
@@ -191,7 +196,7 @@ export default function PostPage({
     <>
       {head}
       <div className="flex flex-col sm:flex-row mb-4">
-        <div className="flex-grow">
+        <div className="flex-grow mb-4">
           <div className="prose">
             <h1 className="not-prose font-extrabold text-2xl text-base-content">
               <Link
@@ -208,6 +213,13 @@ export default function PostPage({
               </span>{" "}
               {sanitizedBody}
             </p>
+
+            <span className="block mb-2">
+              Anunţ publicat de{" "}
+              <Link href={getPostsByAuthorNavUrl(post.author)} className="font-bold text-accent">
+                {post.author.fullName}
+              </Link>
+            </span>
             <ContactInfo post={post} />
           </div>
         </div>

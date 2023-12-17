@@ -16,7 +16,7 @@ import getUser from "src/users/queries/getUser"
 const ITEMS_PER_PAGE = 12
 type RouteUser = Pick<User, "id" | "fullName">
 
-export const makePostsByAuthorNavUrl = (author: RouteUser, page: number = 1) => {
+export const getPostsByAuthorNavUrl = (author: RouteUser, page: number = 1) => {
   const slug = makeSlug(author.fullName || "rădăuţean")
   return `/anunturi/de/${slug}-${author.id}${page === 1 ? "" : "/pagina-" + page}`
 }
@@ -69,8 +69,8 @@ export default function PostsByAuthorNavPage({
   const router = useRouter()
   // return <>PENDING</>
 
-  const prevPageURL = makePostsByAuthorNavUrl(author, page - 1)
-  const nextPageURL = makePostsByAuthorNavUrl(author, page + 1)
+  const prevPageURL = getPostsByAuthorNavUrl(author, page - 1)
+  const nextPageURL = getPostsByAuthorNavUrl(author, page + 1)
 
   const title = `Anunţuri de ${author.fullName} p.${page} | eRădăuţi `
   const description = `eRădăuţi Anunţuri de ${author.fullName} p.${page}`

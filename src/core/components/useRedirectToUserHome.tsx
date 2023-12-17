@@ -1,12 +1,12 @@
 import { useRouter } from "next/router"
-import { makePostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
+import { getPostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 export const useRedirectToUserHome = () => {
   const router = useRouter()
   const currentUser = useCurrentUser()
   if (currentUser) {
-    void router.push(makePostsByAuthorNavUrl(currentUser))
+    void router.push(getPostsByAuthorNavUrl(currentUser))
   }
 }
 
@@ -19,7 +19,7 @@ export const useUserHome = () => {
       redirect: () => null,
     }
   }
-  const url = makePostsByAuthorNavUrl(currentUser)
+  const url = getPostsByAuthorNavUrl(currentUser)
   const redirect = () => router.push(url)
   return {
     url,
