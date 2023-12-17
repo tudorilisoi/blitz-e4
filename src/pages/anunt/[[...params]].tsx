@@ -131,7 +131,7 @@ export default function PostPage({
     }
     const phone = post.phone || post.author.phone
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a className="btn flex-grow btn-secondary" href={`tel://${phone}`}>
           <PhoneIcon className="h-8 w-8" />
           {phone}
