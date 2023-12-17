@@ -120,6 +120,7 @@ export default function PostPage({
   const imagePreloadLinks = getImagesPreloadLinks(images)
 
   const ContactInfo = ({ post }: { post: PostWithIncludes }) => {
+    // TODO just show expired info
     const [show, setShow] = useState(false)
     if (!show) {
       return (
