@@ -141,7 +141,7 @@ export default function PostPage({
           <PhoneIcon className="h-8 w-8" />
           {phone}
         </a>
-        <a className="btn flex-grow btn-secondary" href={`mailto://${post.author.email}`}>
+        <a className="btn flex-grow btn-secondary" href={`mailto:${post.author.email}`}>
           <AtSymbolIcon className="h-8 w-8" />
           {`email: ${post.author.email}`}
         </a>
