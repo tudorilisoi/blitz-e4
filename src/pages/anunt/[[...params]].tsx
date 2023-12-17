@@ -14,6 +14,7 @@ import getCategories from "src/posts/queries/getCategories"
 import { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
 import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
+import { useState } from "react"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -117,6 +118,28 @@ export default function PostPage({
   }, [])
   const imagePreloadLinks = getImagesPreloadLinks(images)
 
+  const ContactInfo = ({ post }: { post: PostWithIncludes }) => {
+    const [show, setShow] = useState(false)
+    if (!show) {
+      return (
+        <button onClick={() => setShow(true)} className="btn btn-secondary btn-wide">
+          Informaţii de contact
+        </button>
+      )
+    }
+    const phone = post.phone || post.author.phone
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <a className="btn flex-grow btn-secondary" href={`tel://${phone}`}>
+          {phone}
+        </a>
+        <a className="btn flex-grow btn-secondary" href={`mailto://${post.author.email}`}>
+          {post.author.email}
+        </a>
+      </div>
+    )
+  }
+
   const head = (
     <Head>
       <title>{title}</title>
@@ -181,6 +204,7 @@ export default function PostPage({
               </span>{" "}
               {sanitizedBody}
             </p>
+            <ContactInfo post={post} />
           </div>
         </div>
         {!permissionFlags.mayEdit ? null : (
