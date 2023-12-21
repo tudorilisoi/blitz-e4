@@ -6,7 +6,6 @@ import { getImageUrl } from "src/core/components/image/helpers"
 import { canonical } from "src/helpers"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { makePostsNavUrl } from "src/pages/anunturi/[[...params]]"
-import getCategories from "src/posts/queries/getCategories"
 const LIMIT = 20
 async function getAPIPosts(req, res: ServerResponse) {
   console.log(req.query)
