@@ -10,7 +10,7 @@ const prismaOptions: PrismaClientOptions = {
 }
 
 export * from "@prisma/client"
-const db = new EnhancedPrisma(prismaOptions)
+const db = new EnhancedPrisma()
 // db.$on("query", (e) => {
 //   // console.log("Query ev: ", e)
 //   // console.log('Params: ' + e.params)
@@ -57,7 +57,12 @@ async function afterCreateOrUpdate(modelName, params, res) {
         select: postSelect,
       })
       // console.log(`DB: ${action} ${model} res`, res, records)
-      meiliClient.index(model).addDocuments(records)
+      meiliClient
+        .index(model)
+        .addDocuments(records)
+        .catch((err) => {
+          console.log(`Meili: ERR ${modelName} ${action}`)
+        })
     }
   } catch (error) {}
 }
