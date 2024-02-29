@@ -38,7 +38,7 @@ const Home = ({ categories }) => {
       <a
         title={AD_TITLE}
         href={AD_HREF}
-        className="block m-auto text-center text-accent  bg-neutral-700 rounded-md pt-4 mb-6"
+        className="block m-auto text-center text-accent  bg-neutral-700 rounded-md px-4 pt-4 mb-6"
       >
         <p className="relative inset-0 block mb-2">PROMO: {AD_TITLE}</p>
         <div
