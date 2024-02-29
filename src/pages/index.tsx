@@ -36,6 +36,7 @@ const Home = ({ categories }) => {
   return (
     <>
       <a
+        title={AD_TITLE}
         href={AD_HREF}
         className="block m-auto text-center text-accent  bg-neutral-700 rounded-md pt-4 mb-6"
       >
@@ -48,7 +49,6 @@ const Home = ({ categories }) => {
             backgroundPosition: "center",
             backgroundImage: `url('${AD_SRC}')`,
           }}
-          alt={AD_TITLE}
           className="bg-cover bg-no-repeat m-auto rounded-b-lg"
         />
       </a>
