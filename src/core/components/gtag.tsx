@@ -13,7 +13,7 @@ export const GTag = () => {
       page_title: document.title,
       send_to: process.env.NEXT_PUBLIC_GTAG_ID,
     }
-    console.log("GTag push", page.page_title, page.page_location)
+    console.log("GTag push:", page.page_title, page.page_location)
     // @ts-ignore
     window.dataLayer.push({
       event: "page_view",
