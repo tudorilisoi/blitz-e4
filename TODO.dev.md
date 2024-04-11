@@ -41,7 +41,7 @@ Note: Maybe later on these will be converted to GH issues
 - X P00 publish to eradauti.ro instead of mobilecenta.com
 - X P0 implement close/archive post as soft delete (solved, expired)
 - ✔ check for verified status on login
-- X P1 check for existing email on signup
+- ✔ P1 check for existing email on signup
 - X cookiescript
 - ✔ P0 overlay on forgot password; also copy successNotification from signup
 - ✔ publish live (fix images symlink first), make a synctool conf (done)
