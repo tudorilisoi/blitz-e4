@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo systemctl stop docker-compose@blitz-e4.service
 
 # Get the current hostname
 current_hostname=$(hostname)
@@ -28,7 +29,8 @@ cd -
 echo "$script_path/run-compose.sh build"
 $script_path/run-compose.sh build
 
-echo "$script_path/run-compose.sh start"
-$script_path/run-compose.sh start
+# echo "$script_path/run-compose.sh start"
+# $script_path/run-compose.sh start
 
+sudo systemctl start docker-compose@blitz-e4.service
 
