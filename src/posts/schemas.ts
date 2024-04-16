@@ -29,6 +29,12 @@ export const CreatePostSchema = z.object({
   // authorId: z.number(),
   price: z.preprocess(Number, z.number({ ...e("Preţul trebuie să fie zero sau mai mult") })),
   currency: z.nativeEnum(currencies, { ...e("Selectaţi EUR sau RON") }),
+
+  //since phone is nullable in the schema also allow it here
+  phone: z
+    .string({ ...e("Nr de telefon trebuie completat (minim 10 cifre)") })
+    .min(10)
+    .nullable(),
 })
 export const UpdatePostSchema = CreatePostSchema.merge(
   z.object({

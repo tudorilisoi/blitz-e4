@@ -101,6 +101,14 @@ export function PostForm<S extends z.ZodType<any, any>>(props: ExtendedFormProps
           })}
         </LabeledTextField>
       </div>
+      <LabeledTextField
+        labelProps={labelProps}
+        outerProps={outerProps}
+        label="Număr de telefon"
+        name="phone"
+        type="text"
+        className={labelClassName}
+      />
     </>
   )
   const activeTabClass = "tab-active bg-secondary bg-opacity-80"
