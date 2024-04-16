@@ -14,7 +14,7 @@ export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
   const categories = await getCategories({}, ctx)
   const cArgs = {
-    take: 20,
+    take: 24,
     skip: 0,
     where: {
       status: { not: PostStatuses.EXPIRED },
