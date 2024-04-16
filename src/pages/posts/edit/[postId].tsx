@@ -57,7 +57,11 @@ export const SuccessNotification = ({
         </div>
         <h2 className={messageClassName}>{message}</h2>
         <div className="flex flex-wrap mt-4 px-6 gap-6 place-items-center">
-          <Link className={"grow-2"} onClick={() => toggle(false)} href={makePostNavUrl(post)}>
+          <Link
+            className={"grow-2"}
+            onClick={() => toggle(false)}
+            href={makePostNavUrl(post) + `?cacheBust=${new Date().getTime()}`}
+          >
             <button className="btn btn-secondary w-full">Vezi anunţul</button>
           </Link>
           <div className="grow-1 mx-auto">
