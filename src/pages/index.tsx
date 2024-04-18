@@ -1,6 +1,5 @@
 import { PostStatuses, Prisma } from "@prisma/client"
-import Link from "next/link"
-import { Suspense, useState } from "react"
+import { Suspense } from "react"
 import { gSSP } from "src/blitz-server"
 import Spinner from "src/core/components/spinner/Spinner"
 import Layout from "src/core/layouts/Layout"
@@ -8,7 +7,6 @@ import CategoryCell from "src/posts/components/CategoryCell"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
-import { trpc } from "src/ws-utils/trpc"
 
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
