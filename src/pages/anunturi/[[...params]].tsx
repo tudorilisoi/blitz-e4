@@ -22,8 +22,11 @@ export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx, res } = args
   res.setHeader("Cache-Control", `public, max-age=${3600}, stale-while-revalidate=59`)
   const params = query.params as string[]
+  console.log(`🚀 ~ getServerSideProps ~ params:`, params)
   const categorySlug = params[0]
-  const categories = await getCategories({ where: { slug: categorySlug } }, ctx)
+  const normalizedSlug = categorySlug?.replace(/-\d+$/, "") || ""
+  console.log(`🚀 ~ getServerSideProps ~ normalizedSlug:`, normalizedSlug)
+  const categories = await getCategories({ where: { slug: normalizedSlug } }, ctx)
   if (categories.length !== 1) {
     return {
       notFound: true,
@@ -32,6 +35,16 @@ export const getServerSideProps = gSSP(async (args) => {
   const category = categories[0]
   const pageSlug = params[1] || null
   const page = Number(pageSlug?.split("-")[1] || 1)
+
+  if (categorySlug !== normalizedSlug) {
+    console.log(`redirect: ${categorySlug} => ${normalizedSlug}`)
+    return {
+      redirect: {
+        destination: makePostsNavUrl(normalizedSlug, page),
+        permanent: false,
+      },
+    }
+  }
 
   const { posts, count, hasMore, numPages, permissions } = await getPaginatedPosts(
     {
