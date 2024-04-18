@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo systemctl stop docker-compose@blitz-e4.service
+sleep 5
 
 # Get the current hostname
 current_hostname=$(hostname)
