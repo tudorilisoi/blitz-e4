@@ -33,5 +33,6 @@ $script_path/run-compose.sh build
 # echo "$script_path/run-compose.sh start"
 # $script_path/run-compose.sh start
 
-sudo systemctl start docker-compose@blitz-e4.service
+sleep 5
+sudo systemctl restart docker-compose@blitz-e4.service
 
