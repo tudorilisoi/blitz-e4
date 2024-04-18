@@ -44,7 +44,6 @@ export const getServerSideProps = gSSP(async (args) => {
   // is this a page-pageNum or an old url /anunturi/catName-catID/postDlug-postID?
   if (pageSlug && !/^pagina-\d+$/.test(pageSlug)) {
     console.log(` old Post redirect ${page}`)
-    const postId = page
     const post = await getPost({ id: page }, ctx)
     const postUrl = makePostNavUrl(post)
     console.log(`🚀 ~ getServerSideProps ~ postUrl:`, postUrl)
