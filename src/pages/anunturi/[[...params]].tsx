@@ -11,6 +11,8 @@ import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes, getImagesPreloadLinks } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
+import getPost from "src/posts/queries/getPost"
+import { makePostNavUrl } from "../anunt/[[...params]]"
 
 const ITEMS_PER_PAGE = 12
 
@@ -24,6 +26,11 @@ export const getServerSideProps = gSSP(async (args) => {
   const params = query.params as string[]
   console.log(`🚀 ~ getServerSideProps ~ params:`, params)
   const categorySlug = params[0]
+  const pageSlug = params[1] || null
+  const parts = pageSlug?.split("-") || ""
+  const page = Number(parts.length ? parts[parts.length - 1] : 1)
+
+  //old url segment catName-catID
   const normalizedSlug = categorySlug?.replace(/-\d+$/, "") || ""
   console.log(`🚀 ~ getServerSideProps ~ normalizedSlug:`, normalizedSlug)
   const categories = await getCategories({ where: { slug: normalizedSlug } }, ctx)
@@ -33,15 +40,28 @@ export const getServerSideProps = gSSP(async (args) => {
     }
   }
   const category = categories[0]
-  const pageSlug = params[1] || null
-  const page = Number(pageSlug?.split("-")[1] || 1)
 
+  // is this a page-pageNum or an old url /anunturi/catName-catID/postDlug-postID?
+  if (pageSlug && !/^pagina-\d+$/.test(pageSlug)) {
+    console.log(` old Post redirect ${page}`)
+    const postId = page
+    const post = await getPost({ id: page }, ctx)
+    const postUrl = makePostNavUrl(post)
+    console.log(`🚀 ~ getServerSideProps ~ postUrl:`, postUrl)
+    return {
+      redirect: {
+        destination: postUrl,
+        permanent: true,
+      },
+    }
+  }
+  //old url /anunturi/catName-catID/pagina-pageNum
   if (categorySlug !== normalizedSlug) {
     console.log(`redirect: ${categorySlug} => ${normalizedSlug}`)
     return {
       redirect: {
         destination: makePostsNavUrl(normalizedSlug, page),
-        permanent: false,
+        permanent: true,
       },
     }
   }
