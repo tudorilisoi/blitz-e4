@@ -25,7 +25,7 @@ export const makePostNavUrl = (post: PostWithIncludes) => {
 
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx, res } = args
-  res.setHeader("Cache-Control", `public, max-age=${5 * 60}, stale-while-revalidate=59`)
+  res.setHeader("Cache-Control", `public, max-age=${3600 * 24 * 31}, stale-while-revalidate=59`)
   const params = query.params as string[]
   const postSlug = params[1] || ""
   const postId = Number(postSlug.substring(postSlug.lastIndexOf("-") + 1))
