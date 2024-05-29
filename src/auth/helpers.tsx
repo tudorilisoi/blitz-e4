@@ -1,10 +1,12 @@
-import { AuthorizationError, NotFoundError } from "blitz"
+import { AuthorizationError, Ctx, NotFoundError } from "blitz"
 import getCurrentUser from "src/users/queries/getCurrentUser"
 
 export interface HasAuthor {
   id: number
   userId: number
 }
+
+type PermissionFn = (...args: [model: HasAuthor, context: Ctx]) => Promise<boolean>
 
 export const isAuthenticated = async (context) => {
   const user = await getCurrentUser(null, context)
@@ -28,6 +30,15 @@ export const mayEdit = async (model: HasAuthor, context) => {
   }
   return false
 }
+
+export const mayDelete = async (model: HasAuthor, context) => {
+  const user = await getCurrentUser(null, context)
+  if (user?.role === "SUPERADMIN") {
+    return true
+  }
+  return false
+}
+
 // TODO reject login for banned users
 export const guardAuthenticated = async (context) => {
   const user = await getCurrentUser(null, context)
@@ -45,6 +56,18 @@ export const guardEdit = async (model: HasAuthor | null, context) => {
     throw new NotFoundError("No such record")
   }
   const allowed = await mayEdit(model, context)
+  if (!allowed) {
+    throw new AuthorizationError("Acces refuzat")
+  }
+}
+
+// NOTE a more generic way to guard should any permissions be added in the future
+export const guardPermission = async (model: HasAuthor, context: Ctx, fn: PermissionFn) => {
+  await guardAuthenticated(context)
+  if (!model) {
+    throw new NotFoundError("No such record")
+  }
+  const allowed = await fn(model, context)
   if (!allowed) {
     throw new AuthorizationError("Acces refuzat")
   }

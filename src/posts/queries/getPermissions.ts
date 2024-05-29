@@ -1,6 +1,6 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { HasAuthor, isAuthor, mayEdit } from "src/auth/helpers"
+import { HasAuthor, isAuthor, mayDelete, mayEdit } from "src/auth/helpers"
 import { z } from "zod"
 
 const GetPermissions = z.object({
@@ -9,6 +9,7 @@ const GetPermissions = z.object({
 
 export interface PermissionFlags {
   mayEdit: boolean
+  mayDelete: boolean
   isAuthor: boolean
 }
 
@@ -18,10 +19,12 @@ export const getPermissionsForPosts = async (posts: HasAuthor[], context) => {
   const ret: Permissions = {}
   for (let post of posts) {
     const _mayEdit = await mayEdit(post, context)
+    const _mayDelete = await mayDelete(post, context)
     const _isAuthor = await isAuthor(post, context)
     ret[post.id] = {
       mayEdit: _mayEdit,
       isAuthor: _isAuthor,
+      mayDelete: _mayDelete,
     }
   }
   return ret

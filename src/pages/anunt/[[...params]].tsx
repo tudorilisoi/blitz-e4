@@ -17,6 +17,8 @@ import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 import { useState } from "react"
 import { AtSymbolIcon, PhoneIcon } from "@heroicons/react/24/outline"
 import { getPostsByAuthorNavUrl } from "../anunturi/de/[[...params]]"
+import { useMutation } from "@blitzjs/rpc"
+import deletePost from "src/posts/mutations/deletePost"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -95,6 +97,13 @@ export default function PostPage({
   nextPost: PostWithIncludes | null
 }) {
   const router = useRouter()
+  const [deleteMutation] = useMutation(deletePost)
+  const deletePostFn = async () => {
+    if (window.confirm("Ștergeți definitiv acest anunț?")) {
+      await deleteMutation({ id: post.id })
+      router.push(getPostsByAuthorNavUrl(post.author)).catch(() => {})
+    }
+  }
   const sanitizedBody = S(post.body).obscurePhoneNumbers().get()
 
   const title = `Anunţ: ${post.title} | ${category.title} | eRădăuţi `
@@ -192,6 +201,7 @@ export default function PostPage({
       }
     />
   )
+
   return (
     <>
       {head}
@@ -220,6 +230,13 @@ export default function PostPage({
             <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
               Modifică
             </Link>
+          </div>
+        )}
+        {!permissionFlags.mayDelete ? null : (
+          <div className="pl-6">
+            <button className="btn btn-error" onClick={deletePostFn}>
+              Șterge
+            </button>
           </div>
         )}
       </div>
