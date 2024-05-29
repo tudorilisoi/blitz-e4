@@ -224,7 +224,7 @@ export default function PostPage({
               {!post.price ? null : (
                 <>
                   {" "}
-                  <span className="inline-block bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm ">
+                  <span className="inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm ">
                     {`${post.price} ${post.currency}`}
                   </span>
                 </>
