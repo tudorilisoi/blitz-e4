@@ -19,6 +19,7 @@ import { AtSymbolIcon, PhoneIcon } from "@heroicons/react/24/outline"
 import { getPostsByAuthorNavUrl } from "../anunturi/de/[[...params]]"
 import { useMutation } from "@blitzjs/rpc"
 import deletePost from "src/posts/mutations/deletePost"
+import { getImageUrl } from "src/core/components/image/helpers"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -202,8 +203,15 @@ export default function PostPage({
     />
   )
 
+  // NOTE using microformat classes
+  // see https://microformats.org/wiki/h-product
+
+  const mfImage = !post.images[0] ? null : (
+    <img alt={post.title} className="u-photo hidden" src={getImageUrl(post.images[0], true)} />
+  )
+
   return (
-    <>
+    <div className="h-product">
       {head}
       <div className="flex flex-col sm:flex-row mb-4">
         <div className="flex-grow mb-4">
@@ -213,9 +221,9 @@ export default function PostPage({
                 className="link link-hover text-accent "
                 href={makePostsNavUrl(post.category.slug)}
               >
-                {post.category.title}
+                <span className="p-category">{post.category.title}</span>
               </Link>{" "}
-              {post.title}
+              <span className="p-name">{post.title}</span>
             </h1>
             <p className="text-lg text-base-content whitespace-pre-line	">
               <span className="inline-block bg-neutral text-neutral-content p-2 mr-2 rounded text-sm ">
@@ -224,12 +232,12 @@ export default function PostPage({
               {!post.price ? null : (
                 <>
                   {" "}
-                  <span className="inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm ">
+                  <span className="p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm ">
                     {`${post.price} ${post.currency}`}
                   </span>
                 </>
               )}
-              {sanitizedBody}
+              <span className="e-description">{sanitizedBody}</span>
             </p>
           </div>
         </div>
@@ -263,7 +271,8 @@ export default function PostPage({
       </div>
 
       {pagination}
-    </>
+      {mfImage}
+    </div>
   )
 }
 PostPage.getLayout = (page) => <Layout>{page}</Layout>
