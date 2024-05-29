@@ -18,6 +18,7 @@ export const getServerSideProps = gSSP(async (args) => {
       status: { not: PostStatuses.EXPIRED },
     },
     orderBy: { updatedAt: "desc" } as Prisma.PostOrderByWithRelationInput,
+    distinct: [Prisma.PostScalarFieldEnum.userId],
   }
   const latestPosts = await getPosts(cArgs, ctx)
   console.log(`🚀 ~ getServerSideProps ~ latestPosts:`, latestPosts)
