@@ -203,15 +203,21 @@ export default function PostPage({
     />
   )
 
-  // NOTE using microformat classes
+  // NOTE using microformat classes such as h-product
   // see https://microformats.org/wiki/h-product
+  // also using microdata https://en.wikipedia.org/wiki/Microdata_(HTML) like itemScope itemProp
 
   const mfImage = !post.images[0] ? null : (
-    <img alt={post.title} className="u-photo hidden" src={getImageUrl(post.images[0], true)} />
+    <img
+      itemProp="image"
+      alt={post.title}
+      className="u-photo hidden"
+      src={getImageUrl(post.images[0], true)}
+    />
   )
 
   return (
-    <div className="h-product">
+    <div itemScope itemType="http://schema.org/Product" className="h-product">
       {head}
       <div className="flex flex-col sm:flex-row mb-4">
         <div className="flex-grow mb-4">
@@ -223,7 +229,9 @@ export default function PostPage({
               >
                 <span className="p-category">{post.category.title}</span>
               </Link>{" "}
-              <span className="p-name">{post.title}</span>
+              <span itemProp="name" className="p-name">
+                {post.title}
+              </span>
             </h1>
             <p className="text-lg text-base-content whitespace-pre-line	">
               <span className="inline-block bg-neutral text-neutral-content p-2 mr-2 rounded text-sm ">
@@ -232,12 +240,24 @@ export default function PostPage({
               {!post.price ? null : (
                 <>
                   {" "}
-                  <span className="p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm ">
-                    {`${post.price} ${post.currency}`}
+                  <span
+                    itemProp="offers"
+                    itemScope
+                    itemType="https://schema.org/Offer"
+                    className="p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm "
+                  >
+                    <span itemProp="price" content={"" + post.price}>
+                      {post.price}
+                    </span>{" "}
+                    <span itemProp="priceCurrency" content={post.currency}>
+                      {post.currency}
+                    </span>
                   </span>
                 </>
               )}
-              <span className="e-description">{sanitizedBody}</span>
+              <span itemProp="description" className="e-description">
+                {sanitizedBody}
+              </span>
             </p>
           </div>
         </div>
