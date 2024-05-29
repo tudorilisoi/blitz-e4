@@ -218,9 +218,17 @@ export default function PostPage({
               {post.title}
             </h1>
             <p className="text-lg text-base-content whitespace-pre-line	">
-              <span className="inline-block bg-neutral text-neutral-content p-2 rounded text-sm ">
+              <span className="inline-block bg-neutral text-neutral-content p-2 mr-2 rounded text-sm ">
                 {formatDate(post.updatedAt, formatDate.short)}
-              </span>{" "}
+              </span>
+              {!post.price ? null : (
+                <>
+                  {" "}
+                  <span className="inline-block bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm ">
+                    {`${post.price} ${post.currency}`}
+                  </span>
+                </>
+              )}
               {sanitizedBody}
             </p>
           </div>
