@@ -207,13 +207,9 @@ export default function PostPage({
   // see https://microformats.org/wiki/h-product
   // also using microdata https://en.wikipedia.org/wiki/Microdata_(HTML) like itemScope itemProp
 
-  const mfImage = !post.images[0] ? null : (
-    <img
-      itemProp="image"
-      alt={post.title}
-      className="u-photo hidden"
-      src={getImageUrl(post.images[0], true)}
-    />
+  const mfImageSrc = post.images[0] ? getImageUrl(post.images[0], true) : "/logo.png"
+  const mfImage = (
+    <img itemProp="image" alt={post.title} className="u-photo hidden" src={canonical(mfImageSrc)} />
   )
 
   return (
