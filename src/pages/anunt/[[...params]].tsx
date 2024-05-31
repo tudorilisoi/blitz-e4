@@ -240,7 +240,7 @@ export default function PostPage({
                 itemType="https://schema.org/Offer"
                 className={` ${
                   !post.price ? "hidden" : ""
-                } p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm `}
+                } p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mx-2 rounded text-sm `}
               >
                 <span itemProp="price" content={"" + post.price}>
                   {post.price}
