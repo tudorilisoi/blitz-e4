@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "sudo systemctl stop docker-compose@blitz-e4.service"
 sudo systemctl stop docker-compose@blitz-e4.service
 sleep 5
 
@@ -9,6 +10,7 @@ if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Cannot run inside a container"
     exit 1;
 fi
+
 
 # Check if the hostname is "mintbox"
 if [ "$current_hostname" = "mintbox" ]; then
@@ -34,5 +36,6 @@ $script_path/run-compose.sh build
 # $script_path/run-compose.sh start
 
 sleep 5
+echo "sudo systemctl restart docker-compose@blitz-e4.service"
 sudo systemctl restart docker-compose@blitz-e4.service
 
