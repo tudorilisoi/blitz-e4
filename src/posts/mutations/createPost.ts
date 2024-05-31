@@ -9,12 +9,13 @@ import { CreatePostSchema } from "../schemas"
 export default resolver.pipe(resolver.zod(CreatePostSchema), async (input, context) => {
   await guardAuthenticated(context)
   const author = await getCurrentUser(null, context)
-  const { title, body, price, currency } = input
+  const { title, body, price, currency, phone } = input
   const data = {
     title,
     body,
     price,
     currency,
+    phone,
     category: { connect: { id: input.categoryId } },
     author: { connect: { id: author?.id } },
     slug: makeSlug(input.title),
