@@ -233,24 +233,23 @@ export default function PostPage({
               <span className="inline-block bg-neutral text-neutral-content p-2 mr-2 rounded text-sm ">
                 {formatDate(post.updatedAt, formatDate.short)}
               </span>
-              {!post.price ? null : (
-                <>
-                  {" "}
-                  <span
-                    itemProp="offers"
-                    itemScope
-                    itemType="https://schema.org/Offer"
-                    className="p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm "
-                  >
-                    <span itemProp="price" content={"" + post.price}>
-                      {post.price}
-                    </span>{" "}
-                    <span itemProp="priceCurrency" content={post.currency}>
-                      {post.currency}
-                    </span>
-                  </span>
-                </>
-              )}
+
+              <span
+                itemProp="offers"
+                itemScope
+                itemType="https://schema.org/Offer"
+                className={` ${
+                  !post.price ? "hidden" : ""
+                } p-price inline-block font-bold bg-slate-400 text-slate-950 p-2 mr-2 rounded text-sm `}
+              >
+                <span itemProp="price" content={"" + post.price}>
+                  {post.price}
+                </span>{" "}
+                <span itemProp="priceCurrency" content={post.currency}>
+                  {post.currency}
+                </span>
+              </span>
+
               <span itemProp="description" className="e-description">
                 {sanitizedBody}
               </span>
