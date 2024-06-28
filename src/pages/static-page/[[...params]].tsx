@@ -1,3 +1,4 @@
+import Head from "next/head"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
 import { getMarkDownAsHTML } from "src/static-pages/staticPage"
@@ -16,8 +17,15 @@ export const getServerSideProps = gSSP(async (args) => {
 })
 
 export default function MarkdownPage({ rawHtml, firstHeadingText }) {
+  const head = (
+    <Head>
+      <title>{`${firstHeadingText}  | eRădăuţi`}</title>
+    </Head>
+  )
+
   return (
     <>
+      {head}
       <div className="prose" dangerouslySetInnerHTML={{ __html: rawHtml }}></div>
     </>
   )
