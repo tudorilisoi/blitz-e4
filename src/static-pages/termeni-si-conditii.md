@@ -2,19 +2,19 @@
 
 ## 1. Introducere
 
-Bine ați venit pe **eRadauti.ro**. Utilizând site-ul nostru, sunteți de acord să respectați și să fiți supus termenilor și condițiilor de mai jos. Vă rugăm să citiți cu atenție acești termeni înainte de a utiliza serviciile noastre.
+Bine ați venit pe **eRadauti.ro**. Utilizând situl nostru, sunteți de acord să respectați și să fiți supus termenilor și condițiilor de mai jos. Vă rugăm să citiți cu atenție acești termeni înainte de a utiliza serviciile noastre.
 
 ## 2. Acceptarea termenilor
 
-Prin accesarea și utilizarea acestui site, acceptați automat acești termeni și condiții în totalitate. Dacă nu sunteți de acord cu vreuna dintre prevederile acestor termeni și condiții, vă rugăm să nu utilizați site-ul nostru.
+Prin accesarea și utilizarea acestui sit, acceptați automat acești termeni și condiții în totalitate. Dacă nu sunteți de acord cu vreuna dintre prevederile acestor termeni și condiții, vă rugăm să nu utilizați situl nostru.
 
 ## 3. Modificarea termenilor
 
-**eRadauti.ro** își rezervă dreptul de a modifica acești termeni și condiții în orice moment. Orice modificări vor fi efective imediat după postarea pe site. Continuarea utilizării site-ului după publicarea modificărilor constituie acceptarea acestor modificări.
+**eRadauti.ro** își rezervă dreptul de a modifica acești termeni și condiții în orice moment. Orice modificări vor fi efective imediat după postarea pe sit. Continuarea utilizării sitului după publicarea modificărilor constituie acceptarea acestor modificări.
 
-## 4. Utilizarea site-ului
+## 4. Utilizarea sitului
 
-4.1. Utilizatorii pot posta anunțuri pe site, respectând următoarele reguli:
+4.1. Utilizatorii pot posta anunțuri pe sit, respectând următoarele reguli:
 
 - Anunțurile trebuie să fie legale și să nu încalce drepturile altor persoane.
 - Conținutul anunțurilor trebuie să fie adevărat și exact.
@@ -24,21 +24,21 @@ Prin accesarea și utilizarea acestui site, acceptați automat acești termeni �
 
 ## 5. Înregistrarea și conturile utilizatorilor
 
-5.1. Pentru a posta anunțuri, utilizatorii trebuie să își creeze un cont pe site. Informațiile furnizate trebuie să fie corecte și complete.
+5.1. Pentru a posta anunțuri, utilizatorii trebuie să își creeze un cont pe sit. Informațiile furnizate trebuie să fie corecte și complete.
 5.2. Utilizatorii sunt responsabili pentru menținerea confidențialității datelor de acces la cont și pentru toate activitățile desfășurate prin intermediul contului lor.
 
 ## 6. Taxe și plăți
 
-6.1. Publicarea anunțurilor pe **eRadauti.ro** poate fi supusă unor taxe. Informațiile despre tarife și metodele de plată sunt disponibile pe site.
+6.1. Publicarea anunțurilor pe **eRadauti.ro** poate fi supusă unor taxe. Informațiile despre tarife și metodele de plată sunt disponibile pe sit.
 6.2. Toate taxele sunt ne-rambursabile, cu excepția cazurilor în care se specifică altfel.
 
 ## 7. Proprietatea intelectuală
 
-7.1. Tot conținutul de pe site, inclusiv text, imagini, logo-uri și grafică, este protejat de legile dreptului de autor și alte legi ale proprietății intelectuale. Utilizatorii nu au dreptul să reproducă, distribuie sau să folosească conținutul site-ului fără permisiunea explicită a **eRadauti.ro**.
+7.1. Tot conținutul de pe sit, inclusiv text, imagini, logo-uri și grafică, este protejat de legile dreptului de autor și alte legi ale proprietății intelectuale. Utilizatorii nu au dreptul să reproducă, distribuie sau să folosească conținutul sitului fără permisiunea explicită a **eRadauti.ro**.
 
 ## 8. Limitarea răspunderii
 
-**eRadauti.ro** nu va fi responsabil pentru niciun fel de daune directe, indirecte, accidentale, speciale sau pe cale de consecință care rezultă din utilizarea sau incapacitatea de utilizare a site-ului.
+**eRadauti.ro** nu va fi responsabil pentru niciun fel de daune directe, indirecte, accidentale, speciale sau pe cale de consecință care rezultă din utilizarea sau incapacitatea de utilizare a sitului.
 
 ## 9. Rezilierea
 
