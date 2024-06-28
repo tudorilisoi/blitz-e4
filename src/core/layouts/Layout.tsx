@@ -112,7 +112,8 @@ const Layout: BlitzLayout<{
           <div className="container mx-auto py-4 px-6">
             {/* Add your footer content here */}
             <p className="text-base-content font-extrabold">
-              © {new Date().getFullYear()} {"eRădăuţi v3"}
+              © {new Date().getFullYear()} {"eRădăuţi v3"} |{" "}
+              <Link href="/static-page/termeni-si-conditii">Termeni și condiții</Link>
             </p>
           </div>
         </footer>
