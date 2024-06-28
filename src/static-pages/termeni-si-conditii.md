@@ -48,7 +48,32 @@ Prin accesarea și utilizarea acestui site, acceptați automat acești termeni �
 
 Acești termeni și condiții sunt guvernați și interpretați în conformitate cu legile din Rommânia/EU. Orice dispută care rezultă din acești termeni va fi soluționată în instanțele competente din Rommânia/EU.
 
-## 11. Contact
+## 11. GDPR (Regulamentul General privind Protecția Datelor)
+
+11.1. Colectarea și Utilizarea Datelor Personale
+
+- **eRadauti.ro** colectează și utilizează datele personale ale utilizatorilor în conformitate cu legislația europeană privind protecția datelor.
+- Datele colectate includ, dar nu se limitează la, nume, adresă de e-mail, număr de telefon și alte informații necesare pentru furnizarea serviciilor noastre.
+
+  11.2. Drepturile Utilizatorilor
+
+- Utilizatorii au dreptul de a accesa, rectifica sau șterge datele lor personale.
+- Utilizatorii au dreptul de a restricționa sau de a obiecta la prelucrarea datelor lor personale.
+- Utilizatorii au dreptul la portabilitatea datelor.
+
+  11.3. Securitatea Datelor
+
+- **eRadauti.ro** ia măsuri adecvate pentru a proteja datele personale ale utilizatorilor împotriva accesului neautorizat, modificării sau distrugerii.
+
+  11.4. Divulgarea Datelor
+
+- **eRadauti.ro** nu va divulga datele personale ale utilizatorilor către terți, cu excepția cazului în care este necesar pentru furnizarea serviciilor sau conform legislației aplicabile.
+
+  11.5. Contact pentru Probleme GDPR
+
+- Pentru orice întrebări sau solicitări legate de datele personale, utilizatorii pot contacta responsabilul cu protecția datelor la [email de contact].
+
+## 12. Contact
 
 Pentru orice întrebări sau nelămuriri referitoare la acești termeni și condiții, vă rugăm să ne contactați la tudorilisoi (at) gmail.com.
 
