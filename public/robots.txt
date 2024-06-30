@@ -2,3 +2,6 @@ User-agent: *
 crawl-delay: 1
 Sitemap: https://eradauti.ro/sitemap.xml
 
+User-agent: SemrushBot
+Disallow: /
+
