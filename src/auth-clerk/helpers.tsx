@@ -1,17 +1,26 @@
 import { ClerkProvider } from "@clerk/nextjs"
+import { roRO } from "@clerk/localizations"
+
+const clerkProps = {
+  signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "",
+  signUpUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL || "",
+  publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "",
+}
+
+export function ClerkProviderWrapper({ children }) {
+  return (
+    <ClerkProvider localization={roRO} {...clerkProps}>
+      {children}
+    </ClerkProvider>
+  )
+}
 
 export function withClerkProvider<T>(WrappedComponent: React.ComponentType<T>) {
   const ComponentWithClerk = (props) => {
-    const clerkProps = {
-      signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
-      signUnUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
-      publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-    }
-
     return (
-      <ClerkProvider {...clerkProps}>
+      <ClerkProviderWrapper>
         <WrappedComponent {...props} />
-      </ClerkProvider>
+      </ClerkProviderWrapper>
     )
   }
 

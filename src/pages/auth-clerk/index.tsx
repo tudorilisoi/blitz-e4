@@ -1,25 +1,34 @@
 // import "@/styles/globals.css"
 import { BlitzPage } from "@blitzjs/next"
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
-import type { AppProps } from "next/app"
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import { Suspense } from "react"
+import { ClerkProviderWrapper } from "src/auth-clerk/helpers"
+import { gSSP } from "src/blitz-server"
+import Layout from "src/core/layouts/Layout"
 
-const ClerkStatusPage: BlitzPage = () => {
-  const clerkProps = {
-    signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
-    signUnUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
-    publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+export const getServerSideProps = gSSP(async (args) => {
+  return {
+    props: {
+      cacheBust: `${Math.random()}-${new Date().getTime()}`,
+    },
   }
+})
 
+const ClerkStatusPage: BlitzPage = ({ cacheBust }: { cacheBust: string }) => {
   return (
-    <ClerkProvider {...clerkProps}>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </ClerkProvider>
+    <Suspense>
+      <ClerkProviderWrapper>
+        <h4>{cacheBust}</h4>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </ClerkProviderWrapper>
+    </Suspense>
   )
 }
+ClerkStatusPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ClerkStatusPage
