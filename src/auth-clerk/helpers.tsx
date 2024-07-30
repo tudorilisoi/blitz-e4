@@ -1,6 +1,5 @@
-import { ClerkProvider } from "@clerk/nextjs"
 import { roRO } from "@clerk/localizations"
-import { useState } from "react"
+import { ClerkProvider } from "@clerk/nextjs"
 
 export const clerkVars = {
   signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "",
