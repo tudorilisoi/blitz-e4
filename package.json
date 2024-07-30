@@ -36,9 +36,10 @@
     ]
   },
   "dependencies": {
-    "@blitzjs/auth": "2.0.0-beta.36",
-    "@blitzjs/next": "2.0.0-beta.36",
-    "@blitzjs/rpc": "2.0.0-beta.36",
+    "@blitzjs/auth": "2.0.10",
+    "@blitzjs/next": "2.0.10",
+    "@blitzjs/rpc": "2.0.10",
+    "@clerk/clerk-sdk-node": "5.0.20",
     "@clerk/localizations": "2.5.2",
     "@clerk/nextjs": "5.2.8",
     "@heroicons/react": "2.0.18",
