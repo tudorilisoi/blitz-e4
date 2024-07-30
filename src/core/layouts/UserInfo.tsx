@@ -21,51 +21,51 @@ const UserInfo = () => {
   if (currentUser) {
     const myPostsUrl = getPostsByAuthorNavUrl(currentUser as User)
     return (
-      <ClerkProviderWrapper>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} id="layoutDropdown" className="btn btn-secondary">
-            <span className="px-1">{currentUser.fullName}</span>
-          </label>
-          <ul tabIndex={0} className={ulClass}>
-            {/* <li>
+      // <ClerkProviderWrapper>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} id="layoutDropdown" className="btn btn-secondary">
+          <span className="px-1">{currentUser.fullName}</span>
+        </label>
+        <ul tabIndex={0} className={ulClass}>
+          {/* <li>
             <a className="justify-between">
               Profile
               <span className="badge">New</span>
             </a>
           </li> */}
 
-            <li className="!hover:bg-base-200">
-              <span className="py-2 text-base-content font-extrabold">{currentUser.email}</span>
-            </li>
+          <li className="!hover:bg-base-200">
+            <span className="py-2 text-base-content font-extrabold">{currentUser.email}</span>
+          </li>
 
-            <li>
-              <a
-                className="py-2 text-accent-focus hover:text-accent"
-                onClick={async () => {
-                  closeDropdown()
-                  await router.push(myPostsUrl)
-                }}
-              >
-                <strong>Anunturile mele</strong>
-              </a>
-            </li>
+          <li>
+            <a
+              className="py-2 text-accent-focus hover:text-accent"
+              onClick={async () => {
+                closeDropdown()
+                await router.push(myPostsUrl)
+              }}
+            >
+              <strong>Anunturile mele</strong>
+            </a>
+          </li>
 
-            <li>
-              <a
-                className="py-2 text-accent-focus hover:text-accent"
-                onClick={async () => {
-                  closeDropdown()
-                  await logoutClerk()
-                  await logoutMutation()
-                  await router.push("/")
-                }}
-              >
-                <strong>Deconectare</strong>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </ClerkProviderWrapper>
+          <li>
+            <a
+              className="py-2 text-accent-focus hover:text-accent"
+              onClick={async () => {
+                closeDropdown()
+                // await logoutClerk()
+                await logoutMutation()
+                await router.push("/")
+              }}
+            >
+              <strong>Deconectare</strong>
+            </a>
+          </li>
+        </ul>
+      </div>
+      // </ClerkProviderWrapper>
     )
   }
 
