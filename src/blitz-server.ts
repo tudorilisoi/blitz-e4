@@ -4,8 +4,6 @@ import { BlitzLogger, createServerPlugin, RequestMiddleware } from "blitz"
 import db from "db"
 import { IncomingMessage, ServerResponse } from "http"
 import { authConfig } from "./blitz-client"
-import { clerkOptions } from "./clerkOptions"
-import { clerkClient } from "@clerk/nextjs/server"
 
 const cplugin = createServerPlugin((options) => {
   const mw: RequestMiddleware<
@@ -20,7 +18,6 @@ const cplugin = createServerPlugin((options) => {
     name: "mw",
   }
 
-  const { publishableKey, secretKey } = clerkOptions
   return {
     requestMiddlewares: [mw],
     exports: () => ({}),
