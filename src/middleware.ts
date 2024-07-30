@@ -2,7 +2,7 @@ import { clerkMiddleware } from "@clerk/nextjs/server"
 import { INTERNALS } from "next/dist/server/web/spec-extension/request"
 import { NextRequest, NextResponse } from "next/server"
 import url from "url"
-import { clerkOptions } from "./clerkOptions"
+import { clerkOptions } from "./auth-clerk/clerkOptions"
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   // const user = await currentUser()
