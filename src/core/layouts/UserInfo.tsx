@@ -3,6 +3,7 @@ import { useMutation } from "@blitzjs/rpc"
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { ClerkProviderWrapper, logoutClerk } from "src/auth-clerk/helpers"
 import logout from "src/auth/mutations/logout"
 import { getPostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
@@ -54,9 +55,9 @@ const UserInfo = () => {
               className="py-2 text-accent-focus hover:text-accent"
               onClick={async () => {
                 closeDropdown()
+                await logoutClerk()
                 await logoutMutation()
-                // await logoutClerk()
-                await router.push("/")
+                // await router.push("/")
               }}
             >
               <strong>Deconectare</strong>

@@ -15,7 +15,7 @@ export const config = {
   ],
 }
 const skipRe = new RegExp(config.matcher[0] as string)
-const clerkCookieRe = new RegExp("^(__clerk_db_|__session|__client_uat)")
+const clerkCookieRe = new RegExp("^(__clerk_db_|__session)")
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   // const user = await currentUser()
   let { pathname, path } = url.parse(req.url)
@@ -27,18 +27,14 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   }
 
   if (path === "/api/rpc/logout") {
-    const authObj = auth()
-    if (!authObj.userId) {
-      return
-    }
     const res = NextResponse.redirect(canonical("/api/rpc/logout?afterClerk"))
     const cookies = getCookies({ res, req })
-    // console.log(`🚀 ~ clerkMiddleware ~ cookies:`, Object.keys(cookies))
+    console.log(`🚀 ~ clerkMiddleware ~ cookies:`, Object.keys(cookies))
 
     for (let key of Object.keys(cookies)) {
       if (clerkCookieRe.test(key)) {
         console.log(`🚀 ~ clerkMiddleware ~ k:`, key)
-        res.cookies.set(key, "", { expires: new Date(Date.now() - 30 * 24 * 3600000) })
+        res.cookies.set(key, "")
       }
       // console.log("HEADERS", req.cookies._parsed)
     }
