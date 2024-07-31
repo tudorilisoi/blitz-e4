@@ -1,12 +1,9 @@
 import { ClerkProvider } from "@clerk/nextjs"
 import { roRO } from "@clerk/localizations"
-import { useState } from "react"
 
-export const clerkProps = {
+const clerkProps = {
   signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "",
   signUpUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL || "",
-  afterSignInUrl: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL || "",
-  afterSignUpUrl: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL || "",
   publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "",
 }
 
@@ -17,7 +14,7 @@ export function ClerkProviderWrapper({ children }) {
     </ClerkProvider>
   )
 }
-let counter = 0
+
 export function withClerkProvider<T>(WrappedComponent: React.ComponentType<T>) {
   const ComponentWithClerk = (props) => {
     return (
@@ -28,10 +25,7 @@ export function withClerkProvider<T>(WrappedComponent: React.ComponentType<T>) {
   }
 
   // Try to create a nice displayName for React Dev Tools.
-  let displayName = WrappedComponent.displayName || WrappedComponent.name
-  if (!displayName) {
-    displayName = `Component_${++counter}`
-  }
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || "Component"
   ComponentWithClerk.displayName = `withClerkProvider(${displayName})`
 
   return ComponentWithClerk
