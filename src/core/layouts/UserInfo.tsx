@@ -72,7 +72,7 @@ const UserInfo = () => {
     <>
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-secondary">
-          <span className="px-1">{"Intră în cont"}</span>
+          <span className="px-1">{"Cont"}</span>
         </label>
         <ul tabIndex={0} className={ulClass}>
           <li>
