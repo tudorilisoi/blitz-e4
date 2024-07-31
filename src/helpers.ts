@@ -40,7 +40,7 @@ export const shortenText = (str, maxLength, omission = "...") => {
 }
 
 export const nl2space = (str) => {
-  const RE = /[\r|\n|\s|\W|\t]+/gm
+  const RE = /[\r|\n|\s|\W|\t]+/gmu
   const ret = str.replace(RE, " ")
   return ret
 }
@@ -48,7 +48,7 @@ export const nl2space = (str) => {
 export const nl2br = (str) => {
   // console.log(str)
   return str
-    .split(/(\r|\n)+/m)
+    .split(/(\r|\n)+/mu)
     .filter((i) => {
       // console.log(`[${i}]`)
       return i.trim() !== ""
@@ -65,7 +65,7 @@ export const nl2br = (str) => {
 }
 
 export const obscurePhoneNumbers = (str) => {
-  let re = /([+](\s+)?)?\d(\d|\s|[.-/]){8,}\d/gm
+  let re = /([+](\s+)?)?\d(\d|\s|[.-/]){8,}\d/gmu
   return str.replace(re, "********")
 }
 
