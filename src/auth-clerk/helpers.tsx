@@ -1,8 +1,15 @@
 import { roRO } from "@clerk/localizations"
 import { ClerkProvider } from "@clerk/nextjs"
-import { clerkOptions } from "src/clerkOptions"
 
-const { afterSignInUrl, afterSignUpUrl, ...clerkProps } = clerkOptions
+export const clerkVars = {
+  signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "",
+  signUpUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL || "",
+  afterSignInUrl: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL || "",
+  afterSignUpUrl: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL || "",
+  publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "",
+}
+
+const { afterSignInUrl, afterSignUpUrl, ...clerkProps } = clerkVars
 
 export function ClerkProviderWrapper({ children }) {
   return (
