@@ -10,7 +10,6 @@ import { authConfig } from "./blitz-client"
 
 export async function handleClerkAuth(authObj: ClerkMiddlewareAuthObject, ctx: BlitzCtx) {
   if (authObj.sessionClaims) {
-    ctx.session.clerkAuthObj = authObj
     const userSelect = { id: true, fullName: true, email: true, role: true, activationKey: true }
     let { email, fullName } = authObj.sessionClaims
     let user = await db.user.findFirst({ where: { email }, select: userSelect })
