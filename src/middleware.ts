@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server"
 import url from "url"
 import { clerkOptions } from "./auth-clerk/clerkOptions"
 import { deleteCookie, getCookies } from "cookies-next"
-import { canonical } from "./helpers"
 
 export const config = {
   matcher: [
@@ -18,28 +17,30 @@ const skipRe = new RegExp(config.matcher[0] as string)
 const clerkCookieRe = new RegExp("^(__clerk_db_|__session)")
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   // const user = await currentUser()
-  let { pathname, path } = url.parse(req.url)
+  let { pathname } = url.parse(req.url)
   pathname = pathname || "/"
-  path = path || "/"
   console.log(`🚀 ~ clerkMiddleware ~ url: "${pathname}"`)
   if (skipRe.test(pathname)) {
     console.log(`🚀 ~ clerkMiddleware ~ SKIP url:`, pathname)
   }
 
-  if (path === "/api/rpc/logout") {
-    const res = NextResponse.redirect(canonical("/api/rpc/logout?afterClerk"))
+  if (pathname === "/api/rpc/logout") {
+    const res = NextResponse.next()
     const cookies = getCookies({ res, req })
     console.log(`🚀 ~ clerkMiddleware ~ cookies:`, Object.keys(cookies))
 
     for (let key of Object.keys(cookies)) {
       if (clerkCookieRe.test(key)) {
         console.log(`🚀 ~ clerkMiddleware ~ k:`, key)
-        res.cookies.set(key, "")
+        // req.cookies.delete(key)
+        deleteCookie(key, { req, res })
       }
       // console.log("HEADERS", req.cookies._parsed)
     }
     req.headers.set("x-clerk-auth", "")
-    return res
+    return NextResponse.next({
+      request: req,
+    })
   }
   if (pathname === "/api/rpc/getCurrentUser") {
     const authObj = auth()
