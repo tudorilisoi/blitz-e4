@@ -1,13 +1,13 @@
 import { BlitzPage } from "@blitzjs/next"
 import { SignIn } from "@clerk/nextjs"
-import { clerkVars, ClerkProviderWrapper } from "src/auth-clerk/helpers"
+import { clerkProps, ClerkProviderWrapper } from "src/auth-clerk/helpers"
 
 const SignInPage: BlitzPage = () => {
   return (
     <ClerkProviderWrapper>
       <div className="flex flex-col items-center justify-center py-8 min-h-screen">
         <div>
-          <SignIn forceRedirectUrl={clerkVars.afterSignInUrl} />
+          <SignIn forceRedirectUrl={clerkProps.afterSignInUrl} />
         </div>
       </div>
     </ClerkProviderWrapper>
