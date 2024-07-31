@@ -8,9 +8,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   // const user = await currentUser()
   const authObj = auth()
   console.log(`🚀 ~ clerkMiddleware ~ url:`, url.parse(req.url))
-
-  // NOTE this is the way to preserve data all the way to blitz-server
-  // @see https://github.com/vercel/next.js/discussions/31188#discussioncomment-4914057
   req.headers.set("x-clerk-auth", JSON.stringify(authObj))
   return NextResponse.next({
     request: req,
