@@ -40,6 +40,7 @@
     "@blitzjs/next": "2.0.10",
     "@blitzjs/rpc": "2.0.10",
     "@clerk/clerk-js": "5.10.2",
+    "@clerk/clerk-sdk-node": "5.0.20",
     "@clerk/localizations": "2.5.2",
     "@clerk/nextjs": "5.2.8",
     "@heroicons/react": "2.0.18",
