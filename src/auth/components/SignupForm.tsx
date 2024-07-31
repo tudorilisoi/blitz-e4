@@ -41,6 +41,10 @@ export const SignupForm = (props: SignupFormProps) => {
   }
   return (
     <div className="max-w-screen-sm">
+      <div className="prose mb-3">
+        <h1 className="text-2xl text-base-content">Creează cont</h1>
+      </div>
+
       <Form
         submitText="Creează cont"
         schema={Signup}

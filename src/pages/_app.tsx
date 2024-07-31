@@ -27,7 +27,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
           <InfoIcon />
         </span>
         <h1 className="text-2xl text-info">{"Trebuie să vă conectaţi"}</h1>
-        <Link className="mt-4 btn btn-info" href={Routes.LoginPage({ email: "" })}>
+        <Link className="mt-4 btn btn-info" href={Routes.LoginPage()}>
           {"Conectare"}
         </Link>
       </>

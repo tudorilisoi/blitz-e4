@@ -7,7 +7,6 @@ import { ClerkProviderWrapper, loadClerk } from "src/auth-clerk/helpers"
 import { LoginForm } from "src/auth/components/LoginForm"
 import { useRedirectToUserHome } from "src/core/components/useRedirectToUserHome"
 import Layout from "src/core/layouts/Layout"
-import { canonical } from "src/helpers"
 
 // export const getServerSideProps = gSSPU(({ ctx, query }) => {
 //   console.log(`🚀 ~ getServerSideProps ~ query:`, query)
@@ -53,7 +52,7 @@ const LoginPage: BlitzPage = () => {
                 <div className="flex flex-col items-center justify-center py-8">
                   <div>
                     <SignedOut>
-                      <SignIn forceRedirectUrl={canonical(clerkOptions.afterSignInUrl)} />
+                      <SignIn forceRedirectUrl={clerkOptions.afterSignInUrl} />
                     </SignedOut>
                   </div>
                 </div>
