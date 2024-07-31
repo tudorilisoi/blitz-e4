@@ -57,7 +57,6 @@
     "@types/gm": "1.25.4",
     "autoprefixer": "10.x",
     "blitz": "2.0.10",
-    "cookies-next": "4.2.1",
     "critters": "0.0.20",
     "daisyui": "4.4.19",
     "dayjs": "1.11.10",

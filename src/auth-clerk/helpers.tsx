@@ -40,7 +40,7 @@ export async function logoutClerk() {
   if (clerk.user && clerk.session) {
     await clerk.session
       .end()
-      // .then((res) => console.log(res))
+      .then((res) => console.log(res))
       .catch((error) => console.log("An error occurred:", error.errors))
   }
 }
