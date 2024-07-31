@@ -22,6 +22,7 @@ export const getServerSideProps = gSSP(async (args) => {
     // distinct: [Prisma.PostScalarFieldEnum.userId],
   }
   const latestPosts = await getPosts(cArgs, ctx)
+  console.log(`🚀 ~ getServerSideProps ~ latestPosts:`, latestPosts)
   return { props: { categories, latestPosts } }
 })
 
