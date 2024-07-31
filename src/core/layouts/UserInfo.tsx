@@ -56,7 +56,7 @@ const UserInfo = () => {
               onClick={async () => {
                 closeDropdown()
                 await logoutMutation()
-                // await logoutClerk()
+                await logoutClerk()
                 await router.push("/")
               }}
             >
