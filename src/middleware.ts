@@ -1,11 +1,14 @@
 import { clerkMiddleware } from "@clerk/nextjs/server"
+import { getCookies } from "cookies-next"
 import { NextRequest, NextResponse } from "next/server"
 import url from "url"
 import { clerkOptions } from "./auth-clerk/clerkOptions"
-import { deleteCookie, getCookies } from "cookies-next"
 import { canonical } from "./helpers"
 
 export const config = {
+  unstable_allowDynamic: [
+    "**/node_modules/lodash/_root.js", // use a glob to allow anything in the function-bind 3rd party module
+  ],
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
@@ -60,3 +63,10 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     request: req,
   })
 }, clerkOptions)
+
+// export const config = {
+//   runtime: "edge",
+//     unstable_allowDynamic: [
+//         '**/node_modules/lodash/_root.js', // use a glob to allow anything in the function-bind 3rd party module
+//     ],
+// };

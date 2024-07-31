@@ -1,20 +1,24 @@
 import { BlitzPage } from "@blitzjs/next"
-import { SignedOut, SignIn } from "@clerk/nextjs"
+import { SignedOut, SignUp } from "@clerk/nextjs"
 import { useRouter } from "next/router"
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useState } from "react"
 import { clerkOptions } from "src/auth-clerk/clerkOptions"
-import { ClerkProviderWrapper, loadClerk } from "src/auth-clerk/helpers"
-import { LoginForm } from "src/auth/components/LoginForm"
+import { ClerkProviderWrapper } from "src/auth-clerk/helpers"
+import { SignupForm } from "src/auth/components/SignupForm"
+import { InfoIcon } from "src/core/components/notifications"
+import {
+  messageClassName,
+  messageWrapperClassName,
+  useOverlay,
+} from "src/core/components/overlay/OverlayProvider"
+import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import { useRedirectToUserHome } from "src/core/components/useRedirectToUserHome"
 import Layout from "src/core/layouts/Layout"
 import { canonical } from "src/helpers"
 
-// export const getServerSideProps = gSSPU(({ ctx, query }) => {
-//   console.log(`🚀 ~ getServerSideProps ~ query:`, query)
-//   return { props: { foo: "bar" } }
-// })
-const LoginPage: BlitzPage = () => {
+const SignupPage: BlitzPage = () => {
   const router = useRouter()
+  const { toggle } = useOverlay()
   useRedirectToUserHome()
   const [activeTab, setActiveTab] = useState("social")
   const activeTabClass = "tab-active bg-secondary bg-opacity-80"
@@ -22,21 +26,34 @@ const LoginPage: BlitzPage = () => {
   const socialTabClass = `${tabClass}    ${activeTab === "social" ? activeTabClass : ""}`
   const localTabClass = ` ${tabClass}  ${activeTab === "local" ? activeTabClass : ""}`
 
-  useEffect(() => {
-    loadClerk()
-      .then((clerk) => {
-        console.log("clerk loaded", clerk)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }, [])
+  const successNotification = (
+    <ViewportCentered>
+      <div className={messageWrapperClassName}>
+        <div className="text-center">
+          <InfoIcon />
+        </div>
+        <h2 className={messageClassName}>{"Contul a fost creat"}</h2>
+        <h3 className="text-2xl text-neutral-content">
+          {"Citiţi e-mailul (inclusiv secţiunea spam) pentru a activa contul"}
+        </h3>
+        {/* <button
+          onClick={() => {
+            toggle(false)
+          }}
+          className="btn btn-secondary"
+        >
+          OK
+        </button> */}
+      </div>
+    </ViewportCentered>
+  )
 
   return (
     <>
       <div className="prose mb-3">
-        <h1 className="text-2xl text-base-content">Conectare</h1>
+        <h1 className="text-2xl text-base-content">Creează cont</h1>
       </div>
+
       <div className=" ">
         <div className="tabs  tabs-lg  ">
           <span className={socialTabClass} onClick={() => setActiveTab("social")}>
@@ -53,7 +70,7 @@ const LoginPage: BlitzPage = () => {
                 <div className="flex flex-col items-center justify-center py-8">
                   <div>
                     <SignedOut>
-                      <SignIn forceRedirectUrl={canonical(clerkOptions.afterSignInUrl)} />
+                      <SignUp forceRedirectUrl={canonical(clerkOptions.afterSignUpUrl)} />
                     </SignedOut>
                   </div>
                 </div>
@@ -61,23 +78,16 @@ const LoginPage: BlitzPage = () => {
             </Suspense>
           </div>
           <div className={`${activeTab === "local" ? "mt-4" : "hidden"}`}>
-            <LoginForm
-              onSuccess={(_user) => {
-                const next = router.query.next
-                  ? decodeURIComponent(router.query.next as string)
-                  : "/"
-                return router.push(next)
-              }}
-            />
+            <SignupForm onSuccess={() => toggle(true, { component: successNotification })} />
           </div>
         </div>
       </div>
     </>
   )
 }
-LoginPage.getLayout = (page) => (
-  <Layout title="Conectare">
+SignupPage.getLayout = (page) => (
+  <Layout title="Creează cont">
     <Suspense>{page}</Suspense>
   </Layout>
 )
-export default LoginPage
+export default SignupPage

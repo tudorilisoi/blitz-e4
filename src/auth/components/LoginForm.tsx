@@ -106,7 +106,7 @@ export const LoginForm = (props: LoginFormProps) => {
           {"Nu ai un cont?"}
           <Link
             className="inline-block ml-2 underline text-secondary-content"
-            href={Routes.SignupPage()}
+            href={Routes.SignupPage({ email: "" })}
           >
             <strong>Creează cont</strong>
           </Link>{" "}

@@ -77,13 +77,14 @@ const UserInfo = () => {
         </label>
         <ul tabIndex={0} className={ulClass}>
           <li>
-            <Link
+            <a
               className="py-2 hover:text-accent"
-              href={Routes.SignupPage()}
+              href={`/auth/signup?cacheBust=${new Date().getTime()}`}
+              // href={Routes.LoginPage()}
               onClick={closeDropdown}
             >
               <strong>Creează cont</strong>
-            </Link>
+            </a>
           </li>
 
           <li>

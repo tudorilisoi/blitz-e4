@@ -123,5 +123,9 @@
     "vitest": "1.0.1",
     "webpack-remove-serviceworker-plugin": "1.0.0"
   },
+  "resolutions": {
+    "wrap-ansi": "7.0.0",
+    "string-width": "4.1.0"
+  },
   "private": true
 }
