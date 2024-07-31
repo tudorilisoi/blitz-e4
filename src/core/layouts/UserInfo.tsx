@@ -3,6 +3,7 @@ import { useMutation } from "@blitzjs/rpc"
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { logoutClerk } from "src/auth-clerk/helpers"
 import logout from "src/auth/mutations/logout"
 import { getPostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
@@ -55,7 +56,7 @@ const UserInfo = () => {
               onClick={async () => {
                 closeDropdown()
                 await logoutMutation()
-                // await logoutClerk()
+                await logoutClerk()
                 await router.push("/")
               }}
             >
@@ -86,13 +87,14 @@ const UserInfo = () => {
           </li>
 
           <li>
-            <Link
+            <a
               className="py-2 hover:text-accent"
-              href={Routes.LoginPage()}
+              href={`/auth/login?cacheBust=${new Date().getTime()}`}
+              // href={Routes.LoginPage()}
               onClick={closeDropdown}
             >
               <strong>Conectare</strong>
-            </Link>
+            </a>
           </li>
           <li>
             <Link

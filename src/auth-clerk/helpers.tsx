@@ -44,3 +44,10 @@ export async function logoutClerk() {
       .catch((error) => console.log("An error occurred:", error.errors))
   }
 }
+
+export async function loadClerk() {
+  // Initialize Clerk with your Clerk publishable key
+  const clerk = new Clerk(clerkOptions.publishableKey)
+  await clerk.load()
+  return clerk
+}

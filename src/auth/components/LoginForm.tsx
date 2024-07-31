@@ -26,10 +26,6 @@ export const LoginForm = (props: LoginFormProps) => {
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   return (
     <div className="max-w-screen-sm">
-      <div className="prose mb-3">
-        <h1 className="text-2xl text-base-content">Conectare</h1>
-      </div>
-
       <Form
         submitText="Conectare"
         schema={Login}
