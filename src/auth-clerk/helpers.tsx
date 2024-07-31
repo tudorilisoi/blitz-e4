@@ -29,9 +29,8 @@ export function withClerkProvider<T>(WrappedComponent: React.ComponentType<T>) {
 
   // Try to create a nice displayName for React Dev Tools.
   let displayName = WrappedComponent.displayName || WrappedComponent.name
-  console.log(`🚀 ~ displayName:`, displayName)
   if (!displayName) {
-    displayName = `Component__${++counter}`
+    displayName = `Component_${++counter}`
   }
   ComponentWithClerk.displayName = `withClerkProvider(${displayName})`
 
