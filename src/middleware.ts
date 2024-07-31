@@ -15,10 +15,7 @@ export const config = {
   ],
 }
 const skipRe = new RegExp(config.matcher[0] as string)
-
-// NOTE clerk cookie names
-// @see https://github.com/clerk/javascript/blob/3726b0eb7c89dd227ded62ad0269763ceabc670e/packages/backend/src/constants.ts#L19
-const clerkCookieRe = new RegExp("^(__clerk_handshake|__session|__client_uat|__clerk_db_jwt)")
+const clerkCookieRe = new RegExp("^(__clerk_db_|__session|__client_uat)")
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   // const user = await currentUser()
   let { pathname, path } = url.parse(req.url)
