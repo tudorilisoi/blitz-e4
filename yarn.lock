@@ -1233,13 +1233,6 @@
     "@clerk/types" "4.9.1"
     tslib "2.4.1"
 
-"@clerk/localizations@2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@clerk/localizations/-/localizations-2.5.2.tgz#3d584eca296a03ce19c69450146c54045fd52886"
-  integrity sha512-3zX5dolhx5+6AdbUBtau+AY/7XjUwpl0iL2dnTf9luq/XcxftZTgPxZdN6fQZLWRd8q/IEVPSkhOrYrHgUJADA==
-  dependencies:
-    "@clerk/types" "4.9.1"
-
 "@clerk/nextjs@5.2.8":
   version "5.2.8"
   resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-5.2.8.tgz#c70618e3df9290e9d969383773b5887798d8a4b0"
