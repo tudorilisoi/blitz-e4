@@ -65,17 +65,17 @@ const SignupPage: BlitzPage = () => {
         </div>
         <div className="bordered border-[1px] rounded-lg rounded-t-none border-primary p-4  ">
           <div className={`${activeTab === "social" ? "" : "hidden"}`}>
-            <Suspense>
-              <ClerkProviderWrapper>
-                <div className="flex flex-col items-center justify-center py-8">
-                  <div>
+            <div className="flex flex-col items-center justify-center py-8">
+              <div>
+                <Suspense>
+                  <ClerkProviderWrapper>
                     <SignedOut>
                       <SignUp forceRedirectUrl={canonical(clerkOptions.afterSignUpUrl)} />
                     </SignedOut>
-                  </div>
-                </div>
-              </ClerkProviderWrapper>
-            </Suspense>
+                  </ClerkProviderWrapper>
+                </Suspense>
+              </div>
+            </div>
           </div>
           <div className={`${activeTab === "local" ? "mt-4" : "hidden"}`}>
             <SignupForm onSuccess={() => toggle(true, { component: successNotification })} />

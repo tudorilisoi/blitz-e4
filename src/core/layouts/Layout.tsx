@@ -34,7 +34,7 @@ const NavBar = () => {
           <Suspense
             fallback={
               <label tabIndex={0} className="btn btn-secondary">
-                <span className="px-1">{"Cont"}</span>
+                <span className="px-1">{"Intră în cont"}</span>
               </label>
             }
           >

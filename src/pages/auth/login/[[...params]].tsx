@@ -48,17 +48,17 @@ const LoginPage: BlitzPage = () => {
         </div>
         <div className="bordered border-[1px] rounded-lg rounded-t-none border-primary p-4  ">
           <div className={`${activeTab === "social" ? "" : "hidden"}`}>
-            <Suspense>
-              <ClerkProviderWrapper>
-                <div className="flex flex-col items-center justify-center py-8">
-                  <div>
+            <div className="flex flex-col items-center justify-center py-8">
+              <div>
+                <Suspense>
+                  <ClerkProviderWrapper>
                     <SignedOut>
                       <SignIn forceRedirectUrl={canonical(clerkOptions.afterSignInUrl)} />
                     </SignedOut>
-                  </div>
-                </div>
-              </ClerkProviderWrapper>
-            </Suspense>
+                  </ClerkProviderWrapper>
+                </Suspense>
+              </div>
+            </div>
           </div>
           <div className={`${activeTab === "local" ? "mt-4" : "hidden"}`}>
             <LoginForm
