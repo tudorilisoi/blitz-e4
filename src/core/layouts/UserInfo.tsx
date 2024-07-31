@@ -55,9 +55,9 @@ const UserInfo = () => {
               className="py-2 text-accent-focus hover:text-accent"
               onClick={async () => {
                 closeDropdown()
-                // await logoutClerk()
+                await logoutClerk()
                 await logoutMutation()
-                await router.push("/")
+                // await router.push("/")
               }}
             >
               <strong>Deconectare</strong>
