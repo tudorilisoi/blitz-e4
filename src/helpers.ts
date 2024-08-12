@@ -65,7 +65,7 @@ export const nl2br = (str) => {
 }
 
 export const obscurePhoneNumbers = (str) => {
-  let re = /([+](\s+)?)?\d(\d|\s|[.-/]){10,}\d/gm
+  let re = /([+](\s+)?)?\d(\d|\s|[.-/]){9,}\d/gm
   return str.replace(re, "********")
 }
 
