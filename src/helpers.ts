@@ -65,8 +65,20 @@ export const nl2br = (str) => {
 }
 
 export const obscurePhoneNumbers = (str) => {
-  let re = /([+](\s+)?)?\d(\d|\s|[.-/]){9,}\d/gm
-  return str.replace(re, "********")
+  let retStr = str
+  let re = /([+](\s+)?)?\d(\d|\s|[.-/]){8,}\d/gm
+  const matches = str.matchAll(re)
+  for (const match of matches) {
+    const matchedStr = match[0]
+    const digits = matchedStr.replace(/[^\d]/gm, "")
+
+    // a phone numbar must have 10 digits
+    if (digits.length === 10) {
+      retStr = retStr.replace(matchedStr, "**********")
+    }
+  }
+
+  return retStr
 }
 
 export const S = function (str) {
