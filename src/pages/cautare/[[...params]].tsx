@@ -6,6 +6,7 @@ import { PostWithIncludes } from "src/posts/helpers"
 import PostCell from "src/posts/components/PostCell/PostCell"
 
 export default function SearchPage({}) {
+  // NOTE docs here https://www.algolia.com/doc/api-reference/widgets/infinite-hits/react/
   return (
     <InstantSearch indexName="Post" searchClient={searchClient}>
       <SortBy
@@ -20,7 +21,7 @@ export default function SearchPage({}) {
           classNames={{
             input: "w-full p-4 mb-4",
             form: "",
-            reset: "hidden text-primary",
+            reset: "hidden",
           }}
         />
         <InfiniteHits hitComponent={Hit} />
