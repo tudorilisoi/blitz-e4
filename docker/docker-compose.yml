@@ -16,7 +16,7 @@ services:
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
   meili:
-    image: getmeili/meilisearch:v1.4.2
+    image: getmeili/meilisearch:v1.10.2
     container_name: "e4-meili"
     env_file: ./.env
 

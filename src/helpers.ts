@@ -40,7 +40,7 @@ export const shortenText = (str, maxLength, omission = "...") => {
 }
 
 export const nl2space = (str) => {
-  const RE = /[\r|\n|\s|\W|\t]+/gmu
+  const RE = /[\r|\n|\s|\W|\t]+/gm
   const ret = str.replace(RE, " ")
   return ret
 }

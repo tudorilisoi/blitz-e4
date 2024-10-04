@@ -3689,13 +3689,6 @@ cross-env@7.0.3:
   dependencies:
     cross-spawn "^7.0.1"
 
-cross-fetch@^3.1.6:
-  version "3.1.8"
-  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.8.tgz#0327eba65fd68a7d119f8fb2bf9334a1a7956f82"
-  integrity sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==
-  dependencies:
-    node-fetch "^2.6.12"
-
 cross-spawn@7.0.3, cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
@@ -6866,12 +6859,10 @@ mdast-util-to-string@^4.0.0:
   dependencies:
     "@types/mdast" "^4.0.0"
 
-meilisearch@0.36.0:
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.36.0.tgz#b2d1f6b342aabc89557832638a6ce2a6a7c6bf64"
-  integrity sha512-swcvEYrct0/zsGj3jlbPm1OYxbH14IURnlysKlXywNicIQ5EMkSYLYCLCwOuBKAaGcdISWdgdylH9TXVLegmOQ==
-  dependencies:
-    cross-fetch "^3.1.6"
+meilisearch@0.44.1:
+  version "0.44.1"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.44.1.tgz#1e997b8020b8c0d03d500bcab53f494b51edec90"
+  integrity sha512-ZTZYBmomtRwjaWbvU8U8ct04g/YnrNOlvchogJOPgHcQIQBfjdbAvMJ8mLhuZEzpioYXIT6Cv+FcE150pc2+nw==
 
 mem-fs-editor@8.0.0:
   version "8.0.0"
@@ -7425,13 +7416,6 @@ node-fetch@3.2.3:
     data-uri-to-buffer "^4.0.0"
     fetch-blob "^3.1.4"
     formdata-polyfill "^4.0.10"
-
-node-fetch@^2.6.12:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
-  integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
-  dependencies:
-    whatwg-url "^5.0.0"
 
 node-gyp-build@^4.3.0:
   version "4.6.1"
@@ -9795,11 +9779,6 @@ tr46@^5.0.0:
   dependencies:
     punycode "^2.3.1"
 
-tr46@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
-  integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
-
 trim-lines@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/trim-lines/-/trim-lines-3.0.1.tgz#d802e332a07df861c48802c04321017b1bd87338"
@@ -10367,11 +10346,6 @@ web-streams-polyfill@^3.0.3:
   resolved "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz"
   integrity sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==
 
-webidl-conversions@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
-  integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
-
 webidl-conversions@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz"
@@ -10421,14 +10395,6 @@ whatwg-url@^14.0.0:
   dependencies:
     tr46 "^5.0.0"
     webidl-conversions "^7.0.0"
-
-whatwg-url@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-5.0.0.tgz#966454e8765462e37644d3626f6742ce8b70965d"
-  integrity sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==
-  dependencies:
-    tr46 "~0.0.3"
-    webidl-conversions "^3.0.0"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"

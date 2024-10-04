@@ -32,6 +32,9 @@ db.$use(async (params, next) => {
 
 const postSelect = {
   id: true,
+  createdAt: true,
+  updatedAt: true,
+  expiresAt: true,
   title: true,
   body: true,
   phone: true,
@@ -57,7 +60,7 @@ async function afterCreateOrUpdate(modelName, params, res) {
         select: postSelect,
       })
       // console.log(`DB: ${action} ${model} res`, res, records)
-      meiliClient.index(model).addDocuments(records)
+      await meiliClient.index(model).addDocuments(records)
     }
   } catch (error) {}
 }
@@ -72,7 +75,7 @@ async function beforeDelete(modelName, params) {
     //@ts-ignore
     const modelIds = await db[model].findMany({ where, select: { id: true } })
     const ids = modelIds.map((el) => el.id)
-    meiliClient.index(modelName).deleteDocuments(ids)
+    await meiliClient.index(modelName).deleteDocuments(ids)
   } catch (error) {}
 }
 
