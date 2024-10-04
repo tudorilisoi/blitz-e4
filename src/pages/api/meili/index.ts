@@ -17,6 +17,7 @@ async function rebuildMeiliIndex(req, res: ServerResponse) {
     // take: LIMIT,
     include: postInclude,
   })
+  await meiliClient.deleteIndex("Post").catch(() => "Post index not found in pre-init")
   await init()
   await meiliClient.index("Post").addDocuments(posts.map(mapPostToMeili))
 

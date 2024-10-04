@@ -306,6 +306,7 @@ export const init = async () => {
           "vand telefon": ["vand telefon mobil", "vand smartphone"],
           "vind telefon": ["vand telefon mobil", "vand smartphone"],
           vinzare: ["de vinzare", "de vanzare", "vanzare", "vandut", "vinde", "vand"],
+          munca: ["angajare", "angajeaza", "angajari"],
         })
         const synonims = await client.index(index).getSynonyms()
         logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
@@ -325,6 +326,9 @@ export const init = async () => {
     }
   }
   try {
+    await client
+      .index("Post")
+      .updateLocalizedAttributes([{ locales: ["ron"], attributePatterns: ["*"] }])
     await client.index("Post").updateSortableAttributes(["title", "updatedTimestamp"])
     await client
       .index("Post")
