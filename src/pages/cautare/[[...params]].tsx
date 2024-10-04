@@ -7,15 +7,18 @@ export default function SearchPage({}) {
   return (
     <InstantSearch indexName="Post" searchClient={searchClient}>
       <SearchBox />
-      <InfiniteHits />
+      <InfiniteHits hitComponent={Hit} />
     </InstantSearch>
   )
 }
 SearchPage.getLayout = (page) => <Layout>{page}</Layout>
 
-const Hit = ({ post }) => (
-  <article key={post.id}>
-    <h1>{post.title}</h1>
-    <p>${post.body}</p>
-  </article>
-)
+const Hit = ({ hit }) => {
+  // return <pre>{JSON.stringify(props, null, 2)}</pre>
+  return (
+    <article key={hit.id}>
+      <h1>{hit.title}</h1>
+      {/* <p>{hit.body}</p> */}
+    </article>
+  )
+}

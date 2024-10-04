@@ -257,7 +257,7 @@ const logger = (...args) => {
 
 logger(`MEILI: root`, root)
 
-const init = async () => {
+export const init = async () => {
   const indexes = ["Post"]
 
   const keys = await client.getKeys()
@@ -323,6 +323,17 @@ const init = async () => {
     } catch (error) {
       logger(`MEILI: ERROR ${index} index `, error)
     }
+    await client
+      .index("Post")
+      .updateSearchableAttributes([
+        "title",
+        "body",
+        "category.title",
+        "author.fullName",
+        "author.phone",
+        "author.email",
+      ])
+    logger(`MEILI: Search attributes set`)
   }
 }
 process.env.__MEILI_INITIALIZED = ""

@@ -1155,10 +1155,10 @@
     supports-color "8.1.1"
     url "0.11.0"
 
-"@blitzjs/generator@2.0.10":
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/@blitzjs/generator/-/generator-2.0.10.tgz#9ffd4d1ea1cf49d51dffbac3e08d131cbe691aaa"
-  integrity sha512-5aLS8Yr5so/AyqiS0JN/niCiSF0qmVrfaCalB6ldAb1WkFAxvDDtqI/8yEP/JXUNBKfFSgx49uib6sK3oPTskw==
+"@blitzjs/generator@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@blitzjs/generator/-/generator-2.1.1.tgz#1a4ab1102d73b50d5b4d0adf66d057e09c000b8a"
+  integrity sha512-LHgo1bQ5C0HWbikNeQF5WM6lMJ0l3hCQqeEIwYPV7XI7h9RUwSByOzKcVp6Kk1dxVDuC8t68SseAxPzMoBPexg==
   dependencies:
     "@babel/core" "7.12.10"
     "@babel/plugin-transform-typescript" "7.12.1"
@@ -3072,12 +3072,12 @@ bl@^4.0.3:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-blitz@2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/blitz/-/blitz-2.0.10.tgz#aee99820fde51117eac3cb9e76e1b19b10073f27"
-  integrity sha512-nyavC2oyokyTFwC+TK43OQ52pUKVz8KQ96jJ4Zb/h2rNSNPnNGAox2hqvbO1lrOhaieUoLxFLl+3P3afGpq13A==
+blitz@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/blitz/-/blitz-2.1.1.tgz#28485c2e4df0f5ad81d4e4dd36e4d27fd3c49c27"
+  integrity sha512-luhxSwQkXhk1MWbE15d6nrwcMs/nTPn7/mM8lKZtU4If7bNPAM/lkIqEIUiC6P6qBwFHPCUcDqt5hwl6asE9Rw==
   dependencies:
-    "@blitzjs/generator" "2.0.10"
+    "@blitzjs/generator" "2.1.1"
     "@mrleebo/prisma-ast" "0.2.6"
     "@types/global-agent" "2.1.1"
     arg "5.0.1"
@@ -5799,10 +5799,10 @@ human-signals@^5.0.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-5.0.0.tgz#42665a284f9ae0dade3ba41ebc37eb4b852f3a28"
   integrity sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==
 
-husky@9.0.11:
-  version "9.0.11"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-9.0.11.tgz#fc91df4c756050de41b3e478b2158b87c1e79af9"
-  integrity sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==
+husky@9.1.6:
+  version "9.1.6"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.6.tgz#e23aa996b6203ab33534bdc82306b0cf2cb07d6c"
+  integrity sha512-sqbjZKK7kf44hfdE94EoX8MZNk0n7HeW37O4YrVGCF4wzgQjp+akPAkfUK5LZ6KuR/6sqeAVuXHji+RzQgOn5A==
 
 iconv-lite@0.6.3, iconv-lite@^0.6.3:
   version "0.6.3"

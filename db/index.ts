@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { PrismaClientOptions } from "@prisma/client/runtime/library"
 import { enhancePrisma } from "blitz"
 import { meiliClient } from "integrations/meili"
+import { postInclude } from "src/config"
 
 const EnhancedPrisma = enhancePrisma(PrismaClient)
 const prismaOptions: PrismaClientOptions = {
@@ -30,7 +31,7 @@ db.$use(async (params, next) => {
   })
 })
 
-const postSelect = {
+/* const postSelect = {
   id: true,
   createdAt: true,
   updatedAt: true,
@@ -43,7 +44,7 @@ const postSelect = {
   author: {
     select: { fullName: true, phone: true, email: true },
   },
-}
+} */
 
 async function afterCreateOrUpdate(modelName, params, res) {
   const { action, model, args } = params
@@ -57,7 +58,8 @@ async function afterCreateOrUpdate(modelName, params, res) {
       //@ts-ignore
       const records = await db[model].findMany({
         where: { id: res.id },
-        select: postSelect,
+        // select: postSelect,
+        include: postInclude,
       })
       // console.log(`DB: ${action} ${model} res`, res, records)
       await meiliClient.index(model).addDocuments(records)
