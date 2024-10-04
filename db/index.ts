@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { PrismaClientOptions } from "@prisma/client/runtime/library"
 import { enhancePrisma } from "blitz"
+import dayjs from "dayjs"
 import { meiliClient } from "integrations/meili"
 import { postInclude } from "src/config"
 
@@ -46,6 +47,13 @@ db.$use(async (params, next) => {
   },
 } */
 
+export const mapPostToMeili = (post) => {
+  return {
+    ...post,
+    updatedTimestamp: dayjs(post.updatedAt).unix(),
+  }
+}
+
 async function afterCreateOrUpdate(modelName, params, res) {
   const { action, model, args } = params
   const { data } = args
@@ -62,7 +70,7 @@ async function afterCreateOrUpdate(modelName, params, res) {
         include: postInclude,
       })
       // console.log(`DB: ${action} ${model} res`, res, records)
-      await meiliClient.index(model).addDocuments(records)
+      await meiliClient.index(model).addDocuments(records.map(mapPostToMeili))
     }
   } catch (error) {}
 }

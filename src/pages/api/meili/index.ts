@@ -1,5 +1,5 @@
 import { PostStatuses } from "@prisma/client"
-import db from "db"
+import db, { mapPostToMeili } from "db"
 import { ServerResponse } from "http"
 import { postInclude } from "src/config"
 import { getImageUrl } from "src/core/components/image/helpers"
@@ -18,7 +18,7 @@ async function rebuildMeiliIndex(req, res: ServerResponse) {
     include: postInclude,
   })
   await init()
-  await meiliClient.index("Post").addDocuments(posts)
+  await meiliClient.index("Post").addDocuments(posts.map(mapPostToMeili))
 
   res.setHeader("Content-Type", "application/json")
   res.setHeader("Cache-Control", `public, max-age=${3600}, stale-while-revalidate=59`)

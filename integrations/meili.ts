@@ -323,6 +323,9 @@ export const init = async () => {
     } catch (error) {
       logger(`MEILI: ERROR ${index} index `, error)
     }
+  }
+  try {
+    await client.index("Post").updateSortableAttributes(["title", "updatedTimestamp"])
     await client
       .index("Post")
       .updateSearchableAttributes([
@@ -334,6 +337,8 @@ export const init = async () => {
         "author.email",
       ])
     logger(`MEILI: Search attributes set`)
+  } catch (error) {
+    logger(`MEILI: ERROR Post index `, error)
   }
 }
 process.env.__MEILI_INITIALIZED = ""
