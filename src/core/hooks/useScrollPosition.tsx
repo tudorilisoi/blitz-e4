@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const useScrollPosition = (key: string, conditionFn) => {
+const useScrollPosition = (key: string, conditionFn: () => boolean) => {
   // Save scroll position to sessionStorage when the user scrolls
   const [timer, setTimer] = useState(-1)
   useEffect(() => {
