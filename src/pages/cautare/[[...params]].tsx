@@ -7,6 +7,7 @@ import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
+import { useEffect, useRef } from "react"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc,Post:title:asc"
 
@@ -69,6 +70,7 @@ const Hit = ({ hit }) => {
   )
 }
 
+// NOTE see https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/infinite-scroll/react/
 function CustomInfiniteHits(props) {
   const {
     items,
@@ -82,12 +84,31 @@ function CustomInfiniteHits(props) {
     sendEvent,
   } = useInfiniteHits(props)
   console.log(`🚀 ~ CustomInfiniteHits ~ results:`, results)
+  const sentinelRef = useRef(null)
+  useEffect(() => {
+    if (sentinelRef.current !== null) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isLastPage) {
+            showMore()
+          }
+        })
+      })
+
+      observer.observe(sentinelRef.current)
+
+      return () => {
+        observer.disconnect()
+      }
+    }
+  }, [isLastPage, showMore])
 
   const isInitial = results?.query === ""
 
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
       {isInitial ? null : items.map((item) => <Hit key={item.id} hit={item} />)}
+      <div ref={sentinelRef} aria-hidden="true" />
     </div>
   )
 }
