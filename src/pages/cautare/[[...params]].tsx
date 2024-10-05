@@ -7,10 +7,15 @@ import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
-import { useEffect, useRef } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import styles from "./search.module.css"
+import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache"
+import useScrollPosition from "src/core/hooks/useScrollPosition"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc"
+const sessionStorageCache = createInfiniteHitsSessionStorageCache()
+
+const SCROLL_POSITION_KEY = "meilisearch_scroll"
 
 let timerId
 function queryHook(query, search) {
@@ -22,6 +27,11 @@ function queryHook(query, search) {
 }
 
 export default function SearchPage({}) {
+  const restoreScroll = useScrollPosition(
+    SCROLL_POSITION_KEY,
+    () => window.location.pathname === "/cautare"
+  )
+  useEffect(restoreScroll, [])
   // NOTE docs here https://www.algolia.com/doc/api-reference/widgets/infinite-hits/react/
   const head = (
     <Head>
@@ -62,7 +72,7 @@ export default function SearchPage({}) {
               reset: "hidden",
             }}
           />
-          <CustomInfiniteHits />
+          <CustomInfiniteHits cache={sessionStorageCache} />
         </div>
       </InstantSearch>
     </>
