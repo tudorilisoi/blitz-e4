@@ -1,16 +1,12 @@
 import Layout from "src/core/layouts/Layout"
 
-import {
-  InfiniteHits,
-  InstantSearch,
-  SearchBox,
-  SortBy,
-  useInfiniteHits,
-} from "react-instantsearch"
-import { searchClient } from "src/meili/client"
-import { PostWithIncludes } from "src/posts/helpers"
-import PostCell from "src/posts/components/PostCell/PostCell"
 import Head from "next/head"
+import singletonRouter from "next/router"
+import { InstantSearch, SearchBox, SortBy, useInfiniteHits } from "react-instantsearch"
+import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
+import { searchClient } from "src/meili/client"
+import PostCell from "src/posts/components/PostCell/PostCell"
+import { PostWithIncludes } from "src/posts/helpers"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc,Post:title:asc"
 
@@ -26,6 +22,7 @@ export default function SearchPage({}) {
     Post: {
       // query: 'phone',
       // page: 5,
+
       sortBy: DEFAULT_SORT,
     },
   }
@@ -36,7 +33,17 @@ export default function SearchPage({}) {
       <div className="prose mb3 mb-4">
         <h1 className="text-2xl text-base-content">Căutare</h1>
       </div>
-      <InstantSearch initialUiState={initialUIState} indexName="Post" searchClient={searchClient}>
+      <InstantSearch
+        routing={{
+          router: createInstantSearchRouterNext({
+            singletonRouter,
+            serverUrl: process.env.NEXT_PUBLIC_APP_URL,
+          }),
+        }}
+        initialUiState={initialUIState}
+        indexName="Post"
+        searchClient={searchClient}
+      >
         <SortBy
           className="hidden"
           items={[
