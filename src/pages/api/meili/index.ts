@@ -1,6 +1,6 @@
 import db, { mapPostToMeili } from "db"
 import { ServerResponse } from "http"
-import { init, meiliClient } from "integrations/meili"
+import { init, meiliClient } from "integrations/meili/meili"
 import { postInclude } from "src/config"
 import { formatDate } from "src/helpers"
 const LIMIT = 20
