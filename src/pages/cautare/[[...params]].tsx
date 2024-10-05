@@ -9,7 +9,7 @@ import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
 import { useEffect, useRef } from "react"
 
-const DEFAULT_SORT = "Post:updatedTimestamp:desc,Post:title:asc"
+const DEFAULT_SORT = "Post:updatedTimestamp:desc"
 
 export default function SearchPage({}) {
   // NOTE docs here https://www.algolia.com/doc/api-reference/widgets/infinite-hits/react/
@@ -106,9 +106,20 @@ function CustomInfiniteHits(props) {
   const isInitial = results?.query === ""
 
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-      {isInitial ? null : items.map((item) => <Hit key={item.id} hit={item} />)}
-      <div ref={sentinelRef} aria-hidden="true" />
-    </div>
+    <>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+        {isInitial ? null : items.map((item) => <Hit key={item.id} hit={item} />)}
+      </div>
+      {/* <div ref={sentinelRef} aria-hidden="true" /> */}
+      {isInitial ? null : (
+        <button
+          disabled={isLastPage}
+          onClick={showMore}
+          className="btn btn-primary block w-full mt-4"
+        >
+          Mai multe rezultate...
+        </button>
+      )}
+    </>
   )
 }

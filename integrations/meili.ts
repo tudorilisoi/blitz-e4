@@ -340,17 +340,15 @@ export const init = async () => {
         "author.phone",
         "author.email",
       ])
-    await client
-      .index("Post")
-      .updateRankingRules([
-        "updatedTimestamp:desc",
-        "words",
-        "proximity",
-        "attribute",
-        "typo",
-        "sort",
-        "exactness",
-      ])
+    await client.index("Post").updateRankingRules([
+      "words",
+      "proximity",
+      "attribute",
+      // "updatedTimestamp:desc",
+      "sort",
+      "exactness",
+      "typo",
+    ])
     logger(`MEILI: Settings updated`)
   } catch (error) {
     logger(`MEILI: ERROR on Post index `, error)
