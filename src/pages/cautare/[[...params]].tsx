@@ -18,15 +18,6 @@ export default function SearchPage({}) {
     </Head>
   )
 
-  const initialUIState = {
-    Post: {
-      // query: 'phone',
-      // page: 5,
-
-      sortBy: DEFAULT_SORT,
-    },
-  }
-
   return (
     <>
       {head}
@@ -40,7 +31,6 @@ export default function SearchPage({}) {
             serverUrl: process.env.NEXT_PUBLIC_APP_URL,
           }),
         }}
-        initialUiState={initialUIState}
         indexName="Post"
         searchClient={searchClient}
       >
