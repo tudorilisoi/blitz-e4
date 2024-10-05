@@ -30,9 +30,7 @@ const isSearchPageActive = () => window.location.pathname === "/cautare"
 
 export default function SearchPage({}) {
   const restoreScroll = useScrollPosition(SCROLL_POSITION_KEY, isSearchPageActive)
-  useLayoutEffect(() => {
-    isSearchPageActive() && restoreScroll()
-  }, [])
+  useLayoutEffect(restoreScroll, [])
   // NOTE docs here https://www.algolia.com/doc/api-reference/widgets/infinite-hits/react/
   const head = (
     <Head>

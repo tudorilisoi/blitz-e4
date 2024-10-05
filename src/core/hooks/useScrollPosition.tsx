@@ -30,8 +30,12 @@ const useScrollPosition = (key: string, conditionFn) => {
     const savedScrollPosition = sessionStorage.getItem(key)
     if (savedScrollPosition) {
       window.setTimeout(() => {
+        if (!conditionFn()) {
+          return
+        }
         console.log("Restore scroll")
         window.scrollTo(0, parseInt(savedScrollPosition, 10))
+        sessionStorage.setItem(key, "")
       }, 300)
     }
   }
