@@ -1,12 +1,8 @@
-import { PostStatuses } from "@prisma/client"
 import db, { mapPostToMeili } from "db"
 import { ServerResponse } from "http"
+import { init, meiliClient } from "integrations/meili"
 import { postInclude } from "src/config"
-import { getImageUrl } from "src/core/components/image/helpers"
-import { canonical } from "src/helpers"
-import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
-import { makePostsNavUrl } from "src/pages/anunturi/[[...params]]"
-import { meiliClient, init } from "integrations/meili"
+import { formatDate } from "src/helpers"
 const LIMIT = 20
 async function rebuildMeiliIndex(req, res: ServerResponse) {
   console.log(req.query)
@@ -22,11 +18,11 @@ async function rebuildMeiliIndex(req, res: ServerResponse) {
   await meiliClient.index("Post").addDocuments(posts.map(mapPostToMeili))
 
   res.setHeader("Content-Type", "application/json")
-  res.setHeader("Cache-Control", `public, max-age=${3600}, stale-while-revalidate=59`)
+  res.setHeader("Cache-Control", `public, max-age=${0}`)
   res.end(
     JSON.stringify(
       {
-        status: "IN_PROGRESS",
+        status: `RAN AT ${formatDate(new Date(), formatDate.longDateTime)}`,
       },
       null,
       4

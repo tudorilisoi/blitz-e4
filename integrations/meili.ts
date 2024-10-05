@@ -340,9 +340,20 @@ export const init = async () => {
         "author.phone",
         "author.email",
       ])
-    logger(`MEILI: Search attributes set`)
+    await client
+      .index("Post")
+      .updateRankingRules([
+        "updatedTimestamp:desc",
+        "words",
+        "proximity",
+        "attribute",
+        "typo",
+        "sort",
+        "exactness",
+      ])
+    logger(`MEILI: Settings updated`)
   } catch (error) {
-    logger(`MEILI: ERROR Post index `, error)
+    logger(`MEILI: ERROR on Post index `, error)
   }
 }
 process.env.__MEILI_INITIALIZED = ""
