@@ -26,12 +26,13 @@ function queryHook(query, search) {
   timerId = setTimeout(() => search(query), 200)
 }
 
+const isSearchPageActive = () => window.location.pathname === "/cautare"
+
 export default function SearchPage({}) {
-  const restoreScroll = useScrollPosition(
-    SCROLL_POSITION_KEY,
-    () => window.location.pathname === "/cautare"
-  )
-  useEffect(restoreScroll, [])
+  const restoreScroll = useScrollPosition(SCROLL_POSITION_KEY, isSearchPageActive)
+  useLayoutEffect(() => {
+    isSearchPageActive() && restoreScroll()
+  }, [])
   // NOTE docs here https://www.algolia.com/doc/api-reference/widgets/infinite-hits/react/
   const head = (
     <Head>
