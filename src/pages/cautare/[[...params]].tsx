@@ -1,7 +1,7 @@
 import Layout from "src/core/layouts/Layout"
 
 import Head from "next/head"
-import singletonRouter from "next/router"
+import singletonRouter, { useRouter } from "next/router"
 import { InstantSearch, SearchBox, SortBy, useInfiniteHits } from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
 import { searchClient } from "src/meili/client"
@@ -32,22 +32,24 @@ export default function SearchPage({}) {
   const restoreScroll = useScrollPosition(SCROLL_POSITION_KEY, isSearchPageActive)
   useLayoutEffect(restoreScroll, [])
   // NOTE docs here https://www.algolia.com/doc/api-reference/widgets/infinite-hits/react/
+  const nextRouter = useRouter()
+  const router = createInstantSearchRouterNext({
+    singletonRouter,
+    serverUrl: process.env.NEXT_PUBLIC_APP_URL,
+    routerOptions: {
+      cleanUrlOnDispose: false,
+      push: (url) => {
+        console.log(`🚀 ~ SearchPage ~ url:`, url)
+        // Use replaceState instead of pushState to avoid adding to history
+        nextRouter.replace(url).catch(console.error)
+      },
+    },
+  })
   const head = (
     <Head>
       <title>{`Caută anunțuri în Rădăuți`}</title>
     </Head>
   )
-
-  const router = createInstantSearchRouterNext({
-    singletonRouter,
-    serverUrl: process.env.NEXT_PUBLIC_APP_URL,
-    routerOptions: {
-      push: (url) => {
-        // Use replaceState instead of pushState to avoid adding to history
-        window.history.replaceState(null, "", url)
-      },
-    },
-  })
 
   console.log(`🚀 ~ SearchPage ~ router:`, router)
   return (
@@ -57,6 +59,7 @@ export default function SearchPage({}) {
         <h1 className="text-2xl text-base-content">Căutare</h1>
       </div>
       <InstantSearch
+        future={{ preserveSharedStateOnUnmount: true }}
         routing={{
           router,
         }}
