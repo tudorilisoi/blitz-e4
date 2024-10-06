@@ -38,6 +38,18 @@ export default function SearchPage({}) {
     </Head>
   )
 
+  const router = createInstantSearchRouterNext({
+    singletonRouter,
+    serverUrl: process.env.NEXT_PUBLIC_APP_URL,
+    routerOptions: {
+      push: (url) => {
+        // Use replaceState instead of pushState to avoid adding to history
+        window.history.replaceState(null, "", url)
+      },
+    },
+  })
+
+  console.log(`🚀 ~ SearchPage ~ router:`, router)
   return (
     <>
       {head}
@@ -46,10 +58,7 @@ export default function SearchPage({}) {
       </div>
       <InstantSearch
         routing={{
-          router: createInstantSearchRouterNext({
-            singletonRouter,
-            serverUrl: process.env.NEXT_PUBLIC_APP_URL,
-          }),
+          router,
         }}
         indexName="Post"
         searchClient={searchClient}
