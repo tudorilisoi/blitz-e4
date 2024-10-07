@@ -40,7 +40,7 @@ const useScrollPosition = (key: string, conditionFn: () => boolean) => {
         console.log("Restore scroll")
         window.scrollTo(0, parseInt(savedScrollPosition, 10))
         // sessionStorage.setItem(key, "")
-      }, 300)
+      }, 200)
     }
   }
 }
