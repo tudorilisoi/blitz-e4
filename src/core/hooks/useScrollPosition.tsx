@@ -3,9 +3,13 @@ import { useEffect, useState } from "react"
 const useScrollPosition = (key: string, conditionFn: () => boolean) => {
   // Save scroll position to sessionStorage when the user scrolls
   const [timer, setTimer] = useState(-1)
+  // window && window.history.scrollRestoration = "manual"
   useEffect(() => {
     const saveScrollPosition = () => {
       if (!conditionFn()) {
+        return
+      }
+      if (window.scrollY === 0) {
         return
       }
       timer && window.clearTimeout(timer)
@@ -27,15 +31,15 @@ const useScrollPosition = (key: string, conditionFn: () => boolean) => {
 
   // Restore scroll position on component mount (or when the page reloads)
   return () => {
+    if (!conditionFn()) {
+      return
+    }
     const savedScrollPosition = sessionStorage.getItem(key)
     if (savedScrollPosition) {
       window.setTimeout(() => {
-        if (!conditionFn()) {
-          return
-        }
         console.log("Restore scroll")
         window.scrollTo(0, parseInt(savedScrollPosition, 10))
-        sessionStorage.setItem(key, "")
+        // sessionStorage.setItem(key, "")
       }, 300)
     }
   }

@@ -41,7 +41,12 @@ export default function SearchPage({}) {
       push: (url) => {
         console.log(`🚀 ~ SearchPage ~ url:`, url)
         // Use replaceState instead of pushState to avoid adding to history
-        nextRouter.replace(url).catch(console.error)
+        nextRouter.replace(url, url, { scroll: false }).catch(console.error)
+        // const savedScrollPosition = sessionStorage.getItem(SCROLL_POSITION_KEY)
+        // if (savedScrollPosition) {
+        //   console.log("Restore scroll after push")
+        //   window.scrollTo(0, parseInt(savedScrollPosition, 10))
+        // }
       },
     },
   })
@@ -51,7 +56,6 @@ export default function SearchPage({}) {
     </Head>
   )
 
-  console.log(`🚀 ~ SearchPage ~ router:`, router)
   return (
     <>
       {head}
@@ -148,7 +152,7 @@ function CustomInfiniteHits(props) {
           ? null
           : items.map((item, index) => <Hit key={item.id} hit={item} index={index % 3} />)}
       </div>
-      {/* <div ref={sentinelRef} aria-hidden="true" /> */}
+      <div ref={sentinelRef} aria-hidden="true" />
       {isInitial ? null : (
         <button
           disabled={isLastPage}
