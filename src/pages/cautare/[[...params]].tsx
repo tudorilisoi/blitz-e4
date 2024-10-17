@@ -106,6 +106,7 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
   const lastYear = dayjs().subtract(2, "year").unix()
   const lastMonth = dayjs().subtract(1, "month").unix()
   const last3Months = dayjs().subtract(3, "month").unix()
+  const last6Months = dayjs().subtract(6, "month").unix()
 
   const [st, minv, ly] = [start[0], start[1], lastYear].map((v) =>
     !v ? null : dayjs(v * 1000).format(formatDate.longDateTime)
@@ -118,21 +119,21 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
   }
 
   const opts = [
+    { label: "Toate", value: "ALL" },
     { label: "Mai noi de 31 de zile", value: lastMonth },
     { label: "Mai noi de 3 luni", value: last3Months },
+    { label: "Mai noi de 6 luni", value: last6Months },
     { label: "Mai noi de un an", value: lastYear },
-    { label: "Toate", value: "ALL" },
   ]
 
   function findClosestOpt(timestamp: RangeMin) {
     console.log(`🚀 ~ findClosestOpt ~ timestamp:`, timestamp)
-    let retVal = opts[3]
+    let retVal = opts[0]
     if (!timestamp || timestamp === -Infinity) {
       return retVal
     }
-    let currDistance = Math.abs(+Infinity)
+    let currDistance = +Infinity
 
-    console.log(`🚀 ~ findClosestOpt ~ currDistance:`, currDistance)
     opts.forEach((o) => {
       if (o.value === "ALL") {
         return
