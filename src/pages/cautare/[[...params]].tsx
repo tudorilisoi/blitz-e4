@@ -108,7 +108,7 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
   const last3Months = dayjs().subtract(3, "month").unix()
 
   const [st, minv, ly] = [start[0], start[1], lastYear].map((v) =>
-    dayjs(v * 1000).format(formatDate.longDateTime)
+    !v ? null : dayjs(v * 1000).format(formatDate.longDateTime)
   )
 
   console.log(`🚀 ~ RangeInput`, start, st, minv, ly)
@@ -137,7 +137,7 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
       if (o.value === "ALL") {
         return
       }
-      let diff = Math.abs(timestamp - o.value)
+      let diff = Math.abs(timestamp - Number(o.value))
       if (diff < currDistance) {
         currDistance = diff
         console.log(`🚀 ~ opts.forEach ~ new currDistance:`, currDistance, o)
