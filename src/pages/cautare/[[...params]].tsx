@@ -1,5 +1,6 @@
 import Layout from "src/core/layouts/Layout"
 
+import dayjs from "dayjs"
 import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache"
 import Head from "next/head"
 import singletonRouter, { useRouter } from "next/router"
@@ -7,12 +8,12 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { InstantSearch, SearchBox, SortBy, useInfiniteHits, useRange } from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
 import useScrollPosition from "src/core/hooks/useScrollPosition"
+import { formatDate } from "src/helpers"
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
 import styles from "./search.module.css"
-import dayjs from "dayjs"
-import { formatDate } from "src/helpers"
+import { RangeMin } from "instantsearch.js/es/connectors/range/connectRange"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
@@ -102,19 +103,11 @@ SearchPage.getLayout = (page) => <Layout>{page}</Layout>
 const RangeInput = ({ attribute }: { attribute: string }) => {
   const { range, start, canRefine, refine } = useRange({ attribute })
 
-  const lastYear = dayjs(new Date()).subtract(2, "year").unix()
+  const lastYear = dayjs().subtract(2, "year").unix()
   const lastMonth = dayjs().subtract(1, "month").unix()
   const last3Months = dayjs().subtract(3, "month").unix()
-  const [minValue, setMinValue] = useState<number | "">(lastYear)
-  useEffect(() => {
-    // Refine based on the provided minValue and maxValue (ignoring max if it's empty)
-    refine([
-      minValue || undefined, // If minValue is empty, use the defined min
-      undefined,
-    ])
-  }, [minValue])
 
-  const [st, minv, ly] = [start[0], minValue, lastYear].map((v) =>
+  const [st, minv, ly] = [start[0], start[1], lastYear].map((v) =>
     dayjs(v * 1000).format(formatDate.longDateTime)
   )
 
@@ -124,16 +117,65 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
     return null
   }
 
+  const opts = [
+    { label: "Mai noi de 31 de zile", value: lastMonth },
+    { label: "Mai noi de 3 luni", value: last3Months },
+    { label: "Mai noi de un an", value: lastYear },
+    { label: "Toate", value: "ALL" },
+  ]
+
+  function findClosestOpt(timestamp: RangeMin) {
+    console.log(`🚀 ~ findClosestOpt ~ timestamp:`, timestamp)
+    if (!timestamp) {
+      return null
+    }
+    let retVal = opts[3]
+    let currDistance = Math.abs(+Infinity)
+
+    console.log(`🚀 ~ findClosestOpt ~ currDistance:`, currDistance)
+    opts.forEach((o) => {
+      if (o.value === "ALL") {
+        return
+      }
+      let diff = Math.abs(timestamp - o.value)
+      if (diff < currDistance) {
+        currDistance = diff
+        console.log(`🚀 ~ opts.forEach ~ new currDistance:`, currDistance, o)
+        retVal = o
+      }
+    })
+    return retVal
+  }
+  const selected = findClosestOpt(start[0])
+  console.log(`🚀 ~ RangeInput ~ selected:`, selected)
+
+  const labelProps = {
+    className:
+      "label inline mr-2 text-secondary hover:text-accent-focus focus-within:text-primary font-bold mb-1 mt-1",
+  }
+  const outerProps = { className: "flex flex-col text-0xl" }
+
   return (
     <div>
-      <label htmlFor="min">Min:</label>
-      <input
-        id="min"
-        type="number"
-        value={minValue}
-        min={minValue}
-        onChange={(e) => setMinValue(Number(e.target.value) || "")}
-      />
+      <label className={labelProps.className} htmlFor="timestampFilter">
+        Filtru:
+      </label>
+      <select
+        value={selected?.value}
+        id="timestampFilter"
+        onChange={(e) =>
+          refine([e.target.value === "ALL" ? undefined : Number(e.target.value), undefined])
+        }
+        className="select input-bordered bg-base-200 focus:outline-secondary-focus mb-4"
+      >
+        {opts.map((o) => {
+          return (
+            <option key={o.label} value={o.value}>
+              {o.label}
+            </option>
+          )
+        })}
+      </select>
     </div>
   )
 }
