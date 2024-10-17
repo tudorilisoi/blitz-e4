@@ -126,10 +126,10 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
 
   function findClosestOpt(timestamp: RangeMin) {
     console.log(`🚀 ~ findClosestOpt ~ timestamp:`, timestamp)
-    if (!timestamp) {
-      return null
-    }
     let retVal = opts[3]
+    if (!timestamp || timestamp === -Infinity) {
+      return retVal
+    }
     let currDistance = Math.abs(+Infinity)
 
     console.log(`🚀 ~ findClosestOpt ~ currDistance:`, currDistance)
