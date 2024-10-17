@@ -1,16 +1,18 @@
 import Layout from "src/core/layouts/Layout"
 
+import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache"
 import Head from "next/head"
 import singletonRouter, { useRouter } from "next/router"
-import { InstantSearch, SearchBox, SortBy, useInfiniteHits } from "react-instantsearch"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { InstantSearch, SearchBox, SortBy, useInfiniteHits, useRange } from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
+import useScrollPosition from "src/core/hooks/useScrollPosition"
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
-import { useEffect, useLayoutEffect, useRef } from "react"
 import styles from "./search.module.css"
-import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache"
-import useScrollPosition from "src/core/hooks/useScrollPosition"
+import dayjs from "dayjs"
+import { formatDate } from "src/helpers"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
@@ -87,6 +89,7 @@ export default function SearchPage({}) {
               reset: "hidden",
             }}
           />
+          <RangeInput attribute="updatedTimestamp" />
           <CustomInfiniteHits cache={sessionStorageCache} />
         </div>
       </InstantSearch>
@@ -94,6 +97,46 @@ export default function SearchPage({}) {
   )
 }
 SearchPage.getLayout = (page) => <Layout>{page}</Layout>
+
+// Custom Range Input Component
+const RangeInput = ({ attribute }: { attribute: string }) => {
+  const { range, start, canRefine, refine } = useRange({ attribute })
+
+  const lastYear = dayjs(new Date()).subtract(2, "year").unix()
+  const lastMonth = dayjs().subtract(1, "month").unix()
+  const last3Months = dayjs().subtract(3, "month").unix()
+  const [minValue, setMinValue] = useState<number | "">(lastYear)
+  useEffect(() => {
+    // Refine based on the provided minValue and maxValue (ignoring max if it's empty)
+    refine([
+      minValue || undefined, // If minValue is empty, use the defined min
+      undefined,
+    ])
+  }, [minValue])
+
+  const [st, minv, ly] = [start[0], minValue, lastYear].map((v) =>
+    dayjs(v * 1000).format(formatDate.longDateTime)
+  )
+
+  console.log(`🚀 ~ RangeInput`, start, st, minv, ly)
+
+  if (!canRefine) {
+    return null
+  }
+
+  return (
+    <div>
+      <label htmlFor="min">Min:</label>
+      <input
+        id="min"
+        type="number"
+        value={minValue}
+        min={minValue}
+        onChange={(e) => setMinValue(Number(e.target.value) || "")}
+      />
+    </div>
+  )
+}
 
 const Hit = ({ hit, index }) => {
   // return <pre>{JSON.stringify(props, null, 2)}</pre>
@@ -143,7 +186,8 @@ function CustomInfiniteHits(props) {
     }
   }, [isLastPage, showMore])
 
-  const isInitial = results?.query === ""
+  // const isInitial = results?.query === ""
+  const isInitial = false
 
   return (
     <>
