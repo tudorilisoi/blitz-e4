@@ -69,7 +69,7 @@ export const init = async () => {
           "vand telefon": ["vand telefon mobil", "vand smartphone"],
           "vind telefon": ["vand telefon mobil", "vand smartphone"],
           vinzare: ["de vinzare", "de vanzare", "vanzare", "vandut", "vinde", "vand"],
-          munca: ["angajare", "angajeaza", "angajari"],
+          munca: ["angajare", "angajeaza", "angajari", "angajez"],
         })
         const synonims = await client.index(index).getSynonyms()
         logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
