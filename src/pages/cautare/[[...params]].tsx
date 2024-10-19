@@ -85,6 +85,7 @@ function SearchPageInner({}) {
             input: "w-full p-4 mb-4",
             form: "",
             reset: "hidden",
+            submit: "hidden",
           }}
         />
 
