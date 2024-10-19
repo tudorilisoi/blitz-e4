@@ -5,7 +5,14 @@ import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/i
 import Head from "next/head"
 import singletonRouter, { useRouter } from "next/router"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { InstantSearch, SearchBox, SortBy, useInfiniteHits, useRange } from "react-instantsearch"
+import {
+  InstantSearch,
+  SearchBox,
+  SortBy,
+  useInfiniteHits,
+  useRange,
+  useStats,
+} from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
 import useScrollPosition from "src/core/hooks/useScrollPosition"
 import { formatDate } from "src/helpers"
@@ -14,6 +21,7 @@ import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
 import styles from "./search.module.css"
 import { RangeMin } from "instantsearch.js/es/connectors/range/connectRange"
+import Link from "next/link"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
@@ -30,6 +38,50 @@ function queryHook(query, search) {
 }
 
 const isSearchPageActive = () => window.location.pathname === "/cautare"
+
+function SearchPageInner({}) {
+  const { nbHits, processingTimeMS, query } = useStats()
+
+  const head = (
+    <Head>
+      <title>{`Caută anunțuri în Rădăuți`}</title>
+    </Head>
+  )
+
+  return (
+    <>
+      {head}
+      <div className="prose mb3 mb-4">
+        <h1 className="inline-block not-prose font-extrabold text-2xl text-base-content">
+          <Link className="link link-hover text-accent " href={"/cautare"}>
+            <span className="">{`Căutare`}</span>
+          </Link>
+        </h1>
+      </div>
+
+      <SortBy
+        className="hidden"
+        items={[
+          { label: "Updated (desc)", value: DEFAULT_SORT },
+          // { label: "Title asc", value: "Post:title:asc" },
+          // { label: "Title desc", value: "Post:title:desc" },
+        ]}
+      />
+      <div className="">
+        <SearchBox
+          queryHook={queryHook}
+          classNames={{
+            input: "w-full p-4 mb-4",
+            form: "",
+            reset: "hidden",
+          }}
+        />
+        <RangeInput attribute="updatedTimestamp" />
+        <CustomInfiniteHits cache={sessionStorageCache} />
+      </div>
+    </>
+  )
+}
 
 export default function SearchPage({}) {
   const restoreScroll = useScrollPosition(SCROLL_POSITION_KEY, isSearchPageActive)
@@ -53,48 +105,18 @@ export default function SearchPage({}) {
       },
     },
   })
-  const head = (
-    <Head>
-      <title>{`Caută anunțuri în Rădăuți`}</title>
-    </Head>
-  )
 
   return (
-    <>
-      {head}
-      <div className="prose mb3 mb-4">
-        <h1 className="text-2xl text-base-content">Căutare</h1>
-      </div>
-      <InstantSearch
-        future={{ preserveSharedStateOnUnmount: true }}
-        routing={{
-          router,
-        }}
-        indexName="Post"
-        searchClient={searchClient}
-      >
-        <SortBy
-          className="hidden"
-          items={[
-            { label: "Updated (desc)", value: DEFAULT_SORT },
-            // { label: "Title asc", value: "Post:title:asc" },
-            // { label: "Title desc", value: "Post:title:desc" },
-          ]}
-        />
-        <div className="">
-          <SearchBox
-            queryHook={queryHook}
-            classNames={{
-              input: "w-full p-4 mb-4",
-              form: "",
-              reset: "hidden",
-            }}
-          />
-          <RangeInput attribute="updatedTimestamp" />
-          <CustomInfiniteHits cache={sessionStorageCache} />
-        </div>
-      </InstantSearch>
-    </>
+    <InstantSearch
+      future={{ preserveSharedStateOnUnmount: true }}
+      routing={{
+        router,
+      }}
+      indexName="Post"
+      searchClient={searchClient}
+    >
+      <SearchPageInner />
+    </InstantSearch>
   )
 }
 SearchPage.getLayout = (page) => <Layout>{page}</Layout>
