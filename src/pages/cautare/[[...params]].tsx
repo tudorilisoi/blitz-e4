@@ -10,6 +10,7 @@ import {
   SearchBox,
   SortBy,
   useInfiniteHits,
+  useInstantSearch,
   useRange,
   useStats,
 } from "react-instantsearch"
@@ -22,6 +23,7 @@ import { PostWithIncludes } from "src/posts/helpers"
 import styles from "./search.module.css"
 import { RangeMin } from "instantsearch.js/es/connectors/range/connectRange"
 import Link from "next/link"
+import Delayed from "src/core/components/Delayed"
 
 const DEFAULT_SORT = "Post:updatedTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
@@ -76,6 +78,8 @@ function SearchPageInner({}) {
       />
       <div className="">
         <SearchBox
+          autoFocus={true}
+          spellCheck="true"
           queryHook={queryHook}
           classNames={{
             input: "w-full p-4 mb-4",
@@ -227,7 +231,13 @@ function CustomInfiniteHits(props) {
     showMore,
     sendEvent,
   } = useInfiniteHits(props)
+  const { status } = useInstantSearch()
   console.log(`🚀 ~ CustomInfiniteHits ~ results:`, results)
+  let isLoading = false
+  if (status === "loading" || status === "stalled") {
+    isLoading = true
+  }
+  console.log(`🚀 ~ CustomInfiniteHits ~ status:`, status)
   const sentinelRef = useRef(null)
   useEffect(() => {
     if (sentinelRef.current !== null) {
@@ -250,16 +260,18 @@ function CustomInfiniteHits(props) {
   // const isInitial = results?.query === ""
   const isInitial = false
   const noResults = (
-    <div className="prose">
-      <h2 className="not-prose text-2xl text-error mb-4">{`Nu sunt rezultate 🙁`}</h2>
-      <p>🛈 Puteți alege un alt filtru </p>
-      <p>🛈 Puteți încerca cuvinte mai puține și/sau să verificați dacă ați scris corect </p>
-    </div>
+    <Delayed waitBeforeShow={500}>
+      <div className="prose">
+        <h2 className="not-prose text-2xl text-error mb-4">{`Nu sunt rezultate 🙁`}</h2>
+        <p>🛈 Puteți alege un alt filtru </p>
+        <p>🛈 Puteți încerca cuvinte mai puține și/sau să verificați dacă ați scris corect </p>
+      </div>
+    </Delayed>
   )
 
   return (
     <>
-      {results?.nbHits === 0 ? noResults : null}
+      {!isLoading && results?.nbHits === 0 ? noResults : null}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {items.map((item, index) => (
           <Hit key={item.id} hit={item} index={index % 3} />
