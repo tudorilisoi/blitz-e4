@@ -78,6 +78,7 @@ function SearchPageInner({}) {
       />
       <div className="">
         <SearchBox
+          placeholder="scrie vrei să cauți"
           autoFocus={true}
           spellCheck="true"
           queryHook={queryHook}
