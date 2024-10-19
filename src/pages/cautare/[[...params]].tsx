@@ -251,8 +251,9 @@ function CustomInfiniteHits(props) {
   const isInitial = false
   const noResults = (
     <div className="prose">
-      <h2 className="not-prose text-2xl text-error">{`Nu sunt rezultate`}</h2>
-      <p>Puteți încerca cuvinte mai puține sau să verificați dacă ați scris corect </p>
+      <h2 className="not-prose text-2xl text-error mb-4">{`Nu sunt rezultate 🙁`}</h2>
+      <p>🛈 Puteți alege un alt filtru </p>
+      <p>🛈 Puteți încerca cuvinte mai puține și/sau să verificați dacă ați scris corect </p>
     </div>
   )
 
