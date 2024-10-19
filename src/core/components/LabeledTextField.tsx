@@ -3,38 +3,38 @@ import { useFormContext } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
+// Default input element type
 export const FieldDefaultAsTypeDefault = "input" as const
 export type FieldDefaultAsType = typeof FieldDefaultAsTypeDefault
 
+// Type for Field props
 export type FieldOwnProps<E extends React.ElementType> = {
   children?: React.ReactNode
   as?: E
   name: string
-  /** Field label. */
   label: string
-  /** Field type. Doesn't include radio buttons and checkboxes */
-  // type?: "text" | "password" | "email" | "number"
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
   labelProps?: ComponentPropsWithoutRef<"label">
 }
 
-export const PasswordField = (props) => {
-  const [visible, setvisible] = useState(false)
-
-  const { Tag, tagProps, getValues } = props
+// Password field component
+export const PasswordField = (props: any) => {
+  const [visible, setVisible] = useState(false)
+  const { Tag, tagProps, getValues, setValue } = props
   let cn = tagProps.className || ""
 
-  cn = `${cn} join-item`
-  cn = `join-item px-2`
+  cn = `${cn} join-item px-2`
 
   const newProps = {
     ...tagProps,
     type: visible ? "text" : "password",
     className: cn,
   }
+
   if (getValues().password === "" && tagProps.name === "passwordConfirmation") {
     props.setValue("passwordConfirmation", "")
   }
+
   const input = <Tag {...newProps} />
   const Icon = visible ? EyeSlashIcon : EyeIcon
 
@@ -42,8 +42,8 @@ export const PasswordField = (props) => {
     <div className="join w-fit group input input-bordered px-0">
       {input}
       <div
-        className=" btn  btn-primary join-item px-4 "
-        onClick={() => setvisible((prevValue) => !prevValue)}
+        className="btn btn-primary join-item px-4"
+        onClick={() => setVisible((prevValue) => !prevValue)}
       >
         <span>
           <Icon className="inline-block h-6" />
@@ -53,9 +53,11 @@ export const PasswordField = (props) => {
   )
 }
 
+// Type for field props
 export type FieldProps<E extends React.ElementType> = FieldOwnProps<E> &
   Omit<React.ComponentProps<E>, keyof FieldOwnProps<E>>
 
+// Inner component
 export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefaultAsType>({
   children,
   as,
@@ -64,9 +66,8 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
   labelProps,
   name,
   ...otherProps
-}: FieldProps<E>) => {
+}: FieldProps<E> & { ref?: Ref<any> }) => {
   const Tag = as || FieldDefaultAsTypeDefault
-
   const {
     register,
     getValues,
@@ -74,7 +75,6 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
     formState: { isSubmitting, errors },
   } = useFormContext()
 
-  // console.log("Form errors", errors)
   const labelId = `label_${name}`
   const tprops = {
     id: labelId,
@@ -82,6 +82,7 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
     ...register(name),
     ...otherProps,
   }
+
   let tag
 
   if (otherProps.type === "password") {
@@ -89,6 +90,7 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
   } else {
     tag = <Tag {...tprops}>{children}</Tag>
   }
+
   return (
     <div {...outerProps}>
       <label {...labelProps} htmlFor={labelId}>
@@ -110,6 +112,17 @@ export const LabeledTextFieldInner = <E extends React.ElementType = FieldDefault
     </div>
   )
 }
-export const LabeledTextField = forwardRef<React.ElementType, any>((props, ref) => {
-  return <LabeledTextFieldInner {...{ ...props, ref }} />
-})
+
+// The main component with correct forwardRef typing
+export const LabeledTextField = forwardRef<any, FieldProps<any>>(
+  ({ name, label, ...props }, ref) => {
+    return (
+      <LabeledTextFieldInner
+        {...props} // Spread remaining props (including outerProps, labelProps, etc.)
+        name={name} // Ensure name is passed
+        label={label} // Ensure label is passed
+        ref={ref} // Pass ref correctly
+      />
+    )
+  }
+)
