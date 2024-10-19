@@ -51,12 +51,19 @@ function SearchPageInner({}) {
   return (
     <>
       {head}
-      <div className="prose mb3 mb-4">
-        <h1 className="inline-block not-prose font-extrabold text-2xl text-base-content">
-          <Link className="link link-hover text-accent " href={"/cautare"}>
-            <span className="">{`Căutare`}</span>
-          </Link>
-        </h1>
+      <div className="">
+        <div className="flex flex-column flex-wrap place-items-center w-full pb-4">
+          <div className="flex">
+            <h1 className="not-prose font-extrabold text-2xl text-base-content">
+              <Link className="link link-hover text-accent " href={"/cautare"}>
+                <span className="">{`Căutare`}</span>
+              </Link>{" "}
+            </h1>
+          </div>
+          <div className="flex pl-4">
+            <RangeInput attribute="updatedTimestamp" />
+          </div>
+        </div>
       </div>
 
       <SortBy
@@ -76,7 +83,7 @@ function SearchPageInner({}) {
             reset: "hidden",
           }}
         />
-        <RangeInput attribute="updatedTimestamp" />
+
         <CustomInfiniteHits cache={sessionStorageCache} />
       </div>
     </>
@@ -180,16 +187,16 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
 
   return (
     <div>
-      <label className={labelProps.className} htmlFor="timestampFilter">
+      {/* <label className={labelProps.className} htmlFor="timestampFilter">
         Filtru:
-      </label>
+      </label> */}
       <select
         value={selected?.value}
         id="timestampFilter"
         onChange={(e) =>
           refine([e.target.value === "ALL" ? undefined : Number(e.target.value), undefined])
         }
-        className="select input-bordered bg-base-200 focus:outline-secondary-focus mb-4"
+        className="select input-bordered bg-base-200 focus:outline-secondary-focus"
       >
         {opts.map((o) => {
           return (
