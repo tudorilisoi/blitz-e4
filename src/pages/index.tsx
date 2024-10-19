@@ -48,23 +48,6 @@ const AD_TITLE = "Tavidor, firmă recomandată în Tâmplărie PVC de calitate s
 const Home = ({ categories, latestPosts }) => {
   return (
     <>
-      <a
-        title={AD_TITLE}
-        href={AD_HREF}
-        className="block m-auto text-center text-accent  bg-neutral-700 rounded-md p-4 mb-6"
-      >
-        <p className="relative inset-0 block mb-2">PROMO: {AD_TITLE}</p>
-        <div
-          style={{
-            width: "100%",
-            height: "30vh",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundImage: `url('${AD_SRC}')`,
-          }}
-          className="bg-cover bg-no-repeat m-auto rounded-lg"
-        />
-      </a>
       <div>
         <Suspense fallback={<Spinner />}>
           <div className="prose mb-3">
@@ -84,6 +67,23 @@ const Home = ({ categories, latestPosts }) => {
             ))}
           </div>
         </Suspense>
+        <a
+          title={AD_TITLE}
+          href={AD_HREF}
+          className="block m-auto text-center text-accent  bg-neutral-700 rounded-md p-4 mt-6"
+        >
+          <p className="relative inset-0 block mb-2">PROMO: {AD_TITLE}</p>
+          <div
+            style={{
+              width: "100%",
+              height: "30vh",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundImage: `url('${AD_SRC}')`,
+            }}
+            className="bg-cover bg-no-repeat m-auto rounded-lg"
+          />
+        </a>
       </div>
     </>
   )
