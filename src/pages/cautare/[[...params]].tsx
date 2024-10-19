@@ -66,17 +66,17 @@ function SearchPageInner({}) {
             <RangeInput attribute="updatedTimestamp" />
           </div>
           <div className="flex-grow text-end">
-            {nbHits === 1000 ? null : (
+            {
               <>
                 <span className="font-extrabold">
                   {pluralize(nbHits, {
                     none: "niciun anunț",
                     one: "1 anunț",
-                    many: `${nbHits} anunțuri`,
+                    many: nbHits === 1000 ? `+1000 anunțuri` : `${nbHits} anunțuri`,
                   })}
                 </span>
               </>
-            )}
+            }
           </div>
         </div>
       </div>
