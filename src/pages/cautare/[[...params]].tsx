@@ -143,10 +143,6 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
 
   console.log(`🚀 ~ RangeInput`, start, st, minv, ly)
 
-  if (!canRefine) {
-    return null
-  }
-
   const opts = [
     { label: "Toate", value: "ALL" },
     { label: "Mai noi de 31 de zile", value: lastMonth },
@@ -211,8 +207,6 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
 }
 
 const Hit = ({ hit, index }) => {
-  // return <pre>{JSON.stringify(props, null, 2)}</pre>
-  // console.log(hit.updatedTimestamp)
   const post = hit as PostWithIncludes
   return (
     <div className="mb-2" style={{ opacity: 0, animation: animStr(index) }}>
@@ -260,16 +254,23 @@ function CustomInfiniteHits(props) {
 
   // const isInitial = results?.query === ""
   const isInitial = false
+  const noResults = (
+    <div className="prose">
+      <h2 className="not-prose text-2xl text-error">{`Nu sunt rezultate`}</h2>
+      <p>Puteți încerca cuvinte mai puține sau să verificați dacă ați scris corect </p>
+    </div>
+  )
 
   return (
     <>
+      {results?.nbHits === 0 ? noResults : null}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-        {isInitial
-          ? null
-          : items.map((item, index) => <Hit key={item.id} hit={item} index={index % 3} />)}
+        {items.map((item, index) => (
+          <Hit key={item.id} hit={item} index={index % 3} />
+        ))}
       </div>
       <div ref={sentinelRef} aria-hidden="true" />
-      {isInitial ? null : (
+      {isInitial || results?.nbHits === 0 ? null : (
         <button
           disabled={isLastPage}
           onClick={showMore}
