@@ -16,7 +16,7 @@ import {
 } from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
 import useScrollPosition from "src/core/hooks/useScrollPosition"
-import { formatDate } from "src/helpers"
+import { formatDate, pluralize } from "src/helpers"
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
@@ -64,6 +64,19 @@ function SearchPageInner({}) {
           </div>
           <div className="flex pl-4">
             <RangeInput attribute="updatedTimestamp" />
+          </div>
+          <div className="flex-grow text-end">
+            {nbHits === 1000 ? null : (
+              <>
+                <span className="font-extrabold">
+                  {pluralize(nbHits, {
+                    none: "niciun anunț",
+                    one: "1 anunț",
+                    many: `${nbHits} anunțuri`,
+                  })}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>
