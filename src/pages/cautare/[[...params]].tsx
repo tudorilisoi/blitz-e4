@@ -104,11 +104,6 @@ export default function SearchPage({}) {
         console.log(`🚀 ~ SearchPage ~ url:`, url)
         // Use replaceState instead of pushState to avoid adding to history
         nextRouter.replace(url, url, { scroll: false }).catch(console.error)
-        // const savedScrollPosition = sessionStorage.getItem(SCROLL_POSITION_KEY)
-        // if (savedScrollPosition) {
-        //   console.log("Restore scroll after push")
-        //   window.scrollTo(0, parseInt(savedScrollPosition, 10))
-        // }
       },
     },
   })
