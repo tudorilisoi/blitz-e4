@@ -91,7 +91,7 @@ function SearchPageInner({}) {
       />
       <div className="">
         <SearchBox
-          placeholder="scrie vrei să cauți"
+          placeholder="scrie ce vrei să cauți"
           autoFocus={true}
           spellCheck="true"
           queryHook={queryHook}
@@ -150,6 +150,8 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
   const lastMonth = dayjs().subtract(1, "month").unix()
   const last3Months = dayjs().subtract(3, "month").unix()
   const last6Months = dayjs().subtract(6, "month").unix()
+
+  const randomNumberForRC = Math.random()
 
   const [st, minv, ly] = [start[0], start[1], lastYear].map((v) =>
     !v ? null : dayjs(v * 1000).format(formatDate.longDateTime)
