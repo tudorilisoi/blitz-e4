@@ -12,6 +12,7 @@ import {
 } from "../components/overlay/OverlayProvider"
 import Script from "next/script"
 import { GTag } from "../components/gtag"
+import { canonical } from "src/helpers"
 
 // because https://nextjs.org/docs/messages/react-hydration-error
 const UserInfo = dynamic(() => import("./UserInfo"), { ssr: false })
@@ -113,7 +114,8 @@ const Layout: BlitzLayout<{
             {/* Add your footer content here */}
             <p className="text-base-content font-extrabold">
               © {new Date().getFullYear()} {"eRădăuţi v3"} |{" "}
-              <Link href="/static-page/termeni-si-conditii">Termeni și condiții</Link>
+              <Link href="/static-page/termeni-si-conditii">Termeni și condiții</Link> |{" "}
+              <Link href={canonical("/cautare")}>Căutare</Link>
             </p>
           </div>
         </footer>
