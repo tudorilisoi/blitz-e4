@@ -118,7 +118,10 @@ export const init = async () => {
     logger(`MEILI: ERROR on Post index `, error)
   }
 }
-process.env.__MEILI_INITIALIZED = ""
+
+// NOTE use/api/meili to reinitialize meili
+
+/* process.env.__MEILI_INITIALIZED = "true"
 if (!process.env.__MEILI_INITIALIZED) {
   process.env.__MEILI_INITIALIZED = "true"
 
@@ -129,7 +132,7 @@ if (!process.env.__MEILI_INITIALIZED) {
     .catch((error) => {
       console.error(`MEILI: INIT ERROR`, error)
     })
-}
+} */
 
 export { client as meiliClient }
 
