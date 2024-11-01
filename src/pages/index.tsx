@@ -25,7 +25,8 @@ export const getServerSideProps = gSSP(async (args) => {
     // distinct: [Prisma.PostScalarFieldEnum.userId],
   }
   const latestPosts = await getPosts(cArgs, ctx)
-  return { props: { categories, latestPosts } }
+  const lastYearUnixSeconds = dayjs().subtract(1, "year").unix()
+  return { props: { categories, latestPosts, lastYearUnixSeconds } }
 })
 
 /* function AboutPage() {
@@ -48,21 +49,18 @@ const AD_SRC =
 const AD_HREF = "https://www.tavidor.ro/tamplarie-pvc/"
 const AD_TITLE = "Tavidor, firmă recomandată în Tâmplărie PVC de calitate superioară"
 
-const FrontPageSearch = () => {
+const FrontPageSearch = ({ lastYearUnixSeconds }) => {
   const nextRouter = useRouter()
-  const lastYear = dayjs().subtract(1, "year").unix()
-  const url = `cautare?Post%5Brange%5D%5BupdatedTimestamp%5D=${lastYear}%3A&Post%5Bpage%5D=1`
+
+  const url = `cautare?Post%5Brange%5D%5BupdatedTimestamp%5D=${lastYearUnixSeconds}%3A&Post%5Bpage%5D=1`
   return (
-    <Link href={url}>
-      <div className="mb-4 p-4 border-primary border-2 rounded-md">
+    <Link className="" href={url}>
+      <div className="mb-4 p-4 border-primary border-2 rounded-md hover:bg-primary hover:bg-opacity-30">
         <div className="flex flex-column flex-wrap place-items-center w-full">
           <div className="flex">
             <h2 className="not-prose font-extrabold text-2xl text-base-content">
-              <span className="link link-hover text-accent">{`Căutare`}</span>
+              <span className="link link-hover text-accent">{`Caută în peste 3000 de anunțuri`}</span>
             </h2>
-          </div>
-          <div className="flex-grow text-end">
-            <p>Caută în peste 3000 de anunțuri</p>
           </div>
         </div>
       </div>
@@ -70,12 +68,12 @@ const FrontPageSearch = () => {
   )
 }
 
-const Home = ({ categories, latestPosts }) => {
+const Home = ({ categories, latestPosts, lastYearUnixSeconds }) => {
   return (
     <>
       <div>
         <Suspense fallback={<Spinner />}>
-          <FrontPageSearch />
+          <FrontPageSearch lastYearUnixSeconds={lastYearUnixSeconds} />
           <div className="prose mb-3">
             <h1 className="text-2xl text-base-content">Anunţuri recente</h1>
           </div>
