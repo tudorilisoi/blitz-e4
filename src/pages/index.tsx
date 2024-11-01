@@ -53,20 +53,20 @@ const FrontPageSearch = () => {
   const lastYear = dayjs().subtract(1, "year").unix()
   const url = `cautare?Post%5Brange%5D%5BupdatedTimestamp%5D=${lastYear}%3A&Post%5Bpage%5D=1`
   return (
-    <div className="mb-4 p-4 border-primary border-2 rounded-md">
-      <div className="flex flex-column flex-wrap place-items-center w-full">
-        <div className="flex">
-          <h2 className="not-prose font-extrabold text-2xl text-base-content">
-            <Link className="link link-hover text-accent " href={url}>
-              <span className="">{`Căutare`}</span>
-            </Link>{" "}
-          </h2>
-        </div>
-        <div className="flex-grow text-end">
-          <p>Caută în peste 3000 de anunțuri</p>
+    <Link href={url}>
+      <div className="mb-4 p-4 border-primary border-2 rounded-md">
+        <div className="flex flex-column flex-wrap place-items-center w-full">
+          <div className="flex">
+            <h2 className="not-prose font-extrabold text-2xl text-base-content">
+              <span className="link link-hover text-accent ">{`Căutare`}</span>
+            </h2>
+          </div>
+          <div className="flex-grow text-end">
+            <p>Caută în peste 3000 de anunțuri</p>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
