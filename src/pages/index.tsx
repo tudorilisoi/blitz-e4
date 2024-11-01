@@ -10,6 +10,7 @@ import CategoryCell from "src/posts/components/CategoryCell"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
@@ -57,10 +58,13 @@ const FrontPageSearch = ({ lastYearUnixSeconds }) => {
     <Link className="" href={url}>
       <div className="mb-4 p-4 border-primary border-2 rounded-md hover:bg-primary hover:bg-opacity-30">
         <div className="flex flex-column flex-wrap place-items-center w-full">
-          <div className="flex">
+          <div className="flex flex-grow">
             <h2 className="not-prose font-extrabold text-2xl text-base-content">
               <span className="link link-hover text-accent">{`Caută în peste 3000 de anunțuri`}</span>
             </h2>
+          </div>
+          <div className="flex">
+            <MagnifyingGlassIcon className="inline-block w-[2em] h-[2em]" />
           </div>
         </div>
       </div>
