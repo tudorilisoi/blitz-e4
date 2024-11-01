@@ -1,4 +1,5 @@
 import { PostStatuses, Prisma } from "@prisma/client"
+import dayjs from "dayjs"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Suspense } from "react"
@@ -49,11 +50,11 @@ const AD_TITLE = "Tavidor, firmă recomandată în Tâmplărie PVC de calitate s
 
 const FrontPageSearch = () => {
   const nextRouter = useRouter()
-  // const url = "/cautare"
-  const url = "/cautare?Post%5Brange%5D%5BupdatedTimestamp%5D=1667272648%3A"
+  const lastYear = dayjs().subtract(1, "year").unix()
+  const url = `cautare?Post%5Brange%5D%5BupdatedTimestamp%5D=${lastYear}%3A&Post%5Bpage%5D=1`
   return (
-    <>
-      <div className="flex flex-column flex-wrap place-items-center w-full pb-4">
+    <div className="mb-4 p-4 border-primary border-2 rounded-md">
+      <div className="flex flex-column flex-wrap place-items-center w-full">
         <div className="flex">
           <h2 className="not-prose font-extrabold text-2xl text-base-content">
             <Link className="link link-hover text-accent " href={url}>
@@ -61,20 +62,11 @@ const FrontPageSearch = () => {
             </Link>{" "}
           </h2>
         </div>
+        <div className="flex-grow text-end">
+          <p>Caută în peste 3000 de anunțuri</p>
+        </div>
       </div>
-      <div>
-        <form>
-          <input
-            onFocus={() => {
-              nextRouter.push(url, url, { scroll: false }).catch(console.error)
-            }}
-            placeholder="scrie ce vrei să cauți"
-            className="w-full p-4 mb-4"
-            type="text"
-          />
-        </form>
-      </div>
-    </>
+    </div>
   )
 }
 
