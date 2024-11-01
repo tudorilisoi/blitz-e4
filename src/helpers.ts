@@ -167,5 +167,8 @@ export const sleep = (ms) => {
 }
 
 export const canonical = (url: string) => {
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url
+  }
   return process.env.NEXT_PUBLIC_APP_URL + url
 }
