@@ -1,4 +1,6 @@
 import { PostStatuses, Prisma } from "@prisma/client"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import { Suspense } from "react"
 import { gSSP } from "src/blitz-server"
 import Spinner from "src/core/components/spinner/Spinner"
@@ -45,11 +47,43 @@ const AD_SRC =
 const AD_HREF = "https://www.tavidor.ro/tamplarie-pvc/"
 const AD_TITLE = "Tavidor, firmă recomandată în Tâmplărie PVC de calitate superioară"
 
+const FrontPageSearch = () => {
+  const nextRouter = useRouter()
+  // const url = "/cautare"
+  const url = "/cautare?Post%5Brange%5D%5BupdatedTimestamp%5D=1667272648%3A"
+  return (
+    <>
+      <div className="flex flex-column flex-wrap place-items-center w-full pb-4">
+        <div className="flex">
+          <h2 className="not-prose font-extrabold text-2xl text-base-content">
+            <Link className="link link-hover text-accent " href={url}>
+              <span className="">{`Căutare`}</span>
+            </Link>{" "}
+          </h2>
+        </div>
+      </div>
+      <div>
+        <form>
+          <input
+            onFocus={() => {
+              nextRouter.push(url, url, { scroll: false }).catch(console.error)
+            }}
+            placeholder="scrie ce vrei să cauți"
+            className="w-full p-4 mb-4"
+            type="text"
+          />
+        </form>
+      </div>
+    </>
+  )
+}
+
 const Home = ({ categories, latestPosts }) => {
   return (
     <>
       <div>
         <Suspense fallback={<Spinner />}>
+          <FrontPageSearch />
           <div className="prose mb-3">
             <h1 className="text-2xl text-base-content">Anunţuri recente</h1>
           </div>
