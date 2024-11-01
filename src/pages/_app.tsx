@@ -9,6 +9,7 @@ import { messageWrapperClassName } from "src/core/components/overlay/OverlayProv
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import "src/styles/init.css"
+import { ClerkProvider } from "@clerk/nextjs"
 
 // "react-photo-gallery" does funky measurements in the DOM
 // this upsets next.js, monkey patch FTW
@@ -68,7 +69,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      {getLayout(<Component {...pageProps} />)}
+      <ClerkProvider {...pageProps}>{getLayout(<Component {...pageProps} />)}</ClerkProvider>
     </ErrorBoundary>
   )
 }

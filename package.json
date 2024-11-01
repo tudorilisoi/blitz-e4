@@ -39,6 +39,7 @@
     "@blitzjs/auth": "2.1.3",
     "@blitzjs/next": "2.1.3",
     "@blitzjs/rpc": "2.1.3",
+    "@clerk/nextjs": "6.1.0",
     "@heroicons/react": "2.0.18",
     "@hookform/error-message": "2.0.1",
     "@hookform/resolvers": "3.3.2",
