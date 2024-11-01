@@ -58,7 +58,7 @@ const FrontPageSearch = () => {
         <div className="flex flex-column flex-wrap place-items-center w-full">
           <div className="flex">
             <h2 className="not-prose font-extrabold text-2xl text-base-content">
-              <span className="link link-hover text-accent ">{`Căutare`}</span>
+              <span className="link link-hover text-accent">{`Căutare`}</span>
             </h2>
           </div>
           <div className="flex-grow text-end">
