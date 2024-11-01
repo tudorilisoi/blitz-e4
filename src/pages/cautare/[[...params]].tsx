@@ -146,7 +146,7 @@ SearchPage.getLayout = (page) => <Layout>{page}</Layout>
 const RangeInput = ({ attribute }: { attribute: string }) => {
   const { range, start, canRefine, refine } = useRange({ attribute })
 
-  const lastYear = dayjs().subtract(2, "year").unix()
+  const lastYear = dayjs().subtract(1, "year").unix()
   const lastMonth = dayjs().subtract(1, "month").unix()
   const last3Months = dayjs().subtract(3, "month").unix()
   const last6Months = dayjs().subtract(6, "month").unix()
