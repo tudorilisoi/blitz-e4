@@ -29,7 +29,9 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="flex-none gap-2 mr-2 text-base-content">
-          <Link href={Routes.NewPostPage()}>Publică anunţ</Link>
+          <Link className="text-accent font-extrabold" href={Routes.NewPostPage()}>
+            Publică anunţ
+          </Link>
         </div>
         <div className="flex-none gap-2">
           <Suspense
