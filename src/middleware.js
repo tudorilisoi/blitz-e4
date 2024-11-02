@@ -1,15 +1,25 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { NextResponse } from "next/server"
 
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"])
 
-// This example protects all routes including api/trpc routes
-// Please edit this to allow other routes to be public as needed.
-// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your middleware
+// See https://vercel.com/templates/next.js/edge-functions-modify-request-header
 export default clerkMiddleware(
   async (auth, req) => {
     try {
       const _auth = await auth()
       console.log(`${req.url} 🚀 ~ clerkMiddleware ~ userId:`, _auth.userId)
+
+      const requestHeaders = new Headers(req.headers)
+      // TODO add an md5 hash
+      requestHeaders.set("x-clerk-decoded", JSON.stringify(_auth.sessionClaims))
+
+      return NextResponse.next({
+        request: {
+          // New request headers
+          headers: requestHeaders,
+        },
+      })
     } catch (error) {
       console.log(`🚀 ~ error:`, error)
     }

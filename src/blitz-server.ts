@@ -5,6 +5,7 @@ import db from "db"
 import { authConfig } from "./blitz-client"
 
 const fmw = BlitzServerMiddleware(async (req, res, next) => {
+  console.log(`🚀 ~ fmw ~ req:`, req.headers["x-clerk-decoded"])
   // req.url = canonical(req.url || "")
   console.log(`${req.url} BLITZ PLUGIN`)
   return next()
