@@ -6,7 +6,9 @@ const SignInPage = () => (
       <SignIn />
     </SignedOut>
     <SignedIn>
-      <SignOutButton>Deconectare</SignOutButton>
+      <div className="btn btn-primary">
+        <SignOutButton>Deconectare</SignOutButton>
+      </div>
     </SignedIn>
   </div>
 )

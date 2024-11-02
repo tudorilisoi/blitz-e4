@@ -87,7 +87,7 @@ export const LoginForm = (props: LoginFormProps) => {
           }
         }}
       >
-        <div className="mb-4">
+        <div className="mb-8">
           <Link
             className="btn btn-primary w-full"
             href={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "/clerk/sign-up"}
@@ -95,6 +95,9 @@ export const LoginForm = (props: LoginFormProps) => {
             Conectare cu Google, Facebook sau Apple
           </Link>
         </div>
+
+        <div className="divider">SAU CU E-MAIL SI PAROLA</div>
+
         <LabeledTextField
           labelProps={labelProps}
           outerProps={outerProps}

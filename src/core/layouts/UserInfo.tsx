@@ -78,18 +78,30 @@ const UserInfo = () => {
         </label>
         <ul tabIndex={0} className={ulClass}>
           <li>
-            <Link className="py-2 hover:text-accent" href={Routes.SignupPage()}>
+            <Link
+              onClick={closeDropdown}
+              className="py-2 hover:text-accent"
+              href={Routes.SignupPage()}
+            >
               <strong>Creează cont</strong>
             </Link>
           </li>
 
           <li>
-            <Link className="py-2 hover:text-accent" href={Routes.LoginPage()}>
+            <Link
+              onClick={closeDropdown}
+              className="py-2 hover:text-accent"
+              href={Routes.LoginPage()}
+            >
               <strong>Conectare</strong>
             </Link>
           </li>
           <li>
-            <Link className="py-2 hover:text-accent" href={Routes.ForgotPasswordPage()}>
+            <Link
+              onClick={closeDropdown}
+              className="py-2 hover:text-accent"
+              href={Routes.ForgotPasswordPage()}
+            >
               <strong>Am uitat parola</strong>
             </Link>
           </li>
