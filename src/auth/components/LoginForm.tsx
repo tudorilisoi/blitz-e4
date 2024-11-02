@@ -87,6 +87,14 @@ export const LoginForm = (props: LoginFormProps) => {
           }
         }}
       >
+        <div className="mb-4">
+          <Link
+            className="btn btn-primary w-full"
+            href={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "/clerk/sign-up"}
+          >
+            Conectare cu Google, Facebook sau Apple
+          </Link>
+        </div>
         <LabeledTextField
           labelProps={labelProps}
           outerProps={outerProps}

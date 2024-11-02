@@ -1,5 +1,6 @@
 import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
+import { useClerk } from "@clerk/nextjs"
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -9,6 +10,7 @@ import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 const UserInfo = () => {
   const router = useRouter()
+  const { signOut } = useClerk()
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
   const ulClass = `mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52`
@@ -53,6 +55,9 @@ const UserInfo = () => {
               className="py-2 text-accent-focus hover:text-accent"
               onClick={async () => {
                 closeDropdown()
+                await signOut().catch((e) => {
+                  console.error("CLERK signOut err", e)
+                })
                 await logoutMutation()
                 await router.push("/")
               }}
