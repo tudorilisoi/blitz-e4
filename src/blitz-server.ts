@@ -6,7 +6,7 @@ import { authConfig } from "./blitz-client"
 
 const fmw = BlitzServerMiddleware(async (req, res, next) => {
   // req.url = canonical(req.url || "")
-  console.log("BLITZ PLUGIN")
+  console.log(`${req.url} BLITZ PLUGIN`)
   return next()
 })
 

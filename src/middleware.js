@@ -9,7 +9,7 @@ export default clerkMiddleware(
   async (auth, req) => {
     try {
       const _auth = await auth()
-      console.log(`🚀 ~ clerkMiddleware ~ userId:`, _auth.userId)
+      console.log(`${req.url} 🚀 ~ clerkMiddleware ~ userId:`, _auth.userId)
     } catch (error) {
       console.log(`🚀 ~ error:`, error)
     }
