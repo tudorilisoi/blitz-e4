@@ -26,7 +26,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
         <span className="inline-block mb-4">
           <InfoIcon />
         </span>
-        <h1 className="text-2xl text-info">{"Trebuie să vă conectaţi"}</h1>
+        <p className="text-2xl text-info">{"Trebuie să vă conectaţi"}</p>
         <Link className="mt-4 btn btn-info" href={Routes.LoginPage()}>
           {"Conectare"}
         </Link>
@@ -38,7 +38,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
         <span className="inline-block mb-4">
           <ErrorIcon />
         </span>
-        <h1 className="text-2xl text-error">{"Acces refuzat"}</h1>
+        <p className="text-2xl text-error">{"Acces refuzat"}</p>
       </>
     )
   } else {
@@ -47,19 +47,21 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
         <span className="inline-block mb-4">
           <InfoIcon />
         </span>
-        <h1 className="text-2xl text-info">{error.message || error.name}</h1>
+        <p className="text-2xl text-info">{error.message || error.name}</p>
       </>
     )
   }
   // Note forceOverlay to achieve the OverlayProvider effect
   return (
     <>
-      <Layout forceOverlay={true}>
-        <h1 className="text-2xl text-error">{returnValue}</h1>
-      </Layout>
-      <ViewportCentered>
-        <div className={messageWrapperClassName}>{returnValue}</div>
-      </ViewportCentered>
+      <ClerkProvider>
+        <Layout forceOverlay={true}>
+          <h1 className="text-2xl text-error">{returnValue}</h1>
+        </Layout>
+        <ViewportCentered>
+          <div className={messageWrapperClassName}>{returnValue}</div>
+        </ViewportCentered>
+      </ClerkProvider>
     </>
   )
 }
