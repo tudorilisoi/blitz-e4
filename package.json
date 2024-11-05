@@ -52,6 +52,7 @@
     "autoprefixer": "10.x",
     "blitz": "2.1.3",
     "critters": "0.0.20",
+    "crypto-js": "4.2.0",
     "daisyui": "4.4.19",
     "dayjs": "1.11.10",
     "expose-gc": "1.0.0",

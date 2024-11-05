@@ -1,13 +1,22 @@
+import { decode } from "html-entities"
 import { AuthServerPlugin, PrismaStorage, simpleRolesIsAuthorized } from "@blitzjs/auth"
 import { BlitzServerMiddleware, setupBlitzServer } from "@blitzjs/next"
 import { BlitzLogger } from "blitz"
 import db from "db"
 import { authConfig } from "./blitz-client"
+import { hashObject } from "./hashObject"
 
 const fmw = BlitzServerMiddleware(async (req, res, next) => {
-  console.log(`🚀 ~ fmw ~ req:`, req.headers["x-clerk-decoded"])
-  // req.url = canonical(req.url || "")
-  console.log(`${req.url} BLITZ PLUGIN`)
+  const clerkHeader = req.headers["x-clerk-decoded"] as string
+  if (clerkHeader) {
+    console.log(`🚀 ~ fmw ~ req:`, req.headers["x-clerk-decoded"])
+    console.log(`${req.url} BLITZ PLUGIN`)
+    const { data, verify } = JSON.parse(clerkHeader)
+    const hash = hashObject(data)
+    if (hash === verify) {
+      console.log(`${req.url} BLITZ PLUGIN VERIFIED ${verify}`)
+    }
+  }
   return next()
 })
 

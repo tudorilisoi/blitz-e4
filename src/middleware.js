@@ -1,5 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
+import { hashObject } from "./hashObject"
 
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"])
 
@@ -11,8 +12,12 @@ export default clerkMiddleware(
       console.log(`${req.url} 🚀 ~ clerkMiddleware ~ userId:`, _auth.userId)
 
       const requestHeaders = new Headers(req.headers)
-      // TODO add an md5 hash
-      requestHeaders.set("x-clerk-decoded", JSON.stringify(_auth.sessionClaims))
+
+      const hashedClerkData = {
+        data: _auth.sessionClaims,
+        verify: hashObject(_auth.sessionClaims),
+      }
+      requestHeaders.set("x-clerk-decoded", JSON.stringify(hashedClerkData))
 
       return NextResponse.next({
         request: {
