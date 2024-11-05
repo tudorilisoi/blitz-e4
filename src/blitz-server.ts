@@ -5,16 +5,29 @@ import { BlitzLogger } from "blitz"
 import db from "db"
 import { authConfig } from "./blitz-client"
 import { hashObject } from "./hashObject"
+import { Role } from "types"
 
 const fmw = BlitzServerMiddleware(async (req, res, next) => {
   const clerkHeader = req.headers["x-clerk-decoded"] as string
   if (clerkHeader) {
+    // console.log(`🚀 ~ fmw ~ res.blitzCtx:`, res.blitzCtx.session)
     console.log(`🚀 ~ fmw ~ req:`, req.headers["x-clerk-decoded"])
     console.log(`${req.url} BLITZ PLUGIN`)
     const { data, verify } = JSON.parse(clerkHeader)
     const hash = hashObject(data)
-    if (hash === verify) {
+    if (hash === verify && data) {
+      const { email } = data
+      const ctx = res.blitzCtx
       console.log(`${req.url} BLITZ PLUGIN VERIFIED ${verify}`)
+      if (!res.blitzCtx.session.userId) {
+        const user = await db.user.findFirst({ where: { email } })
+        if (!user) {
+          console.log(`${req.url} CLERK LOGIN NX user ${data.email}`)
+          return next()
+        }
+        console.log(`${req.url} CLERK LOGIN ${data.email}`)
+        await ctx.session.$create({ userId: user.id, role: user.role as Role })
+      }
     }
   }
   return next()
@@ -28,10 +41,10 @@ export const authPlugin = AuthServerPlugin({
 
 export const { gSSP, gSP, api } = setupBlitzServer({
   plugins: [
-    //canonic URLs
-    fmw,
     // blitz auth
     authPlugin,
+    //canonic URLs
+    fmw,
   ],
   // NOTE tslog comes with default log level 0: silly, 1: trace, 2: debug, 3: info, 4: warn, 5: error, 6: fatal.
   logger: BlitzLogger({
