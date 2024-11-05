@@ -10,6 +10,7 @@ import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import Layout from "src/core/layouts/Layout"
 import "src/styles/init.css"
 import { ClerkProvider } from "@clerk/nextjs"
+import { roRO } from "@clerk/localizations"
 
 // "react-photo-gallery" does funky measurements in the DOM
 // this upsets next.js, monkey patch FTW
@@ -54,7 +55,7 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
   // Note forceOverlay to achieve the OverlayProvider effect
   return (
     <>
-      <ClerkProvider>
+      <ClerkProvider localization={roRO}>
         <Layout forceOverlay={true}>
           <h1 className="text-2xl text-error">{returnValue}</h1>
         </Layout>
@@ -71,7 +72,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <ClerkProvider {...pageProps}>{getLayout(<Component {...pageProps} />)}</ClerkProvider>
+      <ClerkProvider localization={roRO} {...pageProps}>
+        {getLayout(<Component {...pageProps} />)}
+      </ClerkProvider>
     </ErrorBoundary>
   )
 }

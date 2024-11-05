@@ -16,7 +16,7 @@ const clerkMiddleware = BlitzServerMiddleware(async (req, res, next) => {
     const { data, verify } = JSON.parse(clerkHeader)
     const hash = hashObject(data)
     if (hash === verify && data) {
-      const { email } = data
+      const { email, fullName } = data
       const ctx = res.blitzCtx
       console.log(`${req.url} BLITZ PLUGIN VERIFIED ${verify}`)
       if (!res.blitzCtx.session.userId) {
