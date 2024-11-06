@@ -2,33 +2,46 @@ import { decode } from "html-entities"
 import { AuthServerPlugin, PrismaStorage, simpleRolesIsAuthorized } from "@blitzjs/auth"
 import { BlitzServerMiddleware, setupBlitzServer } from "@blitzjs/next"
 import { BlitzLogger } from "blitz"
-import db from "db"
+import db, { UserRoles } from "db"
 import { authConfig } from "./blitz-client"
 import { hashObject } from "./hashObject"
 import { Role } from "types"
+import { nanoid } from "nanoid"
 
 const clerkMiddleware = BlitzServerMiddleware(async (req, res, next) => {
   const clerkHeader = req.headers["x-clerk-decoded"] as string
-  if (clerkHeader) {
-    // console.log(`🚀 ~ clerkMiddleware ~ res.blitzCtx:`, res.blitzCtx.session)
-    console.log(`🚀 ~ clerkMiddleware ~ req:`, req.headers["x-clerk-decoded"])
-    console.log(`${req.url} BLITZ PLUGIN`)
-    const { data, verify } = JSON.parse(clerkHeader)
-    const hash = hashObject(data)
-    if (hash === verify && data) {
-      const { email, fullName } = data
-      const ctx = res.blitzCtx
-      console.log(`${req.url} BLITZ PLUGIN VERIFIED ${verify}`)
-      if (!res.blitzCtx.session.userId) {
-        const user = await db.user.findFirst({ where: { email } })
-        if (!user) {
-          console.log(`${req.url} CLERK LOGIN NX user ${data.email}`)
-          return next()
-        }
-        console.log(`${req.url} CLERK LOGIN ${data.email}`)
-        await ctx.session.$create({ userId: user.id, role: user.role as Role })
-      }
+  if (!clerkHeader || res.blitzCtx.session.userId) {
+    return next()
+  }
+
+  // console.log(`🚀 ~ clerkMiddleware ~ res.blitzCtx:`, res.blitzCtx.session)
+  console.log(`🚀 ~ clerkMiddleware ~ req:`, req.headers["x-clerk-decoded"])
+  console.log(`${req.url} BLITZ PLUGIN`)
+  const { data, verify } = JSON.parse(clerkHeader)
+  const hash = hashObject(data)
+  if (hash === verify && data) {
+    const { email, fullName } = data
+    const ctx = res.blitzCtx
+    console.log(`${req.url} BLITZ PLUGIN VERIFIED ${verify}`)
+    const userSelect = { id: true, fullName: true, email: true, role: true, activationKey: true }
+
+    let user = await db.user.findFirst({ where: { email }, select: userSelect })
+    if (!user) {
+      console.log(`${req.url} CLERK LOGIN CREATE USER ${email}`)
+      user = await db.user.create({
+        data: {
+          email: email.toLowerCase().trim(),
+          hashedPassword: "CHANGE_ME",
+          role: UserRoles.USER,
+          fullName,
+          phone: "",
+          activationKey: nanoid(),
+        },
+        select: userSelect,
+      })
     }
+    console.log(`${req.url} CLERK LOGIN EXISTING USER ${email}`)
+    await ctx.session.$create({ userId: user.id, role: user.role as Role })
   }
   return next()
 })
