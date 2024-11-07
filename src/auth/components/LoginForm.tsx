@@ -89,14 +89,19 @@ export const LoginForm = (props: LoginFormProps) => {
       >
         <div className="mb-8">
           <Link
-            className="btn btn-primary w-full"
+            className="btn btn-primary w-full p-8 flex flex-row place-content-center text-xl "
             href={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "/clerk/sign-in"}
           >
+            <img
+              alt="Conectare cu Google"
+              className="w-8 h-8"
+              src="/google-icon-logo-svgrepo-com.svg"
+            />
             Conectare cu Google
           </Link>
         </div>
 
-        <div className="divider">SAU CU E-MAIL SI PAROLA</div>
+        <div className="divider">SAU CU E-MAIL ȘI PAROLA</div>
 
         <LabeledTextField
           labelProps={labelProps}
