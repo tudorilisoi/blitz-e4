@@ -21,7 +21,8 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "browserslist": "npx --yes browserslist@latest"
   },
   "prisma": {
     "schema": "db/schema.prisma"
@@ -102,7 +103,7 @@
     "eslint": "8.55.0",
     "eslint-config-next": "14.0.3",
     "eslint-config-prettier": "9.1.0",
-    "husky": "9.1.6",
+    "husky": "9.1.7",
     "jsdom": "23.0.1",
     "lint-staged": "15.2.0",
     "lru-cache": "10.1.0",

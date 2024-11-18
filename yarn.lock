@@ -3452,20 +3452,10 @@ camelize@^1.0.0:
   resolved "https://registry.npmjs.org/camelize/-/camelize-1.0.1.tgz"
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
 
-caniuse-lite@^1.0.30001517:
-  version "1.0.30001538"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001538.tgz"
-  integrity sha512-HWJnhnID+0YMtGlzcp3T9drmBJUVDchPJ08tpUGFLs9CYlwWPH2uLgpHn8fND5pCgXVtnGS3H4QR9XLMHVNkHw==
-
-caniuse-lite@^1.0.30001538:
-  version "1.0.30001541"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001541.tgz"
-  integrity sha512-bLOsqxDgTqUBkzxbNlSBt8annkDpQB9NdzdTbO2ooJ+eC/IQcvDspDc058g84ejCelF7vHUx57KIOjEecOHXaw==
-
-caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001663:
-  version "1.0.30001669"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001669.tgz#fda8f1d29a8bfdc42de0c170d7f34a9cf19ed7a3"
-  integrity sha512-DlWzFDJqstqtIVx1zeSpIMLjunf5SmwOw0N2Ck/QSQdS8PLS4+9HrLaYei4w8BIAL7IB/UEDu889d8vhCTPA0w==
+caniuse-lite@^1.0.30001517, caniuse-lite@^1.0.30001538, caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001663:
+  version "1.0.30001680"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001680.tgz"
+  integrity sha512-rPQy70G6AGUMnbwS1z6Xg+RkHYPAi18ihs47GH0jcxIG7wArmPgY3XbS2sRdBbxJljp3thdT8BIqv9ccCypiPA==
 
 ccount@^2.0.0:
   version "2.0.1"
@@ -6048,10 +6038,10 @@ human-signals@^5.0.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-5.0.0.tgz#42665a284f9ae0dade3ba41ebc37eb4b852f3a28"
   integrity sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==
 
-husky@9.1.6:
-  version "9.1.6"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.6.tgz#e23aa996b6203ab33534bdc82306b0cf2cb07d6c"
-  integrity sha512-sqbjZKK7kf44hfdE94EoX8MZNk0n7HeW37O4YrVGCF4wzgQjp+akPAkfUK5LZ6KuR/6sqeAVuXHji+RzQgOn5A==
+husky@9.1.7:
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.7.tgz#d46a38035d101b46a70456a850ff4201344c0b2d"
+  integrity sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==
 
 iconv-lite@0.6.3, iconv-lite@^0.6.3:
   version "0.6.3"
