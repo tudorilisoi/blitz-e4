@@ -1,4 +1,6 @@
-FROM  docker.io/bitnami/node:20
+#FROM  docker.io/bitnami/node:20.16.0@sha256:296181eb6e2be6656c4ca855fa5bb297e0b2eb403c20b032de80ea411fde1df7
+FROM  docker.io/bitnami/node:20.15.1@sha256:6ba92ad44d6df1dab3ce523073009fa923df3267d4226419d1b520359eebee6e
+
 ENV DEBIAN_FRONTEND noninteractive
 
 
