@@ -36,7 +36,7 @@ function HTMLToText(s) {
 }
 
 export const shortenText = (str, maxLength, omission = "...") => {
-  return truncate(str, { length: maxLength, separator: /(\W+)/, omission })
+  return truncate(str, { length: maxLength - omission.length, separator: /(\W+)/, omission })
 }
 
 export const nl2space = (str) => {

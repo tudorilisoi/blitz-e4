@@ -91,7 +91,7 @@ const Layout: BlitzLayout<{
         <meta name="description" content={_description} />
         {/* Ai noştri ca brazii! */}
         <meta property="og:locale" content="ro_RO" />
-        <meta name="og:title" content={_title} />
+        <meta property="og:title" content={_title} />
         <meta name="description" content={_description} />
         {ogImage}
       </Head>

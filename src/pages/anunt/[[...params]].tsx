@@ -8,7 +8,7 @@ import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 import ImageGallery from "src/core/components/image/ImageGallery"
 import { OGImage } from "src/core/components/image/OGImage"
 import Layout from "src/core/layouts/Layout"
-import { S, canonical, formatDate } from "src/helpers"
+import { S, canonical, formatDate, shortenText } from "src/helpers"
 import { PostWithIncludes, getImagesPreloadLinks } from "src/posts/helpers"
 import getCategories from "src/posts/queries/getCategories"
 import { PermissionFlags } from "src/posts/queries/getPermissions"
@@ -164,9 +164,9 @@ export default function PostPage({
       <title>{title}</title>
       <link rel="canonical" content={canonicalUrl} />
       <meta name="description" content={description} />
-      <meta name="og:url" content={canonicalUrl} />
-      <meta name="og:title" content={title} />
-      <meta name="og:description" content={description} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:title" content={shortenText(title, 60, "")} />
+      <meta property="og:description" content={shortenText(description, 160, "")} />
       {ogImage}
       <meta property="og:type" content="article" />
       <meta
