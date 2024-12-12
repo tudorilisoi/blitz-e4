@@ -26,7 +26,7 @@ const ImageGallery = ({ images }) => {
     // window.location.hash = ``
     // NOTE remove hash altogether
     history.replaceState(null, document.title, location.pathname + location.search)
-  }, [ref])
+  }, [])
 
   useEffect(() => {
     const currentHash = !!window.location.hash

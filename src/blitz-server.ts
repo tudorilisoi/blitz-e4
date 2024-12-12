@@ -1,12 +1,11 @@
-import { decode } from "html-entities"
 import { AuthServerPlugin, PrismaStorage, simpleRolesIsAuthorized } from "@blitzjs/auth"
 import { BlitzServerMiddleware, setupBlitzServer } from "@blitzjs/next"
 import { BlitzLogger } from "blitz"
 import db, { UserRoles } from "db"
+import { nanoid } from "nanoid"
+import { Role } from "types"
 import { authConfig } from "./blitz-client"
 import { hashObject } from "./hashObject"
-import { Role } from "types"
-import { nanoid } from "nanoid"
 
 const clerkMiddleware = BlitzServerMiddleware(async (req, res, next) => {
   const clerkHeader = req.headers["x-clerk-decoded"] as string

@@ -194,7 +194,7 @@ const importImages = async () => {
   logger("UploadData imported")
 }
 
-export default async () => {
+export default async function importPostsTask() {
   // Your script here...
 
   try {

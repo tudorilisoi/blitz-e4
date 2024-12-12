@@ -19,27 +19,27 @@ const styles = {
   },
 }
 
-// performance.now polyfill
-// const polyFill = function () {
-//   if (window.performance && window.performance.now) return
-//   if (!window.performance) window.performance = {}
-//   var methods = ["webkitNow", "msNow", "mozNow"]
-//   for (var i = 0; i < methods.length; i++) {
-//     if (window.performance[methods[i]]) {
-//       window.performance.now = window.performance[methods[i]]
-//       return
-//     }
-//   }
-//   if (Date.now) {
-//     window.performance.now = function () {
-//       return Date.now()
-//     }
-//     return
-//   }
-//   window.performance.now = function () {
-//     return +new Date()
-//   }
-// }
+/* performance.now polyfill
+const polyFill = function () {
+  if (window.performance && window.performance.now) return
+  if (!window.performance) window.performance = {}
+  var methods = ["webkitNow", "msNow", "mozNow"]
+  for (var i = 0; i < methods.length; i++) {
+    if (window.performance[methods[i]]) {
+      window.performance.now = window.performance[methods[i]]
+      return
+    }
+  }
+  if (Date.now) {
+    window.performance.now = function () {
+      return Date.now()
+    }
+    return
+  }
+  window.performance.now = function () {
+    return +new Date()
+  }
+} */
 
 async function resize({ file, fileID, thumbID, onError, onSuccess }) {
   const getThumb = () => document.getElementById(thumbID) as HTMLCanvasElement
@@ -201,7 +201,13 @@ export default ImageUpload
 export const ImageThumb = ({ url }) => {
   return (
     <div style={styles.wrapper}>
-      <img src={url} style={{ ...styles.thumb, display: "block" }} key={url} className="p-1" />
+      <img
+        src={url}
+        alt="Uploaded image"
+        style={{ ...styles.thumb, display: "block" }}
+        key={url}
+        className="p-1"
+      />
       {/* <input type="file" onChange={onFileSelect} /> */}
     </div>
   )
