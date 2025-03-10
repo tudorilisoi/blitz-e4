@@ -20,7 +20,7 @@ export WEB_MEM_LIMIT="1G"
 if [ "$1" == "dev" ]; then
     echo "Running development command"
     export WEB_MEM_LIMIT="4G"
-    export WEB_CMD='yarn browserslist; yarn run dev:1-blitz'
+    export WEB_CMD='yarn browserslist; yarn run dev'
 elif [ "$1" == "start" ]; then
     echo "Running start command"
     export WEB_CMD="node /app/node_modules/.bin/blitz start"
