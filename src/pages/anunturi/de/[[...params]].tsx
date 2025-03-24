@@ -22,9 +22,19 @@ export const getPostsByAuthorNavUrl = (author: RouteUser, page: number = 1) => {
 }
 
 export const getServerSideProps = gSSP(async (args) => {
-  const { query, ctx } = args
+  const { query, ctx, res } = args
   const params = query.params as string[]
   console.log(`🚀 ~ getServerSideProps ~ params:`, params)
+
+  if (params.length > 2) {
+    res.statusCode = 400
+    res.end("Malformed URI")
+    return
+    // return {
+    //   notFound: true,
+    // }
+  }
+
   const authorSlug = params[0] || ""
 
   let authorId: any = authorSlug.substring(authorSlug.lastIndexOf("-") + 1)
