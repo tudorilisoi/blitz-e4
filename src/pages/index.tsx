@@ -48,7 +48,7 @@ export const getServerSideProps = gSSP(async (args) => {
 const AD_SRC =
   "https://www.e-suceava.ro/wp-content/uploads/2024/01/Tavidor-firma-recomandata-in-Tamplarie-PVC-si-Aluminiu-de-calitatea-superioara.jpg"
 const AD_HREF = "https://www.tavidor.ro/tamplarie-pvc/"
-const AD_TITLE = "Tavidor, firmă recomandată în Tâmplărie PVC de calitate superioară"
+const AD_TITLE = "Tavidor, firmă recomandată în tâmplărie PVC de calitate superioară"
 
 const FrontPageSearch = ({ lastYearUnixSeconds }) => {
   const nextRouter = useRouter()
