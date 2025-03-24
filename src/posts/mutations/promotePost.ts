@@ -1,6 +1,6 @@
 import { resolver } from "@blitzjs/rpc"
 import { NotFoundError } from "blitz"
-import db, { PROMOTION_LEVELS } from "db"
+import db, { PostStatuses, PROMOTION_LEVELS } from "db"
 import { guardPermission, mayPromote } from "src/auth/helpers"
 import { postInclude } from "src/config"
 import getPost from "../queries/getPost"
@@ -17,7 +17,7 @@ export default resolver.pipe(resolver.zod(DeletePostSchema), async ({ id }, cont
 
   await db.post.update({
     where: { id },
-    data: { promotionLevel: newLevel },
+    data: { promotionLevel: newLevel, status: PostStatuses.ACTIVE },
     select: { id: true },
   })
   const post = await getPost({ id }, context)
