@@ -21,7 +21,10 @@ export const getServerSideProps = gSSP(async (args) => {
     where: {
       status: { not: PostStatuses.EXPIRED },
     },
-    orderBy: { createdAt: "desc" } as Prisma.PostOrderByWithRelationInput,
+    orderBy: [
+      { promotionLevel: "desc" },
+      { createdAt: "desc" },
+    ] as Prisma.PostOrderByWithRelationInput,
     // NOTE prevent user from hijacking the recents page
     // distinct: [Prisma.PostScalarFieldEnum.userId],
   }

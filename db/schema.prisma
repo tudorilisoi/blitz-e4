@@ -140,7 +140,7 @@ model Post {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
   expiresAt      DateTime     @default(now()) @updatedAt
-  // see index.ts
+  // see index.ts PROMOTION_LEVELS
   promotionLevel Int          @default(0)
 }
 

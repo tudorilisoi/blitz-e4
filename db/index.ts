@@ -90,3 +90,10 @@ async function beforeDelete(modelName, params) {
 }
 
 export default db
+
+//  promotion levels for sorting and highlighting, the higher the better
+export const PROMOTION_LEVELS = {
+  DEFAULT: 0,
+  CATEGORY_TOP: 100,
+  FRONTPAGE: 200,
+}
