@@ -5,7 +5,7 @@ import { canonical } from "src/helpers"
 export const OGImage = (image: Image | null) => {
   let url, w, h
   if (image) {
-    url = canonical(getImageUrl(image, true))
+    url = getImageUrl(image, true)
     w = image.width
     h = image.height
   } else {

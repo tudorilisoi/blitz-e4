@@ -26,7 +26,7 @@ async function getAPIPosts(req, res: ServerResponse) {
         price: post.price,
         currency: post.currency,
         url: canonical(makePostNavUrl(post)),
-        images: post.images.map((image) => canonical(getImageUrl(image, true))),
+        images: post.images.map((image) => getImageUrl(image, true)),
       }
     })
 
