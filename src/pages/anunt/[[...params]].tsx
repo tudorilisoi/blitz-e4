@@ -19,6 +19,7 @@ import { AtSymbolIcon, PhoneIcon } from "@heroicons/react/24/outline"
 import { getPostsByAuthorNavUrl } from "../anunturi/de/[[...params]]"
 import { useMutation } from "@blitzjs/rpc"
 import deletePost from "src/posts/mutations/deletePost"
+import promotePost from "src/posts/mutations/promotePost"
 import { getImageUrl } from "src/core/components/image/helpers"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
@@ -99,11 +100,17 @@ export default function PostPage({
 }) {
   const router = useRouter()
   const [deleteMutation] = useMutation(deletePost)
+  const [promoteMutation, { isLoading }] = useMutation(promotePost)
   const deletePostFn = async () => {
     if (window.confirm("Ștergeți definitiv acest anunț?")) {
       await deleteMutation({ id: post.id })
       router.push(getPostsByAuthorNavUrl(post.author)).catch(() => {})
     }
+  }
+  const promotePostFn = async () => {
+    await promoteMutation({ id: post.id })
+    // TODO refresh
+    await router.replace(router.asPath)
   }
   const sanitizedBody = S(post.body).obscurePhoneNumbers().get()
 
@@ -212,6 +219,45 @@ export default function PostPage({
     <img itemProp="image" alt={post.title} className="u-photo hidden" src={canonical(mfImageSrc)} />
   )
 
+  let promoBtnText
+  switch (true) {
+    case isLoading:
+      promoBtnText = "Un moment..."
+      break
+    case post.promotionLevel !== 0:
+      promoBtnText = "Depromovează"
+      break
+    default:
+      promoBtnText = "Promovează"
+      break
+  }
+
+  const editButtons = !permissionFlags.mayEdit ? null : (
+    <div className="flex flex-row flex-wrap mb-4 mt-4">
+      {!permissionFlags.mayEdit ? null : (
+        <div className="pr-6">
+          <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
+            Modifică
+          </Link>
+        </div>
+      )}
+      {!permissionFlags.mayDelete ? null : (
+        <div className="pr-6">
+          <button className="btn btn-error" onClick={deletePostFn}>
+            Șterge
+          </button>
+        </div>
+      )}
+      {!permissionFlags.mayPromote ? null : (
+        <div className="pr-6">
+          <button className="btn btn-secondary" onClick={promotePostFn}>
+            {promoBtnText}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+
   return (
     <div itemScope itemType="http://schema.org/Product" className="h-product">
       {head}
@@ -229,6 +275,8 @@ export default function PostPage({
                 {post.title}
               </span>
             </h1>
+            {editButtons}
+
             <p className="text-lg text-base-content whitespace-pre-line	">
               <span className="inline-block bg-neutral text-neutral-content p-2 mr-2 rounded text-sm ">
                 {formatDate(post.updatedAt, formatDate.short)}
@@ -256,20 +304,6 @@ export default function PostPage({
             </p>
           </div>
         </div>
-        {!permissionFlags.mayEdit ? null : (
-          <div className="pl-6">
-            <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
-              Modifică
-            </Link>
-          </div>
-        )}
-        {!permissionFlags.mayDelete ? null : (
-          <div className="pl-6">
-            <button className="btn btn-error" onClick={deletePostFn}>
-              Șterge
-            </button>
-          </div>
-        )}
       </div>
       <div className={post.images.length == 1 ? "max-w-[480px]" : ""}>
         <ImageGallery images={post.images} />

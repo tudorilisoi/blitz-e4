@@ -45,6 +45,16 @@ export const mayDelete = async (model: HasAuthor, context) => {
   }
   return false
 }
+export const mayPromote = async (model: HasAuthor, context) => {
+  const user = await getCurrentUser(null, context)
+  if (user?.role === "SUPERADMIN") {
+    return true
+  }
+  if (user?.email === process.env.SUPERADMIN_EMAIL) {
+    return true
+  }
+  return false
+}
 
 // TODO reject login for banned users
 export const guardAuthenticated = async (context) => {
