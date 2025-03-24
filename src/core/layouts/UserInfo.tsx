@@ -14,7 +14,7 @@ const UserInfo = () => {
   const { signOut } = useClerk()
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
-  const ulClass = `mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-52`
+  const ulClass = `mt-3 z-[1] p-2 shadow-md shadow-secondary  menu menu-sm dropdown-content bg-base-200 text-accent-focus rounded-box w-[80vw] sm:w-[30vw]`
   const closeDropdown = () => {
     //@ts-ignore
     document.activeElement?.blur()
