@@ -93,6 +93,7 @@ const Layout: BlitzLayout<{
         <meta property="og:locale" content="ro_RO" />
         <meta property="og:title" content={_title} />
         <meta name="description" content={_description} />
+        <base href={`${process.env.NEXT_PUBLIC_APP_URL}/`} />
         {ogImage}
       </Head>
       <div className="flex flex-col min-h-screen w-full bg-base-100">
