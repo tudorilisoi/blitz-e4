@@ -13,6 +13,7 @@ import {
 import Script from "next/script"
 import { GTag } from "../components/gtag"
 import { canonical } from "src/helpers"
+import { CircleUserRound } from "lucide-react"
 
 // because https://nextjs.org/docs/messages/react-hydration-error
 const UserInfo = dynamic(() => import("./UserInfo"), { ssr: false })
@@ -37,6 +38,7 @@ const NavBar = () => {
           <Suspense
             fallback={
               <label tabIndex={0} className="btn btn-secondary">
+                <CircleUserRound />
                 <span className="px-1">{"Cont"}</span>
               </label>
             }

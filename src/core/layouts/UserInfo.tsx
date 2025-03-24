@@ -2,12 +2,12 @@ import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { useClerk } from "@clerk/nextjs"
 import { User } from "@prisma/client"
+import { CircleUserRound, Files, KeyRound, Power, PowerOff, UserRoundPlus } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import logout from "src/auth/mutations/logout"
 import { getPostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
-import { CircleUserRound } from "lucide-react"
 
 const UserInfo = () => {
   const router = useRouter()
@@ -48,6 +48,7 @@ const UserInfo = () => {
                 await router.push(myPostsUrl)
               }}
             >
+              <Files />
               <strong>Anunturile mele</strong>
             </a>
           </li>
@@ -64,6 +65,7 @@ const UserInfo = () => {
                 await router.push("/")
               }}
             >
+              <PowerOff />
               <strong>Deconectare</strong>
             </a>
           </li>
@@ -76,6 +78,7 @@ const UserInfo = () => {
     <>
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-secondary">
+          <CircleUserRound />
           <span className="px-1">{"Cont"}</span>
         </label>
         <ul tabIndex={0} className={ulClass}>
@@ -85,6 +88,7 @@ const UserInfo = () => {
               className="py-2 hover:text-accent"
               href={Routes.SignupPage()}
             >
+              <UserRoundPlus />
               <strong>Creează cont</strong>
             </Link>
           </li>
@@ -95,6 +99,7 @@ const UserInfo = () => {
               className="py-2 hover:text-accent"
               href={Routes.LoginPage()}
             >
+              <Power />
               <strong>Conectare</strong>
             </Link>
           </li>
@@ -104,6 +109,7 @@ const UserInfo = () => {
               className="py-2 hover:text-accent"
               href={Routes.ForgotPasswordPage()}
             >
+              <KeyRound />
               <strong>Am uitat parola</strong>
             </Link>
           </li>
