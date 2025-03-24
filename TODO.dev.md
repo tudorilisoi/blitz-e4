@@ -29,6 +29,7 @@ X = not implemented, P = partially implemented
 
 Note: Maybe later on these will be converted to GH issues
 
+- X P00 discution system with mail notifications
 - ✔ P00 delete non-uploaded images, move the publish button and change tabs color
 - X P00 show contact info in post
 - X P00 add post delete/archive button
