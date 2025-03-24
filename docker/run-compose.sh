@@ -10,7 +10,7 @@ fi
 YARN="cd /app; rm -rf ./.data/uploads/miniaturi/*; rm -rf node_modules; \
 yarn add husky blitz --dev --force --frozen-lockfile; yarn install;\
 yarn browserslist;\
-yarn build:1-blitz;
+yarn build;
 "
 EXTRA_ARGS="-d"
 export WEB_MEM_LIMIT="1G"
