@@ -1,5 +1,6 @@
 import { PostStatuses, Prisma } from "@prisma/client"
 import dayjs from "dayjs"
+import { Search } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Suspense } from "react"
@@ -10,7 +11,6 @@ import CategoryCell from "src/posts/components/CategoryCell"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import getCategories from "src/posts/queries/getCategories"
 import getPosts from "src/posts/queries/getPosts"
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 
 export const getServerSideProps = gSSP(async (args) => {
   const { query, ctx } = args
@@ -67,7 +67,7 @@ const FrontPageSearch = ({ lastYearUnixSeconds }) => {
             </h2>
           </div>
           <div className="flex">
-            <MagnifyingGlassIcon className="inline-block w-[2em] h-[2em]" />
+            <Search className="inline-block w-[2em] h-[2em]" />
           </div>
         </div>
       </div>

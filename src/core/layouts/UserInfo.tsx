@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import logout from "src/auth/mutations/logout"
 import { getPostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import { CircleUserRound } from "lucide-react"
 
 const UserInfo = () => {
   const router = useRouter()
@@ -24,7 +25,8 @@ const UserInfo = () => {
     return (
       <div className="dropdown dropdown-end">
         <label tabIndex={0} id="layoutDropdown" className="btn btn-secondary">
-          <span className="px-1">{currentUser.fullName}</span>
+          <CircleUserRound />
+          <span className="pl-0 px-1">{currentUser.fullName}</span>
         </label>
         <ul tabIndex={0} className={ulClass}>
           {/* <li>
