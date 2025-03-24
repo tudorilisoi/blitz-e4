@@ -29,7 +29,7 @@ export const getServerSideProps = gSSP(async (args) => {
   if (params.length > 2) {
     res.statusCode = 400
     res.end("Malformed URI")
-    // return type must match GSSP type signature but this does not, in fact count
+    // return type must match GSSP type signature but this does not, in fact, count
     return {
       notFound: true,
     }
@@ -39,7 +39,17 @@ export const getServerSideProps = gSSP(async (args) => {
 
   let authorId: any = authorSlug.substring(authorSlug.lastIndexOf("-") + 1)
   authorId = parseInt(authorId)
-  const author = await getUser({ id: authorId }, ctx)
+  let author
+  try {
+    author = await getUser({ id: authorId }, ctx)
+  } catch (error) {
+    if (!author) {
+      return {
+        notFound: true,
+      }
+    }
+  }
+
   const currentUser = await getCurrentUser(null, ctx)
 
   const pageSlug = params[1] || null
