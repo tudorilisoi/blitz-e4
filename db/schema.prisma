@@ -81,7 +81,6 @@ enum PostStatuses {
   ACTIVE
   EXPIRED_WARNING_SENT
   EXPIRED
-  PROMOTED
 }
 
 enum currencies {
@@ -125,22 +124,24 @@ model CronMail {
 }
 
 model Post {
-  id         Int          @id @default(autoincrement())
-  title      String       @default("") @db.VarChar(255)
-  slug       String       @default("") @db.VarChar(255)
-  body       String       @default("")
-  status     PostStatuses
-  price      Int          @default(0)
-  currency   currencies
-  phone      String?      @db.VarChar(30)
-  images     Image[]
-  category   Category     @relation(fields: [categoryId], references: [id])
-  categoryId Int
-  author     User         @relation(fields: [userId], references: [id])
-  userId     Int
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @default(now()) @updatedAt
-  expiresAt  DateTime     @default(now()) @updatedAt
+  id             Int          @id @default(autoincrement())
+  title          String       @default("") @db.VarChar(255)
+  slug           String       @default("") @db.VarChar(255)
+  body           String       @default("")
+  status         PostStatuses
+  price          Int          @default(0)
+  currency       currencies
+  phone          String?      @db.VarChar(30)
+  images         Image[]
+  category       Category     @relation(fields: [categoryId], references: [id])
+  categoryId     Int
+  author         User         @relation(fields: [userId], references: [id])
+  userId         Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+  expiresAt      DateTime     @default(now()) @updatedAt
+  // see index.ts
+  promotionLevel Int          @default(0)
 }
 
 model Image {
