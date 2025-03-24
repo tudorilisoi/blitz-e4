@@ -15,7 +15,7 @@ import { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
 import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
 import { useState } from "react"
-import { AtSymbolIcon, PhoneIcon } from "@heroicons/react/24/outline"
+import { Mail, Phone } from "lucide-react"
 import { getPostsByAuthorNavUrl } from "../anunturi/de/[[...params]]"
 import { useMutation } from "@blitzjs/rpc"
 import deletePost from "src/posts/mutations/deletePost"
@@ -155,11 +155,11 @@ export default function PostPage({
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a className="btn flex-grow btn-secondary" href={`tel://${phone}`}>
-          <PhoneIcon className="h-8 w-8" />
+          <Phone className="h-8 w-8" />
           {phone}
         </a>
         <a className="btn flex-grow btn-secondary" href={`mailto:${post.author.email}`}>
-          <AtSymbolIcon className="h-8 w-8" />
+          <Mail className="h-8 w-8" />
           {`email: ${post.author.email}`}
         </a>
       </div>

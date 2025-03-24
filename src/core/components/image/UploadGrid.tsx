@@ -1,5 +1,5 @@
 import { useMutation } from "@blitzjs/rpc"
-import { PhotoIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { Camera, Trash2 as Trash } from "lucide-react"
 import { Image } from "@prisma/client"
 import { useEffect, useState } from "react"
 import deleteImage from "src/images/mutations/deleteImage"
@@ -95,7 +95,7 @@ export default function UploadGrid({
   return (
     <>
       <label className={`btn ${maxPhotosReached ? "btn-warning" : "btn-primary"}`}>
-        <PhotoIcon className="h-8 w-8 inline-block mr-1 " />
+        <Camera className="h-8 w-8 inline-block mr-1 " />
         {maxPhotosReached
           ? `Aţi atins limita de ${MAX_PHOTOS} fotografii `
           : `Adaugă fotografii (${numPhotos}/${MAX_PHOTOS})`}
@@ -131,7 +131,7 @@ export default function UploadGrid({
               }}
               className="absolute shadow-md shadow-black right-2 top-2 h-10 w-10 inline-block text-center  bg-red-600 p-1 rounded-full text-white hover:bg-red-800"
             >
-              <TrashIcon className="h-7 w-7 inline-block" />
+              <Trash className="h-7 w-7 inline-block" />
             </button>
           </div>
         ))}
@@ -149,7 +149,7 @@ export default function UploadGrid({
               }}
               className="absolute shadow-md shadow-black right-2 top-2 h-10 w-10 inline-block text-center  bg-red-600 p-1 rounded-full text-white hover:bg-red-800"
             >
-              <TrashIcon className="h-7 w-7 inline-block" />
+              <Trash className="h-7 w-7 inline-block" />
             </button>
           </div>
         ))}

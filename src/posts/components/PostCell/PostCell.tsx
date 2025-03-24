@@ -80,7 +80,7 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
   )
 }
 
-const _PostCell = ({ post }: { post: PostWithIncludes }) => {
+const PostCell_ = ({ post }: { post: PostWithIncludes }) => {
   const router = useRouter()
   const { images } = post
   const imageCount = images.length

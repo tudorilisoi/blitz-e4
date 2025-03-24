@@ -1,7 +1,7 @@
 import { forwardRef, PropsWithoutRef, ComponentPropsWithoutRef, Ref, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
+import { Eye, EyeOff } from "lucide-react"
 
 // Default input element type
 export const FieldDefaultAsTypeDefault = "input" as const
@@ -36,7 +36,7 @@ export const PasswordField = (props: any) => {
   }
 
   const input = <Tag {...newProps} />
-  const Icon = visible ? EyeSlashIcon : EyeIcon
+  const Icon = visible ? EyeOff : Eye
 
   return (
     <div className="join w-fit group input input-bordered px-0">

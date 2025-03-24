@@ -29,6 +29,7 @@ X = not implemented, P = partially implemented
 
 Note: Maybe later on these will be converted to GH issues
 
+- X push build with rsync
 - X P00 discution system with mail notifications
 - ✔ P00 delete non-uploaded images, move the publish button and change tabs color
 - X P00 show contact info in post
