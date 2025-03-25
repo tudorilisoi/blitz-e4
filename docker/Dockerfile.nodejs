@@ -1,7 +1,7 @@
 #FROM  docker.io/bitnami/node:20.16.0@sha256:296181eb6e2be6656c4ca855fa5bb297e0b2eb403c20b032de80ea411fde1df7
 FROM  docker.io/bitnami/node:20.15.1@sha256:6ba92ad44d6df1dab3ce523073009fa923df3267d4226419d1b520359eebee6e
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 
 ARG CURRENT_UID
@@ -23,14 +23,14 @@ COPY sudoers /etc/sudoers
 
 # for node sharp memory leaks
 # https://github.com/lovell/sharp/issues/1803#issuecomment-1314897269
-ENV LD_PRELOAD /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 RUN echo "/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" >> /etc/ld.so.preload
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH=/app/node_modules/.bin:$PATH
 RUN npm i -g --force --no-update-notifier npm@10.9.1 yarn@1.22.22
 # USER root
 # WORKDIR /app
-ENV TINI_VERSION v0.19.0
+ENV TINI_VERSION=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--"]

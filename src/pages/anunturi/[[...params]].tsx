@@ -70,7 +70,7 @@ export const getServerSideProps = gSSP(async (args) => {
       // NOTE category is logically there
       // @ts-ignore
       where: { categoryId: category.id, status: { not: PostStatuses.EXPIRED } },
-      orderBy: { updatedAt: "desc" },
+      orderBy: [{ promotionLevel: "desc" }, { updatedAt: "desc" }],
       take: ITEMS_PER_PAGE,
       skip: (page - 1) * ITEMS_PER_PAGE,
     },
