@@ -1,31 +1,30 @@
 import Layout from "src/core/layouts/Layout"
 
 import dayjs from "dayjs"
+import { RangeMin } from "instantsearch.js/es/connectors/range/connectRange"
 import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache"
 import Head from "next/head"
+import Link from "next/link"
 import singletonRouter, { useRouter } from "next/router"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import {
   InstantSearch,
   SearchBox,
-  SortBy,
   useInfiniteHits,
   useInstantSearch,
   useRange,
   useStats,
 } from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
+import Delayed from "src/core/components/Delayed"
 import useScrollPosition from "src/core/hooks/useScrollPosition"
 import { formatDate, pluralize } from "src/helpers"
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
 import styles from "./search.module.css"
-import { RangeMin } from "instantsearch.js/es/connectors/range/connectRange"
-import Link from "next/link"
-import Delayed from "src/core/components/Delayed"
 
-const DEFAULT_SORT = "Post:updatedTimestamp:desc"
+const DEFAULT_SORT = "Post:promotionLevel:desc,Post:createdTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
 
 const SCROLL_POSITION_KEY = "meilisearch_scroll"
@@ -81,14 +80,6 @@ function SearchPageInner({}) {
         </div>
       </div>
 
-      <SortBy
-        className="hidden"
-        items={[
-          { label: "Updated (desc)", value: DEFAULT_SORT },
-          // { label: "Title asc", value: "Post:title:asc" },
-          // { label: "Title desc", value: "Post:title:desc" },
-        ]}
-      />
       <div className="">
         <SearchBox
           placeholder="scrie ce vrei să cauți"
@@ -127,13 +118,15 @@ export default function SearchPage({}) {
     },
   })
 
+  // NOTE sort goes into indexName, see https://github.com/meilisearch/meilisearch-js-plugins/issues/527
+
   return (
     <InstantSearch
       future={{ preserveSharedStateOnUnmount: true }}
       routing={{
         router,
       }}
-      indexName="Post"
+      indexName={DEFAULT_SORT}
       searchClient={searchClient}
     >
       <SearchPageInner />
