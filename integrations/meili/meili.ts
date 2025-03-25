@@ -110,8 +110,8 @@ export const init = async () => {
       "words",
       "proximity",
       "attribute",
-      // "updatedTimestamp:desc",
       "sort",
+      // "updatedTimestamp:desc",
       "exactness",
       "typo",
     ])

@@ -24,7 +24,7 @@ import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
 import styles from "./search.module.css"
 
-const DEFAULT_SORT = "Post:promotionLevel:desc,Post:createdTimestamp:desc"
+const DEFAULT_SORT = "Post:promotionLevel:desc,Post:updatedTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
 
 const SCROLL_POSITION_KEY = "meilisearch_scroll"
