@@ -10,7 +10,6 @@ fi
 YARN="cd /app;\
 rm -rf ./.data/uploads/miniaturi/*;\
 rm -rf node_modules;\
-yarn add husky blitz --dev --force --frozen-lockfile;\
 yarn install --prefer-offline;\
 yarn browserslist;\
 yarn build;
@@ -39,6 +38,11 @@ elif [ "$1" == "build" ]; then
 elif [ "$1" == "logs" ]; then
     echo "Running logs command"
     docker-compose -f "$script_path/docker-compose.yml" logs -f
+    exit 0
+elif [ "$1" == "deploy" ]; then
+    echo "Ready to deploy"
+    rsync -vvaz "$script_path/../dist/" "tudor@ionosbox:/home/tudor/www/blitz-e4/dist/"
+    ssh -t tudor@ionosbox "/home/tudor/www/blitz-e4/docker/run-compose.sh start"
     exit 0
 else
     echo "Invalid argument. Usage: $0 [dev|start|stop|build|logs]"
