@@ -41,7 +41,9 @@ elif [ "$1" == "logs" ]; then
     exit 0
 elif [ "$1" == "deploy" ]; then
     echo "Ready to deploy"
-    rsync -vvaz "$script_path/../.next/" "tudor@ionosbox:/home/tudor/www/blitz-e4/.next/"
+    rsync -vaz "$script_path/../.next/" "tudor@ionosbox:/home/tudor/www/blitz-e4/.next/"
+    rsync -vaz "$script_path/../node_modules/" "tudor@ionosbox:/home/tudor/www/blitz-e4/node_modules/"
+    ssh -t tudor@ionosbox "cd /home/tudor/www/blitz-e4; git pull"
     ssh -t tudor@ionosbox "/home/tudor/www/blitz-e4/docker/run-compose.sh start"
     exit 0
 else
