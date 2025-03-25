@@ -7,8 +7,11 @@ if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Cannot run inside a container"
     exit 1;
 fi
-YARN="cd /app; rm -rf ./.data/uploads/miniaturi/*; rm -rf node_modules; \
-yarn add husky blitz --dev --force --frozen-lockfile; yarn install;\
+YARN="cd /app;\
+rm -rf ./.data/uploads/miniaturi/*;\
+rm -rf node_modules;\
+yarn add husky blitz --dev --force --frozen-lockfile;\
+yarn install --prefer-offline;\
 yarn browserslist;\
 yarn build;
 "

@@ -58,4 +58,6 @@ services:
       - ../:/app
       - /tmp/e4-web-tmp/:/tmp
       - /tmp/e4-web-cache/:/home/tudor/.cache
+      - ../.data/yarn_cache:/home/tudor/.cache/yarn # Persistent yarn cache
+      - ../.data/npm_cache:/home/tudor/.npm # Persistent npm cache
     working_dir: /app
