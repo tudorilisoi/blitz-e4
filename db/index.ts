@@ -51,6 +51,7 @@ export const mapPostToMeili = (post) => {
   return {
     ...post,
     updatedTimestamp: dayjs(post.updatedAt).unix(),
+    createdTimestamp: dayjs(post.createdAt).unix(),
   }
 }
 
