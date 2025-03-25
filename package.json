@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "cross-env NODE_ENV=production blitz build",
+    "build": "cross-env NODE_ENV=production blitz build -e production",
     "dev": "cross-env NODE_ENV=development blitz dev",
     "docker": "sh -c 'docker/run-compose.sh $0'",
     "start": "blitz start",
