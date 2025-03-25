@@ -92,7 +92,9 @@ export const init = async () => {
     await client
       .index("Post")
       .updateLocalizedAttributes([{ locales: ["ron"], attributePatterns: ["*"] }])
-    await client.index("Post").updateSortableAttributes(["title", "updatedTimestamp"])
+    await client
+      .index("Post")
+      .updateSortableAttributes(["title", "updatedTimestamp", "createdTimestamp", "promotionLevel"])
     await client.index("Post").updateFilterableAttributes(["updatedTimestamp"])
     await client
       .index("Post")
