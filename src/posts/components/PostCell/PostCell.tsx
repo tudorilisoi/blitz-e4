@@ -73,7 +73,7 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
           </div>
         </div>
         <div className="p-2">
-          <p className="line-clamp-2">{shortenText(post.body, 200, "")}</p>
+          <p className="line-clamp-2 break-words">{shortenText(post.body, 200, "")}</p>
         </div>
       </div>
     </section>

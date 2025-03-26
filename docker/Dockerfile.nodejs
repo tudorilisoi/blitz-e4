@@ -3,11 +3,12 @@ FROM  docker.io/bitnami/node:20.15.1@sha256:6ba92ad44d6df1dab3ce523073009fa923df
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-
+# BEGIN_CREATE_USER
 ARG CURRENT_UID
 ARG CURRENT_GUID
 RUN echo ARGS: ${CURRENT_UID}:${CURRENT_GUID}
 RUN groupadd -r -g ${CURRENT_GUID} tudor && useradd tudor -u${CURRENT_UID} -g${CURRENT_GUID} -m -d/home/tudor -s /bin/bash
+# END_CREATE_USER
 
 RUN install_packages iputils-ping build-essential libpq-dev openssl sudo mc locales locales-all psmisc \
 htop libjemalloc-dev \
@@ -28,8 +29,6 @@ RUN echo "/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" >> /etc/ld.so.preload
 
 ENV PATH=/app/node_modules/.bin:$PATH
 RUN npm i -g --force --no-update-notifier npm@10.9.1 yarn@1.22.22
-# USER root
-# WORKDIR /app
 ENV TINI_VERSION=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini

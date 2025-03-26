@@ -2,6 +2,10 @@
 script_path=$(dirname "$(readlink -f "$0")")
 export CURRENT_UID=$(id -u)
 export CURRENT_GUID=$(id -g)
+set +e
+source "$script_path/check_rootless_mode.sh"
+echo "rootless: $?"
+# exit 0
 
 if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Cannot run inside a container"
