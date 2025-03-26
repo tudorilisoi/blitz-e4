@@ -58,11 +58,11 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
     <section
       onClick={() => router.push(url)}
       className={`${styles.postCell} group border border-neutral hover:border-primary  flex flex-row flex-nowrap p-0 rounded-md rounded-l-2xl
-
+max-w-[100%]
       bg-primary bg-opacity-20 shadow-sm cursor-pointer`}
     >
       <div style={imgStyle} className={`${styles.bgImage} flex-none w-[30%] rounded-l-2xl`}></div>
-      <div className="flex-none w-[70%]  ">
+      <div className="flex-none w-[70%] max-w-[70%] ">
         <div className="bg-primary bg-opacity-40 group-hover:bg-opacity-80 rounded-tr-md  ">
           <div className="p-2 pl-3">
             <Link href={url}>
