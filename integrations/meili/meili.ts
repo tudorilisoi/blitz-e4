@@ -70,6 +70,7 @@ export const init = async () => {
           "vind telefon": ["vand telefon mobil", "vand smartphone"],
           vinzare: ["de vinzare", "de vanzare", "vanzare", "vandut", "vinde", "vand"],
           munca: ["angajare", "angajeaza", "angajari", "angajez"],
+          apartament: ["ap.", "ap", "apartment"],
         })
         const synonims = await client.index(index).getSynonyms()
         logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
@@ -106,76 +107,15 @@ export const init = async () => {
         "author.phone",
         "author.email",
       ])
-    await client.index("Post").updateRankingRules([
-      "words",
-      "proximity",
-      "attribute",
-      "sort",
-      // "updatedTimestamp:desc",
-      "exactness",
-      "typo",
-    ])
+    await client
+      .index("Post")
+      .updateRankingRules(["words", "typo", "sort", "proximity", "attribute", "exactness"])
     logger(`MEILI: Settings updated`)
   } catch (error) {
     logger(`MEILI: ERROR on Post index `, error)
   }
 }
 
-// NOTE use/api/meili to reinitialize meili
-
-/* process.env.__MEILI_INITIALIZED = "true"
-if (!process.env.__MEILI_INITIALIZED) {
-  process.env.__MEILI_INITIALIZED = "true"
-
-  init()
-    .then((res) => {
-      logger(`MEILI: INIT DONE`, res)
-    })
-    .catch((error) => {
-      console.error(`MEILI: INIT ERROR`, error)
-    })
-} */
+// NOTE use /api/meili route to reinitialize meili
 
 export { client as meiliClient }
-
-function replaceEnv(envFilePath, targetVariable, newValue) {
-  const fs = require("fs")
-
-  // Specify the .env file path
-  // const envFilePath = '.env';
-
-  // Specify the variable you want to replace
-  // const targetVariable = "MY_VARIABLE"
-
-  // Specify the new value for the variable
-  // const newValue = "new_value"
-
-  fs.readFile(envFilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error(`Error reading ${envFilePath}: ${err}`)
-      return
-    }
-
-    // Use regular expressions to replace the variable's value
-    let updatedEnv = data.replace(
-      new RegExp(`${targetVariable}=.+`),
-      `${targetVariable}=${newValue}`
-    )
-
-    if (data === updatedEnv && !updatedEnv.includes(`${targetVariable}=`)) {
-      updatedEnv = `
-      ${updatedEnv}
-      ${targetVariable}=${newValue}
-      `
-    }
-
-    // Write the updated .env file
-    fs.writeFile(envFilePath, updatedEnv, "utf8", (writeErr) => {
-      if (writeErr) {
-        console.error(`Error writing ${envFilePath}: ${writeErr}`)
-      } else {
-        logger(`Updated ${envFilePath}: ${targetVariable}=${newValue}`)
-      }
-    })
-  })
-}

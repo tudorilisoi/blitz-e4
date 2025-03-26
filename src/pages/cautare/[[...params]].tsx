@@ -23,11 +23,13 @@ import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
 import styles from "./search.module.css"
+import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import { FolderSync } from "lucide-react"
 
-const DEFAULT_SORT = "Post:promotionLevel:desc,Post:updatedTimestamp:desc"
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
 
 const SCROLL_POSITION_KEY = "meilisearch_scroll"
+const DEFAULT_SORT = "Post:promotionLevel:desc,Post:updatedTimestamp:desc"
 
 let timerId
 function queryHook(query, search) {
@@ -42,6 +44,7 @@ const isSearchPageActive = () => window.location.pathname === "/cautare"
 
 function SearchPageInner({}) {
   const { nbHits, processingTimeMS, query } = useStats()
+  const currentUser = useCurrentUser()
 
   const head = (
     <Head>
@@ -64,18 +67,21 @@ function SearchPageInner({}) {
           <div className="flex pl-4">
             <RangeInput attribute="updatedTimestamp" />
           </div>
-          <div className="flex-grow text-end">
-            {
-              <>
-                <span className="font-extrabold">
-                  {pluralize(nbHits, {
-                    none: "niciun anunț",
-                    one: "1 anunț",
-                    many: nbHits === 1000 ? `+1000 anunțuri` : `${nbHits} anunțuri`,
-                  })}
-                </span>
-              </>
-            }
+          <div className="flex-grow text-end flex align-middle justify-end">
+            <span className="font-extrabold inline-block">
+              {pluralize(nbHits, {
+                none: "niciun anunț",
+                one: "1 anunț",
+                many: nbHits === 1000 ? `+1000 anunțuri` : `${nbHits} anunțuri`,
+              })}
+            </span>
+            {currentUser && currentUser.role === "SUPERADMIN" ? (
+              <span className="inline-block ml-4">
+                <Link href="/api/meili" target="_blank">
+                  <FolderSync className="text-warning" />
+                </Link>
+              </span>
+            ) : null}
           </div>
         </div>
       </div>
@@ -138,13 +144,12 @@ SearchPage.getLayout = (page) => <Layout>{page}</Layout>
 // Custom Range Input Component
 const RangeInput = ({ attribute }: { attribute: string }) => {
   const { range, start, canRefine, refine } = useRange({ attribute })
+  console.log(`🚀 ~ RangeInput ~ start:`, start)
 
   const lastYear = dayjs().subtract(1, "year").unix()
   const lastMonth = dayjs().subtract(1, "month").unix()
   const last3Months = dayjs().subtract(3, "month").unix()
   const last6Months = dayjs().subtract(6, "month").unix()
-
-  const randomNumberForRC = Math.random()
 
   const [st, minv, ly] = [start[0], start[1], lastYear].map((v) =>
     !v ? null : dayjs(v * 1000).format(formatDate.longDateTime)
