@@ -57,7 +57,7 @@ const PostCell = ({ post }: { post: PostWithIncludes }) => {
   return (
     <section
       onClick={() => router.push(url)}
-      className={`${styles.postCell} group border border-neutral hover:border-primary  flex flex-row flex-nowrap p-0 rounded-md rounded-l-2xl
+      className={`${styles.postCell} min-w-0 group border border-neutral hover:border-primary  flex flex-row flex-nowrap p-0 rounded-md rounded-l-2xl
 max-w-[100%]
       bg-primary bg-opacity-20 shadow-sm cursor-pointer`}
     >
