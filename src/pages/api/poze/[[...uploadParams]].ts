@@ -19,9 +19,7 @@ const responsiveSize = {
 }
 
 export default async function serveUpload(req, res: ServerResponse) {
-  // console.log("serveUpload:", req.headers)
   const { uploadParams } = req.query
-  console.log(`🚀 ~ serveUpload ~ uploadParams:`, uploadParams)
   // URI: /responsive/id/....rest or /id/...rest
   const responsive = uploadParams[0] === "responsive"
   const id = parseInt(uploadParams[!responsive ? 0 : 1])
