@@ -21,8 +21,6 @@ const logger = (...args) => {
 logger(`MEILI: root`, root)
 
 export const init = async () => {
-  const indexes = ["Post"]
-
   const keys = await client.getKeys()
   let searchKey = keys.results.find((k) => k.name === "PublicKeySearchAllIndexes")
   logger(`MEILI: EXISTING searchKey:`, searchKey)
@@ -57,39 +55,20 @@ export const init = async () => {
 
   const { results: existingIndexes } = await client.getIndexes()
 
-  for (let index of indexes) {
-    let idx = existingIndexes.find((i) => i.uid === index)
-    if (idx) {
-      logger(`MEILI: EXISTING INDEX`, index)
-      if (index === "Post") {
-        await client.index(index).updateSynonyms({
-          chirie: ["închiriez", "închiriere", "închiriază", "închiriat"],
-          "de vinzare": ["vand"],
-          vand: ["de vanzare", "vanzare", "vandut", "vinde", "vind"],
-          "vand telefon": ["vand telefon mobil", "vand smartphone"],
-          "vind telefon": ["vand telefon mobil", "vand smartphone"],
-          vinzare: ["de vinzare", "de vanzare", "vanzare", "vandut", "vinde", "vand"],
-          munca: ["angajare", "angajeaza", "angajari", "angajez"],
-          apartament: ["ap.", "ap", "apartment"],
-        })
-        const synonims = await client.index(index).getSynonyms()
-        logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
-        let settings = await client.index(index).getSettings()
-        settings.stopWords = stopwordsFiltered
-        await client.index(index).updateSettings(settings)
-        settings = await client.index(index).getSettings()
-        logger(`MEILI: ${index} SETTINGS`, settings)
-      }
-      continue
-    }
+  let idx = existingIndexes.find((i) => i.uid === "Post")
+  if (idx) {
+    logger(`MEILI: EXISTING INDEX`, "Post")
+  } else {
     try {
-      const res = await client.createIndex(index, { primaryKey: "id" })
-      logger(`MEILI: CREATE INDEX ${index}:`, res)
+      const res = await client.createIndex("Post", { primaryKey: "id" })
+      logger(`MEILI: CREATE INDEX ${"Post"}:`, res)
     } catch (error) {
-      logger(`MEILI: ERROR ${index} index `, error)
+      logger(`MEILI: ERROR ${"Post"} index `, error)
     }
   }
+
   try {
+    let index = "Post"
     await client
       .index("Post")
       .updateLocalizedAttributes([{ locales: ["ron"], attributePatterns: ["*"] }])
@@ -111,6 +90,32 @@ export const init = async () => {
       .index("Post")
       .updateRankingRules(["words", "typo", "sort", "proximity", "attribute", "exactness"])
     logger(`MEILI: Settings updated`)
+    console.log("Sleeping...")
+
+    await client.index(index).updateSynonyms({
+      chirie: ["închiriez", "închiriere", "închiriază", "închiriat"],
+      "de vinzare": ["vand"],
+      vand: ["de vanzare", "vanzare", "vandut", "vinde", "vind"],
+      "vand telefon": ["vand telefon mobil", "vand smartphone"],
+      "vind telefon": ["vand telefon mobil", "vand smartphone"],
+      vinzare: ["de vinzare", "de vanzare", "vanzare", "vandut", "vinde", "vand"],
+      munca: ["angajare", "angajeaza", "angajari", "angajez"],
+      apartament: ["ap.", "ap", "apartment"],
+    })
+    const synonims = await client.index(index).getSynonyms()
+    logger(`MEILI: INDEX ${index} SYNONIMS:`, synonims)
+    const settings = await client.index("Post").getSettings()
+    settings.stopWords = stopwordsFiltered
+    if (settings.typoTolerance) {
+      settings.typoTolerance.enabled = false
+    } else {
+      settings.typoTolerance = { enabled: false }
+    }
+    await client.index(index).updateSettings(settings)
+    await new Promise((r) => setTimeout(r, 5000))
+    const finalSettings = await client.index(index).getSettings()
+    // logger(`MEILI: ${index} SETTINGS`, settings)
+    logger(`MEILI: Post index FINAL SETTINGS`, finalSettings)
   } catch (error) {
     logger(`MEILI: ERROR on Post index `, error)
   }
