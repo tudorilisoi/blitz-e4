@@ -28,10 +28,6 @@ export const mayEdit = async (model: HasAuthor, context) => {
   if (user?.role === "SUPERADMIN") {
     return true
   }
-  if (user?.email === process.env.SUPERADMIN_EMAIL) {
-    return true
-  }
-
   return false
 }
 
@@ -40,17 +36,11 @@ export const mayDelete = async (model: HasAuthor, context) => {
   if (user?.role === "SUPERADMIN") {
     return true
   }
-  if (user?.email === process.env.SUPERADMIN_EMAIL) {
-    return true
-  }
   return false
 }
 export const mayPromote = async (model: HasAuthor, context) => {
   const user = await getCurrentUser(null, context)
   if (user?.role === "SUPERADMIN") {
-    return true
-  }
-  if (user?.email === process.env.SUPERADMIN_EMAIL) {
     return true
   }
   return false
