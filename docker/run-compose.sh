@@ -44,6 +44,10 @@ elif [ "$1" == "logs" ]; then
     docker-compose -f "$script_path/docker-compose.yml" logs -f
     exit 0
 elif [ "$1" == "deploy" ]; then
+    if [[ "$(hostname)" == "ionosbox-ubuntu" ]]; then
+      echo "ABORT! YOU ARE RUNNING ON THE PRODUCTION SERVER"
+      exit 1
+    fi
     echo "Ready to deploy"
     rsync -vaz "$script_path/../.next/" "tudor@ionosbox:/home/tudor/www/blitz-e4/.next/"
     rsync -vaz "$script_path/../node_modules/" "tudor@ionosbox:/home/tudor/www/blitz-e4/node_modules/"
@@ -51,6 +55,10 @@ elif [ "$1" == "deploy" ]; then
     ssh -t tudor@ionosbox "/home/tudor/www/blitz-e4/docker/run-compose.sh start"
     exit 0
 elif [ "$1" == "pull" ]; then
+    if [[ "$(hostname)" == "ionosbox-ubuntu" ]]; then
+      echo "ABORT! YOU ARE RUNNING ON THE PRODUCTION SERVER"
+      exit 1
+    fi
     echo "Ready to pull"
     DUMP_CMD="docker exec e4-pg pg_dump -d eradauti-4 -p 5442 -U postgres --clean --if-exists"
     echo "pg_dump..."
