@@ -222,7 +222,7 @@ const Hit = ({ hit, index }) => {
   const post = hit as PostWithIncludes
   // NOTE min-w-0 prevents grid items from overflowing the container
   return (
-    <div className="mb-2 min-w-0" style={{ opacity: 0, animation: animStr(index) }}>
+    <div className="mb-2 min-w-0 h-full" style={{ opacity: 0, animation: animStr(index) }}>
       <PostCell post={post} />
     </div>
   )
