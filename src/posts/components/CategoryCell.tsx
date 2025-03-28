@@ -15,8 +15,10 @@ const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
       onClick={() => router.push(url)}
     >
       <h2 className="text-xl font-semibold mb-2 text-accent hover:text-accent-focus hover:underline">
-        <CategoryIcon categoryId={category.id} />
-        <Link rel="prefetch" href={url}>
+        <Link rel="prefetch" href={url} className="inline-flex items-center">
+          <span className="mr-2 border border-accent p-0 rounded-badge  h-[2.5rem] w-[2.5rem] inline-flex place-content-center place-items-center">
+            <CategoryIcon categoryId={category.id} className="text-white  " />
+          </span>
           {shortenText(category.title, 100)}
         </Link>
       </h2>

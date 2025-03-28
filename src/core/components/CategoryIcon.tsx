@@ -53,11 +53,17 @@ const categories = [
   },
 ]
 
-const CategoryIcon = ({ categoryId, ...rest }: { categoryId: number }): ReactNode => {
+import { ComponentType } from "react"
+import { LucideIcon, LucideProps } from "lucide-react"
+
+const CategoryIcon = ({
+  categoryId,
+  ...rest
+}: { categoryId: number } & Partial<LucideProps>): ReactNode => {
   const category = categories.find((i) => i.id === categoryId)
   if (category) {
-    const CategoryIcon = category.icon
-    return <CategoryIcon {...rest} />
+    const IconComponent = category.icon as ComponentType<LucideProps>
+    return <IconComponent {...rest} />
   }
   //TODO return a default icon
   return null
