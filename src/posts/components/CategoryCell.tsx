@@ -3,6 +3,7 @@ import { pluralize, shortenText } from "src/helpers"
 import { makePostsNavUrl } from "src/pages/anunturi/[[...params]]"
 import { CategoryWithCounters } from "../helpers"
 import { useRouter } from "next/router"
+import CategoryIcon from "src/core/components/CategoryIcon"
 const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
   const { postCount } = category
   const router = useRouter()
@@ -14,6 +15,7 @@ const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
       onClick={() => router.push(url)}
     >
       <h2 className="text-xl font-semibold mb-2 text-accent hover:text-accent-focus hover:underline">
+        <CategoryIcon categoryId={category.id} />
         <Link rel="prefetch" href={url}>
           {shortenText(category.title, 100)}
         </Link>
