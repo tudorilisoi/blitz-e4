@@ -50,6 +50,19 @@ elif [ "$1" == "deploy" ]; then
     ssh -t tudor@ionosbox "cd /home/tudor/www/blitz-e4; git pull"
     ssh -t tudor@ionosbox "/home/tudor/www/blitz-e4/docker/run-compose.sh start"
     exit 0
+elif [ "$1" == "pull" ]; then
+    echo "Ready to pull"
+    DUMP_CMD="docker exec e4-pg pg_dump -d eradauti-4 -p 5442 -U postgres --clean --if-exists"
+    echo "pg_dump..."
+    ssh -t tudor@ionosbox "$DUMP_CMD" >/tmp/e4-pg.sql
+    echo " done"
+    echo "import db..."
+    docker exec -i e4-pg psql -d eradauti-4 -p 5442 -U postgres </tmp/e4-pg.sql
+    curl http://localhost:3000/api/meili
+
+    rsync -vaz "tudor@ionosbox:/home/tudor/www/blitz-e4/.data/uploads/" "$script_path/../.data/uploads/"
+
+    exit 0
 else
     echo "Invalid argument. Usage: $0 [dev|start|stop|build|logs]"
     exit 1
