@@ -13,6 +13,7 @@ import getCategories from "src/posts/queries/getCategories"
 import getPaginatedPosts from "src/posts/queries/getPaginatedPosts"
 import getPost from "src/posts/queries/getPost"
 import { makePostNavUrl } from "../anunt/[[...params]]"
+import CategoryIcon from "src/core/components/CategoryIcon"
 
 const ITEMS_PER_PAGE = 12
 
@@ -139,13 +140,19 @@ export default function PostsNavPage({ category, posts, page, hasMore, numPages 
   return (
     <>
       {head}
-      <div className="font-extrabold text-2xl mb-4 flex flex-row flex-wrap">
-        <h1 className="flex-grow">
-          <Link className="link link-hover text-accent " href={Routes.Home()}>
-            Anunţuri
+      <div className="font-extrabold text-xl mb-4 flex flex-row flex-wrap items-center">
+        <h1 className="flex-grow inline-flex items-center flex-wrap">
+          <Link
+            className="link link-hover text-accent inline-flex items-center mr-2 "
+            href={Routes.Home()}
+          >
+            <span className="mr-2 border  p-0 rounded-badge  h-[2.8rem] w-[2.8rem] inline-flex place-content-center place-items-center">
+              <CategoryIcon categoryId={category.id} className="text-white" />
+            </span>
+            Anunţuri:
           </Link>
-          {" > "}
-          {category.title}
+          {/* <span className="hidden sm:inline">&nbsp;{">"}&nbsp;</span> */}
+          <span className="inline-block mr-2 text-nowrap">{category.title}</span>
         </h1>
         <span className="flex-none text-neutral-content">
           p. {page}/{numPages}
