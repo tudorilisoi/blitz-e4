@@ -29,6 +29,7 @@ X = not implemented, P = partially implemented
 
 Note: Maybe later on these will be converted to GH issues
 
+- X pixel tracker for post views
 - X P00 scroll up FAB
 - ✔ push build with rsync
 - X P00 discution system with mail notifications
