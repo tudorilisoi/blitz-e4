@@ -1,14 +1,14 @@
-import { ReactNode } from "react"
 import {
+  Binoculars,
   Boxes,
+  BriefcaseBusiness,
   Car,
+  Handshake,
+  HeartHandshake,
   House,
   WashingMachine,
-  BriefcaseBusiness,
-  HeartHandshake,
-  Handshake,
-  CircleHelp,
 } from "lucide-react"
+import { ReactNode } from "react"
 
 const categories = [
   {
@@ -44,7 +44,7 @@ const categories = [
   {
     id: 22,
     title: "Pierderi",
-    icon: CircleHelp,
+    icon: Binoculars,
   },
   {
     id: 23,
@@ -53,8 +53,8 @@ const categories = [
   },
 ]
 
+import { LucideProps } from "lucide-react"
 import { ComponentType } from "react"
-import { LucideIcon, LucideProps } from "lucide-react"
 
 const CategoryIcon = ({
   categoryId,
