@@ -19,6 +19,7 @@ const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
           <span className="mr-2 border  p-0 rounded-badge  h-[2.5rem] w-[2.5rem] inline-flex place-content-center place-items-center">
             <CategoryIcon categoryId={category.id} className="text-white  " />
           </span>
+          {/* NOTE broken on chrome, why? text escapes from the <section> and it doesn't break words  */}
           <span className="break-words">{shortenText(category.title, 100)}</span>
         </Link>
       </h2>
