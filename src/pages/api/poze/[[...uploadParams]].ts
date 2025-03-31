@@ -136,7 +136,7 @@ const createThumbnail = async ({ fileName, w, h }: { fileName: string; w: number
   })
   const resizedImageBuffer = await p
 
-  console.log(`Thumbnail successfully created: ${destPath}`)
+  console.log(`Thumbnail created: ${destPath}`)
   gc()
 }
 

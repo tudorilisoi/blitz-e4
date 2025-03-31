@@ -30,9 +30,9 @@ const ResetPasswordPage: BlitzPage = () => {
 
       {isSuccess ? (
         <div>
-          <h2>Password Reset Successfully</h2>
+          <h2>Parola a fost resetată</h2>
           <p>
-            Go to the <Link href={Routes.Home()}>homepage</Link>
+            mergi la <Link href={Routes.Home()}> pagina de pornire</Link>
           </p>
         </div>
       ) : (
