@@ -11,7 +11,7 @@ const CategoryCell = ({ category }: { category: CategoryWithCounters }) => {
   return (
     <section
       key={category.id}
-      className="p-4 rounded-md  bg-primary bg-opacity-20  text-base-content cursor-pointer "
+      className="p-4 rounded-md  bg-primary bg-opacity-20  text-base-content cursor-pointer min-w-0 "
       onClick={() => router.push(url)}
     >
       <h2 className="text-xl font-semibold mb-2 text-accent hover:text-accent-focus hover:underline">
