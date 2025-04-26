@@ -107,9 +107,9 @@ export const init = async () => {
     const settings = await client.index("Post").getSettings()
     settings.stopWords = stopwordsFiltered
     if (settings.typoTolerance) {
-      settings.typoTolerance.enabled = false
+      settings.typoTolerance.enabled = true
     } else {
-      settings.typoTolerance = { enabled: false }
+      settings.typoTolerance = { enabled: true }
     }
     await client.index(index).updateSettings(settings)
     await new Promise((r) => setTimeout(r, 5000))

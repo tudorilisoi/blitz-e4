@@ -36,7 +36,7 @@ function queryHook(query, search) {
   if (timerId) {
     clearTimeout(timerId)
   }
-
+  const q = query.length <= 2 ? undefined : query
   timerId = setTimeout(() => search(query || undefined), 500)
 }
 
