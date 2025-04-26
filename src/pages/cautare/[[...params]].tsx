@@ -37,7 +37,7 @@ function queryHook(query, search) {
     clearTimeout(timerId)
   }
 
-  timerId = setTimeout(() => search(query), 500)
+  timerId = setTimeout(() => search(query || undefined), 500)
 }
 
 const isSearchPageActive = () => window.location.pathname === "/cautare"
