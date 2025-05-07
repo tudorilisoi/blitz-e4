@@ -1,10 +1,10 @@
 import Link from "next/link"
-import { pluralize, shortenText } from "src/helpers"
+import { shortenText } from "src/helpers"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { PostWithIncludes } from "../../helpers"
 
+import { useRouter } from "next/router"
 import { getImageUrl } from "src/core/components/image/helpers"
-import { Router, useRouter } from "next/router"
 import styles from "./PostCell.module.css"
 
 const PostCell = ({ post }: { post: PostWithIncludes }) => {
