@@ -1,7 +1,7 @@
 import Head from "next/head"
 import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
-import { getMarkDownAsHTML } from "src/static-pages/staticPage"
+import { getMarkDownAsHTML } from "src/staticPage"
 
 // export const makePostsNavUrl = (categorySlug: string, page: number = 1) => {
 //   return `/anunturi/${categorySlug}${page === 1 ? "" : "/pagina-" + page}`

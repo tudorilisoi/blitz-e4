@@ -3,7 +3,7 @@ import path from "path"
 import { remark } from "remark"
 import remarkHtml from "remark-html"
 
-const STATIC_PAGE_DIR = "src/static-pages"
+const STATIC_PAGE_DIR = "static-pages"
 
 const getFirstHeading = (root, acc = { heading: {} }) => {
   let first = root.children[0]
