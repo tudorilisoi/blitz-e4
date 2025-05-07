@@ -7,42 +7,6 @@ import { getImageUrl } from "src/core/components/image/helpers"
 import { Router, useRouter } from "next/router"
 import styles from "./PostCell.module.css"
 
-const HeaderImage = ({
-  url: providedURL,
-  children,
-  ...props
-}: {
-  url: string | null
-  children: React.ReactNode
-}) => {
-  console.log("styles", styles)
-  // const url = providedURL || "/logo-bg.png"
-  const url = encodeURI(providedURL || "/logo-bg.png")
-
-  const bgClass = `${styles["bgImageOuter"]} h-[300px]`
-  let inner
-  inner = (
-    <div data-url={url} className={bgClass}>
-      {children}
-    </div>
-  )
-
-  const bgStyle = `
-  [data-url="${url}"]::before { background-image: url("${url}") !important; }
-  `
-  return (
-    <>
-      <style key={url}>{bgStyle}</style>
-      <div className="w-full overflow-hidden rounded-t-2xl" {...props}>
-        <div className="relative h-[300px] w-full ">
-          {inner}
-          {/* <div className="absolute top-0 left-0 right-0">{children}</div> */}
-        </div>
-      </div>
-    </>
-  )
-}
-
 const PostCell = ({ post }: { post: PostWithIncludes }) => {
   const router = useRouter()
   const { images } = post
@@ -80,44 +44,4 @@ max-w-[100%]
   )
 }
 
-const PostCell_ = ({ post }: { post: PostWithIncludes }) => {
-  const router = useRouter()
-  const { images } = post
-  const imageCount = images.length
-  const firstImage = !imageCount ? null : images[0]
-  const url = makePostNavUrl(post)
-  return (
-    <section
-      className={`${styles["postCell"]} p-0 rounded-b-md rounded-t-2xl  bg-primary bg-opacity-20 shadow-sm cursor-pointer `}
-      onClick={() => router.push(url)}
-    >
-      <HeaderImage url={!firstImage ? null : getImageUrl(firstImage, true)}>
-        <div className={`${styles["bgImageInner"]} h-[300px] flex flex-col content-start`}>
-          <Link className="  bg-primary bg-opacity-80 text-shadow-sm shadow-black " href={url}>
-            {/* NOTE line-clamp gets confused with padding so wrap text with a div */}
-            <div className="p-2">
-              <h2 className="text-xl  font-semibold text-white hover:underline break-words line-clamp-2 min-h-[3.5rem] ">
-                {post.title}
-              </h2>
-            </div>
-          </Link>
-        </div>
-      </HeaderImage>
-
-      <div className="  text-base-content   ">
-        <div className="p-2">
-          <span className="text-sm font-extrabold ">
-            {pluralize(imageCount, {
-              none: "",
-              one: "1 fotografie",
-              many: `${imageCount} fotografii`,
-            })}
-          </span>
-          <p className="line-clamp-2">{shortenText(post.body, 200, "")}</p>
-        </div>
-      </div>
-      {/* {!imageCount ? null : <div className="w-20">19 oct.</div>} */}
-    </section>
-  )
-}
 export default PostCell
