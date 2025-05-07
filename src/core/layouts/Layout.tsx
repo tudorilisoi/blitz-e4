@@ -1,19 +1,19 @@
 import { BlitzLayout, Routes } from "@blitzjs/next"
+import { CircleUserRound } from "lucide-react"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import Script from "next/script"
 import React, { Suspense, useEffect } from "react"
+import { canonical } from "src/helpers"
+import { GTag } from "../components/gtag"
 import { OGImage } from "../components/image/OGImage"
 import {
   OverlayProvider,
   useOverlay,
   useOverlayClassNames,
 } from "../components/overlay/OverlayProvider"
-import Script from "next/script"
-import { GTag } from "../components/gtag"
-import { canonical } from "src/helpers"
-import { CircleUserRound } from "lucide-react"
 
 // because https://nextjs.org/docs/messages/react-hydration-error
 const UserInfo = dynamic(() => import("./UserInfo"), { ssr: false })
@@ -117,10 +117,7 @@ const Layout: BlitzLayout<{
         <footer className="bg-base-200  fix-scroll">
           <div className="container mx-auto py-4 px-6">
             {/* Add your footer content here */}
-            <p className="text-base-content font-extrabold flex flex-row flex-wrap">
-              <span className="block mr-2">
-                © {new Date().getFullYear()} {"eRădăuţi v3"}
-              </span>
+            <p className="text-base-content font-extrabold flex flex-col md:flex-row flex-wrap">
               <Link
                 className="block border-l-2 pl-2 mr-2 text-accent"
                 href={canonical("/posts/new")}
@@ -136,6 +133,15 @@ const Layout: BlitzLayout<{
               >
                 Termeni și condiții
               </Link>
+              <Link
+                className="block border-l-2 pl-2 mr-2 text-accent"
+                href={canonical("/static-page/despre-anunturile-promovate")}
+              >
+                Anunțuri promovate
+              </Link>
+              <span className="block mr-2">
+                © {new Date().getFullYear()} {"eRădăuţi v3"}
+              </span>
             </p>
           </div>
         </footer>
