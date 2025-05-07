@@ -1,26 +1,26 @@
 import { Routes } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
 import { Category, Image, PostStatuses, Prisma } from "@prisma/client"
+import { Award, Mail, Phone } from "lucide-react"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useState } from "react"
 import { gSSP } from "src/blitz-server"
 import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 import ImageGallery from "src/core/components/image/ImageGallery"
 import { OGImage } from "src/core/components/image/OGImage"
+import { getImageUrl } from "src/core/components/image/helpers"
 import Layout from "src/core/layouts/Layout"
 import { S, canonical, formatDate, shortenText } from "src/helpers"
 import { PostWithIncludes, getImagesPreloadLinks } from "src/posts/helpers"
+import deletePost from "src/posts/mutations/deletePost"
+import promotePost from "src/posts/mutations/promotePost"
 import getCategories from "src/posts/queries/getCategories"
 import { PermissionFlags } from "src/posts/queries/getPermissions"
 import getPosts from "src/posts/queries/getPosts"
 import { SimpleNav, makePostsNavUrl } from "../anunturi/[[...params]]"
-import { useState } from "react"
-import { Mail, Phone } from "lucide-react"
 import { getPostsByAuthorNavUrl } from "../anunturi/de/[[...params]]"
-import { useMutation } from "@blitzjs/rpc"
-import deletePost from "src/posts/mutations/deletePost"
-import promotePost from "src/posts/mutations/promotePost"
-import { getImageUrl } from "src/core/components/image/helpers"
 
 export const makePostNavUrl = (post: PostWithIncludes) => {
   const { slug, id } = post
@@ -48,7 +48,7 @@ export const getServerSideProps = gSSP(async (args) => {
       take: 1,
       skip: 0,
     },
-    ctx
+    ctx,
   )
   if (posts.length === 0) {
     return {
@@ -107,6 +107,7 @@ export default function PostPage({
       router.push(getPostsByAuthorNavUrl(post.author)).catch(() => {})
     }
   }
+  const isPromoted = post.promotionLevel > 0
   const promotePostFn = async () => {
     await promoteMutation({ id: post.id })
     // TODO refresh
@@ -298,7 +299,16 @@ export default function PostPage({
                 </span>
               </span>
 
-              <span itemProp="description" className="e-description">
+              {!isPromoted ? null : (
+                <span className="mt-2 block text-md text-red-500 ">
+                  <span className="inline-flex items-center">
+                    <Award className="inline-block h-8 mr-1 p-0" />
+                    <span>Anunț promovat</span>
+                  </span>
+                </span>
+              )}
+
+              <span itemProp="description" className="e-description block mt-0">
                 {sanitizedBody}
               </span>
             </p>
