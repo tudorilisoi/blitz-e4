@@ -305,7 +305,7 @@ export default function PostPage({
                     <Award className="inline-block h-8 mr-1 p-0" />
                     <span>Anunț promovat</span>
                     <Link
-                      className="ml-2 text-secondary"
+                      className="ml-2 text-accent"
                       href="/static-page/despre-anunturile-promovate"
                     >
                       află mai multe
