@@ -39,10 +39,6 @@ max-w-[100%]
             <Award className="h-[20px]" />
           </div>
         </div>
-
-        //  <div className="absolute bg-red-600 top-[10px] -left-[20px] py-[3px] w-[80px] text-white text-[10px] font-bold transform -rotate-45  text-center pointer-events-none">
-        //     {"PRO"}
-        //   </div>
       )}
       <div className="flex-none w-[70%] max-w-[70%] ">
         <div
