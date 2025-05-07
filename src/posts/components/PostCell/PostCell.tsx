@@ -3,6 +3,7 @@ import { shortenText } from "src/helpers"
 import { makePostNavUrl } from "src/pages/anunt/[[...params]]"
 import { PostWithIncludes } from "../../helpers"
 
+import { Award } from "lucide-react"
 import { useRouter } from "next/router"
 import { getImageUrl } from "src/core/components/image/helpers"
 import styles from "./PostCell.module.css"
@@ -33,11 +34,15 @@ max-w-[100%]
         </div>
       </div> */}
       {!isPromoted ? null : (
-        <div className="absolute top-0 left-0 w-0 h-0 border-t-[60px] border-r-[60px] border-t-red-600 border-r-transparent">
-          <div className="absolute -top-10 left-0 w-auto text-white text-[10px] font-bold transform -rotate-45  text-center pointer-events-none">
-            PROMO
+        <div className="absolute top-0 right-0 w-0 h-0 border-t-[50px] border-l-[50px] border-t-red-600 border-l-transparent">
+          <div className="absolute -top-[45px] right-[3px] text-white text-[10px] font-bold transform xrotate-45  text-center pointer-events-none">
+            <Award className="h-[20px]" />
           </div>
         </div>
+
+        //  <div className="absolute bg-red-600 top-[10px] -left-[20px] py-[3px] w-[80px] text-white text-[10px] font-bold transform -rotate-45  text-center pointer-events-none">
+        //     {"PRO"}
+        //   </div>
       )}
       <div className="flex-none w-[70%] max-w-[70%] ">
         <div
