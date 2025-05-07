@@ -6,3 +6,8 @@ Anunțurile promovate sunt afișate întotdeauna la începutul listelor de anun�
 
 - pe pagina principală
 - pe listele de anunțuri ale categoriilor (spre ex. „Imobiliare”, „Servicii”)
+
+**În curând veți putea promova anunțuri direct de pe website pe o durată determinată de timp contra unei sume rezonabile**
+Până atunci, scrieți-ne la tudorilisoi[@]gmail.com
+
+**_Pentru scopuri caritabile și non-profit promovarea este gratuită._**
