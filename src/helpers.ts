@@ -1,13 +1,13 @@
+import dayjs from "dayjs"
+import "dayjs/locale/ro"
+import relativeTime from "dayjs/plugin/relativeTime"
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
 import { decode } from "html-entities"
 import truncate from "lodash/truncate"
 import upperFirst from "lodash/upperFirst"
 import slugify from "slugify"
 import striptags from "striptags"
-import dayjs from "dayjs"
-import "dayjs/locale/ro"
-import timezone from "dayjs/plugin/timezone"
-import relativeTime from "dayjs/plugin/relativeTime"
-import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(relativeTime)
@@ -24,7 +24,7 @@ export const makeSlug = (str) => {
 }
 
 export const cleanText = (str) => {
-  //TODO use lodash unescape
+  // TODO use lodash unescape
   let text = str
   text = text.replace("&emdash;", "-")
   text = text.replace("&dash;", "-")
@@ -72,7 +72,7 @@ export const obscurePhoneNumbers = (str) => {
     const matchedStr = match[0]
     const digits = matchedStr.replace(/[^\d]/gm, "")
 
-    // a phone numbar must have 10 digits
+    // a phone number must have 10 digits
     if (digits.length === 10) {
       retStr = retStr.replace(matchedStr, "**********")
     }
@@ -82,11 +82,12 @@ export const obscurePhoneNumbers = (str) => {
 }
 
 export const S = function (str) {
+  // NOTE magically create instance even though there was no new operator
   if (!(this instanceof S)) {
     // @ts-ignore
     return new S(str)
   }
-  this._str = str
+
   this.str = str
 
   this.trim = function () {
@@ -94,14 +95,14 @@ export const S = function (str) {
     return this
   }
   const funcs = {
-    HTMLToText: HTMLToText,
-    nl2space: nl2space,
-    nl2br: nl2br,
-    shortenText: shortenText,
-    upperFirst: upperFirst,
-    obscurePhoneNumbers: obscurePhoneNumbers,
+    HTMLToText,
+    nl2space,
+    nl2br,
+    shortenText,
+    upperFirst,
+    obscurePhoneNumbers,
   }
-  for (let k in funcs) {
+  for (const k in funcs) {
     this[k] = function (...args) {
       this.str = funcs[k].apply(null, [this.str, ...args])
       return this
@@ -119,13 +120,13 @@ interface PluralizeArgs {
 
 export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => {
   let prefix = ``
-  const cstr = `${count}`
+  const countAsString = `${count}`
   if (count > 19) {
-    const last2digits = cstr.substring(cstr.length - 2)
+    const last2digits = countAsString.substring(countAsString.length - 2)
     const suff = parseInt(last2digits)
     // ends in 01-19
-    const e = suff >= 1 && suff <= 19
-    if (!e) {
+    const skipPrefix = suff >= 1 && suff <= 19
+    if (!skipPrefix) {
       prefix = "de"
     }
   }
@@ -139,22 +140,22 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
       break
 
     default:
-      return `${many.replace(cstr, `${cstr} ${prefix}`)}`
+      return `${many.replace(countAsString, `${countAsString} ${prefix}`)}`
       break
   }
 }
 
 export const formatDate = (dateStr, formatStr) => {
-  const _formatStr = formatStr || formatDate.longDate
+  const formatStr_ = formatStr || formatDate.longDate
   if (formatStr === "ISO") {
     return dayjs.utc(dateStr).toISOString()
   }
-  return dayjs.utc(dateStr).format(_formatStr)
+  return dayjs.utc(dateStr).format(formatStr_)
 }
 
 export const formatDateTZ = (dateStr, formatStr, tz = "Europe/Bucharest") => {
-  const _formatStr = formatStr || formatDate.longDate
-  return dayjs.utc(dateStr).tz(tz).format(_formatStr)
+  const formatStr_ = formatStr || formatDate.longDate
+  return dayjs.utc(dateStr).tz(tz).format(formatStr_)
 }
 
 formatDate.ISO = `ISO`
