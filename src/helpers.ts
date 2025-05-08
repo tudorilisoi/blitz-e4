@@ -122,10 +122,10 @@ export const pluralize = (count: number, { none, one, many }: PluralizeArgs) => 
   let prefix = ``
   const countAsString = `${count}`
   if (count > 19) {
-    const last2digits = countAsString.substring(countAsString.length - 2)
-    const suff = parseInt(last2digits)
     // ends in 01-19
-    const skipPrefix = suff >= 1 && suff <= 19
+    const last2digitsStr = countAsString.substring(countAsString.length - 2)
+    const last2digits = parseInt(last2digitsStr)
+    const skipPrefix = last2digits >= 1 && last2digits <= 19
     if (!skipPrefix) {
       prefix = "de"
     }
