@@ -10,8 +10,10 @@ ROOTLESS=$?
 echo "rootless: $ROOTLESS"
 
 if [ $ROOTLESS -eq 0 ]; then
-        echo "set CURRENT_UID to 0 for rootless compat"
+ # docker rootless maps these back to user UID/GUID
+        echo "set CURRENT_UID/CURRENT_GUID to 0 for rootless compat"
         export CURRENT_UID=0
+        export CURRENT_GUID=0
 fi
 
 if grep -sq 'docker\|lxc' /proc/1/cgroup; then
