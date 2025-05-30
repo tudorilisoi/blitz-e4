@@ -2,9 +2,15 @@
 script_path=$(dirname "$(readlink -f "$0")")
 export CURRENT_UID=$(id -u)
 export CURRENT_GUID=$(id -g)
+export USERNAME=$(whoami)
 set +e
 source "$script_path/check_rootless_mode.sh"
 echo "rootless: $?"
+
+if [ "$?" == "0" ]; then
+echo "set CURRENT_UID to 0 for rootless compat"
+export CURRENT_UID=0
+fi
 # exit 0
 
 if grep -sq 'docker\|lxc' /proc/1/cgroup; then
@@ -12,6 +18,7 @@ if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     exit 1;
 fi
 YARN="cd /app;\
+export YARN_CACHE_FOLDER="/tmp/yarn_cache"; \
 rm -rf ./.data/uploads/miniaturi/*;\
 rm -rf node_modules;\
 yarn install --prefer-offline;\
@@ -49,10 +56,10 @@ elif [ "$1" == "deploy" ]; then
       exit 1
     fi
     echo "Ready to deploy"
-    rsync -vaz "$script_path/../.next/" "tudor@ionosbox:/home/tudor/www/blitz-e4/.next/"
-    rsync -vaz "$script_path/../node_modules/" "tudor@ionosbox:/home/tudor/www/blitz-e4/node_modules/"
-    ssh -t tudor@ionosbox "cd /home/tudor/www/blitz-e4; git reset --hard; git pull"
-    ssh -t tudor@ionosbox "/home/tudor/www/blitz-e4/docker/run-compose.sh start"
+    rsync -vaz "$script_path/../.next/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/.next/"
+    rsync -vaz "$script_path/../node_modules/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/node_modules/"
+    ssh -t $USERNAME@ionosbox "cd /home/$USERNAME/www/blitz-e4; git reset --hard; git pull"
+    ssh -t $USERNAME@ionosbox "/home/$USERNAME/www/blitz-e4/docker/run-compose.sh start"
     exit 0
 elif [ "$1" == "pull" ]; then
     if [[ "$(hostname)" == "ionosbox-ubuntu" ]]; then
@@ -62,13 +69,13 @@ elif [ "$1" == "pull" ]; then
     echo "Ready to pull"
     DUMP_CMD="docker exec e4-pg pg_dump -d eradauti-4 -p 5442 -U postgres --clean --if-exists"
     echo "pg_dump..."
-    ssh -t tudor@ionosbox "$DUMP_CMD" >/tmp/e4-pg.sql
+    ssh -t $USERNAME@ionosbox "$DUMP_CMD" >/tmp/e4-pg.sql
     echo " done"
     echo "import db..."
     docker exec -i e4-pg psql -d eradauti-4 -p 5442 -U postgres </tmp/e4-pg.sql
     curl http://localhost:3000/api/meili
 
-    rsync -vaz "tudor@ionosbox:/home/tudor/www/blitz-e4/.data/uploads/" "$script_path/../.data/uploads/"
+    rsync -vaz "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/.data/uploads/" "$script_path/../.data/uploads/"
 
     exit 0
 else

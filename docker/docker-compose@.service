@@ -8,8 +8,8 @@ Type=simple
 Restart=always
 RemainAfterExit=true
 WorkingDirectory=WDIR
-User=tudor
-Group=tudor
+User=USERNAME
+Group=USERNAME
 ExecStart=WDIR/run-compose.sh start
 ExecStop=WDIR/run-compose.sh stop
 

@@ -1,14 +1,8 @@
 #FROM  docker.io/bitnami/node:20.16.0@sha256:296181eb6e2be6656c4ca855fa5bb297e0b2eb403c20b032de80ea411fde1df7
-FROM  docker.io/bitnami/node:20.15.1@sha256:6ba92ad44d6df1dab3ce523073009fa923df3267d4226419d1b520359eebee6e
+# FROM  docker.io/bitnami/node:20.15.1@sha256:6ba92ad44d6df1dab3ce523073009fa923df3267d4226419d1b520359eebee6e
+FROM  docker.io/bitnami/node:20@sha256:0f2d82653b566553b5c643d686965966332104a81217d78f94a1a34f3ff7abff
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-# BEGIN_CREATE_USER
-ARG CURRENT_UID
-ARG CURRENT_GUID
-RUN echo ARGS: ${CURRENT_UID}:${CURRENT_GUID}
-RUN groupadd -r -g ${CURRENT_GUID} tudor && useradd tudor -u${CURRENT_UID} -g${CURRENT_GUID} -m -d/home/tudor -s /bin/bash
-# END_CREATE_USER
 
 RUN install_packages iputils-ping build-essential libpq-dev openssl sudo mc locales locales-all psmisc \
 htop libjemalloc-dev \
@@ -34,4 +28,13 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--"]
 
+# BEGIN_CREATE_USER
+ARG CURRENT_UID
+ARG CURRENT_GUID
+ARG USERNAME
+RUN echo ARGS: ${CURRENT_UID}:${CURRENT_GUID}
+RUN [ "${CURRENT_UID}" != "0" ] && groupadd -r -g ${CURRENT_GUID} ${USERNAME} && useradd ${USERNAME} -u${CURRENT_UID} -g${CURRENT_GUID} \
+-m -d/home/${USERNAME} -s /bin/bash \
+|| echo "Dockerfile.nodejs: Rootless mode"
+# END_CREATE_USER
 
