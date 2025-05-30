@@ -10,7 +10,7 @@
 # 3) create the password store using the gpg user id
 # pass init $gpg_id
 
-
+USERNAME=$(whoami)
 
 if [ $# -eq 0 ]; then
     echo  "Usage: $0 folderName [-u]"
@@ -21,9 +21,9 @@ fi
 
 clear
 
-BASE_DIR="/home/tudor/Documents/dev"
+BASE_DIR="/home/$USERNAME/Documents/dev"
 # production @ionos
-BASE_DIR="/home/tudor/www"
+BASE_DIR="/home/$USERNAME/www"
 
 SRV_NAME=$1
 SERVICE_FILE="docker-compose@$SRV_NAME.service"
@@ -43,6 +43,7 @@ WDIR="$BASE_DIR/$SRV_NAME/docker"
 
 rm "/tmp/$SERVICE_FILE" 2>&1
 sed "s#WDIR#$WDIR#g" docker-compose@.service > "/tmp/$SERVICE_FILE"
+sed -i "s#USERNAME#$USERNAME#g" "/tmp/$SERVICE_FILE"
 
 cat "/tmp/$SERVICE_FILE"
 read -p "Press enter to continue"

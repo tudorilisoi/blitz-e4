@@ -37,6 +37,7 @@ services:
       args:
         CURRENT_GUID: ${CURRENT_GUID}
         CURRENT_UID: ${CURRENT_UID}
+        USERNAME: ${USERNAME}
     container_name: "e4-http"
     tty: true # Enables debugging capabilities when attached to this container.
     # run as me
@@ -57,7 +58,7 @@ services:
     volumes:
       - ../:/app
       - /tmp/e4-web-tmp/:/tmp
-      - /tmp/e4-web-cache/:/home/tudor/.cache
-      - ../.data/yarn_cache:/home/tudor/.cache/yarn # Persistent yarn cache
-      - ../.data/npm_cache:/home/tudor/.npm # Persistent npm cache
+      # - /tmp/e4-web-cache/:/home/${USERNAME}/.cache
+      # - ../.data/yarn_cache:/home/${USERNAME}/.cache/yarn # Persistent yarn cache
+      # - ../.data/npm_cache:/home/${USERNAME}/.npm # Persistent npm cache
     working_dir: /app
