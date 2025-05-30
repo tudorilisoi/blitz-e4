@@ -14,8 +14,6 @@ if [ $ROOTLESS -eq 0 ]; then
         export CURRENT_UID=0
 fi
 
-exit 0
-
 if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Cannot run inside a container"
     exit 1;
