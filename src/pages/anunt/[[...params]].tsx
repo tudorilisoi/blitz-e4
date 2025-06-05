@@ -264,8 +264,8 @@ export default function PostPage({
       {head}
       <div className="flex flex-col sm:flex-row mb-4">
         <div className="flex-grow mb-4">
-          <div className="prose">
-            <h1 className="not-prose font-extrabold text-2xl text-base-content">
+          <div className="max-w-[800px]">
+            <h1 className="not-prose font-extrabold text-2xl text-base-content break-normal">
               <Link
                 className="link link-hover text-accent "
                 href={makePostsNavUrl(post.category.slug)}
@@ -314,7 +314,7 @@ export default function PostPage({
                 </span>
               )}
 
-              <span itemProp="description" className="e-description block mt-0">
+              <span itemProp="description" className="e-description block mt-0 break-normal">
                 {sanitizedBody}
               </span>
             </p>
