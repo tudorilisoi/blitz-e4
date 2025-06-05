@@ -321,7 +321,7 @@ export default function PostPage({
           </div>
         </div>
       </div>
-      <div className={post.images.length == 1 ? "max-w-[480px]" : ""}>
+      <div className={post.images.length == 1 ? "max-w-[800px]" : ""}>
         <ImageGallery images={post.images} />
       </div>
 
