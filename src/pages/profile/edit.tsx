@@ -3,11 +3,14 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import Head from "next/head"
 import { Suspense } from "react"
 import { ErrorNotification } from "src/core/components/ErrorNotification"
+import { Form } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
 import { SuccessIcon } from "src/core/components/notifications"
 import { useOverlay } from "src/core/components/overlay/OverlayProvider"
 import Layout from "src/core/layouts/Layout"
 import updateUser from "src/users/mutations/updateUser"
 import getUser from "src/users/queries/getUser"
+import { UpdateUserSchema } from "src/users/schemas"
 
 const SuccessNotification = ({ onClose }: { onClose: () => void }) => {
   return (
@@ -21,6 +24,13 @@ const SuccessNotification = ({ onClose }: { onClose: () => void }) => {
   )
 }
 
+const labelProps = {
+  className:
+    "label text-secondary hover:text-accent-focus focus-within:text-primary font-bold mb-1 mt-2",
+}
+const outerProps = { className: "flex flex-col text-0xl" }
+const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
+
 const EditProfile = () => {
   const { toggle, reset } = useOverlay()
   const session = useSession()
@@ -31,47 +41,36 @@ const EditProfile = () => {
   return (
     <>
       <Head>
-        <title>Edit Profile</title>
+        <title>Modifică profilul</title>
       </Head>
 
       <div className="prose mb-3">
-        <h1 className="text-2xl">Edit Profile</h1>
+        <h1 className="text-2xl">Modifică profilul</h1>
       </div>
 
       <div className="max-w-md">
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault()
-            const formData = new FormData(e.currentTarget)
-            const fullName = formData.get("fullName") as string
-
+        <Form
+          schema={UpdateUserSchema}
+          initialValues={{ id: user.id, fullName: user.fullName || "" }}
+          onSubmit={async (values) => {
             try {
               toggle(true, reset)
-              await updateUserMutation({ id: user.id, fullName })
+              await updateUserMutation(values)
               toggle(true, { component: <SuccessNotification onClose={() => toggle(false)} /> })
             } catch (error) {
               toggle(true, { component: <ErrorNotification error={error} /> })
             }
           }}
+          submitText="Salvează modificările"
         >
-          <div className="form-control">
-            <label className="label" htmlFor="fullName">
-              <span className="label-text">Full Name</span>
-            </label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              className="input input-bordered"
-              defaultValue={user.fullName || ""}
-              required
-            />
-          </div>
-
-          <button type="submit" className="btn btn-primary mt-4">
-            Save Changes
-          </button>
-        </form>
+          <LabeledTextField
+            labelProps={labelProps}
+            outerProps={outerProps}
+            className={labelClassName}
+            name="fullName"
+            label="Full Name"
+          />
+        </Form>
       </div>
     </>
   )
