@@ -55,6 +55,7 @@ export const guardAuthenticated = async (context) => {
   if (user.banned) {
     throw new AuthorizationError("Acest utilizator este blocat")
   }
+  return user
 }
 
 export const guardEdit = async (model: HasAuthor | null, context) => {
