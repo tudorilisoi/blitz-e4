@@ -68,7 +68,7 @@ const EditProfile = () => {
             outerProps={outerProps}
             className={labelClassName}
             name="fullName"
-            label="Full Name"
+            label="Nume și prenume"
           />
         </Form>
       </div>
