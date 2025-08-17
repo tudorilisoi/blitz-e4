@@ -1,6 +1,6 @@
 # Taxi Rădăuți
 
-<img src="/taxi-band.svg" class="w-full" height="4rem" alt="Serviciu Taxi Rădăuți" />
+<img src="/taxi-band.svg" class="w-full" style="height:3rem" alt="Serviciu Taxi Rădăuți" />
 
 Vă recomandăm cu încredere un serviciu profesionist și, mai ales, un om de calitate:
 
@@ -23,4 +23,4 @@ Vă recomandăm cu încredere un serviciu profesionist și, mai ales, un om de c
 
 [Taxi Rădăuți (Florin)](https://taxiflorin-radauti.ro/)
 
-<img src="/taxi-band.svg" class="w-full" height="4rem" alt="Serviciu Taxi Rădăuți" />
+<img src="/taxi-band.svg" class="w-full" style="height:3rem" alt="Serviciu Taxi Rădăuți" />
