@@ -64,10 +64,6 @@ elif [ "$1" == "deploy" ]; then
   rsync -vaz "$script_path/../node_modules/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/node_modules/"
   ssh -t $USERNAME@ionosbox "cd /home/$USERNAME/www/blitz-e4; git reset --hard; git pull"
   ssh -t $USERNAME@ionosbox "/home/$USERNAME/www/blitz-e4/docker/run-compose.sh start"
-  rsync -vaz "$script_path/../.next/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/.next/"
-  rsync -vaz "$script_path/../node_modules/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/node_modules/"
-  ssh -t $USERNAME@ionosbox "cd /home/$USERNAME/www/blitz-e4; git reset --hard; git pull"
-  ssh -t $USERNAME@ionosbox "/home/$USERNAME/www/blitz-e4/docker/run-compose.sh start"
   exit 0
 elif [ "$1" == "pull" ]; then
   if [[ "$(hostname)" == "ionosbox-ubuntu" ]]; then

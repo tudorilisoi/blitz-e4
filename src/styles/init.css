@@ -15,11 +15,27 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Nunito, PT Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family:
+    Nunito,
+    PT Sans,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
 }
 
 .fix-scroll {
   @apply mx-auto w-full;
   padding-left: calc(100vw - 100%);
+}
+
+.prose a {
+  @apply text-accent;
 }

@@ -1,5 +1,7 @@
 # Taxi Rădăuți
 
+## IMPORTANT: menționați codul ERADAUTI3 pentru 10% reducere
+
 <img src="/taxi-band.svg" class="w-full" style="height:3rem" alt="Serviciu Taxi Rădăuți" />
 
 Vă recomandăm cu încredere un serviciu profesionist și, mai ales, un om de calitate:
@@ -21,6 +23,6 @@ Vă recomandăm cu încredere un serviciu profesionist și, mai ales, un om de c
 
 ## Web
 
-[Taxi Rădăuți (Florin)](https://taxiflorin-radauti.ro/)
+[Taxi Rădăuți (Florin)](https://taxiflorin-radauti.ro/?ref=eradauti.ro)
 
 <img src="/taxi-band.svg" class="w-full" style="height:3rem" alt="Serviciu Taxi Rădăuți" />
