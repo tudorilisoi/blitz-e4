@@ -2,6 +2,7 @@ import fs from "fs"
 import path from "path"
 import { remark } from "remark"
 import remarkHtml from "remark-html"
+import remarkTelephonePlugin from "./remark-phone"
 
 const STATIC_PAGE_DIR = "static-pages"
 
@@ -26,6 +27,7 @@ export async function getMarkDownAsHTML(fileName) {
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
     .use(getFirstHeadingPlugin, { acc: headingRef })
+    .use(remarkTelephonePlugin)
     .use(remarkHtml)
     .process(fileContents)
   const rawHtml = processedContent.toString()
