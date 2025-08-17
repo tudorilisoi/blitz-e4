@@ -10,9 +10,13 @@ Vă recomandăm cu încredere un serviciu profesionist și, mai ales, un om de c
 
 ## Telefon
 
-- [0749 977 812](tel:+40749977812)
-- [0766 210 240](tel:+40766210240)
+- 0749 977 812
+- 0766 210 240
 
 ## WhatsApp
 
 [Trimite mesaj](https://wa.me/40766210240?text=Salut,%20a%C8%99%20vrea%20s%C4%83%20rezerv%20un%20taxi%20%C3%AEn%20R%C4%83d%C4%83u%C8%9Bi)
+
+## Web
+
+[Taxi Rădăuți florin](https://taxiflorin-radauti.ro/)

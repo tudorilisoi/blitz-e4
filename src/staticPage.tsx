@@ -24,13 +24,23 @@ export async function getMarkDownAsHTML(fileName) {
   const fileContents = fs.readFileSync(fullPath, "utf8")
 
   const headingRef = { heading: {} }
+
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
     .use(getFirstHeadingPlugin, { acc: headingRef })
     .use(remarkTelephonePlugin)
     .use(remarkHtml)
     .process(fileContents)
-  const rawHtml = processedContent.toString()
+
+  let rawHtml = processedContent.toString()
+
+  // 🔎 Replace plain numbers with tel: links
+  rawHtml = rawHtml.replace(/http:\/\/x-tel(\+?[\d\s\-\.\(\)]{6,})/g, (match) => {
+    console.log(`🚀 ~ getMarkDownAsHTML ~ match:`, match)
+    // Clean up the number for the tel link
+    const clean = match.replace("http://x-tel", "")
+    return `tel:${clean}`
+  })
 
   //@ts-ignore
   const firstHeadingText = headingRef.heading.children[0].value
