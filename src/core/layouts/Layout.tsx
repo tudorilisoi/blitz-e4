@@ -139,6 +139,12 @@ const Layout: BlitzLayout<{
               >
                 Anunțuri promovate
               </Link>
+              <Link
+                className="block border-l-2 pl-2 mr-2 text-accent"
+                href={canonical("/static-page/taxi-radauti")}
+              >
+                Taxi Rădăuți
+              </Link>
               <span className="block mr-2">
                 © {new Date().getFullYear()} {"eRădăuţi v3"}
               </span>
