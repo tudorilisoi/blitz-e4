@@ -5,7 +5,7 @@ export default function remarkTelephonePlugin() {
   return (tree) => {
     findAndReplace(tree, [
       [
-        /(\+?[\d\s\-\.\(\)]{6,})/g,
+        /(\+?[\d\s\-\.\(\)]{10,})/g,
         (match) => {
           console.log("📞 Telephone match:", match)
 
