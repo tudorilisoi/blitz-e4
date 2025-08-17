@@ -35,6 +35,7 @@ export async function getMarkDownAsHTML(fileName) {
   let rawHtml = processedContent.toString()
 
   // 🔎 Replace plain numbers with tel: links
+  // TODO make this a global, also used in the plugin
   rawHtml = rawHtml.replace(/http:\/\/x-tel(\+?[\d\s\-\.\(\)]{6,})/g, (match) => {
     console.log(`🚀 ~ getMarkDownAsHTML ~ match:`, match)
     // Clean up the number for the tel link
