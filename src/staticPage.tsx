@@ -29,7 +29,7 @@ export async function getMarkDownAsHTML(fileName) {
   const processedContent = await remark()
     .use(getFirstHeadingPlugin, { acc: headingRef })
     .use(remarkTelephonePlugin)
-    .use(remarkHtml)
+    .use(remarkHtml, { sanitize: false })
     .process(fileContents)
 
   let rawHtml = processedContent.toString()
