@@ -3,10 +3,11 @@ import Layout from "src/core/layouts/Layout"
 import dayjs from "dayjs"
 import { RangeMin } from "instantsearch.js/es/connectors/range/connectRange"
 import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache"
+import { FolderSync } from "lucide-react"
 import Head from "next/head"
 import Link from "next/link"
 import singletonRouter, { useRouter } from "next/router"
-import { useEffect, useLayoutEffect, useRef } from "react"
+import { Suspense, useEffect, useLayoutEffect, useRef } from "react"
 import {
   InstantSearch,
   SearchBox,
@@ -17,14 +18,14 @@ import {
 } from "react-instantsearch"
 import { createInstantSearchRouterNext } from "react-instantsearch-router-nextjs"
 import Delayed from "src/core/components/Delayed"
+import Spinner from "src/core/components/spinner/Spinner"
 import useScrollPosition from "src/core/hooks/useScrollPosition"
 import { formatDate, pluralize } from "src/helpers"
 import { searchClient } from "src/meili/client"
 import PostCell from "src/posts/components/PostCell/PostCell"
 import { PostWithIncludes } from "src/posts/helpers"
-import styles from "./search.module.css"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
-import { FolderSync } from "lucide-react"
+import styles from "./search.module.css"
 
 const sessionStorageCache = createInfiniteHitsSessionStorageCache()
 
@@ -126,16 +127,18 @@ export default function SearchPage({}) {
   // NOTE sort goes into indexName, see https://github.com/meilisearch/meilisearch-js-plugins/issues/527
 
   return (
-    <InstantSearch
-      future={{ preserveSharedStateOnUnmount: true }}
-      routing={{
-        router,
-      }}
-      indexName={DEFAULT_SORT}
-      searchClient={searchClient}
-    >
-      <SearchPageInner />
-    </InstantSearch>
+    <Suspense fallback={<Spinner />}>
+      <InstantSearch
+        future={{ preserveSharedStateOnUnmount: true }}
+        routing={{
+          router,
+        }}
+        indexName={DEFAULT_SORT}
+        searchClient={searchClient}
+      >
+        <SearchPageInner />
+      </InstantSearch>
+    </Suspense>
   )
 }
 SearchPage.getLayout = (page) => <Layout>{page}</Layout>
@@ -151,7 +154,7 @@ const RangeInput = ({ attribute }: { attribute: string }) => {
   const last6Months = dayjs().subtract(6, "month").unix()
 
   const [st, minv, ly] = [start[0], start[1], lastYear].map((v) =>
-    !v ? null : dayjs(v * 1000).format(formatDate.longDateTime)
+    !v ? null : dayjs(v * 1000).format(formatDate.longDateTime),
   )
 
   console.log(`🚀 ~ RangeInput`, start, st, minv, ly)
