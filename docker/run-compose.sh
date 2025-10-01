@@ -27,6 +27,7 @@ rm -rf ./.data/uploads/miniaturi/*;\
 rm -rf node_modules;\
 yarn install --prefer-offline;\
 yarn browserslist;\
+yarn clean;\
 yarn build;
 "
 EXTRA_ARGS="-d"
