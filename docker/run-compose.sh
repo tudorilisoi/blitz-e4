@@ -20,6 +20,10 @@ if grep -sq 'docker\|lxc' /proc/1/cgroup; then
   echo "Cannot run inside a container"
   exit 1
 fi
+BUILD_CMD="yarn build"
+if [ "$2" == "dev" ]; then
+  BUILD_CMD="yarn build:dev"
+fi
 YARN="cd /app;\
 export YARN_CACHE_FOLDER="/tmp/yarn_cache"; \
 export YARN_CACHE_FOLDER="/tmp/yarn_cache"; \
@@ -28,7 +32,7 @@ rm -rf node_modules;\
 yarn install --prefer-offline;\
 yarn browserslist;\
 yarn clean;\
-yarn build;
+$BUILD_CMD;
 "
 EXTRA_ARGS="-d"
 export WEB_MEM_LIMIT="1G"
@@ -85,7 +89,7 @@ elif [ "$1" == "pull" ]; then
 
   exit 0
 else
-  echo "Invalid argument. Usage: $0 [dev|start|stop|build|logs]"
+  echo "Invalid argument. Usage: $0 [dev|start|stop|build [dev]|logs]"
   exit 1
 fi
 
