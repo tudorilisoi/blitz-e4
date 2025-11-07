@@ -9,6 +9,26 @@ export default resolver.pipe(
   resolver.zod(Signup),
   async ({ email, password, fullName, phone, capjsToken }, ctx) => {
     console.log(`🚀 ~ capjsToken:`, capjsToken)
+    const verifyURL = `${process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT}siteverify`
+    const data = {
+      response: capjsToken,
+      secret: process.env.CAPJS_SECRET,
+    }
+    const response = await fetch(verifyURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+    const verifyResult = await response.json()
+    console.log(`🚀 ~ verifyResult:`, verifyResult)
+    if (verifyResult.success !== true) {
+      const err: any = new Error("Verificarea antirobot a eșuat")
+      err.name = "CAPTCHA_FAILED"
+      err.statusCode = 400
+      throw err
+    }
     return true
 
     const existing = await db.user.findFirst({ where: { email } })

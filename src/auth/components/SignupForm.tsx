@@ -57,6 +57,11 @@ export const SignupForm = (props: SignupFormProps) => {
         initialValues={{ email, password: "", capjsToken: "" }}
         onSubmit={async (values) => {
           try {
+            // NOTE this yelds token not found on mutation verify
+            /* if (token && token.expires <= new Date().getTime()) {
+              console.log("resetting...")
+              await reset()
+            } */
             await reset()
             console.log("solving...")
             const _token = await solve()
