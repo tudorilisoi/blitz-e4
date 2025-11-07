@@ -23,6 +23,8 @@ export const VerifyEmail = z.object({
 const validatePhone = new RegExp(/^[+]?(\d{5,12})$/)
 export const Signup = z
   .object({
+    // NOTE handled in submit
+    capjsToken: z.string({ ...e("Nu ați trecut verificarea antirobot") }).optional(),
     email,
     password,
     passwordConfirmation: password,

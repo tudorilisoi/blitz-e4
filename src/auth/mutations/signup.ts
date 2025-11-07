@@ -7,7 +7,10 @@ import { Signup } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(Signup),
-  async ({ email, password, fullName, phone }, ctx) => {
+  async ({ email, password, fullName, phone, capjsToken }, ctx) => {
+    console.log(`🚀 ~ capjsToken:`, capjsToken)
+    return true
+
     const existing = await db.user.findFirst({ where: { email } })
     if (existing) {
       const err: any = new Error("Acest cont există deja")
@@ -33,5 +36,5 @@ export default resolver.pipe(
     // NOTE auto login
     // await ctx.session.$create({ userId: user.id, role: user.role as Role })
     return user
-  }
+  },
 )

@@ -1,12 +1,13 @@
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/core/components/Form"
-import signup from "src/auth/mutations/signup"
-import { Signup } from "src/auth/schemas"
-import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
+import { useCap } from "@takeshape/use-cap"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useRef } from "react"
+import signup from "src/auth/mutations/signup"
+import { Signup } from "src/auth/schemas"
+import { Form, FORM_ERROR } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -14,8 +15,12 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const searchParams = useSearchParams()
+  const { solve, reset, solving, progress, error, token } = useCap({
+    endpoint: process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT || "ERR_CAPSJS_API_ENDPOINT_NOT_SET",
+  })
   const ref = useRef<any>()
-  console.log(`🚀 ~ SignupForm ~ ref:`, ref)
+
+  // console.log(`🚀 ~ SignupForm ~ ref:`, ref)
   const email = searchParams.get("email") || ""
   const [signupMutation] = useMutation(signup)
   const labelProps = {
@@ -49,11 +54,16 @@ export const SignupForm = (props: SignupFormProps) => {
         submitText="Creează cont"
         schema={Signup}
         controller={ref}
-        initialValues={{ email, password: "" }}
+        initialValues={{ email, password: "", capjsToken: "" }}
         onSubmit={async (values) => {
           try {
+            await reset()
+            console.log("solving...")
+            const _token = await solve()
+            values["capjsToken"] = _token?.token
+            console.log("solved")
             await signupMutation(values)
-            props.onSuccess?.()
+            // props.onSuccess?.()
           } catch (error: any) {
             console.dir(error)
             if (error.name === "USER_EXISTS") {
@@ -135,6 +145,11 @@ export const SignupForm = (props: SignupFormProps) => {
           placeholder=""
           type="password"
         />
+        <h1>use-cap</h1>
+        <div>Solving: {solving ? "true" : "false"}</div>
+        <div>Progress: {progress ?? "???"}</div>
+        <div>Token: {token?.token ?? "???"}</div>
+        <div>Expires: {token?.expires ?? "???"}</div>
       </Form>
     </div>
   )
