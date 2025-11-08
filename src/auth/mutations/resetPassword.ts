@@ -2,8 +2,9 @@ import { hash256 } from "@blitzjs/auth"
 import { SecurePassword } from "@blitzjs/auth/secure-password"
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
+import { getPostsByAuthorNavUrl } from "src/pages/anunturi/de/[[...params]]"
+import { Role } from "types"
 import { ResetPassword } from "../schemas"
-import login from "./login"
 
 export class ResetPasswordError extends Error {
   name = "ResetPasswordError"
@@ -43,7 +44,7 @@ export default resolver.pipe(resolver.zod(ResetPassword), async ({ password, tok
   await db.session.deleteMany({ where: { userId: user.id } })
 
   // 7. Now log the user in with the new credentials
-  await login({ email: user.email, password }, ctx)
-
-  return true
+  // await login({ email: user.email, password }, ctx)
+  await ctx.session.$create({ userId: user.id, role: user.role as Role })
+  return getPostsByAuthorNavUrl(user)
 })

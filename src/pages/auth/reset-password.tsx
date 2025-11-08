@@ -1,8 +1,10 @@
-import { BlitzPage, Routes } from "@blitzjs/next"
+import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { assert } from "blitz"
+import { Info } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { Suspense, useEffect, useState } from "react"
 import resetPassword from "src/auth/mutations/resetPassword"
 import { ResetPassword } from "src/auth/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -10,7 +12,25 @@ import { LabeledTextField } from "src/core/components/LabeledTextField"
 import Layout from "src/core/layouts/Layout"
 
 const ResetPasswordPage: BlitzPage = () => {
+  return (
+    <Suspense>
+      <ResetPasswordForm />
+    </Suspense>
+  )
+}
+
+const ResetPasswordForm = () => {
+  "use client"
+  const [homeURL, setHomeURL] = useState("/")
   const router = useRouter()
+  useEffect(() => {
+    if (homeURL !== "/") {
+      console.log(`redirect to ${homeURL}`)
+      setTimeout(() => {
+        router.replace(homeURL).catch(() => {})
+      }, 5000)
+    }
+  }, [homeURL, router])
   const token = router.query.token?.toString() || ""
   console.log(`🚀 ~ token:`, token)
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
@@ -25,15 +45,20 @@ const ResetPasswordPage: BlitzPage = () => {
   return (
     <div className="max-w-screen-sm">
       <div className="prose mb-3">
-        <h1 className="text-2xl text-base-content">Setează o nouă parolă</h1>
+        <h1 className="text-2xl text-base-content">
+          {isSuccess ? "Ai setat o nouă parolă!" : "Setează o nouă parolă"}
+        </h1>
       </div>
 
       {isSuccess ? (
-        <div>
-          <h2>Parola a fost resetată</h2>
-          <p>
-            mergi la <Link href={Routes.Home()}> pagina de pornire</Link>
-          </p>
+        <div className="text-center">
+          <h2 className="alert alert-info my-8 text-2xl inline-flex items-center justify-center">
+            <Info className="w-8 h-8" />
+            Parola a fost resetată
+          </h2>
+          <button className="btn btn-primary btn-lg w-full">
+            Mergi la <Link href={homeURL}> pagina de pornire</Link>
+          </button>
         </div>
       ) : (
         <Form
@@ -47,7 +72,8 @@ const ResetPasswordPage: BlitzPage = () => {
           onSubmit={async (values) => {
             try {
               assert(token, "token is required.")
-              await resetPasswordMutation({ ...values, token })
+              const userHomeURL = await resetPasswordMutation({ ...values, token })
+              setHomeURL(userHomeURL)
             } catch (error: any) {
               if (error.name === "ResetPasswordError") {
                 return {
