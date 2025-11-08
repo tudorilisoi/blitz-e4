@@ -1,5 +1,6 @@
 import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
+import { useCap } from "@takeshape/use-cap"
 import { PromiseReturnType } from "blitz"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
@@ -14,8 +15,11 @@ type LoginFormProps = {
 }
 
 export const LoginForm = (props: LoginFormProps) => {
+  const { solve, reset, solving, progress, error, token } = useCap({
+    endpoint: process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT || "ERR_CAPSJS_API_ENDPOINT_NOT_SET",
+  })
   const searchParams = useSearchParams()
-  const { toggle, reset } = useOverlay()
+  const { toggle, reset: resetOverlay } = useOverlay()
   const email = searchParams.get("email") || ""
   const [loginMutation] = useMutation(login)
   const labelProps = {
@@ -36,10 +40,14 @@ export const LoginForm = (props: LoginFormProps) => {
         initialValues={{ email, password: "" }}
         onSubmit={async (values) => {
           try {
+            await reset()
+            console.log("solving...")
+            const _token = await solve()
+            values["capjsToken"] = _token?.token
+            console.log("solved")
             // timer won't come up unless more than one second has passed
             // it's cancelled in finally{}
-            // this may be the case when sending activation email
-            toggle(true, { ...reset, delay: 1000 })
+            toggle(true, { ...resetOverlay, delay: 1000 })
             const user = await loginMutation(values)
             props.onSuccess?.(user)
           } catch (error: any) {
@@ -120,6 +128,11 @@ export const LoginForm = (props: LoginFormProps) => {
           placeholder=""
           type="password"
         />
+        <progress
+          className="progress progress-info w-full"
+          value={progress || 0}
+          max="100"
+        ></progress>
       </Form>
       <div className="mt-6">
         <p>

@@ -20,7 +20,10 @@ export const VerifyEmail = z.object({
   activationKey: z.string().min(21),
 })
 
-export const capjsToken = z.string({ ...e("Nu ați trecut verificarea antirobot") }).optional()
+export const capjsToken = z
+  .string({ ...e("Nu ați trecut verificarea antirobot") })
+  .optional()
+  .default("")
 
 const validatePhone = new RegExp(/^[+]?(\d{5,12})$/)
 export const Signup = z
@@ -46,6 +49,7 @@ export const Signup = z
   })
 
 export const Login = z.object({
+  capjsToken,
   email,
   password: password,
 })
