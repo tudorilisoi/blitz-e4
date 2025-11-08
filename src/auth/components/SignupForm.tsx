@@ -150,11 +150,16 @@ export const SignupForm = (props: SignupFormProps) => {
           placeholder=""
           type="password"
         />
-        <h1>use-cap</h1>
+        {/* <h1>use-cap</h1>
         <div>Solving: {solving ? "true" : "false"}</div>
         <div>Progress: {progress ?? "???"}</div>
         <div>Token: {token?.token ?? "???"}</div>
-        <div>Expires: {token?.expires ?? "???"}</div>
+        <div>Expires: {token?.expires ?? "???"}</div> */}
+        <progress
+          className="progress progress-info w-full"
+          value={progress || 0}
+          max="100"
+        ></progress>
       </Form>
     </div>
   )
