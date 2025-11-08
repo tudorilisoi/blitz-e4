@@ -15,6 +15,14 @@ services:
       - 5442:5442
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
+  capjs:
+    image: tiago2/cap:latest
+    container_name: "e4-capjs"
+    env_file: ./.env
+    ports:
+      - 3010:3000
+    volumes:
+      - cap-data:/usr/src/app/.data
   meili:
     image: getmeili/meilisearch:latest@sha256:d991eb07331e9d1f9cec7bc0f9523fd5d51aee3b223d997e0e66206361952056
     container_name: "e4-meili"
@@ -62,3 +70,6 @@ services:
       # - ../.data/yarn_cache:/home/${USERNAME}/.cache/yarn # Persistent yarn cache
       # - ../.data/npm_cache:/home/${USERNAME}/.npm # Persistent npm cache
     working_dir: /app
+
+volumes:
+  cap-data:

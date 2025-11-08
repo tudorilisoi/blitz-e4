@@ -68,7 +68,7 @@ export const SignupForm = (props: SignupFormProps) => {
             values["capjsToken"] = _token?.token
             console.log("solved")
             await signupMutation(values)
-            // props.onSuccess?.()
+            props.onSuccess?.()
           } catch (error: any) {
             console.dir(error)
             if (error.name === "USER_EXISTS") {
