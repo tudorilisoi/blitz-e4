@@ -4,7 +4,7 @@ import { Category, Image, PostStatuses, Prisma } from "@prisma/client"
 import { Award, Mail, Phone } from "lucide-react"
 import Head from "next/head"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { Suspense, useState } from "react"
 import { gSSP } from "src/blitz-server"
 import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
@@ -104,14 +104,15 @@ export default function PostPage({
   const deletePostFn = async () => {
     if (window.confirm("Ștergeți definitiv acest anunț?")) {
       await deleteMutation({ id: post.id })
-      router.push(getPostsByAuthorNavUrl(post.author)).catch(() => {})
+      router.push(getPostsByAuthorNavUrl(post.author))
     }
   }
   const isPromoted = post.promotionLevel > 0
   const promotePostFn = async () => {
     await promoteMutation({ id: post.id })
     // TODO refresh
-    await router.replace(router.asPath)
+    // await router.replace(router.asPath)
+    await router.refresh()
   }
   const sanitizedBody = S(post.body).obscurePhoneNumbers().get()
 
