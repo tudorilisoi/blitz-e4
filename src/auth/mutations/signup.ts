@@ -9,7 +9,7 @@ export default resolver.pipe(
   resolver.zod(Signup),
   async ({ email, password, fullName, phone, capjsToken }, ctx) => {
     console.log(`🚀 ~ capjsToken:`, capjsToken)
-    const verifyURL = `${process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT}siteverify`
+    const verifyURL = `${process.env.CAPJS_DOCKER_ENDPOINT}siteverify`
     const data = {
       response: capjsToken,
       secret: process.env.CAPJS_SECRET,
