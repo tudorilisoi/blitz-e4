@@ -5,7 +5,7 @@ import { Award, Mail, Phone } from "lucide-react"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { gSSP } from "src/blitz-server"
 import { nextSymbol, prevSymbol } from "src/core/components/SimpleNav"
 import ImageGallery from "src/core/components/image/ImageGallery"
@@ -234,29 +234,31 @@ export default function PostPage({
   }
 
   const editButtons = !permissionFlags.mayEdit ? null : (
-    <div className="flex flex-row flex-wrap mb-4 mt-4">
-      {!permissionFlags.mayEdit ? null : (
-        <div className="pr-6">
-          <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
-            Modifică
-          </Link>
-        </div>
-      )}
-      {!permissionFlags.mayDelete ? null : (
-        <div className="pr-6">
-          <button className="btn btn-error" onClick={deletePostFn}>
-            Șterge
-          </button>
-        </div>
-      )}
-      {!permissionFlags.mayPromote ? null : (
-        <div className="pr-6">
-          <button className="btn btn-secondary" onClick={promotePostFn}>
-            {promoBtnText}
-          </button>
-        </div>
-      )}
-    </div>
+    <Suspense>
+      <div className="flex flex-row flex-wrap mb-4 mt-4">
+        {!permissionFlags.mayEdit ? null : (
+          <div className="pr-6">
+            <Link className="btn btn-primary" href={Routes.EditPostPage({ postId: post.id })}>
+              Modifică
+            </Link>
+          </div>
+        )}
+        {!permissionFlags.mayDelete ? null : (
+          <div className="pr-6">
+            <button className="btn btn-error" onClick={deletePostFn}>
+              Șterge
+            </button>
+          </div>
+        )}
+        {!permissionFlags.mayPromote ? null : (
+          <div className="pr-6">
+            <button className="btn btn-secondary" onClick={promotePostFn}>
+              {promoBtnText}
+            </button>
+          </div>
+        )}
+      </div>
+    </Suspense>
   )
 
   return (
