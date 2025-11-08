@@ -16,7 +16,7 @@ services:
     volumes:
       - ../.data/pg:/var/lib/postgresql/data
   meili:
-    image: getmeili/meilisearch:latest@sha256:328dc1698cc6f54bb811b8030ff864c6345144cded5ac89b6ab23fe9f747d723
+    image: getmeili/meilisearch:latest@sha256:d991eb07331e9d1f9cec7bc0f9523fd5d51aee3b223d997e0e66206361952056
     container_name: "e4-meili"
     env_file: ./.env
 
