@@ -29,7 +29,6 @@ export default resolver.pipe(
       err.statusCode = 400
       throw err
     }
-    return true
 
     const existing = await db.user.findFirst({ where: { email } })
     if (existing) {
