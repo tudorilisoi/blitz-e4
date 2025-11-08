@@ -63,3 +63,4 @@ lib-cov
 public/logo-bg.xcf
 
 /dist
+docker/.env
