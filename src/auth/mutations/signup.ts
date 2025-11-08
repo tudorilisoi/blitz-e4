@@ -3,32 +3,14 @@ import { resolver } from "@blitzjs/rpc"
 import db, { UserRoles } from "db"
 import { verifyEmailMailer } from "mailers/verifyEmailMailer"
 import { nanoid } from "nanoid"
+import { verifyCapJS } from "../helpers"
 import { Signup } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(Signup),
   async ({ email, password, fullName, phone, capjsToken }, ctx) => {
     console.log(`🚀 ~ capjsToken:`, capjsToken)
-    const verifyURL = `${process.env.CAPJS_DOCKER_ENDPOINT}siteverify`
-    const data = {
-      response: capjsToken,
-      secret: process.env.CAPJS_SECRET,
-    }
-    const response = await fetch(verifyURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-    const verifyResult = await response.json()
-    console.log(`🚀 ~ verifyResult:`, verifyResult)
-    if (verifyResult.success !== true) {
-      const err: any = new Error("Verificarea antirobot a eșuat")
-      err.name = "CAPTCHA_FAILED"
-      err.statusCode = 400
-      throw err
-    }
+    await verifyCapJS(capjsToken)
 
     const existing = await db.user.findFirst({ where: { email } })
     if (existing) {

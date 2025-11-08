@@ -1,5 +1,6 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
+import { useCap } from "@takeshape/use-cap"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import forgotPassword from "src/auth/mutations/forgotPassword"
@@ -18,8 +19,11 @@ import Layout from "src/core/layouts/Layout"
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
-  const { toggle, reset } = useOverlay()
+  const { toggle, reset: resetOverlay } = useOverlay()
   useRedirectToUserHome()
+  const { solve, reset, solving, progress, error, token } = useCap({
+    endpoint: process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT || "ERR_CAPSJS_API_ENDPOINT_NOT_SET",
+  })
 
   const successNotification = (
     <ViewportCentered>
@@ -58,7 +62,12 @@ const ForgotPasswordPage: BlitzPage = () => {
           initialValues={{ email }}
           onSubmit={async (values) => {
             try {
-              toggle(true, { ...reset })
+              await reset()
+              console.log("solving...")
+              const _token = await solve()
+              values["capjsToken"] = _token?.token
+              console.log("solved")
+              toggle(true, { ...resetOverlay })
               await forgotPasswordMutation(values)
               toggle(true, { component: successNotification })
             } catch (error: any) {
@@ -77,6 +86,11 @@ const ForgotPasswordPage: BlitzPage = () => {
             label="Email"
             placeholder="Email"
           />
+          <progress
+            className="progress progress-info w-full"
+            value={progress || 0}
+            max="100"
+          ></progress>
         </Form>
       </div>
     </>

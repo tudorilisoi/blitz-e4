@@ -8,6 +8,29 @@ export interface HasAuthor {
 
 type PermissionFn = (...args: [model: HasAuthor, context: Ctx]) => Promise<boolean>
 
+export const verifyCapJS = async (token: string | undefined) => {
+  const verifyURL = `${process.env.CAPJS_DOCKER_ENDPOINT}siteverify`
+  const data = {
+    response: token || "",
+    secret: process.env.CAPJS_SECRET,
+  }
+  const response = await fetch(verifyURL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+  const verifyResult = await response.json()
+  console.log(`🚀 ~ verifyCapJS:`, verifyResult)
+  if (verifyResult.success !== true) {
+    const err: any = new Error("Verificarea antirobot a eșuat")
+    err.name = "CAPTCHA_FAILED"
+    err.statusCode = 400
+    throw err
+  }
+}
+
 export const isAuthenticated = async (context) => {
   const user = await getCurrentUser(null, context)
   return !!user
