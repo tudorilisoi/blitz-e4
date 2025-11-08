@@ -65,7 +65,7 @@ const ForgotPasswordPage: BlitzPage = () => {
               await reset()
               console.log("solving...")
               const _token = await solve()
-              values["capjsToken"] = _token?.token
+              values["capjsToken"] = _token?.token || ""
               console.log("solved")
               toggle(true, { ...resetOverlay })
               await forgotPasswordMutation(values)

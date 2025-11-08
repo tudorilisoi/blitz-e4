@@ -43,7 +43,7 @@ export const LoginForm = (props: LoginFormProps) => {
             await reset()
             console.log("solving...")
             const _token = await solve()
-            values["capjsToken"] = _token?.token
+            values["capjsToken"] = _token?.token || ""
             console.log("solved")
             // timer won't come up unless more than one second has passed
             // it's cancelled in finally{}

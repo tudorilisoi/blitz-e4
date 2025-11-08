@@ -65,7 +65,7 @@ export const SignupForm = (props: SignupFormProps) => {
             await reset()
             console.log("solving...")
             const _token = await solve()
-            values["capjsToken"] = _token?.token
+            values["capjsToken"] = _token?.token || ""
             console.log("solved")
             await signupMutation(values)
             props.onSuccess?.()
