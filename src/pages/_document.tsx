@@ -36,6 +36,12 @@ function dedupeHead(elems) {
             console.log(`OWR [${key}]`, buffer[key]?.props, elem.props)
           }
           const newProps = { ...props, key }
+          if (newProps.children) {
+            // NOTE oddly enough this defaults to an array
+            // it seems next/head does some trickery
+            //  [ 404, ': ', 'This page could not be found' ]
+            newProps.children = []
+          }
           const uniqueElem = React.createElement(type, newProps)
           buffer[key] = uniqueElem
           // buffer[key] = elem
