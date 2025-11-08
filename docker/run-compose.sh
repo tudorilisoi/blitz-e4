@@ -67,6 +67,8 @@ elif [ "$1" == "deploy" ]; then
   echo "Ready to deploy"
   rsync -vaz "$script_path/../.next/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/.next/"
   rsync -vaz "$script_path/../node_modules/" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/node_modules/"
+  rsync -vaz "$script_path/../docker/.env" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/docker/.env"
+  rsync -vaz "$script_path/../.env.production" "$USERNAME@ionosbox:/home/$USERNAME/www/blitz-e4/.env.production"
   ssh -t $USERNAME@ionosbox "cd /home/$USERNAME/www/blitz-e4; git reset --hard; git pull"
   ssh -t $USERNAME@ionosbox "/home/$USERNAME/www/blitz-e4/docker/run-compose.sh start"
   exit 0
