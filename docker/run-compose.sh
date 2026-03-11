@@ -3,7 +3,6 @@ script_path=$(dirname "$(readlink -f "$0")")
 export CURRENT_UID=$(id -u)
 export CURRENT_GUID=$(id -g)
 export USERNAME=$(whoami)
-export USERNAME=$(whoami)
 set +e
 source "$script_path/check_rootless_mode.sh"
 ROOTLESS=$?
