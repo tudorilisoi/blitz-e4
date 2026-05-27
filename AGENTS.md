@@ -192,10 +192,6 @@ See `.env.example` for all required variables. Key ones:
 1. **Language**: All UI text is in Romanian. Keep this when adding/modifying UI strings.
 2. **TypeScript**: Use strict TypeScript. Avoid `any` where possible.
 3. **Error Messages**: User-facing errors should be in Romanian.
-4. **Console Logs**: Avoid leaving `console.log` in production code.
-5. **Caching**: Always consider cache headers for SSR pages.
-6. **SEO**: Add proper meta tags, Open Graph, and canonical URLs.
-7. **Testing**: Add tests for new mutations/queries following existing patterns in `test/`.
 
 ## Memory Bank
 
