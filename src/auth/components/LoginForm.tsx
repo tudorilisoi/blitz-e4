@@ -115,6 +115,7 @@ export const LoginForm = (props: LoginFormProps) => {
         <ReCAPTCHA
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
           onChange={(token) => setRecaptchaToken(token)}
+          theme="dark"
         />
       </Form>
       <div className="mt-6">
