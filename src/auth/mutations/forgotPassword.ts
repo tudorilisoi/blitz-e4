@@ -2,14 +2,14 @@ import { generateToken, hash256 } from "@blitzjs/auth"
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
 import { forgotPasswordMailer } from "mailers/forgotPasswordMailer"
-import { verifyCapJS } from "../helpers"
+import { verifyRecaptcha } from "../helpers"
 import { ForgotPassword } from "../schemas"
 
 const RESET_PASSWORD_TOKEN_EXPIRATION_IN_HOURS = 24
 
-export default resolver.pipe(resolver.zod(ForgotPassword), async ({ email, capjsToken }) => {
-  // 0. Verify POW
-  await verifyCapJS(capjsToken)
+export default resolver.pipe(resolver.zod(ForgotPassword), async ({ email, recaptchaToken }) => {
+  // 0. Verify reCAPTCHA
+  await verifyRecaptcha(recaptchaToken)
 
   // 1. Get the user
   const user = await db.user.findFirst({ where: { email: email.toLowerCase() } })

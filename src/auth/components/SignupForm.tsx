@@ -1,26 +1,23 @@
 import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
-import { useCap } from "@takeshape/use-cap"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import signup from "src/auth/mutations/signup"
 import { Signup } from "src/auth/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
+import ReCAPTCHA from "src/core/components/RecaptchaWrapper"
 
 type SignupFormProps = {
   onSuccess?: () => void
 }
 
 export const SignupForm = (props: SignupFormProps) => {
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const searchParams = useSearchParams()
-  const { solve, reset, solving, progress, error, token } = useCap({
-    endpoint: process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT || "ERR_CAPSJS_API_ENDPOINT_NOT_SET",
-  })
   const ref = useRef<any>()
 
-  // console.log(`🚀 ~ SignupForm ~ ref:`, ref)
   const email = searchParams.get("email") || ""
   const [signupMutation] = useMutation(signup)
   const labelProps = {
@@ -30,13 +27,11 @@ export const SignupForm = (props: SignupFormProps) => {
   const outerProps = { className: "flex flex-col text-0xl" }
   const labelClassName = "input input-bordered bg-base-200 focus:outline-secondary-focus"
   const handlePasswordConfirmation = (ev) => {
-    console.log(`🚀 ~ SignupForm ~ ref:`, ref)
     const _ref = ref?.current
     if (!_ref) {
       return
     }
     const values = _ref.getValues() || {}
-    console.log(`🚀 ~ handlePasswordConfirmation ~ values:`, values)
     if (values.password === values.passwordConfirmation) {
       _ref.clearErrors("password")
       _ref.clearErrors("passwordConfirmation")
@@ -54,19 +49,10 @@ export const SignupForm = (props: SignupFormProps) => {
         submitText="Creează cont"
         schema={Signup}
         controller={ref}
-        initialValues={{ email, password: "", capjsToken: "" }}
+        initialValues={{ email, password: "", recaptchaToken: "" }}
         onSubmit={async (values) => {
           try {
-            // NOTE this yelds token not found on mutation verify
-            /* if (token && token.expires <= new Date().getTime()) {
-              console.log("resetting...")
-              await reset()
-            } */
-            await reset()
-            console.log("solving...")
-            const _token = await solve()
-            values["capjsToken"] = _token?.token || ""
-            console.log("solved")
+            values["recaptchaToken"] = recaptchaToken || ""
             await signupMutation(values)
             props.onSuccess?.()
           } catch (error: any) {
@@ -150,16 +136,10 @@ export const SignupForm = (props: SignupFormProps) => {
           placeholder=""
           type="password"
         />
-        {/* <h1>use-cap</h1>
-        <div>Solving: {solving ? "true" : "false"}</div>
-        <div>Progress: {progress ?? "???"}</div>
-        <div>Token: {token?.token ?? "???"}</div>
-        <div>Expires: {token?.expires ?? "???"}</div> */}
-        <progress
-          className="progress progress-info w-full"
-          value={progress || 0}
-          max="100"
-        ></progress>
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+          onChange={(token) => setRecaptchaToken(token)}
+        />
       </Form>
     </div>
   )

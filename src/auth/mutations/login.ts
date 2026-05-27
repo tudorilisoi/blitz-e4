@@ -4,7 +4,7 @@ import { AuthenticationError } from "blitz"
 import db, { UserRoles } from "db"
 import { verifyEmailMailer } from "mailers/verifyEmailMailer"
 import { Role } from "types"
-import { verifyCapJS } from "../helpers"
+import { verifyRecaptcha } from "../helpers"
 import { Login } from "../schemas"
 
 export const authenticateUser = async (rawEmail: string, rawPassword: string) => {
@@ -55,12 +55,15 @@ export const authenticateUser = async (rawEmail: string, rawPassword: string) =>
   }
 }
 
-export default resolver.pipe(resolver.zod(Login), async ({ email, password, capjsToken }, ctx) => {
-  await verifyCapJS(capjsToken)
-  // This throws an error if credentials are invalid
-  const user = await authenticateUser(email, password)
+export default resolver.pipe(
+  resolver.zod(Login),
+  async ({ email, password, recaptchaToken }, ctx) => {
+    await verifyRecaptcha(recaptchaToken)
+    // This throws an error if credentials are invalid
+    const user = await authenticateUser(email, password)
 
-  await ctx.session.$create({ userId: user.id, role: user.role as Role })
+    await ctx.session.$create({ userId: user.id, role: user.role as Role })
 
-  return user
-})
+    return user
+  },
+)

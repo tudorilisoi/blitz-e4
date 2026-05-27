@@ -8,22 +8,22 @@ export interface HasAuthor {
 
 type PermissionFn = (...args: [model: HasAuthor, context: Ctx]) => Promise<boolean>
 
-export const verifyCapJS = async (token: string | undefined) => {
-  const verifyURL = `${process.env.CAPJS_DOCKER_ENDPOINT}siteverify`
+export const verifyRecaptcha = async (token: string | undefined) => {
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify`
   const data = {
     response: token || "",
-    secret: process.env.CAPJS_SECRET,
+    secret: process.env.RECAPTCHA_SECRET_KEY || "",
   }
   const response = await fetch(verifyURL, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: JSON.stringify(data),
+    body: new URLSearchParams(data),
   })
   const verifyResult = await response.json()
-  console.log(`🚀 ~ verifyCapJS:`, verifyResult)
-  if (verifyResult.success !== true) {
+  console.log(`🚀 ~ verifyRecaptcha:`, verifyResult)
+  if (!verifyResult.success) {
     const err: any = new Error("Verificarea antirobot a eșuat")
     err.name = "CAPTCHA_FAILED"
     err.statusCode = 400

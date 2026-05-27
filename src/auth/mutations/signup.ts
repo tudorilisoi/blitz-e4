@@ -3,14 +3,14 @@ import { resolver } from "@blitzjs/rpc"
 import db, { UserRoles } from "db"
 import { verifyEmailMailer } from "mailers/verifyEmailMailer"
 import { nanoid } from "nanoid"
-import { verifyCapJS } from "../helpers"
+import { verifyRecaptcha } from "../helpers"
 import { Signup } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(Signup),
-  async ({ email, password, fullName, phone, capjsToken }, ctx) => {
-    console.log(`🚀 ~ capjsToken:`, capjsToken)
-    await verifyCapJS(capjsToken)
+  async ({ email, password, fullName, phone, recaptchaToken }, ctx) => {
+    console.log(`🚀 ~ recaptchaToken:`, recaptchaToken)
+    await verifyRecaptcha(recaptchaToken)
 
     const existing = await db.user.findFirst({ where: { email } })
     if (existing) {

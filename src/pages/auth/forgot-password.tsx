@@ -1,8 +1,7 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
-import { useCap } from "@takeshape/use-cap"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import forgotPassword from "src/auth/mutations/forgotPassword"
 import { ForgotPassword } from "src/auth/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -13,17 +12,16 @@ import {
   messageWrapperClassName,
   useOverlay,
 } from "src/core/components/overlay/OverlayProvider"
+import ReCAPTCHA from "src/core/components/RecaptchaWrapper"
 import ViewportCentered from "src/core/components/spinner/ViewPortCentered"
 import { useRedirectToUserHome } from "src/core/components/useRedirectToUserHome"
 import Layout from "src/core/layouts/Layout"
 
 const ForgotPasswordPage: BlitzPage = () => {
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
   const { toggle, reset: resetOverlay } = useOverlay()
   useRedirectToUserHome()
-  const { solve, reset, solving, progress, error, token } = useCap({
-    endpoint: process.env.NEXT_PUBLIC_CAPJS_API_ENDPOINT || "ERR_CAPSJS_API_ENDPOINT_NOT_SET",
-  })
 
   const successNotification = (
     <ViewportCentered>
@@ -62,11 +60,7 @@ const ForgotPasswordPage: BlitzPage = () => {
           initialValues={{ email }}
           onSubmit={async (values) => {
             try {
-              await reset()
-              console.log("solving...")
-              const _token = await solve()
-              values["capjsToken"] = _token?.token || ""
-              console.log("solved")
+              values["recaptchaToken"] = recaptchaToken || ""
               toggle(true, { ...resetOverlay })
               await forgotPasswordMutation(values)
               toggle(true, { component: successNotification })
@@ -86,11 +80,10 @@ const ForgotPasswordPage: BlitzPage = () => {
             label="Email"
             placeholder="Email"
           />
-          <progress
-            className="progress progress-info w-full"
-            value={progress || 0}
-            max="100"
-          ></progress>
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+            onChange={(token) => setRecaptchaToken(token)}
+          />
         </Form>
       </div>
     </>
