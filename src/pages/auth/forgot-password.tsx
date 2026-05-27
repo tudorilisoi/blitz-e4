@@ -66,6 +66,12 @@ const ForgotPasswordPage: BlitzPage = () => {
               toggle(true, { component: successNotification })
             } catch (error: any) {
               toggle(false)
+              if (error.name === "CAPTCHA_FAILED") {
+                return {
+                  [FORM_ERROR]:
+                    "Bifați căsuța 'Nu sunt un robot' pentru a dovedi că nu sunteți un robot",
+                }
+              }
               return {
                 [FORM_ERROR]: "Eroare: Nu s-a putut trimite e-mail de resetare",
               }
